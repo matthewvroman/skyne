@@ -8,7 +8,6 @@ public class GridAlign : MonoBehaviour
 	public Vector3 gridDivisor; 
 	public Vector3 offset; 
 
-
 	// Update is called once per frame
 	void Update () 
 	{

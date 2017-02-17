@@ -76,10 +76,10 @@ public class SceneMapping : Singleton<SceneMapping>
 
 		for (int i = 0; i < sceneList.Length; i++)
 		{
-			string gPositions = LevelData.inst.GetColumnAndRowSubstringFrom(sceneList[i].sceneName); 
+			string gPositions = LevelDataFunctions.GetColumnAndRowSubstringFrom(sceneList[i].sceneName); 
 			sceneList[i].gridPositions = gPositions.Split(','); 
 
-			string gLevels = LevelData.inst.GetLevelSubstringFrom(sceneList[i].sceneName); 
+			string gLevels = LevelDataFunctions.GetLevelSubstringFrom(sceneList[i].sceneName); 
 			string[] splitLevels = gLevels.Split(',');
 			sceneList[i].gridLevels = new int[splitLevels.Length]; 
 			for (int g = 0; g < splitLevels.Length; g++)
@@ -115,7 +115,7 @@ public class SceneMapping : Singleton<SceneMapping>
 				for (int l = 0; l < sceneList[i].gridLevels.Length; l++)
 				{
 					// Extract the column and row data from the string (ex: B14 -> Column 2, Row 14)
-					int[] curPosition = LevelData.inst.GetColumnAndRowFrom(sceneList[i].gridPositions[j]); 
+					int[] curPosition = LevelDataFunctions.GetColumnAndRowFromFull(sceneList[i].gridPositions[j]); 
 
 					//Debug.Log("l:" + sceneList[i].gridLevels[l] + ", i:" + i + ", j: " + j); 
 					//Debug.Log(sceneMapping[2, 0, 0]);  

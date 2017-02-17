@@ -45,9 +45,9 @@ public class MapDisplay : Singleton<MapDisplay>
 		for (int i = 0; i < GameState.inst.roomStateData.Length; i++)
 		{
 			string roomName = GameState.inst.roomStateData[i].roomName; 
-			string columnsRows = LevelData.inst.GetColumnAndRowSubstringFrom(roomName); 
+			string columnsRows = LevelDataFunctions.GetColumnAndRowSubstringFrom(roomName); 
 			string[] gridPositions = columnsRows.Split(','); 
-			int[] roomLevels = LevelData.inst.GetLevelsFrom(roomName); 
+			int[] roomLevels = LevelDataFunctions.GetLevelsFrom(roomName); 
 
 			// Add grid positions for each level
 			for (int l = 0; l < roomLevels.Length; l++)
@@ -60,7 +60,7 @@ public class MapDisplay : Singleton<MapDisplay>
 					newMapTile.transform.SetParent(mapTileParents[roomLevels[l] - 1].transform); 
 
 					// Choose the correct position for the new tile and rename it
-					int[] columnRow = LevelData.inst.GetColumnAndRowFrom(gridPositions[j]); 
+					int[] columnRow = LevelDataFunctions.GetColumnAndRowFromFull(gridPositions[j]); 
 					newMapTile.GetComponent<RectTransform>().localPosition = new Vector3 (columnRow[0] * mapTileSize, columnRow[1] * mapTileSize, 0); 
 					newMapTile.name = "L:" + roomLevels[l] + ", C:" + columnRow[0] + ", R:" + columnRow[1]; 
 
@@ -130,7 +130,7 @@ public class MapDisplay : Singleton<MapDisplay>
 		// Iterate through all gridPositions and fill in bools above
 		for (int i = 0; i < gridPositions.Length; i++)
 		{
-			int[] cr = LevelData.inst.GetColumnAndRowFrom(gridPositions[i]); 
+			int[] cr = LevelDataFunctions.GetColumnAndRowFromFull(gridPositions[i]); 
 			int curCol = cr[0];
 			int curRow = cr[1]; 
 

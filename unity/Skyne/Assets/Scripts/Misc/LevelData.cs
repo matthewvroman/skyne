@@ -112,7 +112,7 @@ public class LevelData : Singleton<LevelData>
 		string oldGridPos = curGridPos; 
 
 		int[] curLevelArray = { curLevel }; 
-		curGridPos = GetGridPositionString(curLevelArray, curColumn, curRow); 
+		curGridPos = LevelDataFunctions.GetGridPositionString(curLevelArray, curColumn, curRow); 
 
 		// If the grid position has changed, update the active grid positions and scenes list, then determine which scenes to load and unload
 		if (oldGridPos != curGridPos)
@@ -182,13 +182,13 @@ public class LevelData : Singleton<LevelData>
 		foreach (string cStringPos in activeGridPositions)
 		{
 			// Get the list of levels
-			int[] cLevelArray = GetLevelsFrom(cStringPos); 
+			int[] cLevelArray = LevelDataFunctions.GetLevelsFrom(cStringPos); 
 
 			// Choose the first level in the list (there should only be one)
 			int cLevel = cLevelArray[0]; 
 
 			// Convert the letter,number format in column,row
-			int[] cPosition = GetColumnAndRowFrom(cStringPos);
+			int[] cPosition = LevelDataFunctions.GetColumnAndRowFromFull(cStringPos);
 
 			// Get the scene name associated with that column and row, which is stored in SceneMapping and accessed with GetSceneAt()
 			// BUG: should these be -1
@@ -273,7 +273,7 @@ public class LevelData : Singleton<LevelData>
 	bool AddToActiveGridPositions (int level, int column, int row)
 	{
 		int[] newLevelArray = { level }; 
-		string roomName = GetGridPositionString(newLevelArray, column, row); 
+		string roomName = LevelDataFunctions.GetGridPositionString(newLevelArray, column, row); 
 		if (!GridContains(level, column, row) || activeGridPositions.Contains(roomName))
 		{
 			return false; 
@@ -292,7 +292,7 @@ public class LevelData : Singleton<LevelData>
 	bool RemoveFromActiveGridPositions (int level, int column, int row)
 	{
 		int[] newLevelArray = { level }; 
-		string roomName = GetGridPositionString(newLevelArray, column, row);
+		string roomName = LevelDataFunctions.GetGridPositionString(newLevelArray, column, row);
 		if (GridContains(level, column, row) && activeGridPositions.Contains(roomName))
 		{
 			activeGridPositions.Remove(roomName); 
@@ -316,13 +316,18 @@ public class LevelData : Singleton<LevelData>
 	}
 
 
+}
+
+
+public class LevelDataFunctions
+{
 	/// <summary>
 	/// Returns a string version of grid coordinates (level, column, row)
 	/// </summary>
 	/// <returns>Room string in format (letter, number)</returns>
 	/// <param name="column">Column (x) from 1 to numColumns</param>
 	/// <param name="row">Row (y) from 1 to numRows</param>
-	public string GetGridPositionString(int[] level, int column, int row)
+	public static string GetGridPositionString(int[] level, int column, int row)
 	{
 		string levelS = ""; 
 		for (int i = 0; i < level.Length; i++)
@@ -336,11 +341,11 @@ public class LevelData : Singleton<LevelData>
 	}
 
 	/// <summary>
-	/// Converts a full level string to individual column and row integers
+	/// Converts a full level string (with just one grid position) to individual column and row integers
 	/// </summary>
 	/// <returns>A array of length 2 in the form of [column, row]</returns>
-	/// <param name="gridPosition">Grid position string in the form of letter (capital) and number</param>
-	public int[] GetColumnAndRowFrom(string gridPosition)
+	/// <param name="gridPosition">Grid position string in the form of levels - letter (capital) and number</param>
+	public static int[] GetColumnAndRowFromFull(string gridPosition)
 	{
 		string cr = GetColumnAndRowSubstringFrom(gridPosition); 
 
@@ -352,11 +357,25 @@ public class LevelData : Singleton<LevelData>
 	}
 
 	/// <summary>
+	/// Converts a row and column string to individual column and row integers
+	/// </summary>
+	/// <returns>A array of length 2 in the form of [column, row]</returns>
+	/// <param name="gridPosition">Grid position string in the form of letter (capital) and number</param>
+	public static int[] GetColumnAndRowFrom(string gridPosition)
+	{
+		int[] result = new int[2]; 
+		result[0] = (int)(gridPosition[0]) - 64; 
+		result[1] = int.Parse(gridPosition.Substring(1)); 
+
+		return result; 
+	}
+
+	/// <summary>
 	/// Converts a full level string into an array of each level contained in the string
 	/// </summary>
 	/// <returns>The levels from.</returns>
 	/// <param name="gridPosition">Grid position.</param>
-	public int[] GetLevelsFrom(string gridPosition)
+	public static int[] GetLevelsFrom(string gridPosition)
 	{
 		string levelS = GetLevelSubstringFrom(gridPosition); 
 		string[] resultS = levelS.Split(','); 
@@ -376,7 +395,7 @@ public class LevelData : Singleton<LevelData>
 	/// </summary>
 	/// <returns>The level substring from.</returns>
 	/// <param name="gridPosition">Grid position.</param>
-	public string GetLevelSubstringFrom(string gridPosition)
+	public static string GetLevelSubstringFrom(string gridPosition)
 	{ 
 		int index = gridPosition.IndexOf('-'); 
 		//Debug.Log(gridPosition); 
@@ -384,17 +403,19 @@ public class LevelData : Singleton<LevelData>
 		return gridPosition.Substring(0, index); 
 	}
 
+
 	/// <summary>
 	/// Extract the string portion containing only the row and columns from the scene name 
 	/// </summary>
 	/// <returns>The column and row substring from.</returns>
 	/// <param name="gridPosition">Grid position.</param>
-	public string GetColumnAndRowSubstringFrom(string gridPosition)
+	public static string GetColumnAndRowSubstringFrom(string gridPosition)
 	{
 		int index = gridPosition.IndexOf('-'); 
+
+			
 		//Debug.Log("gridPosition: " + gridPosition + "; Length: " + gridPosition.Length + " IndexOf: " + index); 
 		//Debug.Log(gridPosition.Substring(index + 1, gridPosition.Length - index - 1)); 
 		return gridPosition.Substring(index + 1, gridPosition.Length - index - 1); 
 	}
-
 }
