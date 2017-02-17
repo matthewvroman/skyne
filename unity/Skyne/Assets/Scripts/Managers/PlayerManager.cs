@@ -133,7 +133,7 @@ public class PlayerManager : MonoBehaviour
 
 		OrientPlayer (playerCamera);
 
-		Debug.Log (targetHealth);
+		Debug.Log (Grounded());
 
 		if (Input.GetKeyDown (KeyCode.E)) 
 		{

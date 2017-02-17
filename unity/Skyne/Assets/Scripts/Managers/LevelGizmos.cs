@@ -9,18 +9,6 @@ public class LevelGizmos : MonoBehaviour
 	public float gridEdgeSize; 
 	public bool drawCorners; 
 
-	// Use this for initialization
-	void Start () 
-	{
-		
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-		
-	}
-
 	void OnDrawGizmos() 
 	{
 		Gizmos.color = Color.yellow;
@@ -33,10 +21,10 @@ public class LevelGizmos : MonoBehaviour
 			{
 				if (drawCorners)
 				{
-					Gizmos.DrawSphere(new Vector3 (column * gridEdgeSize, 0, row * gridEdgeSize), 0.2f);
-					Gizmos.DrawSphere(new Vector3 (column * gridEdgeSize, 8, row * gridEdgeSize), 0.2f);
-					Gizmos.DrawSphere(new Vector3 (column * gridEdgeSize, 16, row * gridEdgeSize), 0.2f);
-					Gizmos.DrawSphere(new Vector3 (column * gridEdgeSize, 24, row * gridEdgeSize), 0.2f);
+					Gizmos.DrawSphere(new Vector3 (column * gridEdgeSize, 0, row * gridEdgeSize), 0.8f);
+					Gizmos.DrawSphere(new Vector3 (column * gridEdgeSize, 32, row * gridEdgeSize), 0.8f);
+					Gizmos.DrawSphere(new Vector3 (column * gridEdgeSize, 64, row * gridEdgeSize), 0.8f);
+					Gizmos.DrawSphere(new Vector3 (column * gridEdgeSize, 96, row * gridEdgeSize), 0.8f);
 				}
 			}
 		}
