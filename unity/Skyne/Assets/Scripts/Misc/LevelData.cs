@@ -131,7 +131,7 @@ public class LevelData : Singleton<LevelData>
 		bool shouldSaveMap = GameState.inst.SetRoomRevealedOnMap(curLevel, curColumn, curRow, true); 
 
 		// Update the map (enables map tiles if they've just been discovered)
-		MapDisplay.inst.UpdateMap(); 
+		//MapDisplay.inst.UpdateMap(); 
 
 		// Permanently save to PlayerPrefs whenever the map has changed
 		// Map data is preserved even if the player dies and reloads

@@ -41,14 +41,14 @@ public class MainGameplayManager : Singleton<MainGameplayManager>
 		// Update the player's position based on the loaded save room data
 		// TODO
 		// Temporarily assign player to 1, 1, 1
-		LevelData.inst.curLevel = 1;
-		LevelData.inst.curColumn = 1; 
-		LevelData.inst.curRow = 1; 
+		//LevelData.inst.curLevel = 1;
+		//LevelData.inst.curColumn = 1; 
+		//LevelData.inst.curRow = 1; 
 
 		// The player must also be moved to the correct position and rotation based on data associated with the save rooms (or the starting coordinate)
 		// TODO
 		// Temporarily, just multiply to find where to position the player (though height doesn't work yet)
-		player.transform.position = new Vector3((LevelData.inst.curColumn - 1) * LevelData.inst.gridEdgeSize + LevelData.inst.gridEdgeSize/2, 0.5f, (LevelData.inst.curRow - 1) * LevelData.inst.gridEdgeSize + LevelData.inst.gridEdgeSize/2);
+		//player.transform.position = new Vector3((LevelData.inst.curColumn - 1) * LevelData.inst.gridEdgeSize + LevelData.inst.gridEdgeSize/2, 0.5f, (LevelData.inst.curRow - 1) * LevelData.inst.gridEdgeSize + LevelData.inst.gridEdgeSize/2);
 
 		// Temporary: Generate Map
 		//MapDisplay.inst.SpawnMap(); 
@@ -59,7 +59,9 @@ public class MainGameplayManager : Singleton<MainGameplayManager>
 
 		// Place other objects in the scene?
 
-		MapDisplay.inst.SpawnMap(); 
+		//MapDisplay.inst.SpawnMap(); 
+
+		LevelData.inst.UpdatePlayerGridPos ();
 
 		/*
 		if (MapDisplay.inst != null)
