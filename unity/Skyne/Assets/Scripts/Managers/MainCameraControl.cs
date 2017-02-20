@@ -49,13 +49,17 @@ public class MainCameraControl : MonoBehaviour
 		ResetMaxVerticalAngle();
 	}
 
+	void Start() {
+		Cursor.lockState = CursorLockMode.Locked;
+	}
+
 	void Update() {
 		
 	}
 
 	void FixedUpdate() 
 	{
-		Cursor.lockState = CursorLockMode.Locked;
+		//Cursor.lockState = CursorLockMode.Locked;
 	}
 
 	void LateUpdate()

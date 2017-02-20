@@ -82,6 +82,7 @@ public class GlobalManager : Singleton<GlobalManager>
 		globalState = GlobalState.GameOver; 
 
 		LoadSceneIfUnloaded("GameOver"); 
+		Cursor.lockState = CursorLockMode.Confined;
 
 		// Unload all level scenes as well as the MainLevel
 		LevelData.inst.UnloadAllLevelScenes(); 
