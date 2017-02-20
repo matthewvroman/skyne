@@ -23,6 +23,9 @@ public class LevelData : Singleton<LevelData>
 	[Tooltip("The size of the x and z grid space edges in Unity units")]
 	public int gridEdgeSize; 
 
+	[Tooltip("How many rooms adjacent to the player are loaded?")]
+	public int roomLoadRadius; 
+
 	[Tooltip("(Read-only) The player's current column (starting on the left)")]
 	 public int curColumn;
 
@@ -158,6 +161,16 @@ public class LevelData : Singleton<LevelData>
 
 		for (int i = 1; i <= numLevels; i++)
 		{
+			// Iterate through every grid position (including the curPosition) based on the roomLoadRadius
+			for (int x = -roomLoadRadius; x <= roomLoadRadius; x++)
+			{
+				for (int y = -roomLoadRadius; y <= roomLoadRadius; y++)
+				{
+					AddToActiveGridPositions(i, curColumn + x, curRow + y); 
+				}
+			}
+
+			/*
 			// Player's grid position
 			AddToActiveGridPositions(i, curColumn, curRow); 
 
@@ -172,6 +185,7 @@ public class LevelData : Singleton<LevelData>
 			AddToActiveGridPositions(i, curColumn - 1, curRow + 1); 
 			AddToActiveGridPositions(i, curColumn + 1, curRow - 1); 
 			AddToActiveGridPositions(i, curColumn + 1, curRow + 1); 
+			*/ 
 		}
 	}
 
