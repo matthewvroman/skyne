@@ -188,4 +188,9 @@ public class MainCameraControl : MonoBehaviour
 	{
 		return Mathf.Abs ((finalPivotOffset - smoothPivotOffset).magnitude);
 	}
+
+	public float GetVerticalAngle()
+	{
+		return VerticalAngle; 
+	}
 }

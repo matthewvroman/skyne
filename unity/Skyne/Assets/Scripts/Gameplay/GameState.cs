@@ -37,6 +37,9 @@ public class GameState : Singleton<GameState>
 	[Tooltip("The player's current health, from 0 to 100.")]
 	public int playerHealth; 
 
+	[Tooltip("The player's current shooting mode.")]
+	public PlayerShooting.PlayerShootMode pShootMode; 
+
 	// TODO If keys are returned to the treasure room, keep track of that data; maybe change upgrades found to int array
 
 
