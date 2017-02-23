@@ -86,7 +86,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
 			bullet.damage = pWideDamage; //0.5
 			bullet.lifetime = pWideLifetime; //0.3
 			bullet.deltaTimePerc = 0.5f; 
-			bullet.transform.localScale = new Vector3 (0.25f, 0.25f, 0.25f); 
+			bullet.transform.localScale = new Vector3 (0.5f, 0.5f, 0.5f); 
 		}
 	}
 
