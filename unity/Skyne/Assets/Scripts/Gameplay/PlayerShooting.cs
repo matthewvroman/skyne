@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; 
 
 public class PlayerShooting : Singleton<PlayerShooting> 
 {
@@ -29,7 +30,14 @@ public class PlayerShooting : Singleton<PlayerShooting>
 	float changeTimer; 
 	bool changeShootHeld; 
 
-
+	// First playable UI
+	public GameObject chargeText;
+	public GameObject wideText;
+	public GameObject rapidText; 
+	public Text normalNum;
+	public Text chargeNum; 
+	public Text wideNum; 
+	public Text rapidNum; 
 
 	// Update is called once per frame
 	void Update () 
@@ -65,8 +73,41 @@ public class PlayerShooting : Singleton<PlayerShooting>
 			if (shootDelay < 0)
 				shootDelay = 0; 
 		}
-	}
 
+		// Temporary- Update first playable UI display
+		chargeText.SetActive(GameState.inst.upgradesFound[3]);
+		wideText.SetActive(GameState.inst.upgradesFound[4]);
+		rapidText.SetActive(GameState.inst.upgradesFound[5]);
+
+		if (GameState.inst.pShootMode == PlayerShootMode.Normal)
+		{
+			normalNum.color = new Color32 (250, 50, 50, 255); 
+			chargeNum.color = new Color32 (50, 50, 50, 255); 
+			wideNum.color = new Color32 (50, 50, 50, 255); 
+			rapidNum.color = new Color32 (50, 50, 50, 255); 
+		}
+		else if (GameState.inst.pShootMode == PlayerShootMode.Charge)
+		{
+			normalNum.color = new Color32 (50, 50, 50, 255); 
+			chargeNum.color = new Color32 (250, 50, 50, 255); 
+			wideNum.color = new Color32 (50, 50, 50, 255); 
+			rapidNum.color = new Color32 (50, 50, 50, 255); 
+		}
+		else if (GameState.inst.pShootMode == PlayerShootMode.Wide)
+		{
+			normalNum.color = new Color32 (50, 50, 50, 255); 
+			chargeNum.color = new Color32 (50, 50, 50, 255); 
+			wideNum.color = new Color32 (250, 50, 50, 255); 
+			rapidNum.color = new Color32 (50, 50, 50, 255); 
+		}
+		else if (GameState.inst.pShootMode == PlayerShootMode.Rapid)
+		{
+			normalNum.color = new Color32 (50, 50, 50, 255); 
+			chargeNum.color = new Color32 (50, 50, 50, 255); 
+			wideNum.color = new Color32 (50, 50, 50, 255); 
+			rapidNum.color = new Color32 (250, 50, 50, 255); 
+		}
+	}
 
 
 	void CheckShootInput()
@@ -176,33 +217,69 @@ public class PlayerShooting : Singleton<PlayerShooting>
 	// This should probably be moved to a main PlayerInput class later
 	void CheckWeaponSelectInput()
 	{
+		// 1 = Normal
+		if (Input.GetKeyDown(KeyCode.Alpha1))
+		{
+			ChangeWeaponType(PlayerShootMode.Normal); 
+		}
+		// 2 = Charge
+		else if (Input.GetKeyDown(KeyCode.Alpha2))
+		{
+			ChangeWeaponType(PlayerShootMode.Charge); 
+		}
+		// 3 = Wide
+		else if (Input.GetKeyDown(KeyCode.Alpha3))
+		{
+			ChangeWeaponType(PlayerShootMode.Wide); 
+		}
+		// 4 = Rapid
+		else if (Input.GetKeyDown(KeyCode.Alpha4))
+		{
+			ChangeWeaponType(PlayerShootMode.Rapid); 
+		}
+			
+		// Safeguard- check for a weapon type active that hasn't been collected
+		bool invalidCharge = GameState.inst.pShootMode == PlayerShootMode.Charge && !GameState.inst.upgradesFound[3]; 
+		bool invalidWide = GameState.inst.pShootMode == PlayerShootMode.Wide && !GameState.inst.upgradesFound[4]; 
+		bool invalidRapid = GameState.inst.pShootMode == PlayerShootMode.Rapid && !GameState.inst.upgradesFound[5]; 
+
+		// Set the shoot mode back to normal if the current beam hasn't been collected
+		if (invalidCharge || invalidWide || invalidRapid)
+		{
+			ChangeWeaponType(PlayerShootMode.Normal); 
+		}
+	}
+
+	public void ChangeWeaponType(PlayerShootMode newType)
+	{
 		bool changed = false; 
 
 		// Normal
-		if (Input.GetKeyDown(KeyCode.Alpha1) && GameState.inst.pShootMode != PlayerShootMode.Normal)
+		if (newType == PlayerShootMode.Normal && GameState.inst.pShootMode != PlayerShootMode.Normal)
 		{
 			GameState.inst.pShootMode = PlayerShootMode.Normal; 
 			changed = true; 
 		}
 		// Charge
-		else if (Input.GetKeyDown(KeyCode.Alpha2) && GameState.inst.pShootMode != PlayerShootMode.Charge)
+		else if (newType == PlayerShootMode.Charge && GameState.inst.pShootMode != PlayerShootMode.Charge && GameState.inst.upgradesFound[3])
 		{
 			GameState.inst.pShootMode = PlayerShootMode.Charge; 
 			changed = true; 
 		}
 		// Wide
-		else if (Input.GetKeyDown(KeyCode.Alpha3) && GameState.inst.pShootMode != PlayerShootMode.Wide)
+		else if (newType == PlayerShootMode.Wide && GameState.inst.pShootMode != PlayerShootMode.Wide && GameState.inst.upgradesFound[4])
 		{
 			GameState.inst.pShootMode = PlayerShootMode.Wide; 
 			changed = true; 
 		}
 		// Rapid
-		else if (Input.GetKeyDown(KeyCode.Alpha4) && GameState.inst.pShootMode != PlayerShootMode.Rapid)
+		else if (newType == PlayerShootMode.Rapid && GameState.inst.pShootMode != PlayerShootMode.Rapid && GameState.inst.upgradesFound[5])
 		{
 			GameState.inst.pShootMode = PlayerShootMode.Rapid; 
 			changed = true; 
 		}
 
+		// Indicate that the weapon type has changed, set a delay between when you can shoot (for changing animation), and make sure the shoot button can't be held between shot types
 		if (changed)
 		{
 			changeTimer = changeDelay; 

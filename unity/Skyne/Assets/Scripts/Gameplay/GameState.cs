@@ -26,13 +26,19 @@ public class GameState : Singleton<GameState>
 
 	// Save the abilities the player has found
 	// For now, just use a simple bool array to determine which have been found
+	[Space(5)]
+	[Header("Abilities: (0 = double_j) (1 = wall_j) (2 = dash)")]
+	[Header("Weapons: (3 = charge) (4 = wide) (5 = rapid)")]
 	[Tooltip("(Read only before game start) Stores which upgrades have been found. Array indexes are generated in the code.")]
 	public bool[] upgradesFound; 
 
 	// Save which keys have been collected
+	[Space(5)]
+	[Header("(0 = Boss 1) (1 = Boss 2) (2 = Boss 3)")]
 	[Tooltip("(Read only before game start) Stores which keys have been collected.")]
 	public bool[] keysFound; 
 
+	[Space(10)]
 	[Range(0,100)]
 	[Tooltip("The player's current health, from 0 to 100.")]
 	public int playerHealth; 
@@ -64,13 +70,19 @@ public class GameState : Singleton<GameState>
 
 		// Update the map
 
-		upgradesFound = new bool[6]; 
-		for (int i = 0; i < upgradesFound.Length; i++)
-			upgradesFound[i] = false; 
-
-		keysFound = new bool[3]; 
-		for (int i = 0; i < keysFound.Length; i++)
-			keysFound[i] = false; 
+		// If upgradesFound and keysFound are invalid, regenerate them
+		if (upgradesFound == null || upgradesFound.Length != 6)
+		{
+			upgradesFound = new bool[6]; 
+			for (int i = 0; i < upgradesFound.Length; i++)
+				upgradesFound[i] = false; 
+		}
+		if (keysFound == null || keysFound.Length != 3)
+		{
+			keysFound = new bool[3]; 
+			for (int i = 0; i < keysFound.Length; i++)
+				keysFound[i] = false; 
+		}
 	}
 
 	/// <summary>
