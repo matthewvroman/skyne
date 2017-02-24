@@ -93,6 +93,11 @@ public class PlayerManager : MonoBehaviour
 	static float targetHealth; // Used to smooth player health up or down.
 	bool isDead = false; // Prevents the code from executing the respawn sequence multiple times.
 
+	public GameObject staminaBarFill; // The stamina UI bar.
+	float currentStamina; // The players current stamina.
+	float maxStamina = 1; // The highest the players stamina can go. 1 represents 100%.
+	float cooldownTimer = 0; // Timer that keeps track of cooldown delay.
+	public float cooldownTime = 3; // Time until the stamina bar regenerates.
 
 	/// <summary>
 	/// Shoots a raycast downwards from the player, and checks the distance between the player and the ground. If that distance is greater than the distToGrounded variable, the player will fall down
@@ -116,6 +121,8 @@ public class PlayerManager : MonoBehaviour
 
 		currentHealth = maxHealth;
 		targetHealth = maxHealth;
+
+		currentStamina = maxStamina;
 	}
 
 	/// <summary>
@@ -134,6 +141,7 @@ public class PlayerManager : MonoBehaviour
 		GetInput ();
 		Focus ();
 		Health ();
+		Stamina ();
 
 		OrientPlayer (playerCamera);
 
@@ -346,7 +354,48 @@ public class PlayerManager : MonoBehaviour
 	public void RestoreToFullHealth(){
 		targetHealth = maxHealth;
 		//currentHealth = maxHealth;
-	} 
+	}
+
+	/// <summary>
+	/// Method containing player's stamina code.
+	/// </summary>
+	void Stamina ()
+	{
+		if (isFocused == true) {
+			if (currentStamina > 0) {
+				cooldownTimer = 0;
+				DecreaseStamina ();
+			}
+		}
+
+		if (currentStamina != maxStamina) {
+			if (cooldownTimer < cooldownTime) {
+				cooldownTimer += Time.unscaledDeltaTime;
+			}
+
+			if (cooldownTimer >= cooldownTime && currentStamina < maxStamina) {
+				IncreaseStamina ();
+			}
+		}
+
+		staminaBarFill.transform.localScale = new Vector3 (currentStamina, staminaBarFill.transform.localScale.y, staminaBarFill.transform.localScale.z);
+	}
+
+	/// <summary>
+	/// Decreases player stamina.
+	/// </summary>
+	void DecreaseStamina ()
+	{
+		currentStamina -= Time.unscaledDeltaTime;
+	}
+
+	/// <summary>
+	/// Increases player stamina.
+	/// </summary>
+	void IncreaseStamina ()
+	{
+		currentStamina += Time.unscaledDeltaTime;
+	}
 
 	void OnCollisionEnter(Collision col) 
 	{
