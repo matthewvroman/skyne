@@ -74,6 +74,10 @@ public class PlayerManager : MonoBehaviour
 
 	bool isOriented;
 
+	bool isFalling = false;
+
+	bool isFocused = false;
+
 	bool isInvincible = false;
 
 	Vector3 velocity = Vector3.zero;
@@ -133,7 +137,7 @@ public class PlayerManager : MonoBehaviour
 
 		OrientPlayer (playerCamera);
 
-		Debug.Log (Grounded());
+		Debug.Log (isFocused);
 
 		if (Input.GetKeyDown (KeyCode.E)) 
 		{
@@ -147,6 +151,12 @@ public class PlayerManager : MonoBehaviour
 		else 
 		{
 			playerMesh.material.color = playerColor;
+		}
+
+		if (velocity.y < 0) {
+			isFalling = true;
+		} else {
+			isFalling = false;
 		}
 	}
 
@@ -202,15 +212,18 @@ public class PlayerManager : MonoBehaviour
 		{
 			//Jump
 			velocity.y = moveSetting.jumpVel;
+			//isFalling = false;
 		} 
 		else if (jumpInput == 0 && Grounded ()) 
 		{
 			//zero out our velocity.y
 			velocity.y = 0;
+			//isFalling = false;
 		} 
 		else 
 		{
 			//decrease velocity.y
+			//isFalling = true;
 			velocity.y -= physSetting.downAccel;
 		}
 	}
@@ -244,10 +257,12 @@ public class PlayerManager : MonoBehaviour
 		if (Input.GetMouseButton (0)) 
 		{
 			camCon.SetTargetOffsets (camCon.pivotOffset, moveSetting.focusOffset);
+			isFocused = true;
 		} 
 		else 
 		{
 			camCon.ResetTargetOffsets ();
+			isFocused = false;
 		}
 	}
 
