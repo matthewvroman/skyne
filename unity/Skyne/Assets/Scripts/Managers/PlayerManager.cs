@@ -19,7 +19,7 @@ public class PlayerManager : MonoBehaviour
 		[Tooltip ("Determins which layers the player can jump off of.")]
 		public LayerMask ground;
 		[Tooltip ("Vector3 of the over-the-shoulder camera position")]
-		public Vector3 focusOffset = new Vector3(1.5f, 0f, -1f);
+		public Vector3 focusOffset = new Vector3 (1.5f, 0f, -1f);
 	}
 
 	[System.Serializable]
@@ -36,6 +36,10 @@ public class PlayerManager : MonoBehaviour
 		public Transform healthbarFill;
 		[Tooltip ("The UI text representing the text for health")]
 		public Transform healthPercentage;
+
+		[Tooltip ("The UI object representing the image for stamina")]
+		public GameObject staminaBarFill;
+		// The stamina UI bar.
 	}
 
 	[System.Serializable]
@@ -66,7 +70,7 @@ public class PlayerManager : MonoBehaviour
 
 	public Camera playerCamera;
 
-	[Tooltip("Reference to the Camera controller script")]
+	[Tooltip ("Reference to the Camera controller script")]
 	public MainCameraControl camCon;
 
 	MeshRenderer playerMesh;
@@ -87,17 +91,28 @@ public class PlayerManager : MonoBehaviour
 	float strafeInput;
 	float jumpInput;
 
-	public static float maxHealth = 100; // The highest the players health can go.
-	static float currentHealth; // The players current health.
-	static float healthSmoothing; // Used to smooth health.
-	static float targetHealth; // Used to smooth player health up or down.
-	bool isDead = false; // Prevents the code from executing the respawn sequence multiple times.
+	public static float maxHealth = 100;
+	// The highest the players health can go.
+	static float currentHealth;
+	// The players current health.
+	static float healthSmoothing;
+	// Used to smooth health.
+	static float targetHealth;
+	// Used to smooth player health up or down.
+	bool isDead = false;
+	// Prevents the code from executing the respawn sequence multiple times.
 
-	public GameObject staminaBarFill; // The stamina UI bar.
-	float currentStamina; // The players current stamina.
-	float maxStamina = 1; // The highest the players stamina can go. 1 represents 100%.
-	float cooldownTimer = 0; // Timer that keeps track of cooldown delay.
-	public float cooldownTime = 3; // Time until the stamina bar regenerates.
+	float currentStamina;
+	// The players current stamina.
+	float maxStamina = 1;
+	// The highest the players stamina can go. 1 represents 100%.
+	float cooldownTimer = 0;
+	// Timer that keeps track of cooldown delay.
+	public float cooldownTime = 3;
+	// Time until the stamina bar regenerates.
+
+	bool isPaused = false;
+	//determines whether the game is paused or not.
 
 	/// <summary>
 	/// Shoots a raycast downwards from the player, and checks the distance between the player and the ground. If that distance is greater than the distToGrounded variable, the player will fall down
@@ -147,17 +162,13 @@ public class PlayerManager : MonoBehaviour
 
 		Debug.Log (isFocused);
 
-		if (Input.GetKeyDown (KeyCode.E)) 
-		{
+		if (Input.GetKeyDown (KeyCode.E)) {
 			RestoreToFullHealth ();
 		}
 
-		if (isInvincible) 
-		{
+		if (isInvincible) {
 			DamageFlash ();
-		} 
-		else 
-		{
+		} else {
 			playerMesh.material.color = playerColor;
 		}
 
@@ -182,13 +193,10 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Run ()
 	{
-		if (Mathf.Abs (forwardInput) > inputSetting.inputDelay) 
-		{
+		if (Mathf.Abs (forwardInput) > inputSetting.inputDelay) {
 			//move
 			velocity.z = moveSetting.forwardVel * forwardInput;
-		} 
-		else 
-		{
+		} else {
 			//zero velocity
 			velocity.z = 0;
 		}
@@ -199,13 +207,10 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Strafe ()
 	{
-		if (Mathf.Abs (strafeInput) > inputSetting.inputDelay) 
-		{
+		if (Mathf.Abs (strafeInput) > inputSetting.inputDelay) {
 			//move
 			velocity.x = moveSetting.strafeVel * strafeInput;
-		} 
-		else 
-		{
+		} else {
 			//zero velocity
 			velocity.x = 0;
 		}
@@ -216,20 +221,15 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Jump ()
 	{
-		if (jumpInput > 0 && Grounded ()) 
-		{
+		if (jumpInput > 0 && Grounded ()) {
 			//Jump
 			velocity.y = moveSetting.jumpVel;
 			//isFalling = false;
-		} 
-		else if (jumpInput == 0 && Grounded ()) 
-		{
+		} else if (jumpInput == 0 && Grounded ()) {
 			//zero out our velocity.y
 			velocity.y = 0;
 			//isFalling = false;
-		} 
-		else 
-		{
+		} else {
 			//decrease velocity.y
 			//isFalling = true;
 			velocity.y -= physSetting.downAccel;
@@ -242,17 +242,13 @@ public class PlayerManager : MonoBehaviour
 	/// <param name="cam">Cam.</param>
 	void OrientPlayer (Camera cam)
 	{
-		if (isOriented) 
-		{
+		if (isOriented) {
 			transform.rotation = Quaternion.Euler (transform.eulerAngles.x, cam.transform.eulerAngles.y, transform.eulerAngles.z);
 		}
 
-		if (Input.GetKey (KeyCode.Q)) 
-		{
+		if (Input.GetKey (KeyCode.Q)) {
 			isOriented = false;
-		} 
-		else 
-		{
+		} else {
 			isOriented = true;
 		}
 	}
@@ -260,15 +256,12 @@ public class PlayerManager : MonoBehaviour
 	/// <summary>
 	/// Moves the player camera into focus position when a button is held
 	/// </summary>
-	void Focus() 
+	void Focus ()
 	{
-		if (Input.GetMouseButton (0)) 
-		{
+		if (Input.GetMouseButton (0)) {
 			camCon.SetTargetOffsets (camCon.pivotOffset, moveSetting.focusOffset);
 			isFocused = true;
-		} 
-		else 
-		{
+		} else {
 			camCon.ResetTargetOffsets ();
 			isFocused = false;
 		}
@@ -277,7 +270,7 @@ public class PlayerManager : MonoBehaviour
 	/// <summary>
 	/// Causes the player to become invincible for a specified number of seconds
 	/// </summary>
-	IEnumerator Invicibility() 
+	IEnumerator Invicibility ()
 	{
 		isInvincible = true;
 		yield return new WaitForSeconds (playerSetting.invulnTime);
@@ -287,7 +280,7 @@ public class PlayerManager : MonoBehaviour
 	/// <summary>
 	/// Causes player model to flash red during invuln
 	/// </summary>
-	void DamageFlash() 
+	void DamageFlash ()
 	{
 		playerMesh.material.color = Color.Lerp (playerColor, Color.red, Mathf.PingPong (Time.time * playerSetting.flashSpeed, playerSetting.colorLerpSpeed));
 	}
@@ -301,8 +294,7 @@ public class PlayerManager : MonoBehaviour
 			StartCoroutine (DamageCalculator (10));
 		}
 
-		if (currentHealth <= 0.9f && !isDead) 
-		{
+		if (currentHealth <= 0.9f && !isDead) {
 			currentHealth = 0; // This ensures that the health percentage is NEVER less than zero.
 
 			// Respawn execution goes here
@@ -312,8 +304,7 @@ public class PlayerManager : MonoBehaviour
 
 		Mathf.Round (targetHealth);
 
-		if (currentHealth >= maxHealth) 
-		{
+		if (currentHealth >= maxHealth) {
 			currentHealth = maxHealth; // Caps the players current health to the designated max health.
 		} 
 
@@ -334,8 +325,7 @@ public class PlayerManager : MonoBehaviour
 	public static void HealCalculator (float healthRecieved)
 	{
 		// Only heals the player if player health is below the max. 
-		if (currentHealth < maxHealth) 
-		{
+		if (currentHealth < maxHealth) {
 			targetHealth = currentHealth + healthRecieved;
 		}
 	}
@@ -354,7 +344,8 @@ public class PlayerManager : MonoBehaviour
 	/// <summary>
 	/// Restores to full health.
 	/// </summary>
-	public void RestoreToFullHealth(){
+	public void RestoreToFullHealth ()
+	{
 		targetHealth = maxHealth;
 		//currentHealth = maxHealth;
 	}
@@ -381,7 +372,7 @@ public class PlayerManager : MonoBehaviour
 			}
 		}
 
-		staminaBarFill.transform.localScale = new Vector3 (currentStamina, staminaBarFill.transform.localScale.y, staminaBarFill.transform.localScale.z);
+		playerSetting.staminaBarFill.transform.localScale = new Vector3 (currentStamina, playerSetting.staminaBarFill.transform.localScale.y, playerSetting.staminaBarFill.transform.localScale.z);
 	}
 
 	/// <summary>
@@ -400,36 +391,32 @@ public class PlayerManager : MonoBehaviour
 		currentStamina += Time.unscaledDeltaTime;
 	}
 
-	void OnCollisionEnter(Collision col) 
+	void OnCollisionEnter (Collision col)
 	{
 		//If the player comes in contact with an enemy, initiate invincibility coroutine
-		if (col.gameObject.tag == "Enemy") 
-		{
+		if (col.gameObject.tag == "Enemy") {
 			//When the player collides with an enemy, it checks to see if the player is currently invincible or not. 
 			//If not, then the player will take damage
-			if (isInvincible == false) 
-			{
+			if (isInvincible == false) {
 				//DamageCalculator (10);
-				StartCoroutine (DamageCalculator(10));
+				StartCoroutine (DamageCalculator (10));
 			}
 
-			StartCoroutine (Invicibility());
+			StartCoroutine (Invicibility ());
 		}
 	}
 
-	void OnCollisionStay(Collision col) 
+	void OnCollisionStay (Collision col)
 	{
 		//If the player is still touching the enemy when invuln wears off, ininitate invincibility coroutine again
-		if (col.gameObject.tag == "Enemy" && isInvincible == false) 
-		{
+		if (col.gameObject.tag == "Enemy" && isInvincible == false) {
 			//When the player collides with an enemy, it checks to see if the player is currently invincible or not. 
 			//If not, then the player will take damage
-			if (isInvincible == false) 
-			{
+			if (isInvincible == false) {
 				//DamageCalculator (10);
-				StartCoroutine (DamageCalculator(10));
+				StartCoroutine (DamageCalculator (10));
 			}
-			StartCoroutine (Invicibility());
+			StartCoroutine (Invicibility ());
 		}
 	}
 }
