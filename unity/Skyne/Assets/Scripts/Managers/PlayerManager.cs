@@ -297,6 +297,10 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Health ()
 	{
+		if (Input.GetKeyDown (KeyCode.R)) {
+			StartCoroutine (DamageCalculator (10));
+		}
+
 		if (currentHealth <= 0.9f && !isDead) 
 		{
 			currentHealth = 0; // This ensures that the health percentage is NEVER less than zero.
@@ -317,8 +321,7 @@ public class PlayerManager : MonoBehaviour
 		playerSetting.healthPercentage.GetComponent<Text> ().text = ((int)currentHealth).ToString () + "%";
 
 		// Updates the health bars fill.
-		playerSetting.healthbarFill.GetComponent<Image> ().fillAmount = currentHealth / 100;
-
+		playerSetting.healthbarFill.transform.localScale = new Vector3 (currentHealth / 100, playerSetting.healthbarFill.transform.localScale.y, playerSetting.healthbarFill.transform.localScale.z); 
 
 		// Smooths the current player health value based on the target health variable.
 		currentHealth = Mathf.SmoothDamp (currentHealth, targetHealth, ref healthSmoothing, 0.3f);
