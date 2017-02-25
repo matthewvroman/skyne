@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; 
 
 public class UIManager : MonoBehaviour {
 
@@ -8,6 +9,13 @@ public class UIManager : MonoBehaviour {
 	bool isPaused = false; //determines whether the game is paused or not.
 
 	public GameObject gameOver;
+
+	[SerializeField] private Button reloadButton; 
+
+	void Awake()
+	{
+		reloadButton.onClick.AddListener (() => { LoadGameClicked(); });
+	}
 
 	void Update()
 	{
@@ -39,5 +47,10 @@ public class UIManager : MonoBehaviour {
 	{
 		Time.timeScale = 0;
 		gameOver.SetActive (true);
+	}
+
+	void LoadGameClicked ()
+	{
+		GlobalManager.inst.LoadGameplayScreen(); 
 	}
 }
