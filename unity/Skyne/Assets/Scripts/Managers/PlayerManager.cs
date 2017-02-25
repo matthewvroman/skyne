@@ -138,6 +138,18 @@ public class PlayerManager : MonoBehaviour
 		targetHealth = maxHealth;
 
 		currentStamina = maxStamina;
+
+		if (playerSetting.healthbarFill == null) {
+			Debug.LogError ("Player has no Health Bar Fill");
+		}
+
+		if (playerSetting.staminaBarFill == null) {
+			Debug.LogError ("Player has no Stamina Bar Fill");
+		}
+
+		if (playerSetting.healthPercentage == null) {
+			Debug.LogError ("Player has no Health Percentage Text");
+		}
 	}
 
 	/// <summary>
