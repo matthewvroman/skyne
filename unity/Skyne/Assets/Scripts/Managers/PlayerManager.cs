@@ -13,7 +13,10 @@ public class PlayerManager : MonoBehaviour
 		[Tooltip ("Player's side velocity")]
 		public float strafeVel = 12;
 		[Tooltip ("Player's jump velocity")]
-		public float jumpVel = 25;
+		public float jumpVel;
+
+		public float dashVel = 100;
+
 		[Tooltip ("How close the player has to to the ground for them to stop falling")]
 		public float distToGrounded = 0.5f;
 		[Tooltip ("Determins which layers the player can jump off of.")]
@@ -84,12 +87,18 @@ public class PlayerManager : MonoBehaviour
 
 	bool isInvincible = false;
 
+	bool jump = false;
+	bool canDoubleJump = false;
+
+	bool isDashing = false;
+
 	Vector3 velocity = Vector3.zero;
 	Quaternion targetRotation;
 	Rigidbody rBody;
 	float forwardInput;
 	float strafeInput;
 	float jumpInput;
+	float doubleJumpInput;
 
 	public static float maxHealth = 100;
 	// The highest the players health can go.
@@ -160,7 +169,6 @@ public class PlayerManager : MonoBehaviour
 		forwardInput = Input.GetAxis (inputSetting.FORWARD_AXIS); //interpolated
 		strafeInput = Input.GetAxis (inputSetting.STRAFE_AXIS); //interpolated
 		jumpInput = Input.GetAxisRaw (inputSetting.JUMP_AXIS); //non-interpolated
-
 	}
 
 	void Update ()
@@ -170,9 +178,13 @@ public class PlayerManager : MonoBehaviour
 		Health ();
 		Stamina ();
 
-		OrientPlayer (playerCamera);
+		//AirDash ();
 
-		Debug.Log (isFocused);
+		transform.rotation = Quaternion.Euler (0, transform.rotation.y, 0);
+
+		Debug.Log (isDashing);
+
+		OrientPlayer (playerCamera);
 
 		if (Input.GetKeyDown (KeyCode.E)) {
 			RestoreToFullHealth ();
@@ -189,6 +201,14 @@ public class PlayerManager : MonoBehaviour
 		} else {
 			isFalling = false;
 		}
+
+		if (Grounded ()) {
+			canDoubleJump = false;
+		}
+
+		if (Input.GetKeyDown (KeyCode.LeftShift)) {
+			isDashing = true;
+		}
 	}
 
 	void FixedUpdate ()
@@ -196,6 +216,11 @@ public class PlayerManager : MonoBehaviour
 		Run ();
 		Strafe ();
 		Jump ();
+		//AirDash ();
+
+		if (isDashing) {
+			StartCoroutine (AirDash ());
+		}
 
 		rBody.velocity = transform.TransformDirection (velocity);
 	}
@@ -208,7 +233,8 @@ public class PlayerManager : MonoBehaviour
 		if (Mathf.Abs (forwardInput) > inputSetting.inputDelay) {
 			//move
 			velocity.z = moveSetting.forwardVel * forwardInput;
-		} else {
+		}
+		else if (forwardInput == 0 && isDashing == false) {
 			//zero velocity
 			velocity.z = 0;
 		}
@@ -228,6 +254,14 @@ public class PlayerManager : MonoBehaviour
 		}
 	}
 
+	IEnumerator AirDash() {
+		rBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+		velocity.z = moveSetting.dashVel + (moveSetting.forwardVel * forwardInput);
+		yield return new WaitForSeconds (0.2f);
+		rBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
+		isDashing = false;
+	}
+
 	/// <summary>
 	/// Method that contains player's jumping code
 	/// </summary>
@@ -236,15 +270,20 @@ public class PlayerManager : MonoBehaviour
 		if (jumpInput > 0 && Grounded ()) {
 			//Jump
 			velocity.y = moveSetting.jumpVel;
-			//isFalling = false;
-		} else if (jumpInput == 0 && Grounded ()) {
+			canDoubleJump = true;
+		} 
+		else if (jumpInput == 0 && Grounded ()) {
 			//zero out our velocity.y
 			velocity.y = 0;
-			//isFalling = false;
-		} else {
+		} 
+		else {
 			//decrease velocity.y
-			//isFalling = true;
 			velocity.y -= physSetting.downAccel;
+
+			if (Input.GetKeyDown(KeyCode.Space) && canDoubleJump) {
+				velocity.y = moveSetting.jumpVel;
+				canDoubleJump = false;
+			} 
 		}
 	}
 
@@ -270,7 +309,7 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Focus ()
 	{
-		if (Input.GetMouseButton (0)) {
+		if (Input.GetMouseButton (1)) {
 			camCon.SetTargetOffsets (camCon.pivotOffset, moveSetting.focusOffset);
 			isFocused = true;
 		} else {
