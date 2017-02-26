@@ -43,7 +43,7 @@ public class SceneMapping : Singleton<SceneMapping>
 		#if UNITY_EDITOR
 		if (generateSceneListOnStartup)
 		{
-			Debug.Log("Read in scene list (startup)"); 
+			//Debug.Log("Read in scene list (startup)"); 
 			ReadInListFromDirectory(); 
 		}
 		#endif

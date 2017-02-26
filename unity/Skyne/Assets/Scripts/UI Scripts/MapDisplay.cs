@@ -18,6 +18,9 @@ public class MapDisplay : Singleton<MapDisplay>
 	// 1, 2, or 3
 	public int displayLevel; 
 
+	// Temporary slider for adjusting floor/level view
+	public Slider floorSlider; 
+
 	[System.Serializable]
 	public struct MapPieces
 	{
@@ -71,9 +74,10 @@ public class MapDisplay : Singleton<MapDisplay>
 					ChooseTileSprite(roomLevels[l] - 1, columnRow, gridPositions, newMapTile.GetComponent<Image>(), newMapTile.GetComponent<RectTransform>()); 
 
 					// Update the gameObject's active property based on whether that map position has been discovered
+					// Temporarily disabled for first playable
 					if (!GameState.inst.GetRoomRevealedOnMap(roomName))
 					{
-						newMapTile.SetActive(false); 
+						//newMapTile.SetActive(false); 
 					}
 				}
 			}
@@ -249,7 +253,13 @@ public class MapDisplay : Singleton<MapDisplay>
 	void Update () 
 	{
 		// Change current display level based on which level the player is on
-		displayLevel = LevelData.inst.curLevel; 
+		// Removed- the player should be able to change this at any time
+		//displayLevel = LevelData.inst.curLevel; 
+
+		if (floorSlider != null)
+		{
+			displayLevel = (int)(floorSlider.value); 
+		}
 
 		// Update display level
 		for (int i = 0; i < mapTileParents.Length; i++)

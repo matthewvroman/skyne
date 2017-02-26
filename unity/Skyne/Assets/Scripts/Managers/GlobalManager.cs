@@ -51,7 +51,7 @@ public class GlobalManager : Singleton<GlobalManager>
 			//if (!SceneLoading.inst.LevelScenesBeingLoaded() && SceneLoading.inst.startedLoadingLevels)
 			if (!SceneLoading.inst.LevelScenesBeingLoaded())
 			{
-				Debug.Log("Test finished loading"); 
+				//Debug.Log("Test finished loading"); 
 				globalState = GlobalState.Gameplay; 
 				MainGameplayManager.inst.OnGameplayStart(); 
 

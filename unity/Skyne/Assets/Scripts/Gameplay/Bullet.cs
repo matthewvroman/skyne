@@ -22,10 +22,18 @@ public class Bullet : MonoBehaviour
 	[Tooltip("Affects time scaling during slowdown. See notes in Timescaler.CalculateDeltaTime.")]
 	public float deltaTimePerc; 
 
+	public bool hasTarget; 
+	public Vector3 target; 
+
 	// Use this for initialization
 	void Start () 
 	{
 		lifetimeTimer = lifetime;
+
+		if (hasTarget)
+		{
+			transform.LookAt(target);
+		}
 	}
 
 	// Update is called once per frame

@@ -32,6 +32,8 @@ public class ProjectileManager : Singleton<ProjectileManager>
 	public float pRapidDamage; 
 	public float pRapidLifetime; 
 
+	public Vector3 testHitPoint; 
+
 	// Player normal shot
 	public void Shoot_P_Normal(GameObject spawner)
 	{
@@ -40,7 +42,15 @@ public class ProjectileManager : Singleton<ProjectileManager>
 		Vector3 bulletRot = spawner.transform.rotation.eulerAngles + rotOffset; 
 
 		GameObject newBullet = GameObject.Instantiate(bulletPrefab, spawner.transform.position, Quaternion.Euler(bulletRot), transform); 
-		Bullet bullet = newBullet.GetComponent<Bullet>(); 
+		Bullet bullet = newBullet.GetComponent<Bullet>();
+
+		RaycastTargetFound shotTarget = GetRaycastTarget(); 
+
+		if (shotTarget.targetFound)
+		{
+			bullet.target = shotTarget.targetPos; 
+			bullet.hasTarget = true; 
+		}
 
 		bullet.playerBullet = true; 
 		bullet.speed = pNormalSpeed; //25
@@ -57,6 +67,14 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
 		GameObject newBullet = GameObject.Instantiate(bulletPrefab, spawner.transform.position, Quaternion.Euler(bulletRot), transform); 
 		Bullet bullet = newBullet.GetComponent<Bullet>(); 
+
+		RaycastTargetFound shotTarget = GetRaycastTarget(); 
+
+		if (shotTarget.targetFound)
+		{
+			bullet.target = shotTarget.targetPos; 
+			bullet.hasTarget = true; 
+		}
 
 		bullet.playerBullet = true; 
 		bullet.speed = pChargeSpeed; //60
@@ -99,6 +117,14 @@ public class ProjectileManager : Singleton<ProjectileManager>
 		GameObject newBullet = GameObject.Instantiate(bulletPrefab, spawner.transform.position, Quaternion.Euler(bulletRot), transform); 
 		Bullet bullet = newBullet.GetComponent<Bullet>(); 
 
+		RaycastTargetFound shotTarget = GetRaycastTarget(); 
+
+		if (shotTarget.targetFound)
+		{
+			bullet.target = shotTarget.targetPos; 
+			bullet.hasTarget = true; 
+		}
+
 		bullet.playerBullet = true; 
 		bullet.speed = pRapidSpeed; //25
 		bullet.damage = pRapidDamage; //0.5
@@ -115,5 +141,49 @@ public class ProjectileManager : Singleton<ProjectileManager>
 	public void Shoot_E_Normal(GameObject spawner)
 	{
 
+	}
+
+	// Struct for getting the raycast target and determining if a target was actually found
+	// This could be extended to include the actual RaycastHit object and passed into the Bullet, which would give the Bullet access to its target before hitting it
+	public struct RaycastTargetFound
+	{
+		public bool targetFound; 
+		public Vector3 targetPos; 
+	}
+
+
+	RaycastTargetFound GetRaycastTarget()
+	{
+		RaycastTargetFound result = new RaycastTargetFound();
+		result.targetFound = false; 
+
+		int crosshairX = Screen.width / 2;
+		int crosshairY = Screen.height / 2;
+
+		Ray ray = Camera.main.ScreenPointToRay(new Vector3(crosshairX, crosshairY));
+		Debug.DrawRay(ray.origin, ray.direction * 100, new Color(1f,0.922f,0.016f,1f));
+
+		RaycastHit hitInfo;
+
+		if (Physics.Raycast(ray.origin, ray.direction, out hitInfo, 200)) 
+		{
+			/*
+			if(hitInfo.collider.gameObject.tag=="targetObject")
+			{
+				//Debug.Log('hit');
+			}
+			*/ 
+			testHitPoint = new Vector3 (hitInfo.point.x, hitInfo.point.y, hitInfo.point.z); 
+
+			result.targetFound  = true; 
+			result.targetPos = hitInfo.point; 
+		}
+
+		return result;
+	}
+
+	void OnDrawGizmos()
+	{
+		Gizmos.DrawSphere(testHitPoint, 0.2f); 
 	}
 }

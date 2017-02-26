@@ -69,19 +69,27 @@ public class GameState : Singleton<GameState>
 		}
 
 		// Update the map
+		if (MapDisplay.inst.gameObject.activeSelf)
+		{
+			MapDisplay.inst.SpawnMap(); 
+		}
 
 		// If upgradesFound and keysFound are invalid, regenerate them
 		if (upgradesFound == null || upgradesFound.Length != 6)
 		{
+			/*
 			upgradesFound = new bool[6]; 
 			for (int i = 0; i < upgradesFound.Length; i++)
 				upgradesFound[i] = false; 
+			*/
 		}
 		if (keysFound == null || keysFound.Length != 3)
 		{
+			/*
 			keysFound = new bool[3]; 
 			for (int i = 0; i < keysFound.Length; i++)
 				keysFound[i] = false; 
+			*/
 		}
 	}
 
@@ -97,7 +105,7 @@ public class GameState : Singleton<GameState>
 		// This is weird, it should be column - 1 and row - 1. It looks like sceneMapping is saving nothing into its column/row at index 0
 		string roomName = SceneMapping.inst.GetSceneAt(level, column, row); 
 
-		Debug.Log("Set " + roomName + " to be revealed; level: " + level + "; column: " + column + "; row: " + row); 
+		//Debug.Log("Set " + roomName + " to be revealed; level: " + level + "; column: " + column + "; row: " + row); 
 
 		int foundIndex = GetRoomStateIndexOf(roomName); 
 		if (foundIndex != -1)
@@ -153,12 +161,12 @@ public class GameState : Singleton<GameState>
 
 		if (PlayerPrefsManager.inst.SaveExists())
 		{
-			Debug.Log("Save file found. Loading from PlayerPrefs...");  
+			//Debug.Log("Save file found. Loading from PlayerPrefs...");  
 			PlayerPrefsManager.inst.LoadPlayerPrefs(); 
 		}
 		else
 		{
-			Debug.Log("No save file found. Using initial game data..."); 
+			//Debug.Log("No save file found. Using initial game data..."); 
 		}
 
 		// Updates the player grid position at the start and loads the inital scenes needed

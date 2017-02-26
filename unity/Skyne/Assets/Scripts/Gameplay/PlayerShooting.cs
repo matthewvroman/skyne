@@ -42,6 +42,13 @@ public class PlayerShooting : Singleton<PlayerShooting>
 	// Update is called once per frame
 	void Update () 
 	{
+		// Test
+		int x = Screen.width / 2;
+		int y = Screen.height / 2;
+
+		Ray ray = Camera.main.ScreenPointToRay(new Vector3(x, y));
+		Debug.DrawRay(ray.origin, ray.direction * 100, new Color(1f,0.922f,0.016f,1f));
+
 		// Decrement change timer until it reaches 0
 		if (changeTimer > 0)
 		{
@@ -239,14 +246,17 @@ public class PlayerShooting : Singleton<PlayerShooting>
 		}
 			
 		// Safeguard- check for a weapon type active that hasn't been collected
-		bool invalidCharge = GameState.inst.pShootMode == PlayerShootMode.Charge && !GameState.inst.upgradesFound[3]; 
-		bool invalidWide = GameState.inst.pShootMode == PlayerShootMode.Wide && !GameState.inst.upgradesFound[4]; 
-		bool invalidRapid = GameState.inst.pShootMode == PlayerShootMode.Rapid && !GameState.inst.upgradesFound[5]; 
-
-		// Set the shoot mode back to normal if the current beam hasn't been collected
-		if (invalidCharge || invalidWide || invalidRapid)
+		if (GameState.inst != null)
 		{
-			ChangeWeaponType(PlayerShootMode.Normal); 
+			bool invalidCharge = GameState.inst.pShootMode == PlayerShootMode.Charge && !GameState.inst.upgradesFound[3]; 
+			bool invalidWide = GameState.inst.pShootMode == PlayerShootMode.Wide && !GameState.inst.upgradesFound[4]; 
+			bool invalidRapid = GameState.inst.pShootMode == PlayerShootMode.Rapid && !GameState.inst.upgradesFound[5]; 
+
+			// Set the shoot mode back to normal if the current beam hasn't been collected
+			if (invalidCharge || invalidWide || invalidRapid)
+			{
+				ChangeWeaponType(PlayerShootMode.Normal); 
+			}
 		}
 	}
 

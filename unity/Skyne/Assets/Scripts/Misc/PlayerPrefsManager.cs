@@ -143,8 +143,7 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 	/// </summary>
 	public void LoadRoomStates()
 	{
-		Debug.Log("LoadRoomStates()"); 
-
+		//Debug.Log("LoadRoomStates()"); 
 
 		for (int i = 0; i < GameState.inst.roomStateData.Length; i++)
 		{
@@ -189,7 +188,7 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 			return PlayerPrefs.GetInt(key); 
 		}
 
-		Debug.Log("Key " + key + " not found in PlayerPrefs. Using default value: " + defaultValue);
+		//Debug.Log("Key " + key + " not found in PlayerPrefs. Using default value: " + defaultValue);
 		return defaultValue; 
 	}
 
@@ -212,7 +211,7 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 			return defaultValue; 
 		}
 
-		Debug.Log("Key " + key + " not found in PlayerPrefs. Using default value: " + defaultValue);
+		//Debug.Log("Key " + key + " not found in PlayerPrefs. Using default value: " + defaultValue);
 		return defaultValue; 
 	}
 
@@ -229,7 +228,7 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 			return PlayerPrefs.GetFloat(key); 
 		}
 
-		Debug.Log("Key " + key + " not found in PlayerPrefs. Using default value: " + defaultValue);
+		//Debug.Log("Key " + key + " not found in PlayerPrefs. Using default value: " + defaultValue);
 		return defaultValue; 
 	}
 
@@ -246,7 +245,7 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 			return PlayerPrefs.GetString(key); 
 		}
 
-		Debug.Log("Key " + key + " not found in PlayerPrefs. Using default value: " + defaultValue);
+		//Debug.Log("Key " + key + " not found in PlayerPrefs. Using default value: " + defaultValue);
 		return defaultValue; 
 	}
 

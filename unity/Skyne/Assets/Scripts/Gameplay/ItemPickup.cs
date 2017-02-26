@@ -6,6 +6,7 @@ public class ItemPickup : MonoBehaviour
 {
 	[Header("Abilities: (0 = double_j) (1 = wall_j) (2 = dash)")]
 	[Header("Weapons: (3 = charge) (4 = wide) (5 = rapid)")]
+	[Header("Keys: (6 = key1) (7 = key2) (8 = key3)")]
 	[Tooltip("What type of item is this?")]
 	public int itemTypeIndex; 
 
@@ -13,6 +14,8 @@ public class ItemPickup : MonoBehaviour
 	void Start () 
 	{
 		// Destroy the upgrade pickup if the player already has it
+		Debug.Log("upgradesFound length: " + GameState.inst.upgradesFound.Length); 
+
 		if (GameState.inst.upgradesFound[itemTypeIndex])
 		{
 			Destroy(this.gameObject); 
