@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; 
 
-public class UIManager : MonoBehaviour {
+public class UIManager : Singleton<UIManager> {
 
 	public GameObject menu;
 	bool isPaused = false; //determines whether the game is paused or not.
@@ -49,6 +49,9 @@ public class UIManager : MonoBehaviour {
 		gameOver.SetActive (true);
 	}
 
+	/// <summary>
+	/// Reloads game.
+	/// </summary>
 	void LoadGameClicked ()
 	{
 		GlobalManager.inst.LoadGameplayScreen(); 
