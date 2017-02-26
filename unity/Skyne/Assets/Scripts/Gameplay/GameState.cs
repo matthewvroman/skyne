@@ -173,4 +173,20 @@ public class GameState : Singleton<GameState>
 		//LevelData.inst.UpdatePlayerGridPos(); 
 		LevelData.inst.RefreshLoadedScenes(); 
 	}
+
+	/// <summary>
+	/// Checks whether the player has collected all the keys in the game
+	/// </summary>
+	/// <returns><c>true</c>, if all keys have been found, <c>false</c> otherwise.</returns>
+	public bool AllKeysFound()
+	{
+		for (int i = 0; i < keysFound.Length; i++)
+		{
+			if (!keysFound[i])
+			{
+				return false; 
+			}
+		}
+		return true; 
+	}
 }
