@@ -21,6 +21,8 @@ public class MapDisplay : Singleton<MapDisplay>
 	// Temporary slider for adjusting floor/level view
 	public Slider floorSlider; 
 
+	public GameObject statusPanel; 
+
 	[System.Serializable]
 	public struct MapPieces
 	{
@@ -252,6 +254,13 @@ public class MapDisplay : Singleton<MapDisplay>
 	// Maybe should call this from mainManager?
 	void Update () 
 	{
+		// Temporary input
+		// Use 'Q' key to reveal/hide status panel and map
+		if (Input.GetKeyDown(KeyCode.Q))
+		{
+			statusPanel.SetActive(!statusPanel.activeSelf); 
+		}
+
 		// Change current display level based on which level the player is on
 		// Removed- the player should be able to change this at any time
 		//displayLevel = LevelData.inst.curLevel; 
