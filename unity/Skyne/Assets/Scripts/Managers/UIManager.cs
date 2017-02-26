@@ -8,9 +8,11 @@ public class UIManager : Singleton<UIManager> {
 	public GameObject menu;
 	bool isPaused = false; //determines whether the game is paused or not.
 
-	public GameObject gameOver;
+	public GameObject gameOverUI;
 
 	[SerializeField] private Button reloadButton; 
+
+	public GameObject endTimerUI; 
 
 	void Awake()
 	{
@@ -20,6 +22,10 @@ public class UIManager : Singleton<UIManager> {
 	void Update()
 	{
 		Pause ();
+
+		if (GameState.inst.AllKeysFound ()) {
+			EndGameSequence ();
+		}
 	}
 
 	/// <summary>
@@ -43,17 +49,33 @@ public class UIManager : Singleton<UIManager> {
 	/// <summary>
 	/// Reveals GameOver UI.
 	/// </summary>
-	void GameOver ()
+	public void GameOver ()
 	{
 		Time.timeScale = 0;
-		gameOver.SetActive (true);
+		gameOverUI.SetActive (true);
 	}
 
 	/// <summary>
-	/// Reloads game.
+	/// Reloads game in the last save point the player visited.
 	/// </summary>
 	void LoadGameClicked ()
 	{
-		GlobalManager.inst.LoadGameplayScreen(); 
+		GlobalManager.inst.LoadGameplayScreen();
+	}
+
+	/// <summary>
+	/// Exits Game
+	/// </summary>
+	public void ExitGameClicked ()
+	{
+		GlobalManager.inst.LoadTitle (); 
+	}
+
+	/// <summary>
+	/// Triggers the end game timer when the player picks up the artifact.
+	/// </summary>
+	public void EndGameSequence()
+	{
+		endTimerUI.SetActive (true); //Activates the end sequence timer.
 	}
 }
