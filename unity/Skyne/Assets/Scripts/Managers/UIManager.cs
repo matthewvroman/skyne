@@ -77,6 +77,7 @@ public class UIManager : Singleton<UIManager> {
 	/// </summary>
 	public void ExitGameClicked ()
 	{
+		Time.timeScale = 1;
 		GlobalManager.inst.LoadTitle (); 
 	}
 
