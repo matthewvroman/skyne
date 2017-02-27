@@ -11,8 +11,8 @@ using System.Collections;
  */
 public class Timescaler : Singleton<Timescaler>
 {
-	[Tooltip("Set to true if slow motion allowed (such as when jumping); false otherwise")]
-	public bool canSlowdown;
+	//[Tooltip("Set to true if slow motion allowed (such as when jumping); false otherwise")]
+	//public bool canSlowdown;
 
 	[Tooltip("How slow should time get (1 = normal time)")]
 	public float minTimescale;
@@ -29,10 +29,12 @@ public class Timescaler : Singleton<Timescaler>
 		//Debug.Log("Timescale: " + Time.timeScale); 
 
 		// Input to change a boolean for timeSlowed
+		/*
 		if (Input.GetKey(KeyCode.LeftShift) && canSlowdown)
 			timeSlowed = true;
 		else
 			timeSlowed = false; 
+			*/ 
 			
 		// Set the current timeScale and fixedDeltaTime based on timeSlowed
 		// Time is slowing down or remaining in slow-mo

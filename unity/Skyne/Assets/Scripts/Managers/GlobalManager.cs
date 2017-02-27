@@ -67,7 +67,10 @@ public class GlobalManager : Singleton<GlobalManager>
 		UnloadSceneIfLoaded("MainLevel"); 
 
 		// Unload all level scenes as well as the MainLevel
-		LevelData.inst.UnloadAllLevelScenes(); 
+		if (LevelData.inst != null)
+		{
+			LevelData.inst.UnloadAllLevelScenes(); 
+		}
 	}
 
 	public void LoadGameplayScreen()
