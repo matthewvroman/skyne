@@ -16,6 +16,7 @@ public class PlayerManager : MonoBehaviour
 		public float jumpVel;
 
 		public float dashVel = 100;
+		public float dashCooldown = 2;
 
 		public float startSlidingTimer = 5;
 
@@ -98,6 +99,9 @@ public class PlayerManager : MonoBehaviour
 	bool startSliding = false;
 	float counter;
 
+	float dashCounter;
+	bool startCooldown;
+
 	bool isWallJumping = false;
 
 	Vector3 velocity = Vector3.zero;
@@ -167,6 +171,8 @@ public class PlayerManager : MonoBehaviour
 		}
 
 		counter = moveSetting.startSlidingTimer;
+
+		dashCounter = moveSetting.dashCooldown;
 	}
 
 	/// <summary>
@@ -186,7 +192,7 @@ public class PlayerManager : MonoBehaviour
 		Health ();
 		Stamina ();
 
-		Debug.Log (isWallJumping);
+		Debug.Log (dashCounter);
 
 		transform.rotation = Quaternion.Euler (0, transform.rotation.y, 0);
 
@@ -215,7 +221,19 @@ public class PlayerManager : MonoBehaviour
 		}
 
 		if (Input.GetKeyDown (KeyCode.LeftShift)) {
-			isDashing = true;
+			if (dashCounter == 2) {
+				isDashing = true;
+				startCooldown = true;
+			}
+		}
+
+		if (startCooldown) {
+			if (dashCounter > 0) {
+				dashCounter -= Time.deltaTime;
+			} else {
+				startCooldown = false;
+				dashCounter = moveSetting.dashCooldown;
+			}
 		}
 
 		if (counter > 0) {
