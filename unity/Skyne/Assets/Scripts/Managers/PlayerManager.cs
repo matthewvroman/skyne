@@ -112,9 +112,10 @@ public class PlayerManager : MonoBehaviour
 	bool isDead = false;
 	// Prevents the code from executing the respawn sequence multiple times.
 
+	[Range (0,100)]
 	float currentStamina;
 	// The players current stamina.
-	float maxStamina = 1;
+	float maxStamina = 100;
 	// The highest the players stamina can go. 1 represents 100%.
 	float cooldownTimer = 0;
 	// Timer that keeps track of cooldown delay.
@@ -454,7 +455,7 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Stamina ()
 	{
-		if (isFocused == true) {
+		if (isFocused && isFalling) {
 			if (currentStamina > 0) {
 				cooldownTimer = 0;
 				DecreaseStamina ();
@@ -471,7 +472,7 @@ public class PlayerManager : MonoBehaviour
 			}
 		}
 
-		playerSetting.staminaBarFill.transform.localScale = new Vector3 (currentStamina, playerSetting.staminaBarFill.transform.localScale.y, playerSetting.staminaBarFill.transform.localScale.z);
+		playerSetting.staminaBarFill.transform.localScale = new Vector3 (currentStamina / 100, playerSetting.staminaBarFill.transform.localScale.y, playerSetting.staminaBarFill.transform.localScale.z);
 	}
 
 	/// <summary>
@@ -479,7 +480,7 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void DecreaseStamina ()
 	{
-		currentStamina -= Time.unscaledDeltaTime;
+		currentStamina -= 2;
 	}
 
 	/// <summary>
@@ -487,7 +488,21 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void IncreaseStamina ()
 	{
-		currentStamina += Time.unscaledDeltaTime;
+		currentStamina += 2;
+	}
+
+	/// <summary>
+	/// Slows the mo.
+	/// </summary>
+	void SlowMo()
+	{
+		if (isFocused && isFalling && currentStamina > 0) 
+		{
+			Timescaler.inst.timeSlowed = true;
+		}  else 
+		{
+			Timescaler.inst.timeSlowed = false;
+		}
 	}
 
 	void OnCollisionEnter (Collision col)
