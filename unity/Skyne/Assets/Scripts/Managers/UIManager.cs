@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class UIManager : Singleton<UIManager> {
 
 	public GameObject menu;
-	bool isPaused = false; //determines whether the game is paused or not.
+	public bool isPaused = false; //determines whether the game is paused or not.
 
 	public GameObject gameOverUI;
 
@@ -37,13 +37,22 @@ public class UIManager : Singleton<UIManager> {
 			isPaused = !isPaused;
 
 			if (isPaused) {
+				Cursor.lockState = CursorLockMode.Confined;
 				Time.timeScale = 0;
 				menu.SetActive (true);
 			} else {
+				Cursor.lockState = CursorLockMode.Locked;
 				Time.timeScale = 1;
 				menu.SetActive (false);
 			}
 		}
+	}
+
+	public void Unpause ()
+	{
+		Cursor.lockState = CursorLockMode.Locked;
+		Time.timeScale = 1;
+		menu.SetActive (false);
 	}
 
 	/// <summary>

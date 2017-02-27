@@ -129,9 +129,6 @@ public class PlayerManager : MonoBehaviour
 	public float cooldownTime = 3;
 	// Time until the stamina bar regenerates.
 
-	bool isPaused = false;
-	//determines whether the game is paused or not.
-
 	/// <summary>
 	/// Shoots a raycast downwards from the player, and checks the distance between the player and the ground. If that distance is greater than the distToGrounded variable, the player will fall down
 	/// </summary>
