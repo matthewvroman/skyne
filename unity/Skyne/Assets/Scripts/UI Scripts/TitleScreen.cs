@@ -8,6 +8,9 @@ public class TitleScreen : MonoBehaviour
 	[SerializeField] private Button newGameButton; 
 	[SerializeField] private Button continueButton; 
 
+	public GameObject mainMenu;
+	public GameObject settingsMenu;
+
 	void Awake ()
 	{
 		newGameButton.onClick.AddListener (() => { OnNewGameButtonClicked(); });
@@ -46,5 +49,22 @@ public class TitleScreen : MonoBehaviour
 		{
 			continueButton.interactable = false; 
 		}
+	}
+
+	public void TerminateGame()
+	{
+		Application.Quit();
+	}
+
+	public void SettingsMenu ()
+	{
+		mainMenu.SetActive (false);
+		settingsMenu.SetActive (true);
+	}
+
+	public void Back()
+	{
+		settingsMenu.SetActive (false);
+		mainMenu.SetActive (true);
 	}
 }
