@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,8 @@ public class PlayerManager : MonoBehaviour
 		public float jumpVel;
 
 		public float dashVel = 100;
+
+		public float startSlidingTimer = 5;
 
 		[Tooltip ("How close the player has to to the ground for them to stop falling")]
 		public float distToGrounded = 0.5f;
@@ -92,6 +95,10 @@ public class PlayerManager : MonoBehaviour
 	bool isDashing = false;
 
 	bool isHuggingWall = false;
+	bool startSliding = false;
+	float counter;
+
+	bool isWallJumping = false;
 
 	Vector3 velocity = Vector3.zero;
 	Quaternion targetRotation;
@@ -161,6 +168,8 @@ public class PlayerManager : MonoBehaviour
 		if (playerSetting.healthPercentage == null) {
 			Debug.LogError ("Player has no Health Percentage Text");
 		}
+
+		counter = moveSetting.startSlidingTimer;
 	}
 
 	/// <summary>
@@ -180,8 +189,7 @@ public class PlayerManager : MonoBehaviour
 		Health ();
 		Stamina ();
 
-		Debug.Log (isHuggingWall);
-		Debug.Log (forwardInput);
+		Debug.Log (isWallJumping);
 
 		transform.rotation = Quaternion.Euler (0, transform.rotation.y, 0);
 
@@ -205,10 +213,16 @@ public class PlayerManager : MonoBehaviour
 
 		if (Grounded ()) {
 			canDoubleJump = false;
+			startSliding = false;
+			isWallJumping = false;
 		}
 
 		if (Input.GetKeyDown (KeyCode.LeftShift)) {
 			isDashing = true;
+		}
+
+		if (counter > 0) {
+			startSliding = false;
 		}
 	}
 
@@ -223,6 +237,10 @@ public class PlayerManager : MonoBehaviour
 			StartCoroutine (AirDash ());
 		}
 
+		if (startSliding) {
+			velocity.y -= physSetting.downAccel * 2;
+		}
+
 		rBody.velocity = transform.TransformDirection (velocity);
 	}
 
@@ -231,9 +249,11 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Run ()
 	{
-		if (Mathf.Abs (forwardInput) > inputSetting.inputDelay && !isHuggingWall && Grounded()) {
+		if (Mathf.Abs (forwardInput) > inputSetting.inputDelay && !isWallJumping) {
 			//move
-			velocity.z = moveSetting.forwardVel * forwardInput;
+			if (!isHuggingWall) {
+				velocity.z = moveSetting.forwardVel * forwardInput;
+			}
 		}
 		else if (forwardInput == 0 && isDashing == false && Grounded()) {
 			//zero velocity
@@ -246,9 +266,11 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Strafe ()
 	{
-		if (Mathf.Abs (strafeInput) > inputSetting.inputDelay && !isHuggingWall && Grounded()) {
+		if (Mathf.Abs (strafeInput) > inputSetting.inputDelay && !isWallJumping) {
 			//move
-			velocity.x = moveSetting.strafeVel * strafeInput;
+			if (!isHuggingWall) {
+				velocity.x = moveSetting.strafeVel * strafeInput;
+			}
 		} 
 		else if (strafeInput == 0 && isDashing == false && Grounded()) {
 			//zero velocity
@@ -305,9 +327,11 @@ public class PlayerManager : MonoBehaviour
 			if (jumpInput > 0 && forwardInput != 0) {
 				velocity.y = moveSetting.jumpVel;
 				velocity.z = moveSetting.forwardVel * forwardInput;
+				isWallJumping = true;
 			} else if (jumpInput > 0 && strafeInput != 0) {
 				velocity.y = moveSetting.jumpVel;
 				velocity.x = moveSetting.strafeVel * strafeInput;
+				isWallJumping = true;
 			} else {
 				velocity.x = 0;
 				velocity.z = 0;
@@ -315,26 +339,6 @@ public class PlayerManager : MonoBehaviour
 			}
 		}
 	}
-
-	//void WallJump() {
-	/*if (jumpInput > 0 && isHuggingWall) {
-			velocity.y = moveSetting.jumpVel;
-			isHuggingWall = false;
-		}
-		if (jumpInput > 0 && isHuggingWall) {
-			//Jump
-			velocity.y = moveSetting.jumpVel;
-			isWallJumping = true;
-		} 
-		else if (jumpInput == 0 && isHuggingWall) {
-			//zero out our velocity.y
-			velocity.y = 0;
-		} 
-		else if (isWallJumping = true) {
-			//decrease velocity.y
-			//velocity.y -= physSetting.downAccel; 
-		}
-	} */
 
 	/// <summary>
 	/// Transforms the player's rotation to that of the specified camera
@@ -522,6 +526,8 @@ public class PlayerManager : MonoBehaviour
 		if (col.gameObject.tag == "Wall" && !Grounded()) {
 			//velocity.y -= physSetting.downAccel;
 			isHuggingWall = true;
+			isWallJumping = true;
+			counter = moveSetting.startSlidingTimer;
 		}
 
 	}
@@ -530,6 +536,7 @@ public class PlayerManager : MonoBehaviour
 		if (col.gameObject.tag == "Wall") {
 			//velocity.y -= physSetting.downAccel;
 			isHuggingWall = false;
+			counter = moveSetting.startSlidingTimer;
 		}
 	}
 
@@ -548,7 +555,12 @@ public class PlayerManager : MonoBehaviour
 		}
 
 		if (col.gameObject.tag == "Wall") {
-			//velocity.y -= physSetting.downAccel;
+			if (counter > 0) {
+				startSliding = false;
+				counter -= Time.fixedDeltaTime;
+			} else {
+				startSliding = true;
+			}
 		}
 	}
 }
