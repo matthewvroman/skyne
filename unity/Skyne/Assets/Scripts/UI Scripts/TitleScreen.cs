@@ -36,7 +36,15 @@ public class TitleScreen : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+	void Update () 
+	{
+		if (PlayerPrefsManager.inst.SaveExists())
+		{
+			continueButton.interactable = true; 
+		}
+		else
+		{
+			continueButton.interactable = false; 
+		}
 	}
 }

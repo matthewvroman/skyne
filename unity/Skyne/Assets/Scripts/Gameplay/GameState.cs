@@ -49,7 +49,6 @@ public class GameState : Singleton<GameState>
 	// TODO If keys are returned to the treasure room, keep track of that data; maybe change upgrades found to int array
 
 
-
 	/// <summary>
 	/// Initializes the default game data. If a save is detected, this data will be overwritten by the saved data
 	/// </summary>
@@ -92,6 +91,7 @@ public class GameState : Singleton<GameState>
 			*/
 		}
 	}
+		
 
 	/// <summary>
 	/// Alter the "revealed" state of a room on the map

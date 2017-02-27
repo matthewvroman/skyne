@@ -55,10 +55,16 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 		SetBool("saveExists", true); 
 
 		// Set the index (integer) representing which save room is being used
-		// If the player is still at the start of the game, save as -1
-		// TODO
-		// Temporarily set the index to -1
-		PlayerPrefs.SetInt("saveRoom", -1); 
+
+		// If the player is still at the start of the game, save as "start"
+		if (SaveRoomManager.inst.curSaveRoom == null)
+		{
+			PlayerPrefs.SetString("saveRoom", "start"); 
+		}
+		else
+		{
+			PlayerPrefs.SetString("saveRoom", SaveRoomManager.inst.curSaveRoom.gameObject.name); 
+		}
 
 		// Save which keys have been found
 		for (int i = 0; i < GameState.inst.keysFound.Length; i++)
@@ -75,6 +81,7 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 		// Save the player health
 		PlayerPrefs.SetInt("playerHealth", GameState.inst.playerHealth); 
 
+
 		PlayerPrefs.Save(); 
 	}
 
@@ -90,17 +97,39 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 		// Load the current save room
 		// Extract the level, column, and row from the save room associated with the saved index
 		// Then, assign those coordinates to LevelData's curLevel, curColumn, and curRow
+		/*
 		int curSaveIndex = GetInt("saveRoom", -1); 
 
 		if (curSaveIndex == -1)
 		{
-			Debug.LogError("Tried to load a save game that doesn't have a save room associated with it."); 
+			// Load a save game from the game's starting position
 		}
 		else
 		{
 			// TODO Rethink- can I just extract the player's new position and then calculate the level,column,row from that? 
-			string curSaveCoordinates = LevelData.inst.saveRooms[curSaveIndex].roomCoordinate; 
+			//string curSaveCoordinates = LevelData.inst.saveRooms[curSaveIndex].roomCoordinate; 
 		}
+		*/ 
+
+		string curSaveRoomName = GetString("saveRoom", "start");
+
+		if (curSaveRoomName != "start")
+		{
+			SaveRoom curSaveRoom = SaveRoomManager.inst.GetSaveRoom(curSaveRoomName); 
+
+			if (curSaveRoom != null)
+			{
+				SaveRoomManager.inst.curSaveRoom = curSaveRoom; 
+				SaveRoomManager.inst.curSaveRoom.readyToSave = false; 
+
+				// Set the player position based on the data stored in the SaveRoom
+				// TODO- this is an awkward way to get a reference to the player. Might want a better solution
+				LevelData.inst.player.transform.position = curSaveRoom.saveSpawnPoint.transform.position; 
+				LevelData.inst.player.transform.rotation = curSaveRoom.saveSpawnPoint.transform.rotation; 
+			}
+		}
+
+
 
 		// Load the keys found
 		for (int i = 0; i < GameState.inst.keysFound.Length; i++)

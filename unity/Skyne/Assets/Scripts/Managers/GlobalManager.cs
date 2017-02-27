@@ -64,6 +64,10 @@ public class GlobalManager : Singleton<GlobalManager>
 		globalState = GlobalState.Menu; 
 		LoadSceneIfUnloaded("Title"); 
 		UnloadSceneIfLoaded("GameOver"); 
+		UnloadSceneIfLoaded("MainLevel"); 
+
+		// Unload all level scenes as well as the MainLevel
+		LevelData.inst.UnloadAllLevelScenes(); 
 	}
 
 	public void LoadGameplayScreen()

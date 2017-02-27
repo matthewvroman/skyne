@@ -53,7 +53,8 @@ public class LevelData : Singleton<LevelData>
 	[Tooltip("(Read-only) The list of level segment scenes currently loaded)")]
 	public List<string> activeScenes; 
 
-	[System.Serializable]
+	//[System.Serializable]
+	/*
 	public struct SaveRoom
 	{
 		[Tooltip("The room coordinate associated with this save room. Must be in the format \"(level)-(letter)(number)\"  For example: 2-B13")]
@@ -65,9 +66,12 @@ public class LevelData : Singleton<LevelData>
 		[Tooltip("The rotation at which the player should face when loading from this save room")]
 		public Quaternion playerSpawnRotation; 
 	}
+	*/ 
 
-	[Tooltip("The list of save rooms. Must be manually configured here in the Inspector.")]
-	public SaveRoom[] saveRooms; 
+	//[Tooltip("The list of save rooms. Must be manually configured here in the Inspector.")]
+	//public SaveRoom[] saveRooms; 
+
+	public GameObject saveRoomParent; 
 
 	[Tooltip("The player object (DRAG IN)")]
 	public GameObject player; 
