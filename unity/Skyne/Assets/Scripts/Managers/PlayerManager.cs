@@ -191,6 +191,7 @@ public class PlayerManager : MonoBehaviour
 		Focus ();
 		Health ();
 		Stamina ();
+		SlowMo ();
 
 		Debug.Log (dashCounter);
 
