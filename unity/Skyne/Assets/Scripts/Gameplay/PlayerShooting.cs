@@ -58,7 +58,7 @@ public class PlayerShooting : Singleton<PlayerShooting>
 		}
 
 		// Confirm that the shoot key is no longer being held when changing weapon types
-		if (changeShootHeld && !Input.GetKey(KeyCode.F))
+		if (changeShootHeld && !Input.GetKey(KeyCode.Mouse0))
 		{
 			changeShootHeld = false; 
 		}
@@ -119,10 +119,10 @@ public class PlayerShooting : Singleton<PlayerShooting>
 
 	void CheckShootInput()
 	{
-		// TODO- replace 'F' key with the actual input
+
 
 		// When shoot is pressed, check normal and wide shooting
-		if (Input.GetKeyDown(KeyCode.F))
+		if (Input.GetKeyDown(KeyCode.Mouse0))
 		{
 			if (GameState.inst.pShootMode == PlayerShootMode.Normal)
 			{
@@ -135,7 +135,7 @@ public class PlayerShooting : Singleton<PlayerShooting>
 		}
 
 		// When shoot is held down, check charge and rapid shooting
-		if (Input.GetKey(KeyCode.F))
+		if (Input.GetKey(KeyCode.Mouse0))
 		{
 			if (GameState.inst.pShootMode == PlayerShootMode.Charge)
 			{
@@ -147,7 +147,7 @@ public class PlayerShooting : Singleton<PlayerShooting>
 			}
 		}
 		// When shoot is released, check if the charge is released and shot
-		else if (Input.GetKeyUp(KeyCode.F))
+		else if (Input.GetKeyUp(KeyCode.Mouse0))
 		{
 			if (GameState.inst.pShootMode == PlayerShootMode.Charge)
 			{
