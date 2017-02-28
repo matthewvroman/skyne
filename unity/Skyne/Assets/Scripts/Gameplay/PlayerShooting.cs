@@ -39,6 +39,8 @@ public class PlayerShooting : Singleton<PlayerShooting>
 	public Text wideNum; 
 	public Text rapidNum; 
 
+	public UIManager uiMan;
+
 	// Update is called once per frame
 	void Update () 
 	{
@@ -119,50 +121,39 @@ public class PlayerShooting : Singleton<PlayerShooting>
 
 	void CheckShootInput()
 	{
+		if (uiMan.getIsPaused () == false) {
+			// When shoot is pressed, check normal and wide shooting
+			if (Input.GetKeyDown (KeyCode.Mouse0)) {
+				if (GameState.inst.pShootMode == PlayerShootMode.Normal) {
+					HandleShootKey_Normal (); 
+				} else if (GameState.inst.pShootMode == PlayerShootMode.Wide) { 
+					HandleShootKey_Wide (); 
+				}
+			}
 
-
-		// When shoot is pressed, check normal and wide shooting
-		if (Input.GetKeyDown(KeyCode.Mouse0))
-		{
-			if (GameState.inst.pShootMode == PlayerShootMode.Normal)
-			{
-				HandleShootKey_Normal(); 
+			// When shoot is held down, check charge and rapid shooting
+			if (Input.GetKey (KeyCode.Mouse0)) {
+				if (GameState.inst.pShootMode == PlayerShootMode.Charge) {
+					HandleShootKey_Charge (); 
+				} else if (GameState.inst.pShootMode == PlayerShootMode.Rapid) {
+					HandleShootKey_Rapid (); 
+				}
 			}
-			else if (GameState.inst.pShootMode == PlayerShootMode.Wide)
-			{ 
-				HandleShootKey_Wide(); 
-			}
-		}
-
-		// When shoot is held down, check charge and rapid shooting
-		if (Input.GetKey(KeyCode.Mouse0))
-		{
-			if (GameState.inst.pShootMode == PlayerShootMode.Charge)
-			{
-				HandleShootKey_Charge(); 
-			}
-			else if (GameState.inst.pShootMode == PlayerShootMode.Rapid)
-			{
-				HandleShootKey_Rapid(); 
-			}
-		}
 		// When shoot is released, check if the charge is released and shot
-		else if (Input.GetKeyUp(KeyCode.Mouse0))
-		{
-			if (GameState.inst.pShootMode == PlayerShootMode.Charge)
-			{
-				HandleShootKeyReleased_Charge(); 
+		else if (Input.GetKeyUp (KeyCode.Mouse0)) {
+				if (GameState.inst.pShootMode == PlayerShootMode.Charge) {
+					HandleShootKeyReleased_Charge (); 
+				}
 			}
-		}
 		// If no keys are being held, update other values
 		// Also, set changeShootHeld to false if it's true
-		else
-		{
-			// Reduce the charge value
-			curCharge -= Time.unscaledDeltaTime; 
+		else {
+				// Reduce the charge value
+				curCharge -= Time.unscaledDeltaTime; 
 
-			if (curCharge < 0)
-				curCharge = 0;
+				if (curCharge < 0)
+					curCharge = 0;
+			}
 		}
 	}
 
@@ -224,38 +215,34 @@ public class PlayerShooting : Singleton<PlayerShooting>
 	// This should probably be moved to a main PlayerInput class later
 	void CheckWeaponSelectInput()
 	{
-		// 1 = Normal
-		if (Input.GetKeyDown(KeyCode.Alpha1))
-		{
-			ChangeWeaponType(PlayerShootMode.Normal); 
-		}
+		if (uiMan.getIsPaused () == false) {
+			// 1 = Normal
+			if (Input.GetKeyDown (KeyCode.Alpha1)) {
+				ChangeWeaponType (PlayerShootMode.Normal); 
+			}
 		// 2 = Charge
-		else if (Input.GetKeyDown(KeyCode.Alpha2))
-		{
-			ChangeWeaponType(PlayerShootMode.Charge); 
-		}
+		else if (Input.GetKeyDown (KeyCode.Alpha2)) {
+				ChangeWeaponType (PlayerShootMode.Charge); 
+			}
 		// 3 = Wide
-		else if (Input.GetKeyDown(KeyCode.Alpha3))
-		{
-			ChangeWeaponType(PlayerShootMode.Wide); 
-		}
+		else if (Input.GetKeyDown (KeyCode.Alpha3)) {
+				ChangeWeaponType (PlayerShootMode.Wide); 
+			}
 		// 4 = Rapid
-		else if (Input.GetKeyDown(KeyCode.Alpha4))
-		{
-			ChangeWeaponType(PlayerShootMode.Rapid); 
-		}
+		else if (Input.GetKeyDown (KeyCode.Alpha4)) {
+				ChangeWeaponType (PlayerShootMode.Rapid); 
+			}
 			
-		// Safeguard- check for a weapon type active that hasn't been collected
-		if (GameState.inst != null)
-		{
-			bool invalidCharge = GameState.inst.pShootMode == PlayerShootMode.Charge && !GameState.inst.upgradesFound[3]; 
-			bool invalidWide = GameState.inst.pShootMode == PlayerShootMode.Wide && !GameState.inst.upgradesFound[4]; 
-			bool invalidRapid = GameState.inst.pShootMode == PlayerShootMode.Rapid && !GameState.inst.upgradesFound[5]; 
+			// Safeguard- check for a weapon type active that hasn't been collected
+			if (GameState.inst != null) {
+				bool invalidCharge = GameState.inst.pShootMode == PlayerShootMode.Charge && !GameState.inst.upgradesFound [3]; 
+				bool invalidWide = GameState.inst.pShootMode == PlayerShootMode.Wide && !GameState.inst.upgradesFound [4]; 
+				bool invalidRapid = GameState.inst.pShootMode == PlayerShootMode.Rapid && !GameState.inst.upgradesFound [5]; 
 
-			// Set the shoot mode back to normal if the current beam hasn't been collected
-			if (invalidCharge || invalidWide || invalidRapid)
-			{
-				ChangeWeaponType(PlayerShootMode.Normal); 
+				// Set the shoot mode back to normal if the current beam hasn't been collected
+				if (invalidCharge || invalidWide || invalidRapid) {
+					ChangeWeaponType (PlayerShootMode.Normal); 
+				}
 			}
 		}
 	}

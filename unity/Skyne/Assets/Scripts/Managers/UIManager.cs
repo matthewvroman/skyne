@@ -34,13 +34,15 @@ public class UIManager : Singleton<UIManager> {
 	void Pause ()
 	{
 		if (Input.GetKeyDown (KeyCode.Escape)) {
-			isPaused = !isPaused;
+			if (!isPaused) {
+				isPaused = !isPaused;
 
-			if (isPaused) {
 				Cursor.lockState = CursorLockMode.Confined;
 				Time.timeScale = 0;
 				menu.SetActive (true);
-			} else {
+			} else if (isPaused) {
+				isPaused = !isPaused;
+
 				Cursor.lockState = CursorLockMode.Locked;
 				Time.timeScale = 1;
 				menu.SetActive (false);
@@ -50,6 +52,8 @@ public class UIManager : Singleton<UIManager> {
 
 	public void Unpause ()
 	{
+		isPaused = !isPaused;
+
 		Cursor.lockState = CursorLockMode.Locked;
 		Time.timeScale = 1;
 		menu.SetActive (false);
@@ -87,5 +91,9 @@ public class UIManager : Singleton<UIManager> {
 	public void EndGameSequence()
 	{
 		endTimerUI.SetActive (true); //Activates the end sequence timer.
+	}
+
+	public bool getIsPaused() {
+		return isPaused;
 	}
 }
