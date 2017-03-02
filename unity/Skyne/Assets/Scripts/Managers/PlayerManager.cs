@@ -98,6 +98,8 @@ public class PlayerManager : MonoBehaviour
 	bool isHuggingWall = false;
 	bool startSliding = false;
 	float counter;
+	RaycastHit wallHit;
+	bool backToWall = false;
 
 	float dashCounter;
 	bool startCooldown;
@@ -191,9 +193,9 @@ public class PlayerManager : MonoBehaviour
 		Focus ();
 		Health ();
 		Stamina ();
-		SlowMo ();
+		//SlowMo ();
 
-		//Debug.Log (dashCounter);
+		Debug.Log (backToWall);
 
 		transform.rotation = Quaternion.Euler (0, transform.rotation.y, 0);
 
@@ -239,6 +241,10 @@ public class PlayerManager : MonoBehaviour
 
 		if (counter > 0) {
 			startSliding = false;
+		}
+
+		if (currentHealth < 0) {
+			currentHealth = 0;
 		}
 	}
 
@@ -339,15 +345,25 @@ public class PlayerManager : MonoBehaviour
 	}
 
 	void WallJump() {
+		if (Physics.Raycast (transform.position, -transform.forward, 1)) {
+			backToWall = true;
+		} else {
+			backToWall = false;
+		}
+
 		if (isHuggingWall) {
 			if (jumpInput > 0 && forwardInput != 0) {
-				velocity.y = moveSetting.jumpVel;
-				velocity.z = moveSetting.forwardVel * forwardInput;
-				isWallJumping = true;
+				if (backToWall) {
+					velocity.y = moveSetting.jumpVel;
+					velocity.z = moveSetting.forwardVel * forwardInput;
+					isWallJumping = true;
+				}
 			} else if (jumpInput > 0 && strafeInput != 0) {
-				velocity.y = moveSetting.jumpVel;
-				velocity.x = moveSetting.strafeVel * strafeInput;
-				isWallJumping = true;
+				if (backToWall) {
+					velocity.y = moveSetting.jumpVel;
+					velocity.x = moveSetting.strafeVel * strafeInput;
+					isWallJumping = true;
+				}
 			} else {
 				velocity.x = 0;
 				velocity.z = 0;
@@ -457,7 +473,9 @@ public class PlayerManager : MonoBehaviour
 	/// <param name="damageRecieved">Damage recieved.</param>
 	public static IEnumerator DamageCalculator (float damageRecieved)
 	{
-		targetHealth = currentHealth - damageRecieved;
+		if (currentHealth > 0) {
+			targetHealth = currentHealth - damageRecieved;
+		}
 		yield return new WaitForSeconds (1);
 	}
 
@@ -466,7 +484,7 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	public void RestoreToFullHealth ()
 	{
-		targetHealth = maxHealth;
+		targetHealth = maxHealth + 1;
 		//currentHealth = maxHealth;
 	}
 
@@ -577,6 +595,34 @@ public class PlayerManager : MonoBehaviour
 			} else {
 				startSliding = true;
 			}
+		}
+	}
+
+	void OnTriggerEnter(Collider col) {
+		//If the player comes in contact with an enemy, initiate invincibility coroutine
+		if (col.gameObject.tag == "Enemy") {
+			//When the player collides with an enemy, it checks to see if the player is currently invincible or not. 
+			//If not, then the player will take damage
+			if (isInvincible == false) {
+				//DamageCalculator (10);
+				StartCoroutine (DamageCalculator (10));
+			}
+
+			StartCoroutine (Invicibility ());
+		}
+	}
+
+	void OnTriggerStay (Collider col) {
+		//If the player is still touching the enemy when invuln wears off, ininitate invincibility coroutine again
+		if (col.gameObject.tag == "Enemy" && isInvincible == false) {
+			//When the player collides with an enemy, it checks to see if the player is currently invincible or not. 
+			//If not, then the player will take damage
+			if (isInvincible == false) 
+			{
+				//DamageCalculator (10);
+				StartCoroutine (DamageCalculator (10));
+			}
+			StartCoroutine (Invicibility ());
 		}
 	}
 }
