@@ -193,7 +193,7 @@ public class PlayerManager : MonoBehaviour
 		Focus ();
 		Health ();
 		Stamina ();
-		//SlowMo ();
+		SlowMo ();
 
 		Debug.Log (backToWall);
 
@@ -541,6 +541,10 @@ public class PlayerManager : MonoBehaviour
 		{
 			Timescaler.inst.timeSlowed = false;
 		}
+	}
+
+	void Knockback() {
+
 	}
 
 	void OnCollisionEnter (Collision col)
