@@ -53,26 +53,6 @@ public class LevelData : Singleton<LevelData>
 	[Tooltip("(Read-only) The list of level segment scenes currently loaded)")]
 	public List<string> activeScenes; 
 
-	//[System.Serializable]
-	/*
-	public struct SaveRoom
-	{
-		[Tooltip("The room coordinate associated with this save room. Must be in the format \"(level)-(letter)(number)\"  For example: 2-B13")]
-		public string roomCoordinate; 
-
-		[Tooltip("The exact position at which the player should spawn when loading from this save room")]
-		public Vector3 playerSpawnPosition;
-
-		[Tooltip("The rotation at which the player should face when loading from this save room")]
-		public Quaternion playerSpawnRotation; 
-	}
-	*/ 
-
-	//[Tooltip("The list of save rooms. Must be manually configured here in the Inspector.")]
-	//public SaveRoom[] saveRooms; 
-
-	public GameObject saveRoomParent; 
-
 	[Tooltip("The player object (DRAG IN)")]
 	public GameObject player; 
 	 
@@ -135,17 +115,22 @@ public class LevelData : Singleton<LevelData>
 	public void RefreshLoadedScenes()
 	{
 		// Set the player's current room on the map screen to be revealed (even if it already is)
-		bool shouldSaveMap = GameState.inst.SetRoomRevealedOnMap(curLevel, curColumn, curRow, true); 
+		//bool shouldSaveMap = GameState.inst.SetRoomRevealedOnMap(curLevel, curColumn, curRow, true); 
+
+		bool shouldSaveMap = GameState.inst.SetGridSpaceRevealedOnMap(curLevel, curColumn, curRow); 
 
 		// Update the map (enables map tiles if they've just been discovered)
-		//MapDisplay.inst.UpdateMap(); 
+		MapDisplay.inst.UpdateMap(); 
 
 		// Permanently save to PlayerPrefs whenever the map has changed
 		// Map data is preserved even if the player dies and reloads
+
 		if (shouldSaveMap)
 		{
 			PlayerPrefsManager.inst.SaveRoomStates();
 		}
+
+
 
 		// Update the grid positions and use those to find which scenes are active and should be loaded/unloaded
 		UpdateActiveGridPositions(); 

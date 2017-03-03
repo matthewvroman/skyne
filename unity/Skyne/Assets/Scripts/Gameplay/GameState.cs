@@ -48,6 +48,8 @@ public class GameState : Singleton<GameState>
 
 	// TODO If keys are returned to the treasure room, keep track of that data; maybe change upgrades found to int array
 
+	public bool[,,] gridSpacesEntered; 
+
 
 	/// <summary>
 	/// Initializes the default game data. If a save is detected, this data will be overwritten by the saved data
@@ -66,6 +68,9 @@ public class GameState : Singleton<GameState>
 			roomStateData[i].roomName = SceneMapping.inst.sceneList[i].sceneName; 
 			roomStateData[i].revealed = false;
 		}
+
+		// Instantiate gridSpacesEntered
+		gridSpacesEntered = new bool[LevelData.inst.numLevels,LevelData.inst.numColumns,LevelData.inst.numRows]; 
 
 		// Update the map
 		if (MapDisplay.inst.gameObject.activeSelf)
@@ -92,13 +97,14 @@ public class GameState : Singleton<GameState>
 		}
 	}
 		
-
+	/// Outdated
 	/// <summary>
 	/// Alter the "revealed" state of a room on the map
 	/// </summary>
 	/// <param name="roomName">Room name.</param>
 	/// <param name="toRevealed">True if the room is being revealed, false if being hidden</param>
 	/// <returns><c>true</c>, if the room's state is different after the change, <c>false</c> otherwise.</returns>
+	/*
 	public bool SetRoomRevealedOnMap(int level, int column, int row, bool toRevealed)
 	{
 		// TODO
@@ -118,12 +124,15 @@ public class GameState : Singleton<GameState>
 		}
 		return false; 
 	}
+	*/ 
 
+	/// Outdated
 	/// <summary>
 	/// Returns whether a room has been revealed on the map
 	/// </summary>
 	/// <returns><c>true</c>, if room is revealed, <c>false</c> otherwise.</returns>
 	/// <param name="roomName">Room name.</param>
+	/*
 	public bool GetRoomRevealedOnMap(string roomName)
 	{
 		int foundIndex = GetRoomStateIndexOf(roomName); 
@@ -133,6 +142,34 @@ public class GameState : Singleton<GameState>
 		}
 		return false; 
 	}
+	*/ 
+
+	/// <summary>
+	/// Sets a grid space to be revealed on map.
+	/// </summary>
+	/// <returns><c>true</c>, if the grid space changed to be revealed, <c>false</c> otherwise.</returns>
+	/// <param name="level">Level.</param>
+	/// <param name="column">Column.</param>
+	/// <param name="row">Row.</param>
+	public bool SetGridSpaceRevealedOnMap(int level, int column, int row)
+	{
+		if (!gridSpacesEntered[level - 1, column - 1, row - 1])
+		{
+			gridSpacesEntered[level - 1, column - 1, row - 1] = true; 
+			return true; 
+		}
+		return false; 
+	}
+
+	public bool GetGridSpaceRevealedOnMap(int level, int column, int row)
+	{
+		if (!gridSpacesEntered[level - 1, column - 1, row - 1])
+		{
+			return false; 
+		}
+		return true; 
+	}
+		
 
 	/// <summary>
 	/// Room states are stored in an unordered array

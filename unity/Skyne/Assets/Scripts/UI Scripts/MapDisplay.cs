@@ -23,6 +23,7 @@ public class MapDisplay : Singleton<MapDisplay>
 
 	public GameObject statusPanel; 
 
+	/*
 	[System.Serializable]
 	public struct MapPieces
 	{
@@ -33,10 +34,63 @@ public class MapDisplay : Singleton<MapDisplay>
 		public Sprite corner; 
 		public Sprite oneSide; 
 	}
+	*/ 
 
-	public MapPieces[] mapPieces; 
+	//public MapPieces[] mapPieces
+	 
 
 
+	/// <summary>
+	/// Updated version of spawn map, which spawns map tiles based on a map image broken into pieces with Processing
+	/// </summary>
+	public void SpawnMap()
+	{
+		// Clear mapTiles
+		mapTiles = new GameObject[LevelData.inst.numLevels, LevelData.inst.numColumns, LevelData.inst.numRows];
+
+		for (int level = 0; level < LevelData.inst.numLevels; level++)
+		{
+			for (int column = 0; column < LevelData.inst.numColumns; column++)
+			{
+				for (int row = 0; row < LevelData.inst.numRows; row++)
+				{
+					// Instantiate a new mapTile under the parent corresponding to its level
+					GameObject newMapTile = GameObject.Instantiate(mapTile); 
+					newMapTile.transform.SetParent(mapTileParents[level].transform);
+
+					// Choose the correct position for the new tile and rename it
+					float xPos = column * mapTileSize; 
+					float yPos = row * mapTileSize; 
+					newMapTile.GetComponent<RectTransform>().localPosition = new Vector3 (xPos, yPos, 0); 
+					newMapTile.name = "L:" + (level + 1) + ", C:" + (column + 1) + ", R:" + (row + 1); 
+
+					// Add each created tile to the array of stored map tiles
+					mapTiles[level, column, row] = newMapTile; 
+
+					// Pick the correct image for the map tile
+					//Sprite test = newMapTile.GetComponent<Image>().sprite; 
+					//LoadMapPieces test = GetComponent<LoadMapPieces>(); 
+					LoadMapPieces loadMapPieces = GetComponent<LoadMapPieces>(); 
+
+					newMapTile.GetComponent<Image>().sprite = loadMapPieces.GetLevelMapPieces(level + 1)[loadMapPieces.GetMapIndex(column,row)]; 
+
+					// Update the gameObject's active property based on whether that map position has been discovered
+					// Temporarily disabled for first playable
+					if (!GameState.inst.gridSpacesEntered[level, column, row])
+					{
+						newMapTile.SetActive(false); 
+					}
+				}
+			}
+		}
+	}
+
+
+
+	/*
+	/// <summary>
+	/// Outdated version of spawn map, which spawns the map based on the loaded room data
+	/// </summary>
 	public void SpawnMap () 
 	{
 		//Debug.Log("Spawn map: " + LevelData.inst.numLevels + " x " + LevelData.inst.numColumns + " x " + LevelData.inst.numRows); 
@@ -88,10 +142,34 @@ public class MapDisplay : Singleton<MapDisplay>
 		//GameObject newMapTile = GameObject.Instantiate(mapTile); 
 
 	}
+	*/ 
+
+	public void UpdateMap()
+	{
+		if (mapTiles == null)
+			return; 
+
+		for (int i = 0; i < mapTiles.GetLength(0); i++)
+		{
+			for (int j = 0; j < mapTiles.GetLength(1); j++)
+			{
+				for (int k = 0; k < mapTiles.GetLength(2); k++)
+				{
+					GameObject curMapTile = mapTiles[i, j, k]; 
+					if (curMapTile != null && GameState.inst.GetGridSpaceRevealedOnMap(i + 1, j + 1, k + 1))
+					{
+						curMapTile.SetActive(true); 
+					}
+				}
+			}
+		}
+	}
 
 	/// <summary>
+	/// Outdated version of UpdateMap
 	/// When the player changes their grid position, check to see if the map should be updated
 	/// </summary>
+	/*
 	public void UpdateMap()
 	{
 		if (mapTiles == null)
@@ -121,7 +199,12 @@ public class MapDisplay : Singleton<MapDisplay>
 			}
 		}
 	}
+	*/ 
 
+	/// <summary>
+	/// Outdated function
+	/// Used for choosing which map pieces to load to procedurally fill in a map
+	/*
 	void ChooseTileSprite(int level, int[] columnRow, string[] gridPositions, Image img, RectTransform rect)
 	{
 		// Choose which mapPieces struct of sprites should be used
@@ -249,6 +332,7 @@ public class MapDisplay : Singleton<MapDisplay>
 
 		}
 	}
+	*/ 
 	
 	// Update is called once per frame
 	// Maybe should call this from mainManager?
@@ -260,15 +344,15 @@ public class MapDisplay : Singleton<MapDisplay>
 		{
 			statusPanel.SetActive(!statusPanel.activeSelf); 
 		}
-
-		// Change current display level based on which level the player is on
-		// Removed- the player should be able to change this at any time
-		//displayLevel = LevelData.inst.curLevel; 
-
+			
 		if (floorSlider != null)
 		{
 			displayLevel = (int)(floorSlider.value); 
 		}
+
+		// Change current display level based on which level the player is on
+		// Removed- the player should be able to change this at any time
+		//displayLevel = LevelData.inst.curLevel; 
 
 		// Update display level
 		for (int i = 0; i < mapTileParents.Length; i++)

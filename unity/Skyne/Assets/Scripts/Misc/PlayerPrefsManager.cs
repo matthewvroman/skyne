@@ -147,6 +147,45 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 		GameState.inst.playerHealth = GetInt("playerHealth", 100);
 	}
 
+	public void SaveRoomStates()
+	{
+		// Save a key to indicate that PlayerPrefs exist
+		SetBool("saveExists", true);
+
+		for (int level = 0; level < LevelData.inst.numLevels; level++)
+		{
+			for (int column = 0; column < LevelData.inst.numColumns; column++)
+			{
+				for (int row = 0; row < LevelData.inst.numRows; row++)
+				{
+					string gridKey = "gridSpace-" + level + "-" + column + "-" + row; 
+					SetBool(gridKey, GameState.inst.GetGridSpaceRevealedOnMap(level+1, column+1, row+1)); 
+					//Debug.Log("gridKey: " + gridKey); 
+				}
+			}
+		}
+	}
+
+	public void LoadRoomStates()
+	{
+		for (int level = 0; level < LevelData.inst.numLevels; level++)
+		{
+			for (int column = 0; column < LevelData.inst.numColumns; column++)
+			{
+				for (int row = 0; row < LevelData.inst.numRows; row++)
+				{
+					string gridKey = "gridSpace-" + level + "-" + column + "-" + row; 
+
+					if (GetBool(gridKey, false))
+					{
+						GameState.inst.SetGridSpaceRevealedOnMap(level + 1, column + 1, row + 1); 
+					}
+				}
+			}
+		}
+	}
+
+	/*
 	/// <summary>
 	/// Saves roomStateData (from GameState) to PlayerPrefs using the room name + "-propertyName"
 	/// </summary>
@@ -166,7 +205,9 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 		}
 		PlayerPrefs.Save(); 
 	}
+	*/
 
+	/*
 	/// <summary>
 	/// Loads saved room data into GameState's roomStateData array. 
 	/// </summary>
@@ -184,6 +225,7 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 			// TODO
 		}
 	}
+	*/ 
 
 
 
