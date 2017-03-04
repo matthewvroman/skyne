@@ -153,10 +153,13 @@ public class GameState : Singleton<GameState>
 	/// <param name="row">Row.</param>
 	public bool SetGridSpaceRevealedOnMap(int level, int column, int row)
 	{
-		if (!gridSpacesEntered[level - 1, column - 1, row - 1])
+		if (LevelData.inst.GridContains(level, column, row))
 		{
-			gridSpacesEntered[level - 1, column - 1, row - 1] = true; 
-			return true; 
+			if (!gridSpacesEntered[level - 1, column - 1, row - 1])
+			{
+				gridSpacesEntered[level - 1, column - 1, row - 1] = true; 
+				return true; 
+			}
 		}
 		return false; 
 	}

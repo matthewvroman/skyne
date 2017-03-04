@@ -2,40 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; 
+using UnityEngine.EventSystems; 
 
 public class TitleScreen : MonoBehaviour 
 {
-	[SerializeField] private Button newGameButton; 
+	//[SerializeField] private Button newGameButton; 
 	[SerializeField] private Button continueButton; 
+
+	[SerializeField] private Button settingsButton; 
+	[SerializeField] private Button backButton; 
 
 	public GameObject mainMenu;
 	public GameObject settingsMenu;
-
-	void Awake ()
-	{
-		newGameButton.onClick.AddListener (() => { OnNewGameButtonClicked(); });
-		continueButton.onClick.AddListener (() => { ContinueButtonClicked(); });
-	}
-
-	void OnNewGameButtonClicked()
-	{
-		Debug.Log("New game button clicked"); 
-
-		// For now, clear PlayerPrefs when a new gameplay screen is loaded
-		PlayerPrefs.DeleteAll(); 
-
-		GlobalManager.inst.LoadGameplayScreen(); 
-	}
-
-	void ContinueButtonClicked()
-	{
-		Debug.Log("Continue button clicked"); 
-		GlobalManager.inst.LoadGameplayScreen(); 
-	}
-
-	// Use this for initialization
-	void Start () {
-	}
 		
 	
 	// Update is called once per frame
@@ -51,20 +29,46 @@ public class TitleScreen : MonoBehaviour
 		}
 	}
 
-	public void TerminateGame()
+
+	// Button click functions
+	public void OnNewGameButton()
+	{
+		Debug.Log("New game button clicked"); 
+
+		// For now, clear PlayerPrefs when a new gameplay screen is loaded
+		PlayerPrefs.DeleteAll(); 
+
+		GlobalManager.inst.LoadGameplayScreen(); 
+	}
+
+	// LoadGameButton
+	public void OnContinueButton()
+	{
+		Debug.Log("Continue button clicked"); 
+		GlobalManager.inst.LoadGameplayScreen(); 
+	}
+
+	// SettingsButton
+	public void OnSettingsButton ()
+	{
+		mainMenu.SetActive (false);
+		settingsMenu.SetActive (true);
+
+		EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(backButton.gameObject); 
+	}
+
+	// QuitGameButton
+	public void OnQuitButton()
 	{
 		Application.Quit();
 	}
 
-	public void SettingsMenu ()
-	{
-		mainMenu.SetActive (false);
-		settingsMenu.SetActive (true);
-	}
-
-	public void Back()
+	// BackButton
+	public void OnBackButton()
 	{
 		settingsMenu.SetActive (false);
 		mainMenu.SetActive (true);
+
+		EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(settingsButton.gameObject);
 	}
 }

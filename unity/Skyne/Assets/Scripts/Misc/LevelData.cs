@@ -26,6 +26,9 @@ public class LevelData : Singleton<LevelData>
 	[Tooltip("How many rooms adjacent to the player are loaded?")]
 	public int roomLoadRadius; 
 
+	[Tooltip("Past the roomLoadRadius, how many rooms are loaded in the 4 direction sightline?")]
+	public int sightlineRoomLoad; 
+
 	[Tooltip("(Read-only) The player's current column (starting on the left)")]
 	 public int curColumn;
 
@@ -155,8 +158,30 @@ public class LevelData : Singleton<LevelData>
 			{
 				for (int y = -roomLoadRadius; y <= roomLoadRadius; y++)
 				{
-					AddToActiveGridPositions(i, curColumn + x, curRow + y); 
+					float circleDist = Vector2.Distance(new Vector2(0, 0), new Vector2(x, y)); 
+
+					//float circleDist = Vector3.Distance(new Vector3 (0, 0, curLevel), new Vector3 (x, y, i)); 
+
+					Debug.Log("circleDist: " + circleDist + "; radius: " + roomLoadRadius); 
+
+					if (circleDist <= roomLoadRadius)
+					{
+						AddToActiveGridPositions(i, curColumn + x, curRow + y); 
+					}
 				}
+			}
+
+			//Add extra rooms based on the sightlineRoomLoad
+			for (int s = 1; s <= sightlineRoomLoad; s++)
+			{
+				// Top
+				AddToActiveGridPositions(i, curColumn, curRow + roomLoadRadius + s);
+				// Bottom
+				AddToActiveGridPositions(i, curColumn, curRow - roomLoadRadius - s);
+				// Right
+				AddToActiveGridPositions(i, curColumn + roomLoadRadius + s, curRow);
+				// Left
+				AddToActiveGridPositions(i, curColumn - roomLoadRadius - s, curRow);
 			}
 
 			/*
@@ -176,6 +201,21 @@ public class LevelData : Singleton<LevelData>
 			AddToActiveGridPositions(i, curColumn + 1, curRow + 1); 
 			*/ 
 		}
+
+		// Add extra rooms based on the sightlineRoomLoad (only on player's current level)
+		/*
+		for (int s = 1; s <= sightlineRoomLoad; s++)
+		{
+			// Top
+			AddToActiveGridPositions(curLevel, curColumn, curRow + roomLoadRadius + s);
+			// Bottom
+			AddToActiveGridPositions(curLevel, curColumn, curRow - roomLoadRadius - s);
+			// Right
+			AddToActiveGridPositions(curLevel, curColumn + roomLoadRadius + s, curRow);
+			// Left
+			AddToActiveGridPositions(curLevel, curColumn - roomLoadRadius - s, curRow);
+		}
+		*/ 
 	}
 
 	void UpdateActiveScenes ()

@@ -67,11 +67,16 @@ public class MainGameplayManager : Singleton<MainGameplayManager>
 		if (MapDisplay.inst != null)
 			MapDisplay.inst.SpawnMap(); 
 			*/ 
+
+		// Set the player's active state to false until the game is done loading
+		player.SetActive(false); 
 	}
 		
 	// Once the global manager detects that everything has been loaded, this is called
 	public void OnGameplayStart()
 	{
+		Debug.Log("OnGameplayStart()"); 
+
 		player.SetActive(true); 
 
 		mainCam.gameObject.SetActive(true); 
