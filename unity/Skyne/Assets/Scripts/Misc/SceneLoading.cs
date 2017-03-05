@@ -15,6 +15,8 @@ public class SceneLoading : Singleton<SceneLoading>
 	//public bool startedLoadingLevels = false; 
 	public bool lockLevelSceneLoad; 
 
+	public float loadingProgress; 
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -53,6 +55,9 @@ public class SceneLoading : Singleton<SceneLoading>
 				UnloadStart(scenesToUnload[i]); 
 			}
 		}
+
+		// Update loading progress
+		//loadingProgress = scenesBeingLoaded.Count
 			
 	}
 
