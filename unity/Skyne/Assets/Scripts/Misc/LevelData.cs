@@ -107,7 +107,10 @@ public class LevelData : Singleton<LevelData>
 		// If the grid position has changed, update the active grid positions and scenes list, then determine which scenes to load and unload
 		if (oldGridPos != curGridPos)
 		{
-			LevelData.inst.RefreshLoadedScenes(); 
+			if (GlobalManager.inst.globalState == GlobalManager.GlobalState.Gameplay || GlobalManager.inst.globalState == GlobalManager.GlobalState.SetupGameplay)
+			{
+				LevelData.inst.RefreshLoadedScenes(); 
+			}
 		}
 	}
 
@@ -162,7 +165,7 @@ public class LevelData : Singleton<LevelData>
 
 					//float circleDist = Vector3.Distance(new Vector3 (0, 0, curLevel), new Vector3 (x, y, i)); 
 
-					Debug.Log("circleDist: " + circleDist + "; radius: " + roomLoadRadius); 
+					//Debug.Log("circleDist: " + circleDist + "; radius: " + roomLoadRadius); 
 
 					if (circleDist <= roomLoadRadius)
 					{
@@ -250,7 +253,7 @@ public class LevelData : Singleton<LevelData>
 	/// </summary>
 	void FindScenesToLoad()
 	{
-		SceneLoading.inst.startedLoadingLevels = true; 
+		//SceneLoading.inst.startedLoadingLevels = true; 
 
 		// Iterate through the name of each scene that should be active. If it isn't loaded, then set it to load via SceneLoading
 		foreach(string curScene in activeScenes)
@@ -294,6 +297,7 @@ public class LevelData : Singleton<LevelData>
 	/// <summary>
 	/// Unloads a level scenes, except for Mainlevel
 	/// </summary>
+	/*
 	public void UnloadAllLevelScenes()
 	{
 		foreach (string curScene in activeScenes)
@@ -304,6 +308,7 @@ public class LevelData : Singleton<LevelData>
 			}
 		}
 	}
+	*/ 
 
 
 	/// <summary>

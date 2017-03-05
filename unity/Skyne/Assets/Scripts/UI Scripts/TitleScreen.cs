@@ -14,6 +14,8 @@ public class TitleScreen : MonoBehaviour
 
 	public GameObject mainMenu;
 	public GameObject settingsMenu;
+
+	public EventSystem titleEventSystem; 
 		
 	
 	// Update is called once per frame
@@ -27,6 +29,9 @@ public class TitleScreen : MonoBehaviour
 		{
 			continueButton.interactable = false; 
 		}
+
+		if (EventSystem.current == null)
+			EventSystem.current = titleEventSystem; 
 	}
 
 

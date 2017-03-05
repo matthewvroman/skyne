@@ -337,17 +337,10 @@ public class MapDisplay : Singleton<MapDisplay>
 	// Update is called once per frame
 	// Maybe should call this from mainManager?
 	void Update () 
-	{
-		// Temporary input
-		// Use 'Q' key to reveal/hide status panel and map
-		if (Input.GetKeyDown(KeyCode.Q))
-		{
-			statusPanel.SetActive(!statusPanel.activeSelf); 
-		}
-			
+	{			
 		if (floorSlider != null)
 		{
-			displayLevel = (int)(floorSlider.value); 
+			//displayLevel = (int)(floorSlider.value); 
 		}
 
 		// Change current display level based on which level the player is on
@@ -364,5 +357,10 @@ public class MapDisplay : Singleton<MapDisplay>
 		{
 			mapTileParents[displayLevel - 1].SetActive(true); 
 		}
+	}
+
+	public void LevelToggleClicked(int toggledLevel)
+	{
+		displayLevel = toggledLevel; 
 	}
 }

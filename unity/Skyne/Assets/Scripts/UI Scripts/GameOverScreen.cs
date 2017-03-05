@@ -1,37 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; 
+using UnityEngine.UI;
+using UnityEngine.EventSystems; 
 
 public class GameOverScreen : MonoBehaviour 
 {
 	[SerializeField] private Button retryButton; 
 	[SerializeField] private Button quitToTitleButton; 
 
-	void Awake ()
+	public EventSystem gameOverEventSystem; 
+
+	void Update()
 	{
-		retryButton.onClick.AddListener (() => { onTryAgainClicked(); });
-		quitToTitleButton.onClick.AddListener (() => { onQuitToTitleClicked(); });
+		if (EventSystem.current == null)
+			EventSystem.current = gameOverEventSystem; 
 	}
 
-	void onTryAgainClicked()
+	public void OnRetryButton()
 	{
-		GlobalManager.inst.LoadGameplayScreen(); 
+		GlobalManager.inst.LoadGameplayScreen();
 	}
 
-	void onQuitToTitleClicked()
+	public void OnQuitToTitleButton()
 	{
 		GlobalManager.inst.LoadTitle(); 
-	}
-
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 }

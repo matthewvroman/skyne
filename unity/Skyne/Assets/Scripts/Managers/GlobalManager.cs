@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GlobalManager : Singleton<GlobalManager> 
 {
-	public enum GlobalState {Menu, LoadMainGameplayScene, SetupGameplay, Gameplay, GameOver};  
+	public enum GlobalState {Menu, LoadMainGameplayScene, SetupGameplay, Gameplay, GameOver, GameplayToMenu, GameplayToGameOver};  
 
 	[Tooltip("The state machine of the game. Set to Menu when starting from Menu; set to Gameplay when starting in the middle of the game.")]
 	public GlobalState globalState; 
@@ -25,7 +25,7 @@ public class GlobalManager : Singleton<GlobalManager>
 
 		if (globalState == GlobalState.Menu)
 		{
-			LoadTitle(); 
+			LoadTitle();  
 		}
 	}
 	
@@ -42,6 +42,7 @@ public class GlobalManager : Singleton<GlobalManager>
 				UnloadSceneIfLoaded("GameOver"); 
 
 				globalState = GlobalState.SetupGameplay; 
+				SceneLoading.inst.lockLevelSceneLoad = false; 
 				MainGameplayManager.inst.SetupGameplayScreen(); 
 			}
 		}
@@ -57,20 +58,68 @@ public class GlobalManager : Singleton<GlobalManager>
 
 			}
 		}
+		else if (globalState == GlobalState.GameplayToGameOver)
+		{
+			if (SceneLoading.inst.LevelUnloadComplete())
+			{
+				ChangeToGameOver(); 
+			}
+		}
+		else if (globalState == GlobalState.GameplayToMenu)
+		{
+			if (SceneLoading.inst.LevelUnloadComplete())
+			{
+				ChangeToTitle(); 
+			}
+		}
 	}
 
 	public void LoadTitle()
-	{ 
+	{
+		// If starting the game and loading the title for the first time
+		// These scenes are removed if they've been loaded (though they shouldn't be loaded in the actual build)
+		if (globalState == GlobalState.Menu)
+		{ 
+			UnloadSceneIfLoaded("GameOver"); 
+			UnloadSceneIfLoaded("MainLevel"); 
+
+			// Unload all level scenes as well as the MainLevel
+			if (SceneMapping.inst != null)
+			{
+				//LevelData.inst.UnloadAllLevelScenes(); 
+				SceneLoading.inst.UnloadAllLevelScenes(SceneMapping.inst.sceneList); 
+			}
+
+			ChangeToTitle(); 
+		}
+		else if (globalState == GlobalState.Gameplay)
+		{
+			globalState = GlobalState.GameplayToMenu; 
+			SceneLoading.inst.UnloadAllLevelScenes(SceneMapping.inst.sceneList);
+			LoadSceneIfUnloaded("Loading"); 
+			UnloadSceneIfLoaded("MainLevel");
+
+		}
+		else if (globalState == GlobalState.GameOver)
+		{
+			UnloadSceneIfLoaded("GameOver");
+			ChangeToTitle();  
+		}
+
+		/*
 		globalState = GlobalState.Menu; 
 		LoadSceneIfUnloaded("Title"); 
 		UnloadSceneIfLoaded("GameOver"); 
 		UnloadSceneIfLoaded("MainLevel"); 
 
 		// Unload all level scenes as well as the MainLevel
-		if (LevelData.inst != null)
+		if (SceneMapping.inst != null)
 		{
-			LevelData.inst.UnloadAllLevelScenes(); 
+			//LevelData.inst.UnloadAllLevelScenes(); 
+			SceneLoading.inst.UnloadAllLevelScenes(SceneMapping.inst.sceneList); 
 		}
+		*/ 
+
 	}
 
 	public void LoadGameplayScreen()
@@ -86,17 +135,33 @@ public class GlobalManager : Singleton<GlobalManager>
 
 	public void LoadGameOver()
 	{
-		globalState = GlobalState.GameOver; 
-
-		LoadSceneIfUnloaded("GameOver"); 
-		Cursor.lockState = CursorLockMode.Confined;
+		globalState = GlobalState.GameplayToGameOver; 
 
 		// Unload all level scenes as well as the MainLevel
-		LevelData.inst.UnloadAllLevelScenes(); 
-
+		//LevelData.inst.UnloadAllLevelScenes(); 
+		SceneLoading.inst.UnloadAllLevelScenes(SceneMapping.inst.sceneList); 
+		LoadSceneIfUnloaded("Loading"); 
 		UnloadSceneIfLoaded("MainLevel"); 
 	}
 
+	/// <summary>
+	/// Called when unloading tasks started in LoadGameOver are finished
+	/// </summary>
+	void ChangeToGameOver()
+	{
+		globalState = GlobalState.GameOver; 
+		LoadSceneIfUnloaded("GameOver"); 
+		UnloadSceneIfLoaded("Loading"); 
+		Cursor.lockState = CursorLockMode.Confined;
+	}
+
+	void ChangeToTitle()
+	{
+		globalState = GlobalState.Menu;
+		LoadSceneIfUnloaded("Title");
+		UnloadSceneIfLoaded("Loading"); 
+		Cursor.lockState = CursorLockMode.Confined;
+	}
 
 
 	/// <summary>
