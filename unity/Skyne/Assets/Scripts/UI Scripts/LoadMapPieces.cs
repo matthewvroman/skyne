@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; 
+
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 [ExecuteInEditMode]
 public class LoadMapPieces : MonoBehaviour 
@@ -41,16 +44,21 @@ public class LoadMapPieces : MonoBehaviour
 
 		if (level1MapPieces == null || level2MapPieces == null || level3MapPieces == null)
 		{
+			#if UNITY_EDITOR
 			EditorUtility.DisplayDialog("Load Error", "There was a problem loading the map pieces", "Ok"); 
+			#endif
 		}
 		else
 		{
+			#if UNITY_EDITOR
 			EditorUtility.DisplayDialog("Loaded map pieces", "All map pieces have been loaded from assets", "Ok"); 
+			#endif
 		}
 	}
 
 	void LoadMapLevel(int loadLevel)
 	{
+		#if UNITY_EDITOR
 		Sprite[] curMapPieces = new Sprite[numColumns * numRows];
 
 		//Sprite[,] curMapPieces = GetLevelMapPieces(loadLevel); 
@@ -59,14 +67,17 @@ public class LoadMapPieces : MonoBehaviour
 		{
 			for (int y = 0; y < numRows; y++)
 			{
+				
 				string loadPath = mapLoadPath + "/level" + loadLevel + "/" + x + "-" + y;
 				//Debug.Log("loadPath: " + loadPath); 
 				//Debug.Log("load into: " + GetMapIndex(x, y)); 
 
 				curMapPieces[GetMapIndex(x,y)] = (Sprite)AssetDatabase.LoadAssetAtPath(loadPath + ".png", typeof(Sprite)); 
+
 			}
 		}
 		SetLevelMapPieces(loadLevel, curMapPieces); 
+		#endif
 	}
 
 	public int GetMapIndex(int x, int y)
