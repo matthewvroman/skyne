@@ -20,6 +20,8 @@ public class PlayerManager : MonoBehaviour
 
 		public float startSlidingTimer = 5;
 
+		public float knockbackForce;
+
 		[Tooltip ("How close the player has to to the ground for them to stop falling")]
 		public float distToGrounded = 0.5f;
 		[Tooltip ("Determins which layers the player can jump off of.")]
@@ -105,6 +107,8 @@ public class PlayerManager : MonoBehaviour
 	bool startCooldown;
 
 	bool isWallJumping = false;
+
+	bool isPushed = false;
 
 	Vector3 velocity = Vector3.zero;
 	Quaternion targetRotation;
@@ -193,9 +197,9 @@ public class PlayerManager : MonoBehaviour
 		Focus ();
 		Health ();
 		Stamina ();
-		SlowMo ();
+		//SlowMo ();
 
-		Debug.Log (backToWall);
+		Debug.Log (isInvincible);
 
 		transform.rotation = Quaternion.Euler (0, transform.rotation.y, 0);
 
@@ -246,6 +250,10 @@ public class PlayerManager : MonoBehaviour
 		if (currentHealth < 0) {
 			currentHealth = 0;
 		}
+
+		if (isPushed) {
+			//forwardInput = 0;
+		}
 	}
 
 	void FixedUpdate ()
@@ -271,7 +279,7 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Run ()
 	{
-		if (Mathf.Abs (forwardInput) > inputSetting.inputDelay && !isWallJumping) {
+		if (Mathf.Abs (forwardInput) > inputSetting.inputDelay && !isWallJumping && isPushed == false) {
 			//move
 			if (!isHuggingWall) {
 				velocity.z = moveSetting.forwardVel * forwardInput;
@@ -288,7 +296,7 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Strafe ()
 	{
-		if (Mathf.Abs (strafeInput) > inputSetting.inputDelay && !isWallJumping) {
+		if (Mathf.Abs (strafeInput) > inputSetting.inputDelay && !isWallJumping && isPushed == false) {
 			//move
 			if (!isHuggingWall) {
 				velocity.x = moveSetting.strafeVel * strafeInput;
@@ -543,8 +551,15 @@ public class PlayerManager : MonoBehaviour
 		}
 	}
 
-	void Knockback() {
-
+	IEnumerator Knockback() {
+			isPushed = true;
+			rBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+			//velocity = Vector3.zero;
+			velocity.z = moveSetting.forwardVel * -forwardInput;
+			velocity.x = moveSetting.strafeVel * -strafeInput;
+			yield return new WaitForSeconds ((moveSetting.knockbackForce / 2) * 0.01f);
+			isPushed = false;
+			rBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
 	}
 
 	void OnCollisionEnter (Collision col)
@@ -559,15 +574,26 @@ public class PlayerManager : MonoBehaviour
 			}
 
 			StartCoroutine (Invicibility ());
+
+			// Calculate Angle Between the collision point and the player
+			Vector3 dir = col.contacts[0].point - transform.position;
+			// We then get the opposite (-Vector3) and normalize it
+			dir = -dir.normalized;
+			Debug.Log (dir);
+
+			// And finally we add force in the direction of dir and multiply it by force. 
+			// This will push back the player
+			//rBody.AddForce(dir * force);
+			rBody.AddForce(dir * moveSetting.knockbackForce, ForceMode.Impulse);
+
+			StartCoroutine (Knockback ());
 		}
 
 		if (col.gameObject.tag == "Wall" && !Grounded()) {
-			//velocity.y -= physSetting.downAccel;
 			isHuggingWall = true;
 			isWallJumping = true;
 			counter = moveSetting.startSlidingTimer;
 		}
-
 	}
 
 	void OnCollisionExit (Collision col) {
