@@ -199,7 +199,7 @@ public class PlayerManager : MonoBehaviour
 		Stamina ();
 		//SlowMo ();
 
-		Debug.Log (isInvincible);
+		//Debug.Log (isInvincible);
 
 		transform.rotation = Quaternion.Euler (0, transform.rotation.y, 0);
 
@@ -249,10 +249,6 @@ public class PlayerManager : MonoBehaviour
 
 		if (currentHealth < 0) {
 			currentHealth = 0;
-		}
-
-		if (isPushed) {
-			//forwardInput = 0;
 		}
 	}
 
@@ -434,10 +430,10 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Health ()
 	{
-		if (Input.GetKeyDown (KeyCode.R)) {
+		/*if (Input.GetKeyDown (KeyCode.R)) {
 			StartCoroutine (DamageCalculator (10));
-		}
-
+		} */
+		
 		if (currentHealth <= 0.9f && !isDead) {
 			currentHealth = 0; // This ensures that the health percentage is NEVER less than zero.
 
@@ -579,7 +575,7 @@ public class PlayerManager : MonoBehaviour
 			Vector3 dir = col.contacts[0].point - transform.position;
 			// We then get the opposite (-Vector3) and normalize it
 			dir = -dir.normalized;
-			Debug.Log (dir);
+			//Debug.Log (dir);
 
 			// And finally we add force in the direction of dir and multiply it by force. 
 			// This will push back the player
