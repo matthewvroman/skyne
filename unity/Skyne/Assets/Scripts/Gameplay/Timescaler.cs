@@ -23,22 +23,54 @@ public class Timescaler : Singleton<Timescaler>
 	[Tooltip("True if slow motion (or slow-mo fade-in) in effect; false if normal speed or fading to normal speed")]
 	public bool timeSlowed;
 
+	public float pausedTimescale; 
+	[SerializeField] private float curTimescale; 
+
+	void OnEnable()
+	{
+		GlobalManager.OnGamePausedUpdated += HandleGamePausedUpdated; 
+	}
+
+	void OnDisable()
+	{
+		GlobalManager.OnGamePausedUpdated -= HandleGamePausedUpdated;
+	}
+
+	void HandleGamePausedUpdated(bool newState)
+	{
+		if (newState == true)
+		{
+			pausedTimescale = Time.timeScale; 
+			Time.timeScale = 0; 
+		}
+		else
+		{
+			Time.timeScale = pausedTimescale; 
+			//Debug.Log("Revert timeScale to paused timescale"); 
+		}
+	}
+
+	void Update()
+	{
+		// Update the inspector display of the current timescale
+		curTimescale = Time.timeScale; 
+
+		// Change Time.fixedDeltaTime to make Physics smooth (removing this line makes choppy framerate)
+		Time.fixedDeltaTime = 0.02F * Time.timeScale;
+	}
+
 
 	public void UpdateTimescale ()
 	{
 		//Debug.Log("Timescale: " + Time.timeScale); 
-
-		// Input to change a boolean for timeSlowed
-		/*
-		if (Input.GetKey(KeyCode.LeftShift) && canSlowdown)
-			timeSlowed = true;
-		else
-			timeSlowed = false; 
-			*/ 
 			
 		// Set the current timeScale and fixedDeltaTime based on timeSlowed
 		// Time is slowing down or remaining in slow-mo
-		if (timeSlowed)
+		if (GlobalManager.inst.gamePaused)
+		{
+			//
+		}
+		else if (timeSlowed)
 		{
 			if (Time.timeScale > minTimescale)
 			{
@@ -53,7 +85,7 @@ public class Timescaler : Singleton<Timescaler>
 		// Time is speeding up or remaining in normal speed
 		else
 		{
-			if (Time.timeScale < 1)
+			if (Time.timeScale < 1 && Time.timeScale != 0)
 			{
 				Time.timeScale += timescaleChangeRate * (Time.deltaTime / Time.timeScale); 
 				if (Time.timeScale > 1)
@@ -62,7 +94,7 @@ public class Timescaler : Singleton<Timescaler>
 		}
 
 		// Change Time.fixedDeltaTime to make Physics smooth (removing this line makes choppy framerate)
-		Time.fixedDeltaTime = 0.02F * Time.timeScale;
+		//Time.fixedDeltaTime = 0.02F * Time.timeScale;
 	}
 
 	// Returns a deltaTime value that scales differently than the normal slowdown

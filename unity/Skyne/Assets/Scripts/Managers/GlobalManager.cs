@@ -10,6 +10,46 @@ public class GlobalManager : Singleton<GlobalManager>
 	[Tooltip("The state machine of the game. Set to Menu when starting from Menu; set to Gameplay when starting in the middle of the game.")]
 	public GlobalState globalState; 
 
+	public bool initialLoadFinished; 
+	[SerializeField] private bool m_gamePaused; 
+
+	public static System.Action<bool> OnGamePausedUpdated; 
+
+	public bool gamePaused
+	{
+		get {
+			return m_gamePaused; 
+		}
+	}
+
+	public void SetGamePaused(bool newState)
+	{
+		// Only set the game pause state if the newState is the opposite of the current pause state
+		if (m_gamePaused != newState)
+		{
+			m_gamePaused = newState; 
+
+			// Send out a message indicating that the pause state of the game has changed
+			if (OnGamePausedUpdated != null)
+			{
+				OnGamePausedUpdated(newState); 
+			}
+		}
+	}
+
+	/// <summary>
+	/// Returns true if gameplay is active, meaning that the initial scene has loaded and the game isn't paused
+	/// </summary>
+	public bool GameplayIsActive ()
+	{
+		if (!gamePaused && initialLoadFinished)
+		{
+			return true; 
+		}
+		return false; 
+	}
+
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -62,7 +102,8 @@ public class GlobalManager : Singleton<GlobalManager>
 		{
 			if (SceneLoading.inst.LevelUnloadComplete())
 			{
-				ChangeToGameOver(); 
+				ChangeToGameOver();
+				SetGamePaused(false); 
 			}
 		}
 		else if (globalState == GlobalState.GameplayToMenu)
@@ -70,6 +111,7 @@ public class GlobalManager : Singleton<GlobalManager>
 			if (SceneLoading.inst.LevelUnloadComplete())
 			{
 				ChangeToTitle(); 
+				SetGamePaused(false); 
 			}
 		}
 	}
@@ -105,21 +147,6 @@ public class GlobalManager : Singleton<GlobalManager>
 			UnloadSceneIfLoaded("GameOver");
 			ChangeToTitle();  
 		}
-
-		/*
-		globalState = GlobalState.Menu; 
-		LoadSceneIfUnloaded("Title"); 
-		UnloadSceneIfLoaded("GameOver"); 
-		UnloadSceneIfLoaded("MainLevel"); 
-
-		// Unload all level scenes as well as the MainLevel
-		if (SceneMapping.inst != null)
-		{
-			//LevelData.inst.UnloadAllLevelScenes(); 
-			SceneLoading.inst.UnloadAllLevelScenes(SceneMapping.inst.sceneList); 
-		}
-		*/ 
-
 	}
 
 	public void LoadGameplayScreen()
@@ -160,7 +187,7 @@ public class GlobalManager : Singleton<GlobalManager>
 		globalState = GlobalState.Menu;
 		LoadSceneIfUnloaded("Title");
 		UnloadSceneIfLoaded("Loading"); 
-		Cursor.lockState = CursorLockMode.Confined;
+		Cursor.lockState = CursorLockMode.Confined; 
 	}
 
 

@@ -11,11 +11,10 @@ public class PlayerShooting : Singleton<PlayerShooting>
 	// The current shoot mode is stored in GameState as pShootMode so that it is in the right place to be stored in PlayerPrefs
 	public enum PlayerShootMode
 	{
-Normal,
+		Normal,
 		Charge,
 		Wide,
 		Rapid}
-
 	;
 
 	// Current shoot delay timer
@@ -99,42 +98,7 @@ Normal,
 			if (shootDelay < 0)
 				shootDelay = 0; 
 		}
-
-		// Temporary- Update first playable UI display
-		/*
-		chargeText.SetActive(GameState.inst.upgradesFound[3]);
-		wideText.SetActive(GameState.inst.upgradesFound[4]);
-		rapidText.SetActive(GameState.inst.upgradesFound[5]);
-
-		if (GameState.inst.pShootMode == PlayerShootMode.Normal)
-		{
-			normalNum.color = new Color32 (250, 50, 50, 255); 
-			chargeNum.color = new Color32 (50, 50, 50, 255); 
-			wideNum.color = new Color32 (50, 50, 50, 255); 
-			rapidNum.color = new Color32 (50, 50, 50, 255); 
-		}
-		else if (GameState.inst.pShootMode == PlayerShootMode.Charge)
-		{
-			normalNum.color = new Color32 (50, 50, 50, 255); 
-			chargeNum.color = new Color32 (250, 50, 50, 255); 
-			wideNum.color = new Color32 (50, 50, 50, 255); 
-			rapidNum.color = new Color32 (50, 50, 50, 255); 
-		}
-		else if (GameState.inst.pShootMode == PlayerShootMode.Wide)
-		{
-			normalNum.color = new Color32 (50, 50, 50, 255); 
-			chargeNum.color = new Color32 (50, 50, 50, 255); 
-			wideNum.color = new Color32 (250, 50, 50, 255); 
-			rapidNum.color = new Color32 (50, 50, 50, 255); 
-		}
-		else if (GameState.inst.pShootMode == PlayerShootMode.Rapid)
-		{
-			normalNum.color = new Color32 (50, 50, 50, 255); 
-			chargeNum.color = new Color32 (50, 50, 50, 255); 
-			wideNum.color = new Color32 (50, 50, 50, 255); 
-			rapidNum.color = new Color32 (250, 50, 50, 255); 
-		}
-		*/
+			
 
 		if (GameState.inst.pShootMode == PlayerShootMode.Normal)
 		{
@@ -157,7 +121,7 @@ Normal,
 
 	void CheckShootInput ()
 	{
-		if (uiMan.getIsPaused() == false)
+		if (GlobalManager.inst.GameplayIsActive())
 		{
 			// When shoot is pressed, check normal and wide shooting
 			if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -263,7 +227,7 @@ Normal,
 	// This should probably be moved to a main PlayerInput class later
 	void CheckWeaponSelectInput ()
 	{
-		if (uiMan.getIsPaused() == false)
+		if (GlobalManager.inst.GameplayIsActive())
 		{
 			// 'E' = Cycle through weapon type
 			if (Input.GetKeyDown(KeyCode.E))

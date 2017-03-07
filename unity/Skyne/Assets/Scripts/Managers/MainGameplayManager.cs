@@ -17,11 +17,11 @@ public class MainGameplayManager : Singleton<MainGameplayManager>
 	// Must occur after Awake() to ensure that all manager Awake()s have been called to create the inst variable
 	void Start()
 	{
-		
-
 		// Any other Awake() commands go here
 		//LoadGameplayScreen(); 
 	}
+
+
 
 	/// <summary>
 	/// Call when the game needs to load gameplay
@@ -33,25 +33,10 @@ public class MainGameplayManager : Singleton<MainGameplayManager>
 			Debug.Log("null SceneMapping"); 
 
 		// Load in the scene names from the directory (if in editor)
-		SceneMapping.inst.StartReadInListFromDirectory(); 
+		//SceneMapping.inst.StartReadInListFromDirectory(); 
 
 		// Generate the scene mapping
 		SceneMapping.inst.GenerateSceneMapping(LevelData.inst.numLevels, LevelData.inst.numColumns, LevelData.inst.numRows); 
-
-		// Update the player's position based on the loaded save room data
-		// TODO
-		// Temporarily assign player to 1, 1, 1
-		//LevelData.inst.curLevel = 1;
-		//LevelData.inst.curColumn = 1; 
-		//LevelData.inst.curRow = 1; 
-
-		// The player must also be moved to the correct position and rotation based on data associated with the save rooms (or the starting coordinate)
-		// TODO
-		// Temporarily, just multiply to find where to position the player (though height doesn't work yet)
-		//player.transform.position = new Vector3((LevelData.inst.curColumn - 1) * LevelData.inst.gridEdgeSize + LevelData.inst.gridEdgeSize/2, 0.5f, (LevelData.inst.curRow - 1) * LevelData.inst.gridEdgeSize + LevelData.inst.gridEdgeSize/2);
-
-		// Temporary: Generate Map
-		//MapDisplay.inst.SpawnMap(); 
 
 		// Check if a saved game exists
 		// In GameStateManager, load the corresponding data from PlayerPrefs
@@ -76,6 +61,7 @@ public class MainGameplayManager : Singleton<MainGameplayManager>
 	public void OnGameplayStart()
 	{
 		Debug.Log("OnGameplayStart()"); 
+		GlobalManager.inst.initialLoadFinished = true; 
 
 		player.SetActive(true); 
 

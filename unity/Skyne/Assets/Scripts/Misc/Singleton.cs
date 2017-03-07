@@ -8,6 +8,28 @@
 /// Once a class inherits from Singleton, its instance can be accessed from any script using the statement:
 /// 	ClassName.inst.STATEMENT
 /// </summary>
+
+
+public abstract class Singleton<T> : MonoBehaviour where T : Singleton<T>
+{
+	private static T instance; 
+
+	// The variable used for accessing the instance of the singleton
+	public static T inst 
+	{ 
+		get 
+		{
+			if (instance == null)
+			{
+				instance = GameObject.FindObjectOfType<T>(); 
+			}
+			return instance; 
+		}
+	}
+}
+
+
+/*
 public abstract class Singleton<T> : MonoBehaviour where T : Singleton<T>
 {
 	// The variable used for accessing the instance of the singleton
@@ -34,3 +56,4 @@ public abstract class Singleton<T> : MonoBehaviour where T : Singleton<T>
 		CheckSingleton(); 
 	}
 }
+*/

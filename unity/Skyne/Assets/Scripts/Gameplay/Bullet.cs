@@ -16,6 +16,8 @@ public class Bullet : MonoBehaviour
 	[Tooltip("How long does this bullet move (in seconds) before it is destroyed")]
 	public float lifetime; 
 
+	public bool shouldDestroy; 
+
 	float lifetimeTimer; 
 
 	// when time slows, what percent is used in the deltaTime calculation
@@ -47,7 +49,10 @@ public class Bullet : MonoBehaviour
 
 		// Destroy the bullet when the lifetimeTimer runs out
 		if (lifetimeTimer <= 0)
-			Destroy(this.gameObject); 
+			shouldDestroy = true; 
+
+		if (shouldDestroy)
+			DestroyBullet(); 
 	}
 
 	void OnTriggerEnter(Collider col)
@@ -60,14 +65,24 @@ public class Bullet : MonoBehaviour
 			
 		if (playerBullet)
 		{
-			if (col.tag != "Player")
+			if (col.tag != "Player" && col.tag != "Enemy")
 			{
-				Destroy(this.gameObject); 
+				//Debug.Log("Set shouldDestroy to true"); 
+				shouldDestroy = true; 
 			}
 		}
 		else
 		{
 
 		}
+	}
+
+	/// <summary>
+	/// Private function for destroying the bullet
+	/// To activate, set shouldDestroy = true, which will call this function on the next Update()
+	/// </summary>
+	void DestroyBullet()
+	{
+		Destroy(this.gameObject); 
 	}
 }
