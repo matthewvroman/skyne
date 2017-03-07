@@ -51,6 +51,7 @@ public class GameState : Singleton<GameState>
 	public bool[,,] gridSpacesEntered; 
 
 
+
 	/// <summary>
 	/// Initializes the default game data. If a save is detected, this data will be overwritten by the saved data
 	/// </summary>
@@ -228,5 +229,20 @@ public class GameState : Singleton<GameState>
 			}
 		}
 		return true; 
+	}
+
+	/// <summary>
+	/// Returns the number of keys (0 - 3) found.
+	/// </summary>
+	/// <returns>The number keys found.</returns>
+	public int GetNumKeysFound()
+	{
+		int result = 0; 
+		for (int i = 0; i < keysFound.Length; i++)
+		{
+			if (keysFound[i])
+				result++; 
+		}
+		return result; 
 	}
 }
