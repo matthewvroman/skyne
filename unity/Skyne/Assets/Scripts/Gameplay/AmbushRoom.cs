@@ -8,13 +8,11 @@ public class AmbushRoom : MonoBehaviour
 	public List <GameObject> oneKey;
 	public List <GameObject> twoKeys;
 	public List <GameObject> threeKeys;
-	public List <GameObject> fourKeys;
 	public List <GameObject> noKeys;
 
 	public GameObject oneKeyHold;
 	public GameObject twoKeyHold;
 	public GameObject threeKeyHold;
-	public GameObject fourKeyHold;
 	public GameObject noKeyHold;
 
 	public DoorControl doorCon;
@@ -47,18 +45,14 @@ public class AmbushRoom : MonoBehaviour
 			threeKeys.Add (enemy.gameObject);
 		}
 
-		foreach (Transform enemy in fourKeyHold.transform)
-		{
-			fourKeys.Add (enemy.gameObject);
-		}
-
 		gameState = GameObject.Find ("GameState").GetComponent<GameState> ();
-		;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
+		Debug.Log (gameState.GetNumKeysFound());
+
 		keysHeld = gameState.GetNumKeysFound ();
 		foreach (GameObject enemy in noKeys)
 		{
@@ -113,20 +107,6 @@ public class AmbushRoom : MonoBehaviour
 			doorCon.setDoorState (true);
 		}
 
-
-		foreach (GameObject enemy in fourKeys)
-		{
-			if (enemy == null)
-			{
-				fourKeys.Remove (enemy);
-			}
-		}
-		if (fourKeys.Count <= 0)
-		{
-			doorCon.setDoorState (true);
-		}
-
-
 		switch (keysHeld)
 		{
 		case 0:
@@ -144,10 +124,6 @@ public class AmbushRoom : MonoBehaviour
 
 			}
 			foreach (GameObject enemy in threeKeys)
-			{
-				enemy.SetActive (false);
-			}
-			foreach (GameObject enemy in fourKeys)
 			{
 				enemy.SetActive (false);
 			}
@@ -170,10 +146,6 @@ public class AmbushRoom : MonoBehaviour
 			{
 				enemy.SetActive (false);
 			}
-			foreach (GameObject enemy in fourKeys)
-			{
-				enemy.SetActive (false);
-			}
 			break;
 
 		case 2:
@@ -190,10 +162,6 @@ public class AmbushRoom : MonoBehaviour
 				enemy.SetActive (true);
 			}
 			foreach (GameObject enemy in threeKeys)
-			{
-				enemy.SetActive (false);
-			}
-			foreach (GameObject enemy in fourKeys)
 			{
 				enemy.SetActive (false);
 			}
@@ -216,34 +184,7 @@ public class AmbushRoom : MonoBehaviour
 			{
 				enemy.SetActive (true);
 			}
-			foreach (GameObject enemy in fourKeys)
-			{
-				enemy.SetActive (false);
-			}
 			break;
-
-		case 4:
-			foreach (GameObject enemy in noKeys)
-			{
-				enemy.SetActive (false);
-			}
-			foreach (GameObject enemy in oneKey)
-			{
-				enemy.SetActive (false);
-			}
-			foreach (GameObject enemy in twoKeys)
-			{
-				enemy.SetActive (false);
-			}
-			foreach (GameObject enemy in threeKeys)
-			{
-				enemy.SetActive (false);
-			}
-			foreach (GameObject enemy in fourKeys)
-			{
-				enemy.SetActive (true);
-			}
-			break;
-		}
 	}
+}
 }
