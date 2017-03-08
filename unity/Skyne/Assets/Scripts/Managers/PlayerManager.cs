@@ -129,7 +129,7 @@ public class PlayerManager : MonoBehaviour
 	bool isDead = false;
 	// Prevents the code from executing the respawn sequence multiple times.
 
-	[Range (0,100)]
+	[Range (0, 100)]
 	float currentStamina;
 	// The players current stamina.
 	float maxStamina = 100;
@@ -164,15 +164,18 @@ public class PlayerManager : MonoBehaviour
 
 		currentStamina = maxStamina;
 
-		if (playerSetting.healthbarFill == null) {
+		if (playerSetting.healthbarFill == null)
+		{
 			Debug.LogError ("Player has no Health Bar Fill");
 		}
 
-		if (playerSetting.staminaBarFill == null) {
+		if (playerSetting.staminaBarFill == null)
+		{
 			Debug.LogError ("Player has no Stamina Bar Fill");
 		}
 
-		if (playerSetting.healthPercentage == null) {
+		if (playerSetting.healthPercentage == null)
+		{
 			Debug.LogError ("Player has no Health Percentage Text");
 		}
 
@@ -199,55 +202,71 @@ public class PlayerManager : MonoBehaviour
 		Stamina ();
 		//SlowMo ();
 
-		//Debug.Log (isInvincible);
+		//Debug.Log (velocity.y);
 
 		transform.rotation = Quaternion.Euler (0, transform.rotation.y, 0);
 
 		OrientPlayer (playerCamera);
 
-		if (Input.GetKeyDown (KeyCode.E)) {
+		if (Input.GetKeyDown (KeyCode.E))
+		{
 			RestoreToFullHealth ();
 		}
 
-		if (isInvincible) {
+		if (isInvincible)
+		{
 			DamageFlash ();
-		} else {
+		}
+		else
+		{
 			playerMesh.material.color = playerColor;
 		}
 
-		if (velocity.y < 0) {
+		if (velocity.y < 0)
+		{
 			isFalling = true;
-		} else {
+		}
+		else
+		{
 			isFalling = false;
 		}
 
-		if (Grounded ()) {
+		if (Grounded ())
+		{
 			canDoubleJump = false;
 			startSliding = false;
 			isWallJumping = false;
 		}
 
-		if (Input.GetKeyDown (KeyCode.LeftShift)) {
-			if (dashCounter == 2) {
+		if (Input.GetKeyDown (KeyCode.LeftShift))
+		{
+			if (dashCounter == 2)
+			{
 				isDashing = true;
 				startCooldown = true;
 			}
 		}
 
-		if (startCooldown) {
-			if (dashCounter > 0) {
+		if (startCooldown)
+		{
+			if (dashCounter > 0)
+			{
 				dashCounter -= Time.deltaTime;
-			} else {
+			}
+			else
+			{
 				startCooldown = false;
 				dashCounter = moveSetting.dashCooldown;
 			}
 		}
 
-		if (counter > 0) {
+		if (counter > 0)
+		{
 			startSliding = false;
 		}
 
-		if (currentHealth < 0) {
+		if (currentHealth < 0)
+		{
 			currentHealth = 0;
 		}
 	}
@@ -259,11 +278,13 @@ public class PlayerManager : MonoBehaviour
 		Jump ();
 		WallJump ();
 
-		if (isDashing) {
+		if (isDashing)
+		{
 			StartCoroutine (AirDash ());
 		}
 
-		if (startSliding) {
+		if (startSliding)
+		{
 			velocity.y -= physSetting.downAccel * 2;
 		}
 
@@ -275,13 +296,16 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Run ()
 	{
-		if (Mathf.Abs (forwardInput) > inputSetting.inputDelay && !isWallJumping && isPushed == false) {
+		if (Mathf.Abs (forwardInput) > inputSetting.inputDelay && !isWallJumping && isPushed == false)
+		{
 			//move
-			if (!isHuggingWall) {
+			if (!isHuggingWall)
+			{
 				velocity.z = moveSetting.forwardVel * forwardInput;
 			}
 		}
-		else if (forwardInput == 0 && isDashing == false && Grounded()) {
+		else if (forwardInput == 0 && isDashing == false && Grounded ())
+		{
 			//zero velocity
 			velocity.z = 0;
 		}
@@ -292,30 +316,43 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Strafe ()
 	{
-		if (Mathf.Abs (strafeInput) > inputSetting.inputDelay && !isWallJumping && isPushed == false) {
+		if (Mathf.Abs (strafeInput) > inputSetting.inputDelay && !isWallJumping && isPushed == false)
+		{
 			//move
-			if (!isHuggingWall) {
+			if (!isHuggingWall)
+			{
 				velocity.x = moveSetting.strafeVel * strafeInput;
 			}
-		} 
-		else if (strafeInput == 0 && isDashing == false && Grounded()) {
+		}
+		else if (strafeInput == 0 && isDashing == false && Grounded ())
+		{
 			//zero velocity
 			velocity.x = 0;
 		}
 	}
 
-	IEnumerator AirDash() {
+	IEnumerator AirDash ()
+	{
 		rBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-		if (Grounded ()) {
+		if (Grounded ())
+		{
 			velocity.z = (moveSetting.dashVel * forwardInput) + (moveSetting.forwardVel * forwardInput);
 			velocity.x = (moveSetting.dashVel * strafeInput) + (moveSetting.forwardVel * strafeInput);
-		} else if (velocity.z > 0 && Grounded () == false) {
+		}
+		else if (velocity.z > 0 && Grounded () == false)
+		{
 			velocity.z = (moveSetting.dashVel / 1.5f) + (moveSetting.forwardVel * forwardInput);
-		} else if (velocity.x > 0 && Grounded () == false) {
+		}
+		else if (velocity.x > 0 && Grounded () == false)
+		{
 			velocity.x = (moveSetting.dashVel / 1.5f) + (moveSetting.forwardVel * strafeInput);
-		} else if (velocity.z < 0 && Grounded () == false) {
+		}
+		else if (velocity.z < 0 && Grounded () == false)
+		{
 			velocity.z = (-moveSetting.dashVel / 1.5f) + (moveSetting.forwardVel * forwardInput);
-		} else if (velocity.x < 0 && Grounded () == false) {
+		}
+		else if (velocity.x < 0 && Grounded () == false)
+		{
 			velocity.x = (-moveSetting.dashVel / 1.5f) + (moveSetting.forwardVel * strafeInput);
 		}
 		yield return new WaitForSeconds (0.2f);
@@ -328,47 +365,63 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Jump ()
 	{
-		if (jumpInput > 0 && Grounded ()) {
+		if (jumpInput > 0 && Grounded ())
+		{
 			//Jump
 			velocity.y = moveSetting.jumpVel;
 			canDoubleJump = true;
-		} 
-		else if (jumpInput == 0 && Grounded ()) {
+		}
+		else if (jumpInput == 0 && Grounded ())
+		{
 			//zero out our velocity.y
 			velocity.y = 0;
-		} 
-		else if (isHuggingWall == false) {
+		}
+		else if (isHuggingWall == false)
+		{
 			//decrease velocity.y
 			velocity.y -= physSetting.downAccel;
 
-			if (Input.GetKeyDown(KeyCode.Space) && canDoubleJump) {
+			if (Input.GetKeyDown (KeyCode.Space) && canDoubleJump)
+			{
 				velocity.y = moveSetting.jumpVel;
 				canDoubleJump = false;
 			} 
 		}
 	}
 
-	void WallJump() {
-		if (Physics.Raycast (transform.position, -transform.forward, 1)) {
+	void WallJump ()
+	{
+		if (Physics.Raycast (transform.position, -transform.forward, 1))
+		{
 			backToWall = true;
-		} else {
+		}
+		else
+		{
 			backToWall = false;
 		}
 
-		if (isHuggingWall) {
-			if (jumpInput > 0 && forwardInput != 0) {
-				if (backToWall) {
+		if (isHuggingWall)
+		{
+			if (jumpInput > 0 && forwardInput != 0)
+			{
+				if (backToWall)
+				{
 					velocity.y = moveSetting.jumpVel;
 					velocity.z = moveSetting.forwardVel * forwardInput;
 					isWallJumping = true;
 				}
-			} else if (jumpInput > 0 && strafeInput != 0) {
-				if (backToWall) {
+			}
+			else if (jumpInput > 0 && strafeInput != 0)
+			{
+				if (backToWall)
+				{
 					velocity.y = moveSetting.jumpVel;
 					velocity.x = moveSetting.strafeVel * strafeInput;
 					isWallJumping = true;
 				}
-			} else {
+			}
+			else
+			{
 				velocity.x = 0;
 				velocity.z = 0;
 				velocity.y = 0;
@@ -382,13 +435,17 @@ public class PlayerManager : MonoBehaviour
 	/// <param name="cam">Cam.</param>
 	void OrientPlayer (Camera cam)
 	{
-		if (isOriented) {
+		if (isOriented)
+		{
 			transform.rotation = Quaternion.Euler (transform.eulerAngles.x, cam.transform.eulerAngles.y, transform.eulerAngles.z);
 		}
 
-		if (Input.GetKey (KeyCode.Q)) {
+		if (Input.GetKey (KeyCode.Q))
+		{
 			isOriented = false;
-		} else {
+		}
+		else
+		{
 			isOriented = true;
 		}
 	}
@@ -398,10 +455,13 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Focus ()
 	{
-		if (Input.GetMouseButton (1)) {
+		if (Input.GetMouseButton (1))
+		{
 			camCon.SetTargetOffsets (camCon.pivotOffset, moveSetting.focusOffset);
 			isFocused = true;
-		} else {
+		}
+		else
+		{
 			camCon.ResetTargetOffsets ();
 			isFocused = false;
 		}
@@ -434,7 +494,8 @@ public class PlayerManager : MonoBehaviour
 			StartCoroutine (DamageCalculator (10));
 		} */
 		
-		if (currentHealth <= 0.9f && !isDead) {
+		if (currentHealth <= 0.9f && !isDead)
+		{
 			currentHealth = 0; // This ensures that the health percentage is NEVER less than zero.
 
 			// Respawn execution goes here
@@ -444,7 +505,8 @@ public class PlayerManager : MonoBehaviour
 
 		Mathf.Round (targetHealth);
 
-		if (currentHealth >= maxHealth) {
+		if (currentHealth >= maxHealth)
+		{
 			currentHealth = maxHealth; // Caps the players current health to the designated max health.
 		} 
 
@@ -465,7 +527,8 @@ public class PlayerManager : MonoBehaviour
 	public static void HealCalculator (float healthRecieved)
 	{
 		// Only heals the player if player health is below the max. 
-		if (currentHealth < maxHealth) {
+		if (currentHealth < maxHealth)
+		{
 			targetHealth = currentHealth + healthRecieved;
 		}
 	}
@@ -477,7 +540,8 @@ public class PlayerManager : MonoBehaviour
 	/// <param name="damageRecieved">Damage recieved.</param>
 	public static IEnumerator DamageCalculator (float damageRecieved)
 	{
-		if (currentHealth > 0) {
+		if (currentHealth > 0)
+		{
 			targetHealth = currentHealth - damageRecieved;
 		}
 		yield return new WaitForSeconds (1);
@@ -497,19 +561,24 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Stamina ()
 	{
-		if (isFocused && isFalling) {
-			if (currentStamina > 0) {
+		if (isFocused && isFalling)
+		{
+			if (currentStamina > 0)
+			{
 				cooldownTimer = 0;
 				DecreaseStamina ();
 			}
 		}
 
-		if (currentStamina != maxStamina) {
-			if (cooldownTimer < cooldownTime) {
+		if (currentStamina != maxStamina)
+		{
+			if (cooldownTimer < cooldownTime)
+			{
 				cooldownTimer += Time.unscaledDeltaTime;
 			}
 
-			if (cooldownTimer >= cooldownTime && currentStamina < maxStamina) {
+			if (cooldownTimer >= cooldownTime && currentStamina < maxStamina)
+			{
 				IncreaseStamina ();
 			}
 		}
@@ -536,35 +605,39 @@ public class PlayerManager : MonoBehaviour
 	/// <summary>
 	/// Slows the mo.
 	/// </summary>
-	void SlowMo()
+	void SlowMo ()
 	{
-		if (isFocused && isFalling && currentStamina > 0) 
+		if (isFocused && isFalling && currentStamina > 0)
 		{
 			Timescaler.inst.timeSlowed = true;
-		}  else 
+		}
+		else
 		{
 			Timescaler.inst.timeSlowed = false;
 		}
 	}
 
-	IEnumerator Knockback() {
-			isPushed = true;
-			rBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-			//velocity = Vector3.zero;
-			velocity.z = moveSetting.forwardVel * -forwardInput;
-			velocity.x = moveSetting.strafeVel * -strafeInput;
-			yield return new WaitForSeconds ((moveSetting.knockbackForce / 2) * 0.01f);
-			isPushed = false;
-			rBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
+	IEnumerator Knockback ()
+	{
+		isPushed = true;
+		rBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+		//velocity = Vector3.zero;
+		velocity.z = moveSetting.forwardVel * -forwardInput;
+		velocity.x = moveSetting.strafeVel * -strafeInput;
+		yield return new WaitForSeconds ((moveSetting.knockbackForce / 2) * 0.01f);
+		isPushed = false;
+		rBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
 	}
 
 	void OnCollisionEnter (Collision col)
 	{
 		//If the player comes in contact with an enemy, initiate invincibility coroutine
-		if (col.gameObject.tag == "Enemy") {
+		if (col.gameObject.tag == "Enemy")
+		{
 			//When the player collides with an enemy, it checks to see if the player is currently invincible or not. 
 			//If not, then the player will take damage
-			if (isInvincible == false) {
+			if (isInvincible == false)
+			{
 				//DamageCalculator (10);
 				StartCoroutine (DamageCalculator (10));
 			}
@@ -572,29 +645,35 @@ public class PlayerManager : MonoBehaviour
 			StartCoroutine (Invicibility ());
 
 			// Calculate Angle Between the collision point and the player
-			Vector3 dir = col.contacts[0].point - transform.position;
+			Vector3 dir = col.contacts [0].point - transform.position;
 			// We then get the opposite (-Vector3) and normalize it
 			dir = -dir.normalized;
 			//Debug.Log (dir);
 
 			// And finally we add force in the direction of dir and multiply it by force. 
 			// This will push back the player
-			//rBody.AddForce(dir * force);
-			rBody.AddForce(dir * moveSetting.knockbackForce, ForceMode.Impulse);
+			rBody.AddForce (dir * moveSetting.knockbackForce, ForceMode.Impulse);
 
 			StartCoroutine (Knockback ());
 		}
 
-		if (col.gameObject.tag == "Wall" && !Grounded()) {
+		if (col.gameObject.tag == "Wall" && !Grounded ())
+		{
 			isHuggingWall = true;
 			isWallJumping = true;
 			counter = moveSetting.startSlidingTimer;
 		}
+
+	/*	if (col.gameObject.tag != "Wall" && !Grounded ())
+		{
+			velocity.y -= physSetting.downAccel;
+		} */
 	}
 
-	void OnCollisionExit (Collision col) {
-		if (col.gameObject.tag == "Wall") {
-			//velocity.y -= physSetting.downAccel;
+	void OnCollisionExit (Collision col)
+	{
+		if (col.gameObject.tag == "Wall")
+		{
 			isHuggingWall = false;
 			counter = moveSetting.startSlidingTimer;
 		}
@@ -603,10 +682,11 @@ public class PlayerManager : MonoBehaviour
 	void OnCollisionStay (Collision col)
 	{
 		//If the player is still touching the enemy when invuln wears off, ininitate invincibility coroutine again
-		if (col.gameObject.tag == "Enemy" && isInvincible == false) {
+		if (col.gameObject.tag == "Enemy" && isInvincible == false)
+		{
 			//When the player collides with an enemy, it checks to see if the player is currently invincible or not. 
 			//If not, then the player will take damage
-			if (isInvincible == false) 
+			if (isInvincible == false)
 			{
 				//DamageCalculator (10);
 				StartCoroutine (DamageCalculator (10));
@@ -614,22 +694,34 @@ public class PlayerManager : MonoBehaviour
 			StartCoroutine (Invicibility ());
 		}
 
-		if (col.gameObject.tag == "Wall") {
-			if (counter > 0) {
+		if (col.gameObject.tag == "Wall")
+		{
+			if (counter > 0)
+			{
 				startSliding = false;
 				counter -= Time.fixedDeltaTime;
-			} else {
+			}
+			else
+			{
 				startSliding = true;
 			}
 		}
+
+	/*	if (col.gameObject.tag != "Wall" && !Grounded ())
+		{
+			velocity.y -= physSetting.downAccel;
+		} */
 	}
 
-	void OnTriggerEnter(Collider col) {
+	void OnTriggerEnter (Collider col)
+	{
 		//If the player comes in contact with an enemy, initiate invincibility coroutine
-		if (col.gameObject.tag == "Enemy") {
+		if (col.gameObject.tag == "Enemy")
+		{
 			//When the player collides with an enemy, it checks to see if the player is currently invincible or not. 
 			//If not, then the player will take damage
-			if (isInvincible == false) {
+			if (isInvincible == false)
+			{
 				//DamageCalculator (10);
 				StartCoroutine (DamageCalculator (10));
 			}
@@ -638,12 +730,14 @@ public class PlayerManager : MonoBehaviour
 		}
 	}
 
-	void OnTriggerStay (Collider col) {
+	void OnTriggerStay (Collider col)
+	{
 		//If the player is still touching the enemy when invuln wears off, ininitate invincibility coroutine again
-		if (col.gameObject.tag == "Enemy" && isInvincible == false) {
+		if (col.gameObject.tag == "Enemy" && isInvincible == false)
+		{
 			//When the player collides with an enemy, it checks to see if the player is currently invincible or not. 
 			//If not, then the player will take damage
-			if (isInvincible == false) 
+			if (isInvincible == false)
 			{
 				//DamageCalculator (10);
 				StartCoroutine (DamageCalculator (10));

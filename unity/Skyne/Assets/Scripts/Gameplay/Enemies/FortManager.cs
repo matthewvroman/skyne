@@ -23,4 +23,11 @@ public class FortManager : Enemy
 	{
 
 	}
+
+	/*void OnCollisionEnter(Collision col) {
+		if (col.gameObject.tag == "Player")
+		{
+			Destroy (this.gameObject);
+		}
+	} */
 }
