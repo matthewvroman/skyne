@@ -9,19 +9,24 @@ ModelImporter:
     100002: StairCase_RightSide
     100004: Stairs
     100006: //RootNode
+    100008: StepCollider
     400000: StairCase_LeftSide
     400002: StairCase_RightSide
     400004: Stairs
     400006: //RootNode
+    400008: StepCollider
     2300000: StairCase_LeftSide
     2300002: StairCase_RightSide
     2300004: Stairs
+    2300006: StepCollider
     3300000: StairCase_LeftSide
     3300002: StairCase_RightSide
     3300004: Stairs
+    3300006: StepCollider
     4300000: StairCase_RightSide
     4300002: Stairs
     4300004: StairCase_LeftSide
+    4300006: StepCollider
   materials:
     importMaterials: 1
     materialName: 0
