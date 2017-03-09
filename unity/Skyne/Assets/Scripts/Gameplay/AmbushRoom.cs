@@ -51,7 +51,7 @@ public class AmbushRoom : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		Debug.Log (gameState.GetNumKeysFound());
+		Debug.Log (gameState.GetNumKeysFound ());
 
 		keysHeld = gameState.GetNumKeysFound ();
 		foreach (GameObject enemy in noKeys)
@@ -185,6 +185,6 @@ public class AmbushRoom : MonoBehaviour
 				enemy.SetActive (true);
 			}
 			break;
+		}
 	}
-}
 }
