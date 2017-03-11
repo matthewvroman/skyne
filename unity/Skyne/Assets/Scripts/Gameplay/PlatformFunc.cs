@@ -10,9 +10,14 @@ public class PlatformFunc : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		
+	}
+	
+	// Update is called once per frame
+	void Update ()
+	{
 		platMan = transform.parent.GetComponent<MovingPlatformManager> ();
 	}
-
 
 	void OnCollisionEnter (Collision col)
 	{
@@ -46,4 +51,20 @@ public class PlatformFunc : MonoBehaviour
 			platMan.SetPos (!platMan.GetSetPos ());
 		}
 	}
+
+	/*void OnTriggerStay (Collider col)
+	{
+		if (col.gameObject.tag == "Player")
+		{
+			col.transform.parent = gameObject.transform;
+		}
+	}
+
+	void OnTriggerExit (Collider col)
+	{
+		if (col.gameObject.tag == "Player")
+		{
+			col.transform.parent = null;
+		}
+	} */
 }

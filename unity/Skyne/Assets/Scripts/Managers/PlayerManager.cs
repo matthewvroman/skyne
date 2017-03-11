@@ -200,9 +200,9 @@ public class PlayerManager : MonoBehaviour
 		Focus ();
 		Health ();
 		Stamina ();
-		//SlowMo ();
+		SlowMo ();
 
-		Debug.Log (counter);
+		Debug.Log (backToWall);
 
 		transform.rotation = Quaternion.Euler (0, transform.rotation.y, 0);
 
@@ -413,9 +413,15 @@ public class PlayerManager : MonoBehaviour
 					isWallJumping = true;
 				}
 			}
-			else if (jumpInput > 0 && forwardInput == 0) {
-				isHuggingWall = false;
-			}
+			/*else if (jumpInput > 0 && strafeInput != 0)
+			{
+				if (backToWall)
+				{
+					velocity.y = moveSetting.jumpVel;
+					velocity.x = moveSetting.strafeVel * strafeInput;
+					isWallJumping = true;
+				}
+			} */
 			else
 			{
 				if (!Grounded())
@@ -661,10 +667,6 @@ public class PlayerManager : MonoBehaviour
 			isHuggingWall = true;
 			isWallJumping = true;
 			counter = moveSetting.startSlidingTimer;
-		} else if (col.gameObject.tag == "Wall" && !Grounded () && isWallJumping) {
-			isHuggingWall = true;
-			isWallJumping = true;
-			counter = moveSetting.startSlidingTimer;
 		}
 
 		/*	if (col.gameObject.tag != "Wall" && !Grounded ())
@@ -697,7 +699,7 @@ public class PlayerManager : MonoBehaviour
 			StartCoroutine (Invicibility ());
 		}
 
-		if (col.gameObject.tag == "Wall" && isHuggingWall)
+		if (col.gameObject.tag == "Wall")
 		{
 			if (counter > 0)
 			{
