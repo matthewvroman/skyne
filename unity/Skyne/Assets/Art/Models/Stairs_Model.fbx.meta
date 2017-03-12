@@ -10,23 +10,48 @@ ModelImporter:
     100004: Stairs
     100006: //RootNode
     100008: StepCollider
+    100010: Rail_Left
+    100012: Rail_Right
+    100014: Steps
+    100016: Wall_Left
+    100018: Wall_Right
     400000: StairCase_LeftSide
     400002: StairCase_RightSide
     400004: Stairs
     400006: //RootNode
     400008: StepCollider
+    400010: Rail_Left
+    400012: Rail_Right
+    400014: Steps
+    400016: Wall_Left
+    400018: Wall_Right
     2300000: StairCase_LeftSide
     2300002: StairCase_RightSide
     2300004: Stairs
     2300006: StepCollider
+    2300008: Rail_Left
+    2300010: Rail_Right
+    2300012: Steps
+    2300014: Wall_Left
+    2300016: Wall_Right
     3300000: StairCase_LeftSide
     3300002: StairCase_RightSide
     3300004: Stairs
     3300006: StepCollider
+    3300008: Rail_Left
+    3300010: Rail_Right
+    3300012: Steps
+    3300014: Wall_Left
+    3300016: Wall_Right
     4300000: StairCase_RightSide
     4300002: Stairs
     4300004: StairCase_LeftSide
     4300006: StepCollider
+    4300008: Wall_Right
+    4300010: Wall_Left
+    4300012: Rail_Right
+    4300014: Rail_Left
+    4300016: Steps
   materials:
     importMaterials: 1
     materialName: 0

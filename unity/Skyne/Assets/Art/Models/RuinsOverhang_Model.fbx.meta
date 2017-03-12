@@ -6,10 +6,20 @@ ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Bottom
+    100004: Walls
     400000: //RootNode
+    400002: Bottom
+    400004: Walls
     2300000: //RootNode
+    2300002: Bottom
+    2300004: Walls
     3300000: //RootNode
+    3300002: Bottom
+    3300004: Walls
     4300000: RuinsOverhang
+    4300002: Bottom
+    4300004: Walls
   materials:
     importMaterials: 1
     materialName: 0
