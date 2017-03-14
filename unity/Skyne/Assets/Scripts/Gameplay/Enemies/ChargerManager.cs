@@ -37,18 +37,20 @@ public class ChargerManager : Enemy
 
 	void Start ()
 	{
-		// Parent class Start()
-		EnemyParentStart (); 
+		
+	}
 
+	void SetupEnemy()
+	{
 		target = GameObject.FindGameObjectWithTag ("Player").GetComponent<Transform> ();
 		rBody = GetComponent<Rigidbody> ();
-
 		state = ChargerManager.State.IDLE;
-
 		alive = true;
 
 		//START State Machine
 		StartCoroutine ("CSM");
+
+		started = true; 
 	}
 
 	// Charger State Machine
@@ -56,6 +58,11 @@ public class ChargerManager : Enemy
 	{
 		while (alive)
 		{
+			if (!GlobalManager.inst.GameplayIsActive())
+			{
+				yield return null; 
+			}
+
 			switch (state)
 			{
 			case State.IDLE:
@@ -76,10 +83,9 @@ public class ChargerManager : Enemy
 
 	void Update ()
 	{
-		// Parent class Update()
-		if (EnemyParentUpdate ())
+		if (!started && GlobalManager.inst.GameplayIsActive())
 		{
-			EnemyChildUpdate (); 
+			SetupEnemy(); 
 		}
 	}
 
@@ -101,11 +107,6 @@ public class ChargerManager : Enemy
 		{
 			state = ChargerManager.State.IDLE;
 		}
-	}
-
-	void EnemyChildUpdate ()
-	{
-
 	}
 
 	//The Idling state, what the enemy does when the player is not close.

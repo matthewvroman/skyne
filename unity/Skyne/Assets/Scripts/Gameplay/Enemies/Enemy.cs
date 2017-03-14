@@ -10,6 +10,9 @@ public abstract class Enemy : MonoBehaviour
 	[Tooltip("The percent chance from 0 - 100 that the enemy will drop a health pickup.")]
 	public float hpDropPercChance; 
 
+	[Tooltip("Set to true once the enemy state machine has been started (cannot happen before level load finished).")]
+	public bool started; 
+
 	/// <summary>
 	/// Weak points determine colliders that are affected by shots and the defense
 	/// </summary>
@@ -30,22 +33,6 @@ public abstract class Enemy : MonoBehaviour
 	void OnDisable()
 	{
 		GlobalManager.OnGamePausedUpdated -= HandleGamePausedUpdated;
-	}
-
-	// Initialization called from subclass
-	protected void EnemyParentStart () 
-	{
-		
-	}
-	
-	// Update called from subclass
-	protected bool EnemyParentUpdate () 
-	{
-		if (MainGameplayManager.inst != null && GlobalManager.inst.GameplayIsActive())
-		{
-			return true; 
-		}
-		return false; 
 	}
 
 	/// <summary>

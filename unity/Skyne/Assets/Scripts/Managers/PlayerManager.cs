@@ -725,10 +725,19 @@ public class PlayerManager : MonoBehaviour
 			if (isInvincible == false)
 			{
 				//DamageCalculator (10);
-				StartCoroutine (DamageCalculator (10));
+				StartCoroutine(DamageCalculator(10));
 			}
 
-			StartCoroutine (Invicibility ());
+			StartCoroutine(Invicibility());
+		}
+		else if (col.gameObject.tag == "Bullet")
+		{
+			Bullet bullet = col.GetComponent<Bullet>(); 
+			if (!bullet.playerBullet)
+			{
+				bullet.shouldDestroy = true; 
+				StartCoroutine(DamageCalculator(bullet.damage)); 
+			}
 		}
 	}
 

@@ -14,23 +14,49 @@ public class PlayerShooting : Singleton<PlayerShooting>
 		Normal,
 		Charge,
 		Wide,
-		Rapid}
-	;
+		Rapid
+	};
 
 	// Current shoot delay timer
 	float shootDelay;
 
+	[Space(5)]
+	[Header("Player: Normal Bullet")]
+	public GameObject pNormalBulletPrefab; 
+	//public float pNormalSpeed; 
+	//public float pNormalDamage; 
+	//public float pNormalLifetime; 
 	public float normalShootDelay;
-	//0.4
-	public float wideShootDelay;
-	//1.2
-	public float rapidShootDelay;
-	//0.15
 
-	// Charge only
+	[Space(5)]
+	[Header("Player: Charge Bullet")]
+	public GameObject pChargeBulletPrefab; 
+	//public float pChargeSpeed; 
+	//public float pChargeDamage; 
+	//public float pChargeLifetime; 
 	float curCharge;
 	[Tooltip("How much time does it take to get a full charge?")]
 	public float fullCharge;
+
+	[Space(5)]
+	[Header("Player: Wide Bullet")]
+	public GameObject pWideBulletPrefab; 
+	//public float pWideSpeed; 
+	//public float pWideDamage; 
+	//public float pWideLifetime; 
+	public float pWideHorizSpread; 
+	public float wideShootDelay;
+
+	[Space(5)]
+	[Header("Player: Rapid Bullet")]
+	public GameObject pRapidBulletPrefab; 
+	//public float pRapidSpeed; 
+	//public float pRapidDamage; 
+	//public float pRapidLifetime; 
+	public float rapidShootDelay;
+
+	[Space(5)]
+	[Header("Other")]
 
 	// Changing weapon variables
 	// There needs to be a short delay between changing weapons
@@ -39,23 +65,14 @@ public class PlayerShooting : Singleton<PlayerShooting>
 	float changeTimer;
 	bool changeShootHeld;
 
-	// First playable UI
-	/*
-	public GameObject chargeText;
-	public GameObject wideText;
-	public GameObject rapidText; 
-	public Text normalNum;
-	public Text chargeNum; 
-	public Text wideNum; 
-	public Text rapidNum;
-	*/
-
 	// Alpha UI
 	public Image weaponIcon;
 	public Sprite[] iconSprites;
 
 
-	public UIManager uiMan;
+
+
+
 
 	// Update is called once per frame
 	void Update ()

@@ -6,42 +6,14 @@ using UnityEngine;
 public class ProjectileManager : Singleton<ProjectileManager> 
 {
 	public GameObject bulletPrefab; 
-
-	[Space(5)]
-	[Header("Player: Normal Bullet")]
-	public float pNormalSpeed; 
-	public float pNormalDamage; 
-	public float pNormalLifetime; 
-
-	[Space(5)]
-	[Header("Player: Charge Bullet")]
-	public float pChargeSpeed; 
-	public float pChargeDamage; 
-	public float pChargeLifetime; 
-
-	[Space(5)]
-	[Header("Player: Wide Bullet")]
-	public float pWideSpeed; 
-	public float pWideDamage; 
-	public float pWideLifetime; 
-	public float pWideHorizSpread; 
-
-	[Space(5)]
-	[Header("Player: Rapid Bullet")]
-	public float pRapidSpeed; 
-	public float pRapidDamage; 
-	public float pRapidLifetime; 
-
 	public Vector3 testHitPoint; 
+
+	public GameObject enemyBulletPrefab; 
 
 	// Player normal shot
 	public void Shoot_P_Normal(GameObject spawner)
 	{
-		float vertRot = Camera.main.GetComponent<MainCameraControl>().GetVerticalAngle(); 
-		Vector3 rotOffset = new Vector3(-vertRot, 0, 0); 
-		Vector3 bulletRot = spawner.transform.rotation.eulerAngles + rotOffset; 
-
-		GameObject newBullet = GameObject.Instantiate(bulletPrefab, spawner.transform.position, Quaternion.Euler(bulletRot), transform); 
+		GameObject newBullet = GameObject.Instantiate(PlayerShooting.inst.pNormalBulletPrefab, spawner.transform.position, Quaternion.Euler(DefaultPBulletRot(spawner)), transform); 
 		Bullet bullet = newBullet.GetComponent<Bullet>();
 
 		RaycastTargetFound shotTarget = GetRaycastTarget(); 
@@ -51,21 +23,11 @@ public class ProjectileManager : Singleton<ProjectileManager>
 			bullet.target = shotTarget.targetPos; 
 			bullet.hasTarget = true; 
 		}
-
-		bullet.playerBullet = true; 
-		bullet.speed = pNormalSpeed; //25
-		bullet.damage = pNormalDamage; //4
-		bullet.lifetime = pNormalLifetime; //0.9
-		bullet.deltaTimePerc = 0.5f; 
 	}
 
 	public void Shoot_P_Charge(GameObject spawner)
 	{
-		float vertRot = Camera.main.GetComponent<MainCameraControl>().GetVerticalAngle(); 
-		Vector3 rotOffset = new Vector3(-vertRot, 0, 0); 
-		Vector3 bulletRot = spawner.transform.rotation.eulerAngles + rotOffset; 
-
-		GameObject newBullet = GameObject.Instantiate(bulletPrefab, spawner.transform.position, Quaternion.Euler(bulletRot), transform); 
+		GameObject newBullet = GameObject.Instantiate(PlayerShooting.inst.pChargeBulletPrefab, spawner.transform.position, Quaternion.Euler(DefaultPBulletRot(spawner)), transform); 
 		Bullet bullet = newBullet.GetComponent<Bullet>(); 
 
 		RaycastTargetFound shotTarget = GetRaycastTarget(); 
@@ -75,13 +37,6 @@ public class ProjectileManager : Singleton<ProjectileManager>
 			bullet.target = shotTarget.targetPos; 
 			bullet.hasTarget = true; 
 		}
-
-		bullet.playerBullet = true; 
-		bullet.speed = pChargeSpeed; //60
-		bullet.damage = pChargeDamage; //15
-		bullet.lifetime = pChargeLifetime; //0.9
-		bullet.deltaTimePerc = 0.5f; 
-		bullet.transform.localScale = new Vector3 (1.0f, 1.0f, 1.0f); 
 	}
 
 	public void Shoot_P_Wide(GameObject spawner)
@@ -94,27 +49,16 @@ public class ProjectileManager : Singleton<ProjectileManager>
 			Vector3 rotOffset = new Vector3 (-vertRot, 0, 0); 
 			Vector3 bulletRot = spawner.transform.rotation.eulerAngles + rotOffset; 
 
-			bulletRot += new Vector3 (0, i * pWideHorizSpread, 0); 
+			bulletRot += new Vector3 (0, i * PlayerShooting.inst.pWideHorizSpread, 0); 
 
-			GameObject newBullet = GameObject.Instantiate(bulletPrefab, spawner.transform.position, Quaternion.Euler(bulletRot), transform); 
+			GameObject newBullet = GameObject.Instantiate(PlayerShooting.inst.pWideBulletPrefab, spawner.transform.position, Quaternion.Euler(bulletRot), transform); 
 			Bullet bullet = newBullet.GetComponent<Bullet>(); 
-
-			bullet.playerBullet = true; 
-			bullet.speed = pWideSpeed; //15
-			bullet.damage = pWideDamage; //0.5
-			bullet.lifetime = pWideLifetime; //0.3
-			bullet.deltaTimePerc = 0.5f; 
-			bullet.transform.localScale = new Vector3 (0.5f, 0.5f, 0.5f); 
 		}
 	}
 
 	public void Shoot_P_Rapid(GameObject spawner)
 	{
-		float vertRot = Camera.main.GetComponent<MainCameraControl>().GetVerticalAngle(); 
-		Vector3 rotOffset = new Vector3(-vertRot, 0, 0); 
-		Vector3 bulletRot = spawner.transform.rotation.eulerAngles + rotOffset; 
-
-		GameObject newBullet = GameObject.Instantiate(bulletPrefab, spawner.transform.position, Quaternion.Euler(bulletRot), transform); 
+		GameObject newBullet = GameObject.Instantiate(PlayerShooting.inst.pRapidBulletPrefab, spawner.transform.position, Quaternion.Euler(DefaultPBulletRot(spawner)), transform); 
 		Bullet bullet = newBullet.GetComponent<Bullet>(); 
 
 		RaycastTargetFound shotTarget = GetRaycastTarget(); 
@@ -124,23 +68,30 @@ public class ProjectileManager : Singleton<ProjectileManager>
 			bullet.target = shotTarget.targetPos; 
 			bullet.hasTarget = true; 
 		}
-
-		bullet.playerBullet = true; 
-		bullet.speed = pRapidSpeed; //25
-		bullet.damage = pRapidDamage; //0.5
-		bullet.lifetime = pRapidLifetime; //0.9
-		bullet.deltaTimePerc = 0.5f; 
-
-		bullet.transform.localScale = new Vector3 (0.2f, 0.2f, 0.2f); 
 	}
 
+	/// <summary>
+	/// Returns a default rotation for a player bullet based on the Main Camera angle
+	/// </summary>
+	Vector3 DefaultPBulletRot(GameObject spawner)
+	{
+		float vertRot = Camera.main.GetComponent<MainCameraControl>().GetVerticalAngle(); 
+		Vector3 rotOffset = new Vector3(-vertRot, 0, 0); 
+		return spawner.transform.rotation.eulerAngles + rotOffset; 
+	}
+
+
 	/*
-	 * Add functions here for enemy shooting. Any enemies that need to shoot should call a function here (specifying a bullet type) and passing in the spawner
+	 * Add functions here for enemy shooting. Any enemies that need to shoot should call a function here and pass in the spawner
 	 */
 
 	public void Shoot_E_Normal(GameObject spawner)
 	{
+		GameObject newBullet = GameObject.Instantiate(enemyBulletPrefab, spawner.transform.position, spawner.transform.rotation, transform); 
+		Bullet bullet = newBullet.GetComponent<Bullet>(); 
 
+		bullet.target = GameObject.FindGameObjectWithTag ("Player").GetComponent<Transform> ().position; 
+		bullet.hasTarget = true; 
 	}
 
 	// Struct for getting the raycast target and determining if a target was actually found
