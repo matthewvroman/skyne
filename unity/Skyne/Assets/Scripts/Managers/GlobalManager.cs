@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GlobalManager : Singleton<GlobalManager> 
 {
-	public enum GlobalState {Menu, LoadMainGameplayScene, SetupGameplay, Gameplay, GameOver, GameplayToMenu, GameplayToGameOver};  
+	public enum GlobalState {Menu, LoadMainGameplayScene, SetupGameplay, Gameplay, GameOver, GameplayToMenu, GameplayToGameOver, EditorOnlyLoadGameplay};  
 
 	[Tooltip("The state machine of the game. Set to Menu when starting from Menu; set to Gameplay when starting in the middle of the game.")]
 	public GlobalState globalState; 
@@ -55,11 +55,14 @@ public class GlobalManager : Singleton<GlobalManager>
 	{
 		// Used for directly loading the game from within gameplay while in the editor
 		#if UNITY_EDITOR
-		if (globalState == GlobalState.Gameplay || globalState == GlobalState.SetupGameplay)
+		if (globalState == GlobalState.Gameplay || globalState == GlobalState.SetupGameplay || globalState == GlobalState.EditorOnlyLoadGameplay)
 		{
-			LoadGameplayScreen(); 
-			//globalState = GlobalState.LoadMainGameplayScene; 
-			MainGameplayManager.inst.SetupGameplayScreen(); 
+			globalState = GlobalState.EditorOnlyLoadGameplay; 
+
+			UnloadSceneIfLoaded("Title"); 
+			UnloadSceneIfLoaded("GameOver"); 
+			LoadSceneIfUnloaded("Loading"); 
+			SceneLoading.inst.UnloadAllLevelScenes(SceneMapping.inst.sceneList);
 		}
 		#endif
 
@@ -112,6 +115,13 @@ public class GlobalManager : Singleton<GlobalManager>
 			{
 				ChangeToTitle(); 
 				SetGamePaused(false); 
+			}
+		}
+		else if (globalState == GlobalState.EditorOnlyLoadGameplay)
+		{
+			if (SceneLoading.inst.LevelUnloadComplete())
+			{
+				LoadGameplayScreen(); 
 			}
 		}
 	}
