@@ -34,7 +34,9 @@ public class SentryManager : Enemy
 
 	GameObject target;
 
-	GameObject bulletSpawner; 
+	GameObject bulletSpawner;
+
+	//bool canSeeTarget;
 
 	void Start ()
 	{
@@ -51,7 +53,8 @@ public class SentryManager : Enemy
 		StartCoroutine ("CSM"); */
 	}
 
-	void SetupEnemy() {
+	void SetupEnemy ()
+	{
 		target = GameObject.FindGameObjectWithTag ("Player");
 
 		state = SentryManager.State.IDLE;
@@ -59,7 +62,7 @@ public class SentryManager : Enemy
 
 		agent = gameObject.GetComponent<NavMeshAgent> ();
 
-		bulletSpawner = transform.Find("BulletSpawner").gameObject; 
+		bulletSpawner = transform.Find ("BulletSpawner").gameObject; 
 
 		//START State Machine
 		StartCoroutine ("CSM");
@@ -69,7 +72,7 @@ public class SentryManager : Enemy
 	{
 		while (alive)
 		{
-			if (!GlobalManager.inst.GameplayIsActive())
+			if (!GlobalManager.inst.GameplayIsActive ())
 			{
 				yield return null; 
 			}
@@ -94,84 +97,117 @@ public class SentryManager : Enemy
 
 	void Update ()
 	{
-		if (!started && GlobalManager.inst.GameplayIsActive())
+		if (GlobalManager.inst.GameplayIsActive ())
 		{
-			SetupEnemy(); 
+			if (!started)
+			{
+				SetupEnemy (); 
+			}
+
+			if (curShotDelay >= 0)
+			{
+				curShotDelay -= Time.deltaTime;
+				if (curShotDelay < 0)
+					curShotDelay = 0; 
+			}
+
+			//Debug.Log (canSeeTarget());
 		}
 
-		tarDistance = Vector3.Distance (target.transform.position, transform.position);
+		if (GlobalManager.inst.GameplayIsActive () && target != null)
+		{
+			tarDistance = Vector3.Distance (target.transform.position, transform.position);
 
-		//Switches between states based on the distance from the player to the enemy
-		if (tarDistance < attackDist)
-		{
-			state = SentryManager.State.ATTACK;
+			//Switches between states based on the distance from the player to the enemy
+			if (tarDistance < attackDist && canSeeTarget ())
+			{
+				state = SentryManager.State.ATTACK;
+			}
+			else if (tarDistance < aggroDist && tarDistance >= agent.stoppingDistance && canSeeTarget ()) //&& !canSeeTarget)
+			{
+				state = SentryManager.State.POSITION;
+			}
+			else
+			{
+				state = SentryManager.State.IDLE;
+			} 
 		}
-		else if (tarDistance < aggroDist)
-		{
-			state = SentryManager.State.POSITION;
-		}
-		else
-		{
-			state = SentryManager.State.IDLE;
-		} 
-
-		if (curShotDelay >= 0)
-		{
-			curShotDelay -= Time.deltaTime;
-			if (curShotDelay < 0)
-				curShotDelay = 0; 
-		}
-
-		//Debug.Log (agent.velocity);
 	}
 
 	void Idle ()
 	{
-		transform.rotation = Quaternion.Euler (0, 0, 0);
+		//transform.rotation = Quaternion.Euler (0, 0, 0);
 		agent.destination = transform.position;
+		//agent.speed = 0;
 
-		Debug.Log ("Idling");
+		//Debug.Log ("Idling");
+	}
+
+	bool canSeeTarget ()
+	{
+		Vector3 dir = (target.transform.position - transform.position).normalized; 
+		Vector3 start = transform.position + dir * 0.5f; 
+		Vector3 end = target.transform.position - dir * 1; 
+
+		if (Physics.Linecast (start, end))
+		{
+			Debug.DrawLine (start, end, Color.yellow); 
+			//Debug.LogError("Obstacle Found"); 
+			return false; 
+		}
+		else
+		{
+			Debug.DrawLine (start, end, Color.white); 
+			return true; 
+		}
 	}
 
 	void Position ()
 	{
+		Vector3 targetPosition = new Vector3 (target.transform.position.x, this.transform.position.y, target.transform.position.z);
+
 		agent.destination = target.transform.position;
 		agent.speed = moveSpeed;
 		agent.acceleration = moveSpeed;
 
-		agent.stoppingDistance = 30;
+		agent.stoppingDistance = 40;
 
-		Debug.Log ("Positioning");
+		curShotDelay = shotDelay; 
+
+		//Debug.Log ("Positioning");
 	}
 
 	IEnumerator SlowDown ()
 	{
 		agent.Stop ();
 
-		yield return new WaitForSeconds (1);
+		yield return new WaitForSeconds (0.5f);
 
 		agent.stoppingDistance = 0;
-		agent.speed = 0;
-		agent.acceleration = 0;
+		agent.speed = 0.1f;
+		agent.acceleration = 1;
 
+		//Debug.Log ("hello");
 		agent.Resume ();
-	} 
+	}
 
 	void Attack ()
 	{
-		StartCoroutine (SlowDown());
+		if (agent.speed > 1)
+		{
+			StartCoroutine ("SlowDown");
+		}
 
-		Vector3 targetPosition = new Vector3 (target.transform.position.x, this.transform.position.y, target.transform.position.z);
-		this.transform.LookAt (target.transform);
+		//Vector3 targetPosition = new Vector3 (target.transform.position.x, this.transform.position.y, target.transform.position.z);
 
 		agent.destination = target.transform.position;
 
 		if (curShotDelay == 0)
 		{
 			curShotDelay = shotDelay; 
-			ProjectileManager.inst.Shoot_E_Normal(bulletSpawner); 
+			ProjectileManager.inst.Shoot_E_Normal (bulletSpawner, false); 
 		}
 
-		Debug.Log ("Attacking");
+		//Debug.Log ("Attacking");
 	}
 }
