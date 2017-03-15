@@ -73,7 +73,10 @@ public class Bullet : MonoBehaviour
 		}
 		else
 		{
-
+			if (col.tag != "Enemy")
+			{
+				shouldDestroy = true; 
+			}
 		}
 	}
 

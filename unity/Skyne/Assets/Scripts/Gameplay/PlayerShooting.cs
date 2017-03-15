@@ -369,6 +369,13 @@ public class PlayerShooting : Singleton<PlayerShooting>
 		{
 			changeTimer = changeDelay; 
 			changeShootHeld = true; 
+
+			ChangeWeaponTypeModels(); 
 		}
+	}
+
+	void ChangeWeaponTypeModels()
+	{
+
 	}
 }
