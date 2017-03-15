@@ -9,6 +9,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
 	public Vector3 testHitPoint; 
 
 	public GameObject enemyBulletPrefab; 
+	public GameObject fortBulletPrefab; 
 
 	// Player normal shot
 	public void Shoot_P_Normal(GameObject spawner)
@@ -85,13 +86,28 @@ public class ProjectileManager : Singleton<ProjectileManager>
 	 * Add functions here for enemy shooting. Any enemies that need to shoot should call a function here and pass in the spawner
 	 */
 
-	public void Shoot_E_Normal(GameObject spawner)
+	public void Shoot_E_Normal(GameObject spawner, bool lookAtTarget)
 	{
 		GameObject newBullet = GameObject.Instantiate(enemyBulletPrefab, spawner.transform.position, spawner.transform.rotation, transform); 
 		Bullet bullet = newBullet.GetComponent<Bullet>(); 
 
-		bullet.target = GameObject.FindGameObjectWithTag ("Player").GetComponent<Transform> ().position; 
-		bullet.hasTarget = true; 
+		if (lookAtTarget)
+		{
+			bullet.target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>().position; 
+			bullet.hasTarget = true; 
+		}
+	}
+
+	public void Shoot_Fort(GameObject spawner, bool lookAtTarget)
+	{
+		GameObject newBullet = GameObject.Instantiate(fortBulletPrefab, spawner.transform.position, spawner.transform.rotation, transform); 
+		Bullet bullet = newBullet.GetComponent<Bullet>(); 
+
+		if (lookAtTarget)
+		{
+			bullet.target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>().position; 
+			bullet.hasTarget = true; 
+		}
 	}
 
 	// Struct for getting the raycast target and determining if a target was actually found
