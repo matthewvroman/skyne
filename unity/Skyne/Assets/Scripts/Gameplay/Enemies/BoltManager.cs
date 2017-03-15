@@ -153,13 +153,13 @@ public class BoltManager : Enemy
 			// Don't let it attack until facing the player
 
 			// Uses flattened height by giving this position and the target the same y value
-			Vector3 targetFlatPosition = new Vector3(target.position.x, transform.position.y, target.position.z); 
-			Vector3 thisFlatPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z); 
+			Vector3 targetFlatPosition = new Vector3(target.position.x, bulletSpawner.transform.position.y, target.position.z); 
+			Vector3 thisFlatPosition = new Vector3(bulletSpawner.transform.position.x, bulletSpawner.transform.position.y, bulletSpawner.transform.position.z); 
 
 			//float dot = Vector3.Dot(transform.forward, (target.position - transform.position).normalized);
-			float dot = Vector3.Dot(transform.forward, (targetFlatPosition - thisFlatPosition).normalized);
+			float dot = Vector3.Dot(bulletSpawner.transform.forward, (targetFlatPosition - thisFlatPosition).normalized);
 
-			if (dot > 0.98f)
+			if (dot > 0.999f)
 			{
 				state = BoltManager.State.ATTACK;
 			}
@@ -221,8 +221,12 @@ public class BoltManager : Enemy
 	void TurnTowardsTarget ()
 	{
 		agent.speed = 0;
-		Quaternion q = Quaternion.LookRotation(target.position - transform.position);
-		transform.rotation = Quaternion.RotateTowards(transform.rotation, q, attackTurnSpeed * Time.deltaTime);
+
+		//Quaternion q = Quaternion.LookRotation(target.position - transform.position);
+		//transform.rotation = Quaternion.RotateTowards(transform.rotation, q, attackTurnSpeed * Time.deltaTime);
+
+		Quaternion q = Quaternion.LookRotation(target.position - bulletSpawner.transform.position);
+		transform.rotation = Quaternion.RotateTowards(bulletSpawner.transform.rotation, q, attackTurnSpeed * Time.deltaTime);
 	}
 
 
