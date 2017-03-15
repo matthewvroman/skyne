@@ -17,6 +17,7 @@ public class MovingPlatformManager : MonoBehaviour
 
 	float countdown;
 
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -32,7 +33,7 @@ public class MovingPlatformManager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		Debug.Log (countdown);
+		//Debug.Log (countdown);
 
 		if (setPos == true)
 		{

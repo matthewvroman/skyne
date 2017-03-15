@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+using UnityEngine.AI;
 
 public class ChargerManager : Enemy
 {
@@ -21,6 +21,8 @@ public class ChargerManager : Enemy
 	//Var holding the distance from the enemy to the player
 	float tarDistance;
 
+	public NavMeshAgent agent;
+
 	[Tooltip ("The distance at which the enemy will start attacking")]
 	public float attackDistance;
 	[Tooltip ("Distance at which enemy starts moving towards player")]
@@ -30,22 +32,37 @@ public class ChargerManager : Enemy
 	[Tooltip ("Charger's charging speed")]
 	public float chargeSpeed;
 
-	[Tooltip ("The player gameobject")]
-	public Transform target;
-	[Tooltip ("This enemy's rigidbody")]
-	public Rigidbody rBody;
+	//Transform target;
+	GameObject player;
+	GameObject target;
+
+	Rigidbody rBody;
 
 	void Start ()
 	{
-		
+		player = GameObject.FindGameObjectWithTag ("Player");//.GetComponent<Transform> ();
+		target = GameObject.FindGameObjectWithTag("Target");
+
+		rBody = GetComponent<Rigidbody> ();
+		state = ChargerManager.State.IDLE;
+		alive = true;
+
+		agent = gameObject.GetComponent<NavMeshAgent> ();
+
+		//START State Machine
+		StartCoroutine ("CSM");
+
+		started = true; 
 	}
 
 	void SetupEnemy()
 	{
-		target = GameObject.FindGameObjectWithTag ("Player").GetComponent<Transform> ();
+		target = GameObject.FindGameObjectWithTag ("Player");//.GetComponent<Transform> ();
 		rBody = GetComponent<Rigidbody> ();
 		state = ChargerManager.State.IDLE;
 		alive = true;
+
+		//agent = gameObject.GetComponent<NavMeshAgent> ();
 
 		//START State Machine
 		StartCoroutine ("CSM");
@@ -58,10 +75,10 @@ public class ChargerManager : Enemy
 	{
 		while (alive)
 		{
-			if (!GlobalManager.inst.GameplayIsActive())
+			/*if (!GlobalManager.inst.GameplayIsActive())
 			{
 				yield return null; 
-			}
+			} */
 
 			switch (state)
 			{
@@ -83,16 +100,18 @@ public class ChargerManager : Enemy
 
 	void Update ()
 	{
-		if (!started && GlobalManager.inst.GameplayIsActive())
+	/*	if (!started && GlobalManager.inst.GameplayIsActive())
 		{
 			SetupEnemy(); 
-		}
+		} */
+
+		Debug.Log (agent.autoBraking);
 	}
 
 	void FixedUpdate ()
 	{
 		//Determines the distance from the enemy to the player
-		tarDistance = Vector3.Distance (target.position, transform.position);
+		tarDistance = Vector3.Distance (target.transform.position, transform.position);
 
 		//Switches between states based on the distance from the player to the enemy
 		if (tarDistance < attackDistance)
@@ -113,16 +132,25 @@ public class ChargerManager : Enemy
 	void Idle ()
 	{
 		transform.rotation = Quaternion.Euler (0, 0, 0);
+
+		agent.destination = transform.position;
+
 		Debug.Log ("Idling");
 	}
 
 	//The Positioning state, when the enemy first notices the player, it will get closer so that it can start attacking.
 	void Position ()
 	{
-		Vector3 targetPosition = new Vector3 (target.position.x, this.transform.position.y, target.position.z);
-		this.transform.LookAt (targetPosition);
+		//Vector3 targetPosition = new Vector3 (target.position.x, this.transform.position.y, target.position.z);
+		//this.transform.LookAt (targetPosition);
 
-		rBody.AddForce (transform.forward * moveSpeed);
+		//rBody.AddForce (transform.forward * moveSpeed);
+
+		agent.speed = moveSpeed;
+		agent.acceleration = moveSpeed;
+
+		agent.destination = target.transform.position;
+		agent.autoBraking = true;
 
 		Debug.Log ("Positioning");
 	}
@@ -130,10 +158,17 @@ public class ChargerManager : Enemy
 	//The Attcking state, once close enough, the enemy will charge at the player.  
 	void Attack ()
 	{
-		Vector3 targetPosition = new Vector3 (target.position.x, this.transform.position.y, target.position.z);
+		/*Vector3 targetPosition = new Vector3 (target.transform.position.x, this.transform.position.y, target.transform.position.z);
 		this.transform.LookAt (targetPosition);
 
-		rBody.AddForce (transform.forward * chargeSpeed);
+		rBody.AddForce (transform.forward * chargeSpeed); */
+
+		agent.speed = chargeSpeed;
+		agent.acceleration = chargeSpeed;
+
+		agent.destination = target.transform.position; 
+		agent.autoBraking = false;
+
 		Debug.Log ("Attacking");
 	}
 }

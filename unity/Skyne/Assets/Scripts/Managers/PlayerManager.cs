@@ -202,7 +202,7 @@ public class PlayerManager : MonoBehaviour
 		Stamina ();
 		//SlowMo ();
 
-		Debug.Log (counter);
+		//Debug.Log (counter);
 
 		transform.rotation = Quaternion.Euler (0, transform.rotation.y, 0);
 
