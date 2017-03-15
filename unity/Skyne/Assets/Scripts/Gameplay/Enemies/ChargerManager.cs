@@ -57,12 +57,14 @@ public class ChargerManager : Enemy
 
 	void SetupEnemy()
 	{
-		target = GameObject.FindGameObjectWithTag ("Player");//.GetComponent<Transform> ();
+		player = GameObject.FindGameObjectWithTag ("Player");//.GetComponent<Transform> ();
+		target = GameObject.FindGameObjectWithTag("Target");
+
 		rBody = GetComponent<Rigidbody> ();
 		state = ChargerManager.State.IDLE;
 		alive = true;
 
-		//agent = gameObject.GetComponent<NavMeshAgent> ();
+		agent = gameObject.GetComponent<NavMeshAgent> ();
 
 		//START State Machine
 		StartCoroutine ("CSM");
@@ -105,7 +107,7 @@ public class ChargerManager : Enemy
 			SetupEnemy(); 
 		} */
 
-		Debug.Log (agent.autoBraking);
+		//Debug.Log (agent.autoBraking);
 	}
 
 	void FixedUpdate ()
