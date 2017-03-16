@@ -109,13 +109,17 @@ public class Timescaler : Singleton<Timescaler>
 	public float CalculateDeltaTime (float percentChange)
 	{
 		// First, calculate the difference between absolute deltaTime and current deltaTime
-		float deltaTimeDiff = (Time.deltaTime / Time.timeScale) - Time.deltaTime; 
+		if (Time.timeScale != 0)
+		{
+			float deltaTimeDiff = (Time.deltaTime / Time.timeScale) - Time.deltaTime; 
 
-		// Then, find the percent amount of deltaTimeDiff based on percentChange
-		float deltaTimeChange = deltaTimeDiff * percentChange; 
+			// Then, find the percent amount of deltaTimeDiff based on percentChange
+			float deltaTimeChange = deltaTimeDiff * percentChange; 
 
-		// Add this change to the final deltaTime result
-		return Time.deltaTime + deltaTimeChange; 
+			// Add this change to the final deltaTime result
+			return Time.deltaTime + deltaTimeChange; 
+		}
+		return 0; 
 	}
 
 	// Returns the timeScale calculation based on the percentChange
