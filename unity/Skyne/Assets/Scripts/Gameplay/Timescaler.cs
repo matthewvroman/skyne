@@ -72,14 +72,17 @@ public class Timescaler : Singleton<Timescaler>
 		}
 		else if (timeSlowed)
 		{
-			if (Time.timeScale > minTimescale)
+			if (Time.timeScale > minTimescale && Time.timeScale != 0)
 			{
 				// Time.deltaTime changes once we change the timeScale
 				// To get Time.deltaTime independent of how we've just changed the timescale, we have to divide by the timeScale to undo the change
 				// Use Time.deltaTime / Time.timeScale for timing that's independent of the slow motion's effect on time
-				Time.timeScale -= timescaleChangeRate * (Time.deltaTime / Time.timeScale);
-				if (Time.timeScale < minTimescale)
-					Time.timeScale = minTimescale; 
+				float newTimeScale = Time.timeScale - timescaleChangeRate * (Time.deltaTime / Time.timeScale);
+
+				if (newTimeScale < minTimescale)
+					newTimeScale = minTimescale; 
+
+				Time.timeScale = newTimeScale; 
 			}
 		}
 		// Time is speeding up or remaining in normal speed
@@ -131,5 +134,40 @@ public class Timescaler : Singleton<Timescaler>
 		float timeScaleDiff = 1 - Time.timeScale; 
 		float timeScaleIncrease = timeScaleDiff * percentChange; 
 		return Time.timeScale + timeScaleIncrease;  
+
+		// Test example: slo-mo timescale is 0.1; diff is 1 - 0.1 = 0.9; percentChange = 1, so increase is 100% of 0.9, which is 0.9. So, newTimeScale = 0.1 + 0.9. which is 1
+	}
+
+	// Returns the deltaTimePerc value needed for rigidbody FixedUpdate() calculations
+	// At normal time, this will need to return 1, but during slowdown, the value needs to be calculated along a linear proportion
+	// At full slow motion, the returned value will equal the deltaTimePerc specified in the parameter
+	public float CalculateDeltaTimePerc(float deltaTimePerc)
+	{
+		float timeRange = 1 - minTimescale; 
+		float curTimeFill = timeRange - (Time.timeScale - minTimescale); 
+
+		float deltaTimeRange = 1 - deltaTimePerc; 
+
+		float newDeltaTime = deltaTimeRange * curTimeFill / timeRange; 
+
+		return 1 - newDeltaTime; 
+	}
+
+	// Provides the correct multiplier for handling speed in rigidbody functions in FixedUpdate()
+	// Provide the normal speed value and the deltaTimePerc. 
+	// Example: rb.velocity = transform.forward * Timescaler.inst.GetFixedUpdateSpeed(speed, deltaTimePerc); 
+
+	/// <summary>
+	/// Gets the fixed update speed.
+	/// </summary>
+	/// <returns>The fixed update speed.</returns>
+	/// <param name="speed">Speed.</param>
+	/// <param name="deltaTimePerc">Delta time perc.</param>
+	public float GetFixedUpdateSpeed(float speed, float deltaTimePerc)
+	{
+		// Dividing speed by Time.timeScale reverses the effect of the slowdown, effectively restoring the original speed while everything else is in slow motion.
+		// Then, that original speed is multiplied by the deltaTimePerc to figure out how much of the original speed is kept
+		// HOWEVER, deltaTimePerc alone will always affect the bullet speed. Thus, deltaTimePerc must be scaled according to where the current timescale falls between 1 and minTimescale
+		return (speed / Time.timeScale) * Timescaler.inst.CalculateDeltaTimePerc(deltaTimePerc);
 	}
 }

@@ -38,7 +38,9 @@ public class BoltManager : Enemy
 
 	NavMeshAgent agent; 
 
+	public GameObject bulletArm; 
 	GameObject bulletSpawner; 
+	GameObject frontFacingObj; 
 
 	// Shooting
 	public float shootDelay; 
@@ -52,7 +54,9 @@ public class BoltManager : Enemy
 	{
 		target = GameObject.FindGameObjectWithTag ("Player").GetComponent<Transform> ();
 		rBody = GetComponent<Rigidbody> ();
-		bulletSpawner = transform.Find("BulletSpawner").gameObject; 
+		bulletSpawner = transform.Find("BulletArm/BulletSpawner").gameObject; 
+		frontFacingObj = transform.Find("FrontFacingObj").gameObject; 
+		bulletArm = transform.Find("BulletArm").gameObject; 
 		agent = GetComponent<NavMeshAgent>();
 		alive = true;
 		state = BoltManager.State.IDLE;
@@ -153,11 +157,16 @@ public class BoltManager : Enemy
 			// Don't let it attack until facing the player
 
 			// Uses flattened height by giving this position and the target the same y value
-			Vector3 targetFlatPosition = new Vector3(target.position.x, bulletSpawner.transform.position.y, target.position.z); 
-			Vector3 thisFlatPosition = new Vector3(bulletSpawner.transform.position.x, bulletSpawner.transform.position.y, bulletSpawner.transform.position.z); 
+			Vector3 targetFlatPosition = new Vector3(target.position.x, frontFacingObj.transform.position.y, target.position.z); 
+			Vector3 thisFlatPosition = new Vector3(frontFacingObj.transform.position.x, frontFacingObj.transform.position.y, frontFacingObj.transform.position.z); 
 
 			//float dot = Vector3.Dot(transform.forward, (target.position - transform.position).normalized);
-			float dot = Vector3.Dot(bulletSpawner.transform.forward, (targetFlatPosition - thisFlatPosition).normalized);
+			float dot = Vector3.Dot(frontFacingObj.transform.forward, (targetFlatPosition - thisFlatPosition).normalized);
+
+			// Also test dot for vertical level
+			Vector3 targetVertical = new Vector3(0, 0, 0);
+			Vector3 thisVertical = new Vector3(0, target.position.y, 0); 
+			float verticalDot = Vector3.Dot(frontFacingObj.transform.forward, (targetVertical - thisVertical).normalized);
 
 			if (dot > 0.999f)
 			{
@@ -225,8 +234,25 @@ public class BoltManager : Enemy
 		//Quaternion q = Quaternion.LookRotation(target.position - transform.position);
 		//transform.rotation = Quaternion.RotateTowards(transform.rotation, q, attackTurnSpeed * Time.deltaTime);
 
-		Quaternion q = Quaternion.LookRotation(target.position - bulletSpawner.transform.position);
-		transform.rotation = Quaternion.RotateTowards(bulletSpawner.transform.rotation, q, attackTurnSpeed * Time.deltaTime);
+		Quaternion q = Quaternion.LookRotation(target.position - frontFacingObj.transform.position);
+		transform.rotation = Quaternion.RotateTowards(frontFacingObj.transform.rotation, q, attackTurnSpeed * Time.deltaTime);
+
+
+		// Make the bulletArm rotate vertically towards the target
+		//Vector3 start = new Vector3(bulletArm.transform.rotation.x, bulletArm.transform.rotation.y, bulletArm.transform.rotation.z);
+		//Vector3 end = new Vector3(bulletArm.transform.rotation.x, target.transform.rotation.y, bulletArm.transform.rotation.z);  
+
+		//find the vector pointing from our position to the target
+		//Vector3 _direction = (end - bulletArm.transform.position).normalized;
+
+		//create the rotation we need to be in to look at the target
+		//Quaternion v = Quaternion.LookRotation(_direction);
+
+		//rotate us over time according to speed until we are in the required rotation
+		//bulletArm.transform.rotation = Quaternion.Slerp(bulletArm.transform.rotation, v, Time.deltaTime * 10);
+
+		//bulletArm.transform.LookAt(new Vector3(target.transform.position.x, bulletArm.transform.position.y, target.transform.position.z));
+
 	}
 
 
@@ -242,7 +268,8 @@ public class BoltManager : Enemy
 			curShootDelay = shootDelay;
 
 			// Pass ProjectileManager this bolt's bullet spawner and shoot a new bullet
-			ProjectileManager.inst.Shoot_E_Normal(bulletSpawner, false); 
+			ProjectileManager.inst.Shoot_E_Normal(bulletSpawner, true); 
+
 		}
 	}
 }

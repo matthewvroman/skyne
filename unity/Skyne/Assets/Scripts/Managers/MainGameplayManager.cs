@@ -90,4 +90,12 @@ public class MainGameplayManager : Singleton<MainGameplayManager>
 			LevelData.inst.UpdatePlayerGridPos(); 
 		}
 	}
+
+	public void TriggerGameOver ()
+	{
+		if (GlobalManager.inst.globalState == GlobalManager.GlobalState.Gameplay)
+		{
+			GlobalManager.inst.LoadGameOver(); 
+		}
+	}
 }

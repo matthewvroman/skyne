@@ -11,7 +11,8 @@ public class FortManager : Enemy
 		IDLE,
 		POSITION,
 		TURN_TOWARDS_TARGET,
-		ATTACK
+		ATTACK,
+		MELEE
 	}
 
 	public State state;
@@ -26,15 +27,21 @@ public class FortManager : Enemy
 	public float attackDistance; 
 	[Tooltip ("Distance at which enemy starts moving towards player")]
 	public float aggroDistance;
+	[Tooltip ("When the player is in front of the enemy, how close must they be for the enemy to melee attack")]
+	public float meleeDistance;
+
 	[Tooltip ("Enemy's general move speed")]
 	public float moveSpeed;
 	[Tooltip ("Turning speed (only when the player is within attack range)")]
 	public float attackTurnSpeed;
 
+	[Tooltip ("How close to the front-facing direction of the enemy does the player need to be for the fort to melee? 1 = exact front, < 1 = close range")]
+	public float meleeFrontZone; 
+
 	[Tooltip ("How long the enemy must wait after firing a shot")]
 	public float cooldownLength; 
 
-	public float cooldownTimer; 
+	float cooldownTimer; 
 
 	[Tooltip ("The player gameobject")]
 	Transform target;
@@ -44,6 +51,8 @@ public class FortManager : Enemy
 	NavMeshAgent agent; 
 
 	GameObject bulletSpawner; 
+
+	public GameObject tempShield; 
 
 	// Shooting
 	public float shootDelay; 
@@ -66,6 +75,9 @@ public class FortManager : Enemy
 		StartCoroutine ("FSM");
 
 		started = true; 
+
+		// Temporary shield
+		tempShield.SetActive(false); 
 	}
 
 	void Update () 
@@ -93,7 +105,12 @@ public class FortManager : Enemy
 			{
 				cooldownTimer -= Time.deltaTime;
 				if (cooldownTimer < 0)
+				{
 					cooldownTimer = 0; 
+
+					// Temporary
+					tempShield.SetActive(false); 
+				}
 			}
 		}
 	}
@@ -118,14 +135,20 @@ public class FortManager : Enemy
 			case State.POSITION:
 				Position ();
 				break;
-
+		
 			case State.ATTACK:
 				Attack ();
 				break;
+
 			case State.TURN_TOWARDS_TARGET:
 				TurnTowardsTarget(); 
 				break; 
+
+			case State.MELEE:
+				Melee(); 
+				break; 
 			}
+
 			yield return null;
 		}
 	}
@@ -138,17 +161,26 @@ public class FortManager : Enemy
 			tarDistance = Vector3.Distance(target.position, transform.position);
 
 			//Switches between states based on the distance from the player to the enemy
-			if (tarDistance < attackDistance)
+			if (state != State.MELEE)
 			{
-				TryAttack(); 
-			}
-			else if (tarDistance < aggroDistance)
-			{
-				state = FortManager.State.POSITION;
-			}
-			else
-			{
-				state = FortManager.State.IDLE;
+				if (tarDistance < attackDistance)
+				{
+					TryAttack(); 
+				}
+				else if (tarDistance < aggroDistance)
+				{
+					state = FortManager.State.POSITION;
+				}
+				else
+				{
+					state = FortManager.State.IDLE;
+				}
+
+				// Check for melee attack
+				if (tarDistance < meleeDistance)
+				{
+					TryMelee(); 
+				}
 			}
 		}
 	}
@@ -166,13 +198,13 @@ public class FortManager : Enemy
 			// Don't let it attack until facing the player
 
 			// Uses flattened height by giving this position and the target the same y value
-			Vector3 targetFlatPosition = new Vector3(target.position.x, transform.position.y, target.position.z); 
-			Vector3 thisFlatPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z); 
+			Vector3 targetFlatPosition = new Vector3(target.position.x, bulletSpawner.transform.position.y, target.position.z); 
+			Vector3 thisFlatPosition = new Vector3(bulletSpawner.transform.position.x, bulletSpawner.transform.position.y, bulletSpawner.transform.position.z); 
 
 			//float dot = Vector3.Dot(transform.forward, (target.position - transform.position).normalized);
-			float dot = Vector3.Dot(transform.forward, (targetFlatPosition - thisFlatPosition).normalized);
+			float dot = Vector3.Dot(bulletSpawner.transform.forward, (targetFlatPosition - thisFlatPosition).normalized);
 
-			if (dot > 0.98f)
+			if (dot > 0.9999f)
 			{
 				state = FortManager.State.ATTACK;
 			}
@@ -184,6 +216,19 @@ public class FortManager : Enemy
 		else
 		{
 			state = FortManager.State.POSITION;
+		}
+	}
+
+	void TryMelee()
+	{
+		Vector3 targetFlatPosition = new Vector3(target.position.x, transform.position.y, target.position.z); 
+		Vector3 thisFlatPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z); 
+
+		float dot = Vector3.Dot(transform.forward, (targetFlatPosition - thisFlatPosition).normalized);
+
+		if (dot > meleeFrontZone)
+		{
+			state = FortManager.State.MELEE;
 		}
 	}
 
@@ -240,8 +285,8 @@ public class FortManager : Enemy
 	void TurnTowardsTarget ()
 	{
 		agent.speed = 0;
-		Quaternion q = Quaternion.LookRotation(target.position - transform.position);
-		transform.rotation = Quaternion.RotateTowards(transform.rotation, q, attackTurnSpeed * Time.deltaTime);
+		Quaternion q = Quaternion.LookRotation(target.position - bulletSpawner.transform.position);
+		transform.rotation = Quaternion.RotateTowards(bulletSpawner.transform.rotation, q, attackTurnSpeed * Time.deltaTime);
 	}
 
 
@@ -257,9 +302,23 @@ public class FortManager : Enemy
 			curShootDelay = shootDelay;
 
 			// Pass ProjectileManager this bolt's bullet spawner and shoot a new bullet
-			ProjectileManager.inst.Shoot_Fort(bulletSpawner, false); 
+			//ProjectileManager.inst.Shoot_Fort(bulletSpawner, false); 
+
+			// Test
+			ProjectileManager.inst.Shoot_BossBigOrb(bulletSpawner); 
 
 			cooldownTimer = cooldownLength; 
+			tempShield.SetActive(true); 
 		}
+	}
+
+	void Melee ()
+	{
+		agent.speed = 0; 
+	}
+
+	public void EndMelee ()
+	{
+
 	}
 }

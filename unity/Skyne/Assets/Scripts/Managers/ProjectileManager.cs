@@ -10,6 +10,8 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
 	public GameObject enemyBulletPrefab; 
 	public GameObject fortBulletPrefab; 
+	public GameObject bossHomingBulletPrefab; 
+	public GameObject bossBigBulletPrefab; 
 
 	// Player normal shot
 	public void Shoot_P_Normal(GameObject spawner)
@@ -96,6 +98,22 @@ public class ProjectileManager : Singleton<ProjectileManager>
 			bullet.target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>().position; 
 			bullet.hasTarget = true; 
 		}
+	}
+
+	public void Shoot_BossHomingOrb(GameObject spawner)
+	{
+		GameObject newBullet = GameObject.Instantiate(bossHomingBulletPrefab, spawner.transform.position, spawner.transform.rotation, transform); 
+		Bullet bullet = newBullet.GetComponent<Bullet>(); 
+
+		bullet.targetObj = GameObject.FindGameObjectWithTag("Player").gameObject; 
+		bullet.target = bullet.targetObj.GetComponent<Transform>().position; 
+		bullet.hasTarget = true; 
+	}
+
+	public void Shoot_BossBigOrb(GameObject spawner)
+	{
+		GameObject newBullet = GameObject.Instantiate(bossBigBulletPrefab, spawner.transform.position, spawner.transform.rotation, transform); 
+		Bullet bullet = newBullet.GetComponent<Bullet>(); 
 	}
 
 	public void Shoot_Fort(GameObject spawner, bool lookAtTarget)
