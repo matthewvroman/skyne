@@ -627,6 +627,14 @@ public class PlayerManager : MonoBehaviour
 		rBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
 	}
 
+	public float getHealth() {
+		return currentHealth;
+	}
+
+	public void setHealth(float h) {
+		currentHealth = h;
+	}
+
 	void OnCollisionEnter (Collision col)
 	{
 		//If the player comes in contact with an enemy, initiate invincibility coroutine
