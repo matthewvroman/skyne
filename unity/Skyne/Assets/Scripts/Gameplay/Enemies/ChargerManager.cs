@@ -33,14 +33,14 @@ public class ChargerManager : Enemy
 	public float chargeSpeed;
 
 	//Transform target;
-	GameObject player;
+	//GameObject player;
 	GameObject target;
 
-	Rigidbody rBody;
+	//Rigidbody rBody;
 
 	void Start ()
 	{
-		player = GameObject.FindGameObjectWithTag ("Player");//.GetComponent<Transform> ();
+		/*player = GameObject.FindGameObjectWithTag ("Player");//.GetComponent<Transform> ();
 		target = GameObject.FindGameObjectWithTag("Target");
 
 		rBody = GetComponent<Rigidbody> ();
@@ -52,15 +52,15 @@ public class ChargerManager : Enemy
 		//START State Machine
 		StartCoroutine ("CSM");
 
-		started = true; 
+		started = true; */
 	}
 
 	void SetupEnemy()
 	{
-		player = GameObject.FindGameObjectWithTag ("Player");//.GetComponent<Transform> ();
-		target = GameObject.FindGameObjectWithTag("Target");
+		//player = GameObject.FindGameObjectWithTag ("Player");//.GetComponent<Transform> ();
+		target = GameObject.FindGameObjectWithTag("Player");
 
-		rBody = GetComponent<Rigidbody> ();
+		//rBody = GetComponent<Rigidbody> ();
 		state = ChargerManager.State.IDLE;
 		alive = true;
 
@@ -102,31 +102,34 @@ public class ChargerManager : Enemy
 
 	void Update ()
 	{
-	/*	if (!started && GlobalManager.inst.GameplayIsActive())
+		if (!started && GlobalManager.inst.GameplayIsActive())
 		{
 			SetupEnemy(); 
-		} */
+		} 
 
 		//Debug.Log (agent.autoBraking);
 	}
 
 	void FixedUpdate ()
 	{
-		//Determines the distance from the enemy to the player
-		tarDistance = Vector3.Distance (target.transform.position, transform.position);
+		if (GlobalManager.inst.GameplayIsActive () && target != null)
+		{
+			//Determines the distance from the enemy to the player
+			tarDistance = Vector3.Distance (target.transform.position, transform.position);
 
-		//Switches between states based on the distance from the player to the enemy
-		if (tarDistance < attackDistance)
-		{
-			state = ChargerManager.State.ATTACK;
-		}
-		else if (tarDistance < aggroDistance)
-		{
-			state = ChargerManager.State.POSITION;
-		}
-		else
-		{
-			state = ChargerManager.State.IDLE;
+			//Switches between states based on the distance from the player to the enemy
+			if (tarDistance < attackDistance)
+			{
+				state = ChargerManager.State.ATTACK;
+			}
+			else if (tarDistance < aggroDistance)
+			{
+				state = ChargerManager.State.POSITION;
+			}
+			else
+			{
+				state = ChargerManager.State.IDLE;
+			}
 		}
 	}
 

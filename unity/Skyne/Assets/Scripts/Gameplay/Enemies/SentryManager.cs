@@ -65,10 +65,12 @@ public class SentryManager : Enemy
 		bulletSpawner = transform.Find ("BulletSpawner").gameObject; 
 
 		//START State Machine
-		StartCoroutine ("CSM");
+		StartCoroutine ("SSM");
+
+		started = true;
 	}
 
-	IEnumerator CSM ()
+	IEnumerator SSM ()
 	{
 		while (alive)
 		{
@@ -164,7 +166,7 @@ public class SentryManager : Enemy
 
 	void Position ()
 	{
-		Vector3 targetPosition = new Vector3 (target.transform.position.x, this.transform.position.y, target.transform.position.z);
+		//Vector3 targetPosition = new Vector3 (target.transform.position.x, this.transform.position.y, target.transform.position.z);
 
 		agent.destination = target.transform.position;
 		agent.speed = moveSpeed;

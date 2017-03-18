@@ -5,7 +5,8 @@ using UnityEngine;
 public abstract class Enemy : MonoBehaviour 
 {
 	[Tooltip("The current health of the enemy")]
-	public float health; 
+	public float health;
+	public float maxHealth;
 
 	[Tooltip("The percent chance from 0 - 100 that the enemy will drop a health pickup.")]
 	public float hpDropPercChance; 
