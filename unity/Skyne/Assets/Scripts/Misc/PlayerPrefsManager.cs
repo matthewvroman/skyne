@@ -78,10 +78,11 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 			SetBool("upgrade" + i, GameState.inst.upgradesFound[i]); 
 		}
 
+		PlayerManager player = GameObject.FindObjectOfType<PlayerManager>(); 
+
 		// Save the player health
-		PlayerPrefs.SetInt("playerHealth", GameState.inst.playerHealth); 
-
-
+		//PlayerPrefs.SetInt("playerHealth", GameState.inst.playerHealth);
+		PlayerPrefs.SetFloat("playerHealth", player.getHealth()); 
 		PlayerPrefs.Save(); 
 	}
 
@@ -90,26 +91,8 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 	/// </summary>
 	public void LoadPlayerPrefs()
 	{
-		// A bunch of stuff here
 		// Load the room states
 		LoadRoomStates(); 
-
-		// Load the current save room
-		// Extract the level, column, and row from the save room associated with the saved index
-		// Then, assign those coordinates to LevelData's curLevel, curColumn, and curRow
-		/*
-		int curSaveIndex = GetInt("saveRoom", -1); 
-
-		if (curSaveIndex == -1)
-		{
-			// Load a save game from the game's starting position
-		}
-		else
-		{
-			// TODO Rethink- can I just extract the player's new position and then calculate the level,column,row from that? 
-			//string curSaveCoordinates = LevelData.inst.saveRooms[curSaveIndex].roomCoordinate; 
-		}
-		*/ 
 
 		string curSaveRoomName = GetString("saveRoom", "start");
 
@@ -129,8 +112,6 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 			}
 		}
 
-
-
 		// Load the keys found
 		for (int i = 0; i < GameState.inst.keysFound.Length; i++)
 		{
@@ -144,7 +125,17 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 		}
 
 		// Load the player health
-		GameState.inst.playerHealth = GetInt("playerHealth", 100);
+		//GameState.inst.playerHealth = GetInt("playerHealth", 100);
+
+		//PlayerManager player = GameObject.FindObjectOfType<PlayerManager>(); 
+
+		//player.setHealth(GetFloat("playerHealth", 100));
+
+	}
+
+	public float GetStoredPlayerHealth()
+	{
+		return GetFloat("playerHealth", 100);
 	}
 
 	public void SaveRoomStates()

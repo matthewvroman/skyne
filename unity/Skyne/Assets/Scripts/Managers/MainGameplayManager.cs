@@ -63,6 +63,7 @@ public class MainGameplayManager : Singleton<MainGameplayManager>
 		Debug.Log("OnGameplayStart()"); 
 		GlobalManager.inst.initialLoadFinished = true; 
 
+		player.GetComponent<PlayerManager>().setHealth(PlayerPrefsManager.inst.GetStoredPlayerHealth()); 
 		player.SetActive(true); 
 
 		mainCam.gameObject.SetActive(true); 
