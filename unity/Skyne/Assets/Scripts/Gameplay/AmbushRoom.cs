@@ -17,6 +17,8 @@ public class AmbushRoom : MonoBehaviour
 
 	public DoorControl[] doorCon;
 
+	bool isDone = false;
+
 	GameState gameState;
 	int keysHeld;
 
@@ -51,9 +53,14 @@ public class AmbushRoom : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		//Debug.Log (noKeys.Count);
+		Debug.Log ("Done = " + isDone);
 
-		if (this.noKeys.Count != 0 && this.oneKey.Count != 0 && this.twoKeys.Count != 0 && this.threeKeys.Count != 0)
+		if (this.noKeys.Count == 0 || this.oneKey.Count == 0 || this.twoKeys.Count == 0 || this.threeKeys.Count == 0)
+		{
+			isDone = true;
+		}
+
+		if (isDone == false)
 		{
 			
 			keysHeld = gameState.GetNumKeysFound ();
@@ -196,6 +203,19 @@ public class AmbushRoom : MonoBehaviour
 			foreach (DoorControl door in doorCon)
 			{
 				door.setDoorState (true);
+			}
+		}
+	}
+
+	void OnTriggerEnter(Collider col) {
+		if (isDone == false)
+		{
+			if (col.gameObject.tag == "Player")
+			{
+				foreach (DoorControl door in doorCon)
+				{
+					door.setDoorState (false);
+				}
 			}
 		}
 	}

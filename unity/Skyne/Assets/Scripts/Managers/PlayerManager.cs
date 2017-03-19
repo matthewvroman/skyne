@@ -263,7 +263,7 @@ public class PlayerManager : MonoBehaviour
 			currentHealth = 0;
 		}
 
-		Debug.Log (GameState.inst.upgradesFound [0]);
+		//Debug.Log (GameState.inst.upgradesFound [0]);
 	}
 
 	void FixedUpdate ()

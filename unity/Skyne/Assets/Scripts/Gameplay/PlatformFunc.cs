@@ -47,7 +47,7 @@ public class PlatformFunc : MonoBehaviour
 	{
 		if (col.gameObject.tag == "Bullet")
 		{
-			Debug.Log ("Hello");
+			//Debug.Log ("Hello");
 			platMan.SetPos (!platMan.GetSetPos ());
 		}
 	}
