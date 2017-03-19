@@ -65,8 +65,8 @@ public class MainCameraControl : MonoBehaviour
 	void LateUpdate()
 	{
 		// Get mouse movement to orbit the camera.
-		HorizontalAngle += Mathf.Clamp(Input.GetAxis("Mouse X"), -1, 1) * horizontalAimingSpeed * Time.deltaTime;
-		VerticalAngle += Mathf.Clamp(Input.GetAxis("Mouse Y"), -1, 1) * verticalAimingSpeed * Time.deltaTime;
+		HorizontalAngle += Mathf.Clamp(Input.GetAxis("Mouse X"), -1, 1) * horizontalAimingSpeed * Time.unscaledDeltaTime;//Time.deltaTime;
+		VerticalAngle += Mathf.Clamp(Input.GetAxis("Mouse Y"), -1, 1) * verticalAimingSpeed * Time.unscaledDeltaTime;//Time.deltaTime;
 
 		// Set vertical movement limit.
 		VerticalAngle = Mathf.Clamp(VerticalAngle, minVerticalAngle, verticalAngleClamp);
@@ -77,7 +77,7 @@ public class MainCameraControl : MonoBehaviour
 		camera.rotation = aimRotation;
 
 		// Set FOV.
-		camera.GetComponent<Camera>().fieldOfView = Mathf.Lerp (camera.GetComponent<Camera>().fieldOfView, targetFieldOfView,  Time.deltaTime);
+		camera.GetComponent<Camera>().fieldOfView = Mathf.Lerp (camera.GetComponent<Camera>().fieldOfView, targetFieldOfView,  Time.unscaledDeltaTime);
 
 		// Test for collision with the environment based on current camera position.
 		Vector3 baseTempPosition = player.position + camYRotation * targetPivotOffset;
@@ -92,8 +92,8 @@ public class MainCameraControl : MonoBehaviour
 		}
 
 		// Repostition the camera.
-		smoothPivotOffset = Vector3.Lerp(smoothPivotOffset, targetPivotOffset, smooth * Time.deltaTime);
-		smoothCamOffset = Vector3.Lerp(smoothCamOffset, noCollisionOffset, smooth * Time.deltaTime);
+		smoothPivotOffset = Vector3.Lerp(smoothPivotOffset, targetPivotOffset, smooth * Time.unscaledDeltaTime);
+		smoothCamOffset = Vector3.Lerp(smoothCamOffset, noCollisionOffset, smooth * Time.unscaledDeltaTime);
 
 		camera.position =  player.position + camYRotation * smoothPivotOffset + aimRotation * smoothCamOffset;
 	}

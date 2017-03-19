@@ -587,7 +587,7 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void DecreaseStamina ()
 	{
-		currentStamina -= 2;
+		currentStamina -= 2 * Time.unscaledDeltaTime;
 	}
 
 	/// <summary>
@@ -595,7 +595,7 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void IncreaseStamina ()
 	{
-		currentStamina += 2;
+		currentStamina += 2 * Time.unscaledDeltaTime;
 	}
 
 	/// <summary>
