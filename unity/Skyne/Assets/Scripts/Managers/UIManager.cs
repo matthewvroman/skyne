@@ -20,9 +20,13 @@ public class UIManager : Singleton<UIManager>
 	[SerializeField] private Button reloadButton; 
 	[SerializeField] private Button continueButton; 
 
-	[SerializeField] private Toggle level1Toggle; 
-	[SerializeField] private Toggle level2Toggle; 
-	[SerializeField] private Toggle level3Toggle; 
+	//[SerializeField] private Toggle level1Toggle; 
+	//[SerializeField] private Toggle level2Toggle; 
+	//[SerializeField] private Toggle level3Toggle; 
+
+	[SerializeField] private GameObject level1Button; 
+	[SerializeField] private GameObject level2Button; 
+	[SerializeField] private GameObject level3Button; 
 
 	public EventSystem levelEventSystem; 
 
@@ -100,6 +104,21 @@ public class UIManager : Singleton<UIManager>
 				}
 			}
 		}
+
+		// Update the map
+		if (gameMenuActive && gameMenuState == GameMenuState.Map)
+		{
+			if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+			{
+				MapDisplay.inst.DecrementDisplayFloor(); 
+				UpdateMapPanelToggles(); 
+			}
+			else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+			{
+				MapDisplay.inst.IncrementDisplayFloor(); 
+				UpdateMapPanelToggles(); 
+			}
+		}
 	}
 
 
@@ -115,25 +134,29 @@ public class UIManager : Singleton<UIManager>
 		mapPanel.SetActive(true);
 		optionsPanel.SetActive(false); 
 
-		// Set the toggle to the current floor
-		level1Toggle.isOn = false;
-		level2Toggle.isOn = false; 
-		level3Toggle.isOn = false; 
+		MapDisplay.inst.displayLevel = LevelData.inst.curLevel; 
+		UpdateMapPanelToggles(); 
+	}
 
-		if (LevelData.inst.curLevel == 1)
+	void UpdateMapPanelToggles()
+	{
+		if (MapDisplay.inst.displayLevel == 1)
 		{
-			level1Toggle.isOn = true; 
-			EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(level1Toggle.gameObject);
+			level1Button.GetComponent<Image>().color = new Color (1, 1, 1); 
+			level2Button.GetComponent<Image>().color = new Color (0.8f, 0.8f, 0.8f); 
+			level3Button.GetComponent<Image>().color = new Color (0.8f, 0.8f, 0.8f); 
 		}
-		else if (LevelData.inst.curLevel == 2)
+		else if (MapDisplay.inst.displayLevel == 2)
 		{
-			level2Toggle.isOn = true; 
-			EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(level2Toggle.gameObject);
+			level1Button.GetComponent<Image>().color = new Color (0.8f, 0.8f, 0.8f); 
+			level2Button.GetComponent<Image>().color = new Color (1, 1, 1); 
+			level3Button.GetComponent<Image>().color = new Color (0.8f, 0.8f, 0.8f); 
 		}
-		else if (LevelData.inst.curLevel == 3)
+		else if (MapDisplay.inst.displayLevel == 3)
 		{
-			level3Toggle.isOn = true; 
-			EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(level3Toggle.gameObject);
+			level1Button.GetComponent<Image>().color = new Color (0.8f, 0.8f, 0.8f); 
+			level2Button.GetComponent<Image>().color = new Color (0.8f, 0.8f, 0.8f); 
+			level3Button.GetComponent<Image>().color = new Color (1, 1, 1); 
 		}
 	}
 

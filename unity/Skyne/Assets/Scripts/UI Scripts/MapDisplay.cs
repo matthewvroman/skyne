@@ -18,9 +18,6 @@ public class MapDisplay : Singleton<MapDisplay>
 	// 1, 2, or 3
 	public int displayLevel; 
 
-	// Temporary slider for adjusting floor/level view
-	public Slider floorSlider; 
-
 	public GameObject statusPanel; 
 
 	/*
@@ -59,9 +56,9 @@ public class MapDisplay : Singleton<MapDisplay>
 					newMapTile.transform.SetParent(mapTileParents[level].transform);
 
 					// Choose the correct position for the new tile and rename it
-					float xPos = column * mapTileSize; 
-					float yPos = row * mapTileSize; 
-					newMapTile.GetComponent<RectTransform>().localPosition = new Vector3 (xPos, yPos, 0); 
+					float xPos = mapTileParents[0].transform.position.x + column * mapTileSize; 
+					float yPos = mapTileParents[0].transform.position.y + row * mapTileSize; 
+					newMapTile.GetComponent<RectTransform>().position = new Vector3 (xPos, yPos, 0); 
 					newMapTile.name = "L:" + (level + 1) + ", C:" + (column + 1) + ", R:" + (row + 1); 
 
 					// Add each created tile to the array of stored map tiles
@@ -338,11 +335,6 @@ public class MapDisplay : Singleton<MapDisplay>
 	// Maybe should call this from mainManager?
 	void Update () 
 	{			
-		if (floorSlider != null)
-		{
-			//displayLevel = (int)(floorSlider.value); 
-		}
-
 		// Change current display level based on which level the player is on
 		// Removed- the player should be able to change this at any time
 		//displayLevel = LevelData.inst.curLevel; 
@@ -361,6 +353,18 @@ public class MapDisplay : Singleton<MapDisplay>
 
 	public void LevelToggleClicked(int toggledLevel)
 	{
-		displayLevel = toggledLevel; 
+		//displayLevel = toggledLevel; 
+	}
+
+	public void IncrementDisplayFloor()
+	{
+		if (displayLevel < 3)
+			displayLevel++; 
+	}
+
+	public void DecrementDisplayFloor()
+	{
+		if (displayLevel > 1)
+			displayLevel--; 
 	}
 }
