@@ -310,7 +310,7 @@ ModelImporter:
     4300052: Gun_Source1:NormalNozzle_Body
     4300054: Gun_Source1:NormalNozzle_Cock
     4300056: Gun_Source1:WideShot_Source1:WideShotNozzle
-    7400000: Take 001
+    7400000: RunRight
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -332,7 +332,253 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: RunRight
+      takeName: Take 001
+      firstFrame: 256
+      lastFrame: 292
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Pelvis
+        weight: 1
+      - path: Root/Pelvis/L_Hip
+        weight: 1
+      - path: Root/Pelvis/L_Hip/L_Knee
+        weight: 1
+      - path: Root/Pelvis/L_Hip/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/Pelvis/L_Hip/L_Knee/L_Ankle/L_Feet
+        weight: 1
+      - path: Root/Pelvis/L_Hip/L_Knee/L_Ankle/L_Feet/L_FootFingers
+        weight: 1
+      - path: Root/Pelvis/R_Hip
+        weight: 1
+      - path: Root/Pelvis/R_Hip/R_Knee
+        weight: 1
+      - path: Root/Pelvis/R_Hip/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/Pelvis/R_Hip/R_Knee/R_Ankle/R_Feet
+        weight: 1
+      - path: Root/Pelvis/R_Hip/R_Knee/R_Ankle/R_Feet/R_FootFingers
+        weight: 1
+      - path: Root/Spine1
+        weight: 1
+      - path: Root/Spine1/joint2
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/L_Clavicle
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/L_Clavicle/L_REAL_Shoulder
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/L_Clavicle/L_REAL_Shoulder/L_REAL_Elbow
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/L_Clavicle/L_REAL_Shoulder/L_REAL_Elbow/L_REAL_Wrist
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/L_Clavicle/L_REAL_Shoulder/L_REAL_Elbow/L_REAL_Wrist/L_Hand
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/L_Clavicle/L_REAL_Shoulder/L_REAL_Elbow/L_REAL_Wrist/L_Hand/HUB_L_Hand
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/L_Clavicle/L_REAL_Shoulder/L_REAL_Elbow/L_REAL_Wrist/L_Hand/L_IndexFinger1
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/L_Clavicle/L_REAL_Shoulder/L_REAL_Elbow/L_REAL_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/L_Clavicle/L_REAL_Shoulder/L_REAL_Elbow/L_REAL_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2/L_IndexFinger3
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/L_Clavicle/L_REAL_Shoulder/L_REAL_Elbow/L_REAL_Wrist/L_Hand/L_MiddleFinger1
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/L_Clavicle/L_REAL_Shoulder/L_REAL_Elbow/L_REAL_Wrist/L_Hand/L_MiddleFinger1/L_MiddleFinger2
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/L_Clavicle/L_REAL_Shoulder/L_REAL_Elbow/L_REAL_Wrist/L_Hand/L_MiddleFinger1/L_MiddleFinger2/L_MiddleFinger3
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/L_Clavicle/L_REAL_Shoulder/L_REAL_Elbow/L_REAL_Wrist/L_Hand/L_PinkyFinger1
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/L_Clavicle/L_REAL_Shoulder/L_REAL_Elbow/L_REAL_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/L_Clavicle/L_REAL_Shoulder/L_REAL_Elbow/L_REAL_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2/L_PinkyFinger3
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/L_Clavicle/L_REAL_Shoulder/L_REAL_Elbow/L_REAL_Wrist/L_Hand/L_RingFinger1
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/L_Clavicle/L_REAL_Shoulder/L_REAL_Elbow/L_REAL_Wrist/L_Hand/L_RingFinger1/L_RingFinger2
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/L_Clavicle/L_REAL_Shoulder/L_REAL_Elbow/L_REAL_Wrist/L_Hand/L_RingFinger1/L_RingFinger2/L_RingFinger3
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/L_Clavicle/L_REAL_Shoulder/L_REAL_Elbow/L_REAL_Wrist/L_Hand/L_Thumb1
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/L_Clavicle/L_REAL_Shoulder/L_REAL_Elbow/L_REAL_Wrist/L_Hand/L_Thumb1/L_Thumb2
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/L_Clavicle/L_REAL_Shoulder/L_REAL_Elbow/L_REAL_Wrist/L_Hand/L_Thumb1/L_Thumb2/L_Thumb3
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/Neck
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/Neck/Head
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/Neck/Head/Top
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/Neck/Head/Top/Goggles
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/Neck/Head/Top/Joint_BackHair1_1
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/Neck/Head/Top/Joint_BackHair1_1/Joint_BackHair1_2
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/Neck/Head/Top/Joint_BackHair1_1/Joint_BackHair1_2/Joint_BackHair1_3
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/Neck/Head/Top/Joint_BackHair2_1
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/Neck/Head/Top/Joint_BackHair2_1/Joint_BackHair2_2
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/Neck/Head/Top/Joint_BackHair2_1/Joint_BackHair2_2/Joint_BackHair2_3
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/Neck/Head/Top/Joint_BackHair3_1
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/Neck/Head/Top/Joint_BackHair3_1/Joint_BackHair3_2
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/Neck/Head/Top/Joint_BackHair3_1/Joint_BackHair3_2/Joint_BackHair3_3
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/ChargeNozzle
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/ChargeNozzle/Gun_Source1:Chargeshot_Body
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/ChargeNozzle/Gun_Source1:Petal_1
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/ChargeNozzle/Gun_Source1:Petal_2
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/ChargeNozzle/Gun_Source1:Petal_3
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/ChargeNozzle/Gun_Source1:Petal_4
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/ChargeNozzle/Gun_Source1:Petal_5
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/ChargeNozzle/Gun_Source1:Petal_6
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/Gun_Body
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/Gun_Body/Gun_Source1:Gun_Body
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/Gun_Body/Gun_Source1:Gun_Trigger
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/NormalNozzle
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/NormalNozzle/Gun_Source1:NormalNozzle_Body
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/NormalNozzle/Gun_Source1:NormalNozzle_Cock
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/RapidNozzle
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/RapidNozzle/Gun_Source1:Body
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/RapidNozzle/Gun_Source1:L_Fan
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/RapidNozzle/Gun_Source1:L_Fan/Gun_Source1:L_Back_Auning
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/RapidNozzle/Gun_Source1:L_Fan/Gun_Source1:L_Front_Auning
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/RapidNozzle/Gun_Source1:L_Fan/Gun_Source1:L_Middle_Auning
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/RapidNozzle/Gun_Source1:L_Fan/Gun_Source1:L_Pivot
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/RapidNozzle/Gun_Source1:L_Fan/Gun_Source1:L_Pole1
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/RapidNozzle/Gun_Source1:L_Fan/Gun_Source1:L_Pole2
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/RapidNozzle/Gun_Source1:L_Fan/Gun_Source1:L_Pole3
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/RapidNozzle/Gun_Source1:L_Fan/Gun_Source1:L_Pole4
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/RapidNozzle/Gun_Source1:R_Fan
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/RapidNozzle/Gun_Source1:R_Fan/Gun_Source1:R_Back_Auning
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/RapidNozzle/Gun_Source1:R_Fan/Gun_Source1:R_Front_Auning
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/RapidNozzle/Gun_Source1:R_Fan/Gun_Source1:R_Middle_Auning
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/RapidNozzle/Gun_Source1:R_Fan/Gun_Source1:R_Pivot
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/RapidNozzle/Gun_Source1:R_Fan/Gun_Source1:R_Pole1
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/RapidNozzle/Gun_Source1:R_Fan/Gun_Source1:R_Pole2
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/RapidNozzle/Gun_Source1:R_Fan/Gun_Source1:R_Pole3
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/RapidNozzle/Gun_Source1:R_Fan/Gun_Source1:R_Pole4
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/WideShotNozzle
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/Gun_Group/WideShotNozzle/Gun_Source1:WideShot_Source1:WideShotNozzle
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/HUB_R_Hand
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/R_IndexFinger1
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2/R_IndexFinger3
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/R_MiddleFinger1
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/R_MiddleFinger1/R_MiddleFinger2
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/R_MiddleFinger1/R_MiddleFinger2/R_MiddleFinger3
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/R_PinkyFinger1
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2/R_PinkyFinger3
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/R_RingFinger1
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/R_RingFinger1/R_RingFinger2
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/R_RingFinger1/R_RingFinger2/R_RingFinger3
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/R_Thumb1
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/R_Thumb1/R_Thumb2
+        weight: 1
+      - path: Root/Spine1/joint2/Spine2/Spine3/R_Clavicle/R_REAL_Shoulder/R_REAL_Elbow/R_REAL_Wrist/R_Hand/R_Thumb1/R_Thumb2/R_Thumb3
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []

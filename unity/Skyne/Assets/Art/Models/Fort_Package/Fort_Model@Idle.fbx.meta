@@ -33,7 +33,7 @@ ModelImporter:
     400022: R_Shoulder
     400024: Root
     400026: spine
-    7400000: Take 001
+    7400000: Idle
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -55,7 +55,63 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/L_hip
+        weight: 1
+      - path: Root/L_hip/L_knee
+        weight: 1
+      - path: Root/R_hip
+        weight: 1
+      - path: Root/R_hip/R_knee
+        weight: 1
+      - path: Root/spine
+        weight: 1
+      - path: Root/spine/chest
+        weight: 1
+      - path: Root/spine/chest/Head
+        weight: 1
+      - path: Root/spine/chest/L_Shoulder
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder/R_elbow
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder/R_elbow/Joint_Shield
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder/R_elbow/R_Forearm
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []

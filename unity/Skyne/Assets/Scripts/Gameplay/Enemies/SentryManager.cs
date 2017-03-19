@@ -36,6 +36,8 @@ public class SentryManager : Enemy
 
 	GameObject bulletSpawner;
 
+	public Animator anim;
+
 	//bool canSeeTarget;
 
 	void Start ()
@@ -142,6 +144,7 @@ public class SentryManager : Enemy
 		agent.destination = transform.position;
 		//agent.speed = 0;
 
+		anim.SetBool ("isShooting", false);
 		//Debug.Log ("Idling");
 	}
 
@@ -176,6 +179,7 @@ public class SentryManager : Enemy
 
 		curShotDelay = shotDelay; 
 
+		anim.SetFloat ("Velocity", agent.velocity.x + agent.velocity.z);
 		//Debug.Log ("Positioning");
 	}
 
@@ -210,6 +214,7 @@ public class SentryManager : Enemy
 			ProjectileManager.inst.Shoot_E_Normal (bulletSpawner, false); 
 		}
 
+		anim.SetBool ("isShooting", true);
 		//Debug.Log ("Attacking");
 	}
 }

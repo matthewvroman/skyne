@@ -36,6 +36,8 @@ public class ChargerManager : Enemy
 	//GameObject player;
 	GameObject target;
 
+	public Animator anim;
+
 	//Rigidbody rBody;
 
 	void Start ()
@@ -157,6 +159,7 @@ public class ChargerManager : Enemy
 		agent.destination = target.transform.position;
 		agent.autoBraking = true;
 
+		anim.SetFloat ("Velocity", agent.velocity.x + agent.velocity.z);
 		Debug.Log ("Positioning");
 	}
 

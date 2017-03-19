@@ -139,6 +139,9 @@ public class PlayerManager : MonoBehaviour
 	public float cooldownTime = 3;
 	// Time until the stamina bar regenerates.
 
+	public Animator anim;
+	bool isDoubleJumping = false;
+
 	/// <summary>
 	/// Shoots a raycast downwards from the player, and checks the distance between the player and the ground. If that distance is greater than the distToGrounded variable, the player will fall down
 	/// </summary>
@@ -223,6 +226,8 @@ public class PlayerManager : MonoBehaviour
 		{
 			isFalling = false;
 		}
+			
+		anim.SetBool ("isFalling", isFalling);
 
 		if (Grounded ())
 		{
@@ -270,7 +275,13 @@ public class PlayerManager : MonoBehaviour
 	{
 		Run ();
 		Strafe ();
+		anim.SetFloat ("velocity", Mathf.Abs (forwardInput) + Mathf.Abs (strafeInput));
+
 		Jump ();
+
+		Animations ();
+
+		isDoubleJumping = false;
 
 		if (GameState.inst.upgradesFound [1])
 		{
@@ -288,6 +299,16 @@ public class PlayerManager : MonoBehaviour
 		}
 
 		rBody.velocity = transform.TransformDirection (velocity);
+	}
+
+	void Animations ()
+	{
+		anim.SetBool ("isGrounded", Grounded());
+		anim.SetFloat ("verticalVelocity", velocity.y);
+		anim.SetBool ("isOnWall", backToWall);
+		anim.SetBool ("wallJumped", isWallJumping);
+		anim.SetBool ("canDoubleJump", canDoubleJump);
+		anim.SetBool ("isDashing", isDashing);
 	}
 
 	/// <summary>
@@ -321,12 +342,14 @@ public class PlayerManager : MonoBehaviour
 			if (!isHuggingWall)
 			{
 				velocity.x = moveSetting.strafeVel * strafeInput * Time.timeScale;
+				anim.SetFloat ("orientation", velocity.x);
 			}
 		}
 		else if (strafeInput == 0 && isDashing == false && Grounded ())
 		{
 			//zero velocity
 			velocity.x = 0;
+			anim.SetFloat ("orientation", velocity.x);
 		}
 	}
 
@@ -384,6 +407,7 @@ public class PlayerManager : MonoBehaviour
 			{
 				if (Input.GetKeyDown (KeyCode.Space) && canDoubleJump)
 				{
+					isDoubleJumping = true;
 					velocity.y = moveSetting.jumpVel;
 					canDoubleJump = false;
 				} 
