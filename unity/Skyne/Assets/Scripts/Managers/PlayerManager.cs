@@ -222,10 +222,12 @@ public class PlayerManager : MonoBehaviour
 		if (velocity.y < 0)
 		{
 			isFalling = true;
+			rBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 		}
 		else
 		{
 			isFalling = false;
+			rBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
 		}
 			
 		anim.SetBool ("isFalling", isFalling);
