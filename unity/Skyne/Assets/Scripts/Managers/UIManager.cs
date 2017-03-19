@@ -6,11 +6,16 @@ using UnityEngine.EventSystems;
 
 public class UIManager : Singleton<UIManager> 
 {
+	public enum GameMenuState {Options, Map}; 
+	public GameMenuState gameMenuState; 
 
-	public GameObject menu;
+	public bool gameMenuActive; 
+
+	public GameObject optionsPanel; 
+	public GameObject mapPanel; 
+
 	//public bool isPaused = false; //determines whether the game is paused or not.
 
-	public GameObject gameOverUI;
 
 	[SerializeField] private Button reloadButton; 
 	[SerializeField] private Button continueButton; 
@@ -30,18 +35,131 @@ public class UIManager : Singleton<UIManager>
 
 	void Update()
 	{
-		CheckPause ();
-		CheckStatusPanelReveal();
-
-		if (GameState.inst.AllKeysFound ()) 
-		{
-			EndGameSequence ();
-		}
+		//CheckPause ();
+		//CheckStatusPanelReveal();
 
 		if (EventSystem.current == null)
 			EventSystem.current = levelEventSystem; 
+
+
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			// If not active, set game menu to active and set it up
+			if (!gameMenuActive)
+			{
+				GlobalManager.inst.SetGamePaused(true); 
+
+				if (gameMenuState == GameMenuState.Options)
+				{
+					EnableOptionsPanel(); 
+				}
+				else if (gameMenuState == GameMenuState.Map)
+				{
+					EnableMapPanel(); 
+				}
+
+				gameMenuActive = true; 
+			}
+			// If active, close the game menu
+			else
+			{
+				GlobalManager.inst.SetGamePaused(false); 
+				DisablePanels(); 
+				gameMenuActive = false; 
+				EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(null);
+			}
+		}
+		else if (gameMenuActive)
+		{
+			// Shift menu left
+			if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+			{
+				if (gameMenuState == GameMenuState.Map)
+				{
+					gameMenuState = GameMenuState.Options;
+					EnableOptionsPanel(); 
+				}
+				else if (gameMenuState == GameMenuState.Options)
+				{
+					gameMenuState = GameMenuState.Map; 
+					EnableMapPanel(); 
+				}
+			}
+			// Shift menu right
+			else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+			{
+				if (gameMenuState == GameMenuState.Map)
+				{
+					gameMenuState = GameMenuState.Options; 
+					EnableOptionsPanel();
+				}
+				else if (gameMenuState == GameMenuState.Options)
+				{
+					gameMenuState = GameMenuState.Map; 
+					EnableMapPanel(); 
+				}
+			}
+		}
 	}
 
+
+	void EnableOptionsPanel()
+	{
+		mapPanel.SetActive(false);
+		optionsPanel.SetActive(true); 
+		EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(continueButton.gameObject);
+	}
+
+	void EnableMapPanel()
+	{
+		mapPanel.SetActive(true);
+		optionsPanel.SetActive(false); 
+
+		// Set the toggle to the current floor
+		level1Toggle.isOn = false;
+		level2Toggle.isOn = false; 
+		level3Toggle.isOn = false; 
+
+		if (LevelData.inst.curLevel == 1)
+		{
+			level1Toggle.isOn = true; 
+			EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(level1Toggle.gameObject);
+		}
+		else if (LevelData.inst.curLevel == 2)
+		{
+			level2Toggle.isOn = true; 
+			EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(level2Toggle.gameObject);
+		}
+		else if (LevelData.inst.curLevel == 3)
+		{
+			level3Toggle.isOn = true; 
+			EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(level3Toggle.gameObject);
+		}
+	}
+
+	void DisablePanels()
+	{ 
+		mapPanel.SetActive(false);
+		optionsPanel.SetActive(false);
+	}
+		
+	public void OnContinueButton()
+	{
+		GlobalManager.inst.SetGamePaused(false); 
+		DisablePanels(); 
+		gameMenuActive = false; 
+		EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(null);
+	}
+
+	public void OnQuitButton()
+	{
+		Time.timeScale = 1;
+		GlobalManager.inst.LoadTitle (); 
+	}
+
+
+
+	/*
 	/// <summary>
 	/// Pauses the game.
 	/// </summary>
@@ -72,30 +190,7 @@ public class UIManager : Singleton<UIManager>
 			menu.SetActive(false);
 			EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(null);
 		}
-	}
-
-	/*
-	// Return true if isPaused has been set to true, false if ifPaused has been set to false
-	bool TogglePauseState()
-	{
-		if (!GlobalManager.inst.gamePaused) 
-		{
-			GlobalManager.inst.SetGamePaused(true); 
-			Cursor.lockState = CursorLockMode.Confined;
-			Time.timeScale = 0;
-
-			return true; 
-		} 
-		else
-		{
-			GlobalManager.inst.SetGamePaused(false);  
-			Cursor.lockState = CursorLockMode.Locked;
-			Time.timeScale = 1;
-
-			return false; 
-		}
-	}
-	*/ 
+	} 
 
 	void CheckStatusPanelReveal ()
 	{
@@ -136,10 +231,6 @@ public class UIManager : Singleton<UIManager>
 				MapDisplay.inst.statusPanel.SetActive(!MapDisplay.inst.statusPanel.activeSelf); 
 				EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(null);
 			}
-
-
-
-			//TogglePauseState(); 
 		}
 	}
 
@@ -153,16 +244,6 @@ public class UIManager : Singleton<UIManager>
 		Time.timeScale = 0;
 		gameOverUI.SetActive (true);
 	}
-
-	/// <summary>
-	/// Reloads game in the last save point the player visited.
-	/// </summary>
-	/*
-	void LoadGameClicked ()
-	{
-		GlobalManager.inst.LoadGameplayScreen();
-	}
-	*/ 
 
 	/// <summary>
 	/// Exits Game
@@ -180,4 +261,5 @@ public class UIManager : Singleton<UIManager>
 	{
 		endTimerUI.SetActive (true); //Activates the end sequence timer.
 	}
+	*/ 
 }
