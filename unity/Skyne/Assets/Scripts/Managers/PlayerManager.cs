@@ -270,6 +270,8 @@ public class PlayerManager : MonoBehaviour
 		}
 
 		Debug.Log ("Double Jump: " + isDoubleJumping);
+
+		Animations ();
 	}
 
 	void FixedUpdate ()
@@ -279,8 +281,6 @@ public class PlayerManager : MonoBehaviour
 		anim.SetFloat ("velocity", Mathf.Abs (forwardInput) + Mathf.Abs (strafeInput));
 
 		Jump ();
-
-		Animations ();
 
 		if (GameState.inst.upgradesFound [1])
 		{
@@ -308,6 +308,8 @@ public class PlayerManager : MonoBehaviour
 		anim.SetBool ("wallJumped", isWallJumping);
 		anim.SetBool ("canDoubleJump", canDoubleJump);
 		anim.SetBool ("isDashing", isDashing);
+		anim.SetBool ("isHit", isPushed);
+		anim.SetBool ("isDoubleJumping", isDoubleJumping);
 	}
 
 	/// <summary>
