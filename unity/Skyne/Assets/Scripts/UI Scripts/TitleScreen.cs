@@ -31,7 +31,11 @@ public class TitleScreen : MonoBehaviour
 		}
 
 		if (EventSystem.current == null)
+		{
 			EventSystem.current = titleEventSystem; 
+		}
+
+		Cursor.lockState = CursorLockMode.Locked;
 	}
 
 
