@@ -271,6 +271,12 @@ public class PlayerManager : MonoBehaviour
 			currentHealth = 0;
 		}
 
+		if (currentHealth == 0)
+		{
+			StartCoroutine ("Death");
+			//GlobalManager.inst.Lo ();
+		}
+
 		Debug.Log ("Double Jump: " + isDoubleJumping);
 
 		Animations ();
@@ -492,6 +498,14 @@ public class PlayerManager : MonoBehaviour
 		{
 			camCon.ResetTargetOffsets ();
 			isFocused = false;
+		}
+	}
+
+	IEnumerator Death() {
+		yield return new WaitForSeconds (2);
+		if (GlobalManager.inst.globalState == GlobalManager.GlobalState.Gameplay)
+		{
+			GlobalManager.inst.LoadGameOver ();
 		}
 	}
 
