@@ -28,6 +28,9 @@ public class UIManager : Singleton<UIManager>
 	[SerializeField] private GameObject level2Button; 
 	[SerializeField] private GameObject level3Button; 
 
+	[SerializeField] private GameObject sfxSlider; 
+	[SerializeField] private GameObject musicSlider; 
+
 	public EventSystem levelEventSystem; 
 
 	public GameObject endTimerUI; 
@@ -75,32 +78,35 @@ public class UIManager : Singleton<UIManager>
 		}
 		else if (gameMenuActive)
 		{
-			// Shift menu left
-			if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+			if (EventSystem.current.GetComponent<EventSystem>().currentSelectedGameObject != sfxSlider && EventSystem.current.GetComponent<EventSystem>().currentSelectedGameObject != musicSlider)
 			{
-				if (gameMenuState == GameMenuState.Map)
+				// Shift menu left
+				if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
 				{
-					gameMenuState = GameMenuState.Options;
-					EnableOptionsPanel(); 
+					if (gameMenuState == GameMenuState.Map)
+					{
+						gameMenuState = GameMenuState.Options;
+						EnableOptionsPanel(); 
+					}
+					else if (gameMenuState == GameMenuState.Options)
+					{
+						gameMenuState = GameMenuState.Map; 
+						EnableMapPanel(); 
+					}
 				}
-				else if (gameMenuState == GameMenuState.Options)
+				// Shift menu right
+				else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
 				{
-					gameMenuState = GameMenuState.Map; 
-					EnableMapPanel(); 
-				}
-			}
-			// Shift menu right
-			else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
-			{
-				if (gameMenuState == GameMenuState.Map)
-				{
-					gameMenuState = GameMenuState.Options; 
-					EnableOptionsPanel();
-				}
-				else if (gameMenuState == GameMenuState.Options)
-				{
-					gameMenuState = GameMenuState.Map; 
-					EnableMapPanel(); 
+					if (gameMenuState == GameMenuState.Map)
+					{
+						gameMenuState = GameMenuState.Options; 
+						EnableOptionsPanel();
+					}
+					else if (gameMenuState == GameMenuState.Options)
+					{
+						gameMenuState = GameMenuState.Map; 
+						EnableMapPanel(); 
+					}
 				}
 			}
 		}
