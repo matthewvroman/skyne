@@ -142,7 +142,7 @@ public class ChargerManager : Enemy
 
 		agent.destination = transform.position;
 
-		Debug.Log ("Idling");
+		//Debug.Log ("Idling");
 	}
 
 	//The Positioning state, when the enemy first notices the player, it will get closer so that it can start attacking.
@@ -160,7 +160,7 @@ public class ChargerManager : Enemy
 		agent.autoBraking = true;
 
 		anim.SetFloat ("Velocity", agent.velocity.x + agent.velocity.z);
-		Debug.Log ("Positioning");
+		//Debug.Log ("Positioning");
 	}
 
 	//The Attcking state, once close enough, the enemy will charge at the player.  
@@ -177,7 +177,7 @@ public class ChargerManager : Enemy
 		agent.destination = target.transform.position; 
 		agent.autoBraking = false;
 
-		Debug.Log ("Attacking");
+		//Debug.Log ("Attacking");
 	}
 }
 

@@ -84,7 +84,7 @@ public class PlayerManager : MonoBehaviour
 	MeshRenderer playerMesh;
 	Color playerColor;
 
-	bool isOriented;
+	bool isOriented = true;
 
 	bool isFalling = false;
 
@@ -109,6 +109,8 @@ public class PlayerManager : MonoBehaviour
 	bool isWallJumping = false;
 
 	bool isPushed = false;
+
+	bool isDoubleJumping = false;
 
 	Vector3 velocity = Vector3.zero;
 	Quaternion targetRotation;
@@ -140,7 +142,6 @@ public class PlayerManager : MonoBehaviour
 	// Time until the stamina bar regenerates.
 
 	public Animator anim;
-	bool isDoubleJumping = false;
 
 	/// <summary>
 	/// Shoots a raycast downwards from the player, and checks the distance between the player and the ground. If that distance is greater than the distToGrounded variable, the player will fall down
@@ -268,7 +269,7 @@ public class PlayerManager : MonoBehaviour
 			currentHealth = 0;
 		}
 
-		//Debug.Log (GameState.inst.upgradesFound [0]);
+		Debug.Log ("Double Jump: " + isDoubleJumping);
 	}
 
 	void FixedUpdate ()
@@ -280,8 +281,6 @@ public class PlayerManager : MonoBehaviour
 		Jump ();
 
 		Animations ();
-
-		isDoubleJumping = false;
 
 		if (GameState.inst.upgradesFound [1])
 		{
@@ -397,6 +396,7 @@ public class PlayerManager : MonoBehaviour
 		{
 			//zero out our velocity.y
 			velocity.y = 0;
+			isDoubleJumping = false;
 		}
 		else if (isHuggingWall == false)
 		{
@@ -410,7 +410,7 @@ public class PlayerManager : MonoBehaviour
 					isDoubleJumping = true;
 					velocity.y = moveSetting.jumpVel;
 					canDoubleJump = false;
-				} 
+				}
 			}
 		}
 	}
@@ -464,14 +464,14 @@ public class PlayerManager : MonoBehaviour
 			transform.rotation = Quaternion.Euler (transform.eulerAngles.x, cam.transform.eulerAngles.y, transform.eulerAngles.z);
 		}
 
-		if (Input.GetKey (KeyCode.Q))
+		/*if (Input.GetKey (KeyCode.Q))
 		{
 			isOriented = false;
 		}
 		else
 		{
 			isOriented = true;
-		}
+		} */
 	}
 
 	/// <summary>
