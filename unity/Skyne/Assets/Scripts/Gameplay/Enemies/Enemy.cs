@@ -85,5 +85,10 @@ public abstract class Enemy : MonoBehaviour
 
 		// Destroy the gameobject
 		Destroy (this.gameObject);
+
+		if (this is Boss1_AI)
+		{
+			GameState.inst.keysFound [0] = true;
+		}
 	}
 }
