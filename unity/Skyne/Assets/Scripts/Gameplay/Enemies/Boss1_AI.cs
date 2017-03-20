@@ -52,6 +52,12 @@ public class Boss1_AI : Enemy
 	public GameObject bulletSpawner2;
 	public GameObject bulletSpawner3;
 
+	AudioSource boss1Audio;
+
+	public AudioClip moveSound;
+	public AudioClip busterSound;
+	public AudioClip homingSound;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -80,7 +86,11 @@ public class Boss1_AI : Enemy
 		attacking = false;
 		choosing = true;
 
+		boss1Audio = GetComponent<AudioSource> ();
+
 		boss = transform.Find ("Boss").gameObject;
+
+		boss1Audio.Play ();
 
 		bulletSpawner1 = boss.transform.Find ("BulletSpawner1").gameObject; 
 		bulletSpawner2 = boss.transform.Find ("BulletSpawner2").gameObject; 
@@ -212,6 +222,13 @@ public class Boss1_AI : Enemy
 		{
 			ChooseAttack ();
 			attacking = true;
+
+			boss1Audio.clip = moveSound;
+
+			if (!boss1Audio.isPlaying)
+			{
+				boss1Audio.Play ();
+			}
 		} 
 	}
 
@@ -221,22 +238,51 @@ public class Boss1_AI : Enemy
 		{
 			phase = 3;
 			boss.transform.position = Vector3.Lerp (boss.transform.position, pos3.position, moveSpeed * Time.deltaTime);
+
+			/*if (boss.transform.position != pos3.position)
+			{
+				boss1Audio.clip = moveSound;
+
+				if (!boss1Audio.isPlaying)
+				{
+					boss1Audio.Play ();
+				}
+			} */
 		}
 		else if (healthPer <= 50)
 		{
 			phase = 2;
 			boss.transform.position = Vector3.Lerp (boss.transform.position, pos2.position, moveSpeed * Time.deltaTime);
+
+			/*if (boss.transform.position != pos2.position)
+			{
+				boss1Audio.clip = moveSound;
+
+				if (!boss1Audio.isPlaying)
+				{
+					boss1Audio.Play ();
+				}
+			} */
 		}
 		else
 		{
 			phase = 1;
 			boss.transform.position = pos1.position;
+
+			//boss1Audio.clip = null;
 		}
 	}
 
 	void HomingShoot ()
 	{
 		Debug.Log ("Homing...");
+
+		boss1Audio.clip = moveSound;
+
+		if (!boss1Audio.isPlaying)
+		{
+			boss1Audio.Play ();
+		}
 
 		if (timer > 0.1)
 		{
@@ -247,6 +293,11 @@ public class Boss1_AI : Enemy
 				curHomingDelay = homingDelay; 
 				ProjectileManager.inst.Shoot_BossHomingOrb (bulletSpawner1); //.Shoot_E_Normal (bulletSpawner1, true); 
 				ProjectileManager.inst.Shoot_BossHomingOrb (bulletSpawner2); //.Shoot_E_Normal (bulletSpawner2, true); 
+
+				boss1Audio.volume = Random.Range (0.8f, 1);
+				boss1Audio.pitch = Random.Range (0.8f, 1);
+				boss1Audio.PlayOneShot (homingSound);
+				boss1Audio.PlayOneShot (homingSound);
 			}
 
 		}
@@ -261,6 +312,13 @@ public class Boss1_AI : Enemy
 	{
 		Debug.Log ("Buster...");
 
+		boss1Audio.clip = moveSound;
+
+		if (!boss1Audio.isPlaying)
+		{
+			boss1Audio.Play ();
+		}
+
 		if (timer > 0.1)
 		{
 			timer -= Time.deltaTime;
@@ -269,6 +327,10 @@ public class Boss1_AI : Enemy
 			{
 				curBusterDelay = busterDelay; 
 				ProjectileManager.inst.Shoot_BossBigOrb (bulletSpawner3); //Shoot_E_Normal (bulletSpawner3, true);
+
+				boss1Audio.volume = Random.Range (0.8f, 1);
+				boss1Audio.pitch = Random.Range (0.8f, 1);
+				boss1Audio.PlayOneShot (busterSound);
 			}
 		}
 		else
@@ -281,6 +343,13 @@ public class Boss1_AI : Enemy
 	void DoNothing ()
 	{
 		Debug.Log ("Waiting...");
+
+		boss1Audio.clip = moveSound;
+
+		if (!boss1Audio.isPlaying)
+		{
+			boss1Audio.Play ();
+		}
 
 		if (timer > 0.1)
 		{
@@ -307,4 +376,15 @@ public class Boss1_AI : Enemy
 
 		return chooseAttack;
 	}
+
+	/*void OnTriggerEnter (Collider col)
+	{
+		if (col.gameObject.GetComponent<Bullet> ().playerBullet)
+		{
+			boss1Audio.volume = 1;
+			boss1Audio.pitch = 1;
+			boss1Audio.clip = null;
+			boss1Audio.PlayOneShot (damageSound);
+		}
+	} */
 }

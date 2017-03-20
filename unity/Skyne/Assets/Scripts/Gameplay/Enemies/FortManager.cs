@@ -57,6 +57,13 @@ public class FortManager : Enemy
 	public float shootDelay; 
 	public float curShootDelay;  
 
+	public AudioSource fortAudio;
+
+	public AudioClip moveSound;
+	public AudioClip chargeSound;
+	public AudioClip shootSound;
+	public AudioClip idleSound;
+
 	/// <summary>
 	/// Custom Start() method invoked in Update() only once the game is fully loaded
 	/// Only called once based on the started variable, located in the Enemy parent class
@@ -69,6 +76,8 @@ public class FortManager : Enemy
 		agent = GetComponent<NavMeshAgent>();
 		alive = true;
 		state = FortManager.State.IDLE;
+
+		fortAudio = GetComponent<AudioSource> ();
 
 		//START State Machine
 		StartCoroutine ("FSM");
@@ -338,6 +347,13 @@ public class FortManager : Enemy
 		anim.SetBool("isWalking", false);
 		anim.SetBool("isDefending", false);
 		agent.speed = 0; 
+
+		fortAudio.clip = idleSound;
+
+		if (!fortAudio.isPlaying)
+		{
+			fortAudio.Play ();
+		}
 	}
 
 
@@ -352,6 +368,13 @@ public class FortManager : Enemy
 		agent.destination = target.position; 
 		agent.speed = moveSpeed; 
 
+		fortAudio.clip = moveSound;
+
+		if (!fortAudio.isPlaying)
+		{
+			fortAudio.Play ();
+		}
+
 		curShootDelay = shootDelay; 
 	}
 
@@ -363,6 +386,13 @@ public class FortManager : Enemy
 		agent.speed = 0;
 		Quaternion q = Quaternion.LookRotation(target.position - frontFacingObj.transform.position);
 		transform.rotation = Quaternion.RotateTowards(frontFacingObj.transform.rotation, q, attackTurnSpeed * Time.deltaTime);
+
+		fortAudio.clip = moveSound;
+
+		if (!fortAudio.isPlaying)
+		{
+			fortAudio.Play ();
+		}
 	}
 
 
@@ -375,9 +405,20 @@ public class FortManager : Enemy
 
 		agent.speed = 0;
 
+		//fortAudio.clip = idleSound;
+
+		if (!fortAudio.isPlaying)
+		{
+			//fortAudio.Play ();
+		}
+
 		if (curShootDelay == 0 && cooldownTimer == 0)
 		{
 			curShootDelay = shootDelay;
+
+			fortAudio.volume = Random.Range (0.8f, 1);
+			fortAudio.pitch = Random.Range (0.8f, 1);
+			fortAudio.PlayOneShot (shootSound);
 
 			// Pass ProjectileManager this bolt's bullet spawner and shoot a new bullet
 			ProjectileManager.inst.Shoot_Fort(bulletSpawner, true); 
@@ -395,6 +436,13 @@ public class FortManager : Enemy
 		anim.SetBool("isDefending", true); 
 		agent.speed = 0;
 
+		//fortAudio.clip = idleSound;
+
+		if (!fortAudio.isPlaying)
+		{
+			fortAudio.Play ();
+		}
+
 		Quaternion q = Quaternion.LookRotation(target.position - frontFacingObj.transform.position);
 		transform.rotation = Quaternion.RotateTowards(frontFacingObj.transform.rotation, q, attackTurnSpeed * Time.deltaTime);
 	}
@@ -404,10 +452,27 @@ public class FortManager : Enemy
 		anim.SetBool("isWalking", false);
 		anim.SetBool("isDefending", false);
 		agent.speed = 0;
+
+		fortAudio.clip = idleSound;
+
+		if (!fortAudio.isPlaying)
+		{
+			fortAudio.Play ();
+		}
 	}
 
 	public void EndMelee ()
 	{
 
 	}
+
+	/*void OnTriggerEnter(Collider col) {
+		if (col.gameObject.GetComponent<Bullet> ().playerBullet)
+		{
+			fortAudio.volume = 1;
+			fortAudio.pitch = 1;
+			fortAudio.clip = null;
+			fortAudio.PlayOneShot (damageSound);
+		}
+	} */
 }

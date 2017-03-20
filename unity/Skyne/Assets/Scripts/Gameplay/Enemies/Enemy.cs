@@ -19,6 +19,8 @@ public abstract class Enemy : MonoBehaviour
 	//Determines whether the enemy is alive or not. Is not currently ever changed.
 	public bool alive;
 
+	public AudioClip damageSound;
+
 	public Animator anim;
 
 	/// <summary>

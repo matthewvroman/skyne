@@ -35,6 +35,13 @@ public class BoltManager : Enemy
 
 	NavMeshAgent agent; 
 
+	AudioSource boltAudio;
+
+	public AudioClip shootSound;
+	public AudioClip idleSound;
+	public AudioClip moveSound;
+	public AudioClip detectSound;
+
 	public GameObject bulletSpawner; 
 	public GameObject frontFacingObj; 
 
@@ -53,6 +60,8 @@ public class BoltManager : Enemy
 		agent = GetComponent<NavMeshAgent>();
 		alive = true;
 		state = BoltManager.State.IDLE;
+
+		boltAudio = GetComponent<AudioSource> ();
 
 		//START State Machine
 		StartCoroutine ("BSM");
@@ -221,6 +230,14 @@ public class BoltManager : Enemy
 	{
 		anim.SetBool("isWalking", false); 
 		agent.speed = 0; 
+
+		boltAudio.clip = idleSound;
+		boltAudio.loop = true;
+
+		if (!boltAudio.isPlaying)
+		{
+			boltAudio.Play ();
+		}
 	}
 
 
@@ -234,6 +251,14 @@ public class BoltManager : Enemy
 		agent.destination = target.position; 
 		agent.speed = moveSpeed; 
 
+		boltAudio.clip = moveSound;
+		boltAudio.loop = true;
+
+		if (!boltAudio.isPlaying)
+		{
+			boltAudio.Play ();
+		}
+
 		curShootDelay = shootDelay; 
 	}
 
@@ -242,6 +267,14 @@ public class BoltManager : Enemy
 	{
 		anim.SetBool("isWalking", true); 
 		agent.speed = 0;
+
+		boltAudio.clip = moveSound;
+		boltAudio.loop = true;
+
+		if (!boltAudio.isPlaying)
+		{
+			boltAudio.Play ();
+		}
 
 		Quaternion q = Quaternion.LookRotation(target.position - frontFacingObj.transform.position);
 		transform.rotation = Quaternion.RotateTowards(frontFacingObj.transform.rotation, q, attackTurnSpeed * Time.deltaTime);
@@ -263,7 +296,21 @@ public class BoltManager : Enemy
 			// Pass ProjectileManager this bolt's bullet spawner and shoot a new bullet
 			ProjectileManager.inst.Shoot_E_Normal(bulletSpawner, true); 
 
+			boltAudio.volume = Random.Range (0.8f, 1);
+			boltAudio.pitch = Random.Range (0.8f, 1);
+			boltAudio.PlayOneShot (shootSound);
+
 			anim.SetBool("isShooting", true); 
 		}
 	}
+
+	/*void OnTriggerEnter(Collider col) {
+		if (col.gameObject.GetComponent<Bullet> ().playerBullet)
+		{
+			boltAudio.volume = 1;
+			boltAudio.pitch = 1;
+			boltAudio.clip = null;
+			boltAudio.PlayOneShot (damageSound);
+		}
+	} */
 }

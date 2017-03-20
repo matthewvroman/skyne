@@ -33,6 +33,13 @@ public class SentryManager : Enemy
 
 	GameObject bulletSpawner;
 
+	AudioSource sentryAudio;
+
+	public AudioClip idleSound;
+	public AudioClip shootSound;
+	public AudioClip turnSound;
+	public AudioClip detectSound;
+
 	//public Animator anim;
 
 	//bool canSeeTarget;
@@ -61,6 +68,8 @@ public class SentryManager : Enemy
 		alive = true;
 
 		agent = gameObject.GetComponent<NavMeshAgent> ();
+
+		sentryAudio = GetComponent<AudioSource> ();
 
 		bulletSpawner = transform.Find ("BulletSpawner").gameObject; 
 
@@ -138,7 +147,7 @@ public class SentryManager : Enemy
 
 		if (!alive)
 		{
-			agent.speed = 0; 
+			//agent.speed = 0; 
 
 			if (anim.GetCurrentAnimatorStateInfo(1).IsName("DeathDone"))
 			{
@@ -151,6 +160,13 @@ public class SentryManager : Enemy
 		//transform.rotation = Quaternion.Euler (0, 0, 0);
 		agent.destination = transform.position;
 		//agent.speed = 0;
+
+		sentryAudio.clip = idleSound;
+
+		if (!sentryAudio.isPlaying)
+		{
+			sentryAudio.Play ();
+		}
 
 		anim.SetBool ("isShooting", false);
 		//Debug.Log ("Idling");
@@ -171,6 +187,7 @@ public class SentryManager : Enemy
 		else
 		{
 			Debug.DrawLine (start, end, Color.white); 
+
 			return true; 
 		}
 	}
@@ -216,13 +233,42 @@ public class SentryManager : Enemy
 
 		agent.destination = target.transform.position;
 
+		if (agent.velocity.magnitude > 0)
+		{
+			sentryAudio.clip = turnSound;
+			sentryAudio.loop = true;
+		}
+		else
+		{
+			sentryAudio.clip = idleSound;
+		}
+
+		if (!sentryAudio.isPlaying)
+		{
+			sentryAudio.Play ();
+		}
+
 		if (curShotDelay == 0)
 		{
 			curShotDelay = shotDelay; 
-			ProjectileManager.inst.Shoot_E_Normal (bulletSpawner, false); 
+			ProjectileManager.inst.Shoot_E_Normal (bulletSpawner, false);
+
+			sentryAudio.volume = Random.Range (0.8f, 1);
+			sentryAudio.pitch = Random.Range (0.8f, 1);
+			sentryAudio.PlayOneShot (shootSound);
 		}
 
 		anim.SetBool ("isShooting", true);
 		//Debug.Log ("Attacking");
 	}
+
+	/*void OnTriggerEnter(Collider col) {
+		if (col.gameObject.GetComponent<Bullet> ().playerBullet)
+		{
+			sentryAudio.volume = 1;
+			sentryAudio.pitch = 1;
+			sentryAudio.clip = null;
+			sentryAudio.PlayOneShot (damageSound);
+		}
+	} */
 }

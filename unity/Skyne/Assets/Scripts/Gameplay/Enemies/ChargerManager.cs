@@ -29,6 +29,12 @@ public class ChargerManager : Enemy
 	[Tooltip ("Charger's charging speed")]
 	public float chargeSpeed;
 
+	AudioSource chargerAudio;
+
+	public AudioClip sawSound;
+	public AudioClip idleSound;
+
+
 	//Transform target;
 	//GameObject player;
 	GameObject target;
@@ -64,6 +70,8 @@ public class ChargerManager : Enemy
 		alive = true;
 
 		agent = gameObject.GetComponent<NavMeshAgent> ();
+
+		chargerAudio = GetComponent<AudioSource> ();
 
 		//START State Machine
 		StartCoroutine ("CSM");
@@ -143,6 +151,25 @@ public class ChargerManager : Enemy
 		}
 	}
 
+	/*bool canSeeTarget ()
+	{
+		Vector3 dir = (target.transform.position - transform.position).normalized; 
+		Vector3 start = transform.position + dir * 0.5f; 
+		Vector3 end = target.transform.position - dir * 1; 
+
+		if (Physics.Linecast (start, end))
+		{
+			Debug.DrawLine (start, end, Color.yellow); 
+			//Debug.LogError("Obstacle Found"); 
+			return false; 
+		}
+		else
+		{
+			Debug.DrawLine (start, end, Color.white); 
+			return true; 
+		}
+	} */
+
 	//The Idling state, what the enemy does when the player is not close.
 	void Idle ()
 	{
@@ -150,6 +177,12 @@ public class ChargerManager : Enemy
 
 		agent.destination = transform.position;
 
+		if (!chargerAudio.isPlaying)
+		{
+			chargerAudio.clip = idleSound;
+			chargerAudio.Play ();
+		}
+			
 		//Debug.Log ("Idling");
 	}
 
@@ -167,6 +200,18 @@ public class ChargerManager : Enemy
 		agent.destination = target.transform.position;
 		agent.autoBraking = true;
 
+		if (!chargerAudio.isPlaying)
+		{
+			chargerAudio.clip = sawSound;
+			chargerAudio.volume = Mathf.Lerp (chargerAudio.volume, 0.8f, 10 * Time.deltaTime);
+			chargerAudio.pitch = Mathf.Lerp (chargerAudio.pitch, 0.8f, 10 * Time.deltaTime);
+
+			//chargerAudio.volume = 0.8f;
+			//chargerAudio.pitch = 0.8f;
+
+			chargerAudio.Play ();
+		}
+
 		anim.SetFloat ("Velocity", agent.velocity.x + agent.velocity.z);
 		//Debug.Log ("Positioning");
 	}
@@ -182,10 +227,32 @@ public class ChargerManager : Enemy
 		agent.speed = chargeSpeed;
 		agent.acceleration = chargeSpeed;
 
+		if (!chargerAudio.isPlaying)
+		{
+			chargerAudio.clip = sawSound;
+			//chargerAudio.volume = 1f;
+			//chargerAudio.pitch = 1.1f;
+
+			chargerAudio.volume = Mathf.Lerp (chargerAudio.volume, 1, 10 * Time.deltaTime);
+			chargerAudio.pitch = Mathf.Lerp (chargerAudio.pitch, 1.1f, 10 * Time.deltaTime);
+
+			chargerAudio.Play ();
+		}
+
 		agent.destination = target.transform.position; 
 		agent.autoBraking = false;
 
 		//Debug.Log ("Attacking");
 	}
+
+	/*void OnTriggerEnter(Collider col) {
+		if (col.gameObject.GetComponent<Bullet> ().playerBullet)
+		{
+			chargerAudio.volume = 1;
+			chargerAudio.pitch = 1;
+			chargerAudio.clip = null;
+			chargerAudio.PlayOneShot (damageSound);
+		}
+	} */
 }
 
