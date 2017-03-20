@@ -53,7 +53,7 @@ public class AmbushRoom : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		Debug.Log ("Done = " + isDone);
+		//Debug.Log ("Done = " + isDone);
 
 		if (this.noKeys.Count == 0 || this.oneKey.Count == 0 || this.twoKeys.Count == 0 || this.threeKeys.Count == 0)
 		{
