@@ -66,7 +66,9 @@ public class MainGameplayManager : Singleton<MainGameplayManager>
 		player.GetComponent<PlayerManager>().setHealth(PlayerPrefsManager.inst.GetStoredPlayerHealth()); 
 		player.SetActive(true); 
 
-		mainCam.gameObject.SetActive(true); 
+		mainCam.gameObject.SetActive(true);
+
+		PlayerShooting.inst.ChangeWeaponTypeModels(); 
 
 		// Fade in here
 	}

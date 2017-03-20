@@ -38,9 +38,8 @@ public class BoltManager : Enemy
 
 	NavMeshAgent agent; 
 
-	public GameObject bulletArm; 
-	GameObject bulletSpawner; 
-	GameObject frontFacingObj; 
+	public GameObject bulletSpawner; 
+	public GameObject frontFacingObj; 
 
 	// Shooting
 	public float shootDelay; 
@@ -54,9 +53,6 @@ public class BoltManager : Enemy
 	{
 		target = GameObject.FindGameObjectWithTag ("Player").GetComponent<Transform> ();
 		rBody = GetComponent<Rigidbody> ();
-		bulletSpawner = transform.Find("BulletArm/BulletSpawner").gameObject; 
-		frontFacingObj = transform.Find("FrontFacingObj").gameObject; 
-		bulletArm = transform.Find("BulletArm").gameObject; 
 		agent = GetComponent<NavMeshAgent>();
 		alive = true;
 		state = BoltManager.State.IDLE;

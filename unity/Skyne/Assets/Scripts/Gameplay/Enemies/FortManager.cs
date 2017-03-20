@@ -50,7 +50,8 @@ public class FortManager : Enemy
 
 	NavMeshAgent agent; 
 
-	GameObject bulletSpawner; 
+	public GameObject bulletSpawner; 
+	public GameObject frontFacingObj; 
 
 	public GameObject tempShield; 
 
@@ -66,7 +67,7 @@ public class FortManager : Enemy
 	{
 		target = GameObject.FindGameObjectWithTag ("Player").GetComponent<Transform> ();
 		rBody = GetComponent<Rigidbody> ();
-		bulletSpawner = transform.Find("BulletSpawner").gameObject; 
+		//bulletSpawner = transform.Find("BulletSpawner").gameObject; 
 		agent = GetComponent<NavMeshAgent>();
 		alive = true;
 		state = FortManager.State.IDLE;
@@ -77,7 +78,7 @@ public class FortManager : Enemy
 		started = true; 
 
 		// Temporary shield
-		tempShield.SetActive(false); 
+		//tempShield.SetActive(false); 
 	}
 
 	void Update () 
@@ -109,7 +110,7 @@ public class FortManager : Enemy
 					cooldownTimer = 0; 
 
 					// Temporary
-					tempShield.SetActive(false); 
+					//tempShield.SetActive(false); 
 				}
 			}
 		}
@@ -198,11 +199,11 @@ public class FortManager : Enemy
 			// Don't let it attack until facing the player
 
 			// Uses flattened height by giving this position and the target the same y value
-			Vector3 targetFlatPosition = new Vector3(target.position.x, bulletSpawner.transform.position.y, target.position.z); 
-			Vector3 thisFlatPosition = new Vector3(bulletSpawner.transform.position.x, bulletSpawner.transform.position.y, bulletSpawner.transform.position.z); 
+			Vector3 targetFlatPosition = new Vector3(target.position.x, frontFacingObj.transform.position.y, target.position.z); 
+			Vector3 thisFlatPosition = new Vector3(frontFacingObj.transform.position.x, frontFacingObj.transform.position.y, frontFacingObj.transform.position.z); 
 
 			//float dot = Vector3.Dot(transform.forward, (target.position - transform.position).normalized);
-			float dot = Vector3.Dot(bulletSpawner.transform.forward, (targetFlatPosition - thisFlatPosition).normalized);
+			float dot = Vector3.Dot(frontFacingObj.transform.forward, (targetFlatPosition - thisFlatPosition).normalized);
 
 			if (dot > 0.9999f)
 			{
@@ -241,7 +242,7 @@ public class FortManager : Enemy
 	{
 		Vector3 dir = (target.position - transform.position).normalized; 
 		Vector3 start1 = transform.position + dir; 
-		Vector3 start2 = bulletSpawner.transform.position; 
+		Vector3 start2 = frontFacingObj.transform.position; 
 		Vector3 end = target.position - dir * 1; 
 
 		RaycastHit hit1 = new RaycastHit();
@@ -285,8 +286,8 @@ public class FortManager : Enemy
 	void TurnTowardsTarget ()
 	{
 		agent.speed = 0;
-		Quaternion q = Quaternion.LookRotation(target.position - bulletSpawner.transform.position);
-		transform.rotation = Quaternion.RotateTowards(bulletSpawner.transform.rotation, q, attackTurnSpeed * Time.deltaTime);
+		Quaternion q = Quaternion.LookRotation(target.position - frontFacingObj.transform.position);
+		transform.rotation = Quaternion.RotateTowards(frontFacingObj.transform.rotation, q, attackTurnSpeed * Time.deltaTime);
 	}
 
 
@@ -302,13 +303,10 @@ public class FortManager : Enemy
 			curShootDelay = shootDelay;
 
 			// Pass ProjectileManager this bolt's bullet spawner and shoot a new bullet
-			//ProjectileManager.inst.Shoot_Fort(bulletSpawner, false); 
-
-			// Test
-			ProjectileManager.inst.Shoot_BossBigOrb(bulletSpawner); 
+			ProjectileManager.inst.Shoot_Fort(bulletSpawner, true); 
 
 			cooldownTimer = cooldownLength; 
-			tempShield.SetActive(true); 
+			//tempShield.SetActive(true); 
 		}
 	}
 
