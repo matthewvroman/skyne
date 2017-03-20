@@ -5,9 +5,13 @@ using UnityEngine;
 // This class would probably be better using an event listener, but this is the easier implementation 
 public class PlayerUpgradeModels : MonoBehaviour
 {
-	public GameObject doubleJumpModel; 
-	public GameObject wallJumpModel; 
-	public GameObject dashModel; 
+	public GameObject L_doubleJumpModel; 
+	public GameObject L_wallJumpModel; 
+	public GameObject L_dashModel; 
+
+	public GameObject R_doubleJumpModel; 
+	public GameObject R_wallJumpModel; 
+	public GameObject R_dashModel;
 
 	public void Update()
 	{
@@ -25,17 +29,20 @@ public class PlayerUpgradeModels : MonoBehaviour
 		
 	public void AddUpgrade(int upgradeIndex)
 	{
-		if (upgradeIndex == 0 && doubleJumpModel != null)
+		if (upgradeIndex == 0 && L_doubleJumpModel != null)
 		{
-			doubleJumpModel.SetActive(true); 
+			L_doubleJumpModel.SetActive(true);
+			R_doubleJumpModel.SetActive(true);
 		}
-		else if (upgradeIndex == 1 && wallJumpModel != null)
+		else if (upgradeIndex == 1 && L_wallJumpModel != null)
 		{
-			wallJumpModel.SetActive(true); 
+			L_wallJumpModel.SetActive(true);
+			R_wallJumpModel.SetActive(true); 
 		}
-		else if (upgradeIndex == 2 && dashModel != null)
+		else if (upgradeIndex == 2 && L_dashModel != null)
 		{
-			dashModel.SetActive(true); 
+			L_dashModel.SetActive(true); 
+			R_dashModel.SetActive(true); 
 		}
 	}
 }
