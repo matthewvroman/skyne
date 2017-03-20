@@ -17,6 +17,11 @@ public class AmbushRoom : MonoBehaviour
 
 	public DoorControl[] doorCon;
 
+	public AudioSource musicController;
+
+	public AudioClip battleMusic;
+	public AudioClip normalMusic;
+
 	bool isDone = false;
 
 	GameState gameState;
@@ -48,6 +53,8 @@ public class AmbushRoom : MonoBehaviour
 		}
 
 		gameState = GameObject.Find ("GameState").GetComponent<GameState> ();
+
+		musicController = GameObject.Find ("MusicController").GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -204,6 +211,13 @@ public class AmbushRoom : MonoBehaviour
 			{
 				door.setDoorState (true);
 			}
+
+			musicController.clip = normalMusic;
+
+			if (!musicController.isPlaying)
+			{
+				musicController.Play ();
+			}
 		}
 	}
 
@@ -215,6 +229,13 @@ public class AmbushRoom : MonoBehaviour
 				foreach (DoorControl door in doorCon)
 				{
 					door.setDoorState (false);
+				}
+
+				musicController.clip = battleMusic;
+
+				if (!musicController.isPlaying)
+				{
+					musicController.Play ();
 				}
 			}
 		}

@@ -873,6 +873,10 @@ public class PlayerManager : MonoBehaviour
 			if (!bullet.playerBullet)
 			{
 				bullet.shouldDestroy = true; 
+
+				playerAudio.clip = null;
+				playerAudio.PlayOneShot (ameliaGrunt2);
+
 				StartCoroutine (DamageCalculator (bullet.damage)); 
 			}
 		}
