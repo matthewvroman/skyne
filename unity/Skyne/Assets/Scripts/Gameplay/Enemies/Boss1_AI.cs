@@ -391,6 +391,6 @@ public class Boss1_AI : Enemy
 	protected override void EnemyDestroy()
 	{
 		GameState.inst.keysFound [0] = true;
-		KeyPickupManager.inst.SpawnKeyPickup(transform.position, 0); 
+		//KeyPickupManager.inst.SpawnKeyPickup(transform.position, 0); 
 	}
 }

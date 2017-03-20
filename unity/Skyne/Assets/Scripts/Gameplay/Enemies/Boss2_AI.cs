@@ -28,6 +28,6 @@ public class Boss2_AI : Enemy
 	{
 		//Debug.Log("Enemy destroyed called"); 
 		GameState.inst.keysFound [1] = true;
-		KeyPickupManager.inst.SpawnKeyPickup(transform.position, 1); 
+		//KeyPickupManager.inst.SpawnKeyPickup(transform.position, 1); 
 	}
 }
