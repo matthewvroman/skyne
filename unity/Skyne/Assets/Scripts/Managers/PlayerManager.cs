@@ -143,6 +143,14 @@ public class PlayerManager : MonoBehaviour
 
 	public Animator anim;
 
+	AudioSource playerAudio;
+
+	public AudioClip footstep1;
+	public AudioClip footstep2;
+	public AudioClip footstep3;
+	public AudioClip doubleJumpSound;
+	public AudioClip airDashSound;
+
 	/// <summary>
 	/// Shoots a raycast downwards from the player, and checks the distance between the player and the ground. If that distance is greater than the distToGrounded variable, the player will fall down
 	/// </summary>
@@ -186,6 +194,9 @@ public class PlayerManager : MonoBehaviour
 		counter = moveSetting.startSlidingTimer;
 
 		dashCounter = moveSetting.dashCooldown;
+
+		playerAudio = GetComponent<AudioSource> ();
+		//playerAudio.Play ();
 	}
 
 	/// <summary>
@@ -205,6 +216,8 @@ public class PlayerManager : MonoBehaviour
 		Health ();
 		Stamina ();
 		SlowMo ();
+		PlaySounds ();
+		Footsteps ();
 
 		transform.rotation = Quaternion.Euler (0, transform.rotation.y, 0);
 
@@ -278,7 +291,7 @@ public class PlayerManager : MonoBehaviour
 			//GlobalManager.inst.Lo ();
 		}
 
-		Debug.Log ("Double Jump: " + isDoubleJumping);
+		Debug.Log ("DJ: " + canDoubleJump);
 
 		Animations ();
 	}
@@ -311,7 +324,7 @@ public class PlayerManager : MonoBehaviour
 
 	void Animations ()
 	{
-		anim.SetBool ("isGrounded", Grounded());
+		anim.SetBool ("isGrounded", Grounded ());
 		anim.SetFloat ("verticalVelocity", velocity.y);
 		anim.SetBool ("isOnWall", backToWall);
 		anim.SetBool ("wallJumped", isWallJumping);
@@ -421,6 +434,9 @@ public class PlayerManager : MonoBehaviour
 					isDoubleJumping = true;
 					velocity.y = moveSetting.jumpVel;
 					canDoubleJump = false;
+
+					playerAudio.clip = null;
+					playerAudio.PlayOneShot (doubleJumpSound);
 				}
 			}
 		}
@@ -502,7 +518,8 @@ public class PlayerManager : MonoBehaviour
 		}
 	}
 
-	IEnumerator Death() {
+	IEnumerator Death ()
+	{
 		yield return new WaitForSeconds (3);
 		if (GlobalManager.inst.globalState == GlobalManager.GlobalState.Gameplay)
 		{
@@ -665,6 +682,46 @@ public class PlayerManager : MonoBehaviour
 		yield return new WaitForSeconds ((moveSetting.knockbackForce / 2) * 0.01f);
 		isPushed = false;
 		rBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
+	}
+
+	void PlaySounds ()
+	{
+
+		if (Input.GetKeyDown (KeyCode.LeftShift))
+		{
+			if (dashCounter == 2 && GameState.inst.upgradesFound [2])
+			{
+				playerAudio.clip = null;
+				playerAudio.PlayOneShot (airDashSound);
+			}
+		}
+		else if (Input.GetKeyDown (KeyCode.Space) && Grounded ())
+		{
+			playerAudio.clip = null;
+			playerAudio.PlayOneShot (doubleJumpSound);
+		}
+		else if (Grounded () && Mathf.Abs (velocity.magnitude) > 1) //&& playerAudio.isPlaying == false)
+		{
+			if (playerAudio.isPlaying == false)
+			{
+				playerAudio.clip = footstep1;
+				playerAudio.loop = true;
+				playerAudio.Play ();
+			}
+		}
+		else if (!Input.anyKey && velocity.magnitude == 0)//if (Mathf.Abs(velocity.magnitude) == 0 || !Grounded())
+		{
+			playerAudio.Stop ();
+		}
+	}
+
+	void Footsteps ()
+	{
+		if (playerAudio.clip == footstep1)
+		{
+			playerAudio.volume = Random.Range (0.8f, 1);
+			playerAudio.pitch = Random.Range (0.8f, 1.1f); 
+		}
 	}
 
 	public float getHealth ()

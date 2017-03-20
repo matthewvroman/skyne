@@ -20,6 +20,14 @@ public class PlayerShooting : Singleton<PlayerShooting>
 	// Current shoot delay timer
 	float shootDelay;
 
+	AudioSource gunAudio;
+
+	public AudioClip normalShotSound;
+	public AudioClip wideShotSound;
+	public AudioClip rapidShotSound;
+	public AudioClip chargingSound;
+	public AudioClip chargeShotSound;
+
 	[Space(5)]
 	[Header("Player: Normal Bullet")]
 	public GameObject pNormalBulletPrefab; 
@@ -63,7 +71,9 @@ public class PlayerShooting : Singleton<PlayerShooting>
 	public GameObject wideGunModel;
 	public GameObject rapidGunModel; 
 
-
+	void Start() {
+		gunAudio = GetComponent<AudioSource> ();
+	}
 
 	// Update is called once per frame
 	void Update ()
@@ -124,6 +134,11 @@ public class PlayerShooting : Singleton<PlayerShooting>
 		{
 			weaponIcon.sprite = iconSprites[3]; 
 		}
+
+		if (curCharge == fullCharge)
+		{
+			gunAudio.clip = null;
+		}
 	}
 
 
@@ -149,7 +164,10 @@ public class PlayerShooting : Singleton<PlayerShooting>
 			{
 				if (GameState.inst.pShootMode == PlayerShootMode.Charge)
 				{
-					HandleShootKey_Charge(); 
+					HandleShootKey_Charge();
+					gunAudio.clip = chargingSound;
+					gunAudio.loop = true;
+					gunAudio.Play ();
 				}
 				else if (GameState.inst.pShootMode == PlayerShootMode.Rapid)
 				{
@@ -170,6 +188,7 @@ public class PlayerShooting : Singleton<PlayerShooting>
 			{
 				// Reduce the charge value
 				curCharge -= Time.unscaledDeltaTime; 
+				gunAudio.clip = null;
 
 				if (curCharge < 0)
 					curCharge = 0;
@@ -183,6 +202,8 @@ public class PlayerShooting : Singleton<PlayerShooting>
 		if (shootDelay == 0)
 		{
 			ProjectileManager.inst.Shoot_P_Normal(bulletSpawner); 
+			gunAudio.clip = null;
+			gunAudio.PlayOneShot(normalShotSound);
 			shootDelay = normalShootDelay; 
 		}
 	}
@@ -195,7 +216,9 @@ public class PlayerShooting : Singleton<PlayerShooting>
 			curCharge += Time.unscaledDeltaTime; 
 
 			if (curCharge > fullCharge)
+			{
 				curCharge = fullCharge; 
+			}
 		}
 	}
 
@@ -205,6 +228,8 @@ public class PlayerShooting : Singleton<PlayerShooting>
 		if (curCharge == fullCharge)
 		{
 			ProjectileManager.inst.Shoot_P_Charge(bulletSpawner); 
+			gunAudio.clip = null;
+			gunAudio.PlayOneShot (chargeShotSound);
 			curCharge = 0; 
 		}
 	}
@@ -216,6 +241,8 @@ public class PlayerShooting : Singleton<PlayerShooting>
 		{
 			// TODO- change shoot function
 			ProjectileManager.inst.Shoot_P_Wide(bulletSpawner); 
+			gunAudio.clip = null;
+			gunAudio.PlayOneShot(wideShotSound);
 			shootDelay = wideShootDelay; 
 		}
 	}
@@ -227,6 +254,8 @@ public class PlayerShooting : Singleton<PlayerShooting>
 		{
 			// TODO- change shoot function
 			ProjectileManager.inst.Shoot_P_Rapid(bulletSpawner); 
+			gunAudio.clip = null;
+			gunAudio.PlayOneShot(rapidShotSound);
 			shootDelay = rapidShootDelay; 
 		}
 	}
