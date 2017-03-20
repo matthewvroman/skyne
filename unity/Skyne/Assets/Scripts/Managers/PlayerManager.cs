@@ -273,6 +273,7 @@ public class PlayerManager : MonoBehaviour
 
 		if (currentHealth == 0)
 		{
+			anim.SetBool ("isDead", true);
 			StartCoroutine ("Death");
 			//GlobalManager.inst.Lo ();
 		}
@@ -502,7 +503,7 @@ public class PlayerManager : MonoBehaviour
 	}
 
 	IEnumerator Death() {
-		yield return new WaitForSeconds (2);
+		yield return new WaitForSeconds (3);
 		if (GlobalManager.inst.globalState == GlobalManager.GlobalState.Gameplay)
 		{
 			GlobalManager.inst.LoadGameOver ();
