@@ -38,6 +38,32 @@ public class GameState : Singleton<GameState>
 	[Tooltip("(Read only before game start) Stores which keys have been collected.")]
 	public bool[] keysFound; 
 
+	bool m_treasureFound; 
+
+	public bool treasureFound
+	{
+		get
+		{
+			return m_treasureFound; 
+		}
+	}
+
+	public void SetTreasureFound(bool newValue)
+	{
+		m_treasureFound = newValue; 
+		if (newValue == true)
+		{
+			// Trigger ending sequence
+			escapeSequenceActive = true; 
+			escapeTimer = escapeTimerLength; 
+		}
+	}
+
+	// Escape sequence
+	public bool escapeSequenceActive; 
+	public float escapeTimer; 
+	public float escapeTimerLength; 
+
 	[Tooltip("The player's current shooting mode.")]
 	public PlayerShooting.PlayerShootMode pShootMode; 
 
@@ -45,6 +71,19 @@ public class GameState : Singleton<GameState>
 
 	public bool[,,] gridSpacesEntered; 
 
+
+	void Update()
+	{
+		if (escapeSequenceActive && escapeTimer > 0)
+		{
+			escapeTimer -= Time.deltaTime;
+
+			if (escapeTimer <= 0)
+			{
+				GlobalManager.inst.LoadGameOver(); 
+			}
+		}
+	}
 
 
 	/// <summary>

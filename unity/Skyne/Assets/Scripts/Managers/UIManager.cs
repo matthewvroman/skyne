@@ -33,11 +33,16 @@ public class UIManager : Singleton<UIManager>
 
 	public EventSystem levelEventSystem; 
 
-	public GameObject endTimerUI; 
+	public Text endTimerUI; 
 
 	void Awake()
 	{
 		//reloadButton.onClick.AddListener (() => { LoadGameClicked(); });
+	}
+
+	void Start()
+	{
+		endTimerUI.text = ""; 
 	}
 
 	void Update()
@@ -47,6 +52,13 @@ public class UIManager : Singleton<UIManager>
 
 		if (EventSystem.current == null)
 			EventSystem.current = levelEventSystem; 
+
+		// Escape sequence UI
+		if (GameState.inst.escapeSequenceActive)
+		{
+			int seconds = Mathf.RoundToInt(GameState.inst.escapeTimer); 
+			endTimerUI.text = (seconds / 60).ToString("00") + ":" + (seconds % 60).ToString("00");
+		}
 
 
 		if (Input.GetKeyDown(KeyCode.Escape))
