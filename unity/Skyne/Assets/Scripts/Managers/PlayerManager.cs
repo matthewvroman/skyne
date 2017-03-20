@@ -150,6 +150,11 @@ public class PlayerManager : MonoBehaviour
 	public AudioClip footstep3;
 	public AudioClip doubleJumpSound;
 	public AudioClip airDashSound;
+	public AudioClip jumpSound;
+	public AudioClip WallJumpSound;
+	public AudioClip ameliaGrunt1;
+	public AudioClip ameliaGrunt2;
+	public AudioClip ameliaGrunt3;
 
 	/// <summary>
 	/// Shoots a raycast downwards from the player, and checks the distance between the player and the ground. If that distance is greater than the distToGrounded variable, the player will fall down
@@ -455,6 +460,15 @@ public class PlayerManager : MonoBehaviour
 			
 		if (isHuggingWall)
 		{
+			if (Input.GetKeyDown(KeyCode.Space)) 
+			{
+				if (backToWall)
+				{
+					playerAudio.clip = null;
+					playerAudio.PlayOneShot (jumpSound);
+				}
+			}
+
 			if (jumpInput > 0 && forwardInput != 0)
 			{
 				if (backToWall)
@@ -676,10 +690,17 @@ public class PlayerManager : MonoBehaviour
 	IEnumerator Knockback ()
 	{
 		isPushed = true;
+
+		playerAudio.clip = null;
+		playerAudio.PlayOneShot (ameliaGrunt2);
+
 		rBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+
 		velocity.z = moveSetting.forwardVel * -forwardInput;
 		velocity.x = moveSetting.strafeVel * -strafeInput;
+
 		yield return new WaitForSeconds ((moveSetting.knockbackForce / 2) * 0.01f);
+
 		isPushed = false;
 		rBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
 	}
@@ -698,7 +719,7 @@ public class PlayerManager : MonoBehaviour
 		else if (Input.GetKeyDown (KeyCode.Space) && Grounded ())
 		{
 			playerAudio.clip = null;
-			playerAudio.PlayOneShot (doubleJumpSound);
+			playerAudio.PlayOneShot (jumpSound);
 		}
 		else if (Grounded () && Mathf.Abs (velocity.magnitude) > 1) //&& playerAudio.isPlaying == false)
 		{
@@ -722,6 +743,11 @@ public class PlayerManager : MonoBehaviour
 			playerAudio.volume = Random.Range (0.8f, 1);
 			playerAudio.pitch = Random.Range (0.8f, 1.1f); 
 		}
+		else
+		{
+			playerAudio.volume = 1;
+			playerAudio.pitch = 1;
+		}
 	}
 
 	public float getHealth ()
@@ -744,6 +770,7 @@ public class PlayerManager : MonoBehaviour
 			if (isInvincible == false)
 			{
 				//DamageCalculator (10);
+				Debug.Log("hello");
 				StartCoroutine (DamageCalculator (10));
 			}
 
@@ -763,12 +790,24 @@ public class PlayerManager : MonoBehaviour
 
 		if (col.gameObject.tag == "Wall" && !Grounded () && backToWall)
 		{
+			if (isHuggingWall == false)
+			{
+				playerAudio.clip = null;
+				playerAudio.PlayOneShot (WallJumpSound);
+			}
+
 			isHuggingWall = true;
 			isWallJumping = true;
 			counter = moveSetting.startSlidingTimer;
 		}
 		else if (col.gameObject.tag == "Wall" && !Grounded () && isWallJumping)
 		{
+			if (isHuggingWall == false)
+			{
+				playerAudio.clip = null;
+				playerAudio.PlayOneShot (WallJumpSound);
+			}
+
 			isHuggingWall = true;
 			isWallJumping = true;
 			counter = moveSetting.startSlidingTimer;
