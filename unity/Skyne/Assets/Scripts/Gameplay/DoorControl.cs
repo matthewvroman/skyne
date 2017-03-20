@@ -15,6 +15,8 @@ public class DoorControl : MonoBehaviour
 
 	public bool canClose;
 
+	public bool finalDoor;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -37,6 +39,20 @@ public class DoorControl : MonoBehaviour
 				door.SetActive (true);
 				door.transform.position = Vector3.Lerp (door.transform.position, doorClosedPos.position, Time.deltaTime * closeSpeed);
 			}
+
+			if (finalDoor)
+			{
+				if (GameState.inst.AllKeysFound ())
+				{
+					//door.transform.position = Vector3.Lerp (door.transform.position, doorOpenPos.position, Time.deltaTime * closeSpeed);
+					isOpen = true;
+				}
+				else
+				{
+					//door.transform.position = Vector3.Lerp (door.transform.position, doorClosedPos.position, Time.deltaTime * closeSpeed);
+					isOpen = false;
+				}
+			}
 		}
 		else
 		{
@@ -45,8 +61,20 @@ public class DoorControl : MonoBehaviour
 
 		if (door.transform.position == doorOpenPos.position)
 		{
-			door.SetActive (false);
+			//door.SetActive (false);
 		}
+
+		/*if (finalDoor)
+		{
+			if (GameState.inst.AllKeysFound())
+			{
+				door.transform.position = Vector3.Lerp (door.transform.position, doorOpenPos.position, Time.deltaTime * closeSpeed);
+			}
+			else
+			{
+				door.transform.position = Vector3.Lerp (door.transform.position, doorClosedPos.position, Time.deltaTime * closeSpeed);
+			}
+		} */
 	}
 
 	void OnTriggerEnter (Collider col)
