@@ -254,5 +254,10 @@ public class ChargerManager : Enemy
 			chargerAudio.PlayOneShot (damageSound);
 		}
 	} */
+
+	protected override void EnemyDestroy()
+	{
+
+	}
 }
 

@@ -95,6 +95,8 @@ public abstract class Enemy : MonoBehaviour
 
 	public void DestroyEnemy()
 	{
+		EnemyDestroy(); 
+
 		// Call HealthPickupManager to potentially spawn a healthpickup
 		// TODO: replace transform.position with a more specific spawn point where the health pickup should be instantiated
 		HealthPickupManager.inst.TrySpawnHealthPickup(transform.position, hpDropPercChance); 
@@ -104,10 +106,7 @@ public abstract class Enemy : MonoBehaviour
 
 		// Destroy the gameobject
 		Destroy (this.gameObject);
-
-		if (this is Boss1_AI)
-		{
-			GameState.inst.keysFound [0] = true;
-		}
 	}
+
+	protected abstract void EnemyDestroy(); 
 }

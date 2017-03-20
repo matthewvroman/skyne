@@ -475,4 +475,9 @@ public class FortManager : Enemy
 			fortAudio.PlayOneShot (damageSound);
 		}
 	} */
+
+	protected override void EnemyDestroy()
+	{
+
+	}
 }

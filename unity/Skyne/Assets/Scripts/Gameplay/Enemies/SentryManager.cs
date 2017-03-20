@@ -271,4 +271,9 @@ public class SentryManager : Enemy
 			sentryAudio.PlayOneShot (damageSound);
 		}
 	} */
+
+	protected override void EnemyDestroy()
+	{
+
+	}
 }

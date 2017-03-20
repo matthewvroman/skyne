@@ -387,4 +387,10 @@ public class Boss1_AI : Enemy
 			boss1Audio.PlayOneShot (damageSound);
 		}
 	} */
+
+	protected override void EnemyDestroy()
+	{
+		GameState.inst.keysFound [0] = true;
+		KeyPickupManager.inst.SpawnKeyPickup(transform.position, 0); 
+	}
 }

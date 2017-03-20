@@ -313,4 +313,9 @@ public class BoltManager : Enemy
 			boltAudio.PlayOneShot (damageSound);
 		}
 	} */
+
+	protected override void EnemyDestroy()
+	{
+
+	}
 }
