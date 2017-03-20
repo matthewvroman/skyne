@@ -23,17 +23,11 @@ public class PlayerShooting : Singleton<PlayerShooting>
 	[Space(5)]
 	[Header("Player: Normal Bullet")]
 	public GameObject pNormalBulletPrefab; 
-	//public float pNormalSpeed; 
-	//public float pNormalDamage; 
-	//public float pNormalLifetime; 
 	public float normalShootDelay;
 
 	[Space(5)]
 	[Header("Player: Charge Bullet")]
 	public GameObject pChargeBulletPrefab; 
-	//public float pChargeSpeed; 
-	//public float pChargeDamage; 
-	//public float pChargeLifetime; 
 	float curCharge;
 	[Tooltip("How much time does it take to get a full charge?")]
 	public float fullCharge;
@@ -41,18 +35,12 @@ public class PlayerShooting : Singleton<PlayerShooting>
 	[Space(5)]
 	[Header("Player: Wide Bullet")]
 	public GameObject pWideBulletPrefab; 
-	//public float pWideSpeed; 
-	//public float pWideDamage; 
-	//public float pWideLifetime; 
 	public float pWideHorizSpread; 
 	public float wideShootDelay;
 
 	[Space(5)]
 	[Header("Player: Rapid Bullet")]
-	public GameObject pRapidBulletPrefab; 
-	//public float pRapidSpeed; 
-	//public float pRapidDamage; 
-	//public float pRapidLifetime; 
+	public GameObject pRapidBulletPrefab;  
 	public float rapidShootDelay;
 
 	[Space(5)]
@@ -69,8 +57,11 @@ public class PlayerShooting : Singleton<PlayerShooting>
 	public Image weaponIcon;
 	public Sprite[] iconSprites;
 
-
-
+	// Player weapon models
+	public GameObject normalGunModel; 
+	public GameObject chargeGunModel; 
+	public GameObject wideGunModel;
+	public GameObject rapidGunModel; 
 
 
 
@@ -374,8 +365,28 @@ public class PlayerShooting : Singleton<PlayerShooting>
 		}
 	}
 
-	void ChangeWeaponTypeModels()
+	public void ChangeWeaponTypeModels()
 	{
+		normalGunModel.SetActive(false); 
+		chargeGunModel.SetActive(false); 
+		wideGunModel.SetActive(false); 
+		rapidGunModel.SetActive(false); 
 
+		if (GameState.inst.pShootMode == PlayerShootMode.Normal)
+		{
+			normalGunModel.SetActive(true); 
+		}
+		else if (GameState.inst.pShootMode == PlayerShootMode.Charge)
+		{
+			chargeGunModel.SetActive(true); 
+		}
+		else if (GameState.inst.pShootMode == PlayerShootMode.Wide)
+		{
+			wideGunModel.SetActive(true); 
+		}
+		else if (GameState.inst.pShootMode == PlayerShootMode.Rapid)
+		{
+			rapidGunModel.SetActive(true); 
+		}
 	}
 }
