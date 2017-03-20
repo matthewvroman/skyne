@@ -14,6 +14,13 @@ public abstract class Enemy : MonoBehaviour
 	[Tooltip("Set to true once the enemy state machine has been started (cannot happen before level load finished).")]
 	public bool started; 
 
+	public bool hasDeathAnimation; 
+
+	//Determines whether the enemy is alive or not. Is not currently ever changed.
+	public bool alive;
+
+	public Animator anim;
+
 	/// <summary>
 	/// Weak points determine colliders that are affected by shots and the defense
 	/// </summary>
@@ -67,9 +74,19 @@ public abstract class Enemy : MonoBehaviour
 			// TODO: Animate the enemy taking damage
 
 			// Check for the enemy's death
-			if (health <= 0)
+			if (health <= 0 && alive)
 			{
-				DestroyEnemy();
+				if (hasDeathAnimation)
+				{
+					// Call death animation
+					anim.SetBool("isDead", true); 
+					alive = false; 
+				}
+				else
+				{
+					alive = false; 
+					DestroyEnemy();
+				}
 			}
 		}
 	}

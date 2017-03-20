@@ -15,9 +15,6 @@ public class ChargerManager : Enemy
 
 	public State state;
 
-	//Determines whether the enemy is alive or not. Is not currently ever changed.
-	private bool alive;
-
 	//Var holding the distance from the enemy to the player
 	float tarDistance;
 
@@ -36,7 +33,7 @@ public class ChargerManager : Enemy
 	//GameObject player;
 	GameObject target;
 
-	public Animator anim;
+	//public Animator anim;
 
 	//Rigidbody rBody;
 
@@ -104,12 +101,23 @@ public class ChargerManager : Enemy
 
 	void Update ()
 	{
-		if (!started && GlobalManager.inst.GameplayIsActive())
+		// TODO- fix global level loading bug here
+		if (!started && GlobalManager.inst.GameplayIsActive() && GameObject.FindGameObjectWithTag ("Player") != null)
 		{
 			SetupEnemy(); 
 		} 
 
 		//Debug.Log (agent.autoBraking);
+
+		if (!alive)
+		{
+			agent.speed = 0; 
+
+			if (anim.GetCurrentAnimatorStateInfo(1).IsName("DeathDone"))
+			{
+				DestroyEnemy(); 
+			}
+		}
 	}
 
 	void FixedUpdate ()

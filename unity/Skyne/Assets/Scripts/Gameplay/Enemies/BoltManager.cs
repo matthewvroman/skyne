@@ -16,9 +16,6 @@ public class BoltManager : Enemy
 
 	public State state;
 
-	//Determines whether the enemy is alive or not. Is not currently ever changed.
-	private bool alive;
-
 	//Var holding the distance from the enemy to the player
 	float tarDistance;
 
@@ -76,11 +73,26 @@ public class BoltManager : Enemy
 			}
 
 			// Update the shooting delay
-			if (curShootDelay >= 0)
+			if (curShootDelay >= 0 && !anim.GetCurrentAnimatorStateInfo(0).IsName("Shoot"))
 			{
 				curShootDelay -= Time.deltaTime;
 				if (curShootDelay < 0)
 					curShootDelay = 0; 
+			}
+
+			if (anim.GetBool("isShooting") == true && anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+			{
+				anim.SetBool("isShooting", false); 
+			}
+		}
+
+		if (!alive)
+		{
+			agent.speed = 0; 
+
+			if (anim.GetCurrentAnimatorStateInfo(1).IsName("DeathDone"))
+			{
+				DestroyEnemy(); 
 			}
 		}
 	}
@@ -207,6 +219,7 @@ public class BoltManager : Enemy
 	//The Idling state, what the enemy does when the player is not close.
 	void Idle ()
 	{
+		anim.SetBool("isWalking", false); 
 		agent.speed = 0; 
 	}
 
@@ -214,6 +227,8 @@ public class BoltManager : Enemy
 	//The Positioning state, when the enemy first notices the player, it will get closer so that it can start attacking.
 	void Position ()
 	{
+		anim.SetBool("isWalking", true); 
+
 		Vector3 targetPosition = new Vector3 (target.position.x, this.transform.position.y, target.position.z);
 
 		agent.destination = target.position; 
@@ -225,36 +240,18 @@ public class BoltManager : Enemy
 
 	void TurnTowardsTarget ()
 	{
+		anim.SetBool("isWalking", true); 
 		agent.speed = 0;
-
-		//Quaternion q = Quaternion.LookRotation(target.position - transform.position);
-		//transform.rotation = Quaternion.RotateTowards(transform.rotation, q, attackTurnSpeed * Time.deltaTime);
 
 		Quaternion q = Quaternion.LookRotation(target.position - frontFacingObj.transform.position);
 		transform.rotation = Quaternion.RotateTowards(frontFacingObj.transform.rotation, q, attackTurnSpeed * Time.deltaTime);
-
-
-		// Make the bulletArm rotate vertically towards the target
-		//Vector3 start = new Vector3(bulletArm.transform.rotation.x, bulletArm.transform.rotation.y, bulletArm.transform.rotation.z);
-		//Vector3 end = new Vector3(bulletArm.transform.rotation.x, target.transform.rotation.y, bulletArm.transform.rotation.z);  
-
-		//find the vector pointing from our position to the target
-		//Vector3 _direction = (end - bulletArm.transform.position).normalized;
-
-		//create the rotation we need to be in to look at the target
-		//Quaternion v = Quaternion.LookRotation(_direction);
-
-		//rotate us over time according to speed until we are in the required rotation
-		//bulletArm.transform.rotation = Quaternion.Slerp(bulletArm.transform.rotation, v, Time.deltaTime * 10);
-
-		//bulletArm.transform.LookAt(new Vector3(target.transform.position.x, bulletArm.transform.position.y, target.transform.position.z));
-
 	}
 
 
 	//The Attcking state, once close enough, the enemy will charge at the player.  
 	void Attack ()
 	{
+		anim.SetBool("isWalking", false); 
 		Vector3 targetPosition = new Vector3 (target.position.x, this.transform.position.y, target.position.z);
 
 		agent.speed = 0;
@@ -266,6 +263,7 @@ public class BoltManager : Enemy
 			// Pass ProjectileManager this bolt's bullet spawner and shoot a new bullet
 			ProjectileManager.inst.Shoot_E_Normal(bulletSpawner, true); 
 
+			anim.SetBool("isShooting", true); 
 		}
 	}
 }

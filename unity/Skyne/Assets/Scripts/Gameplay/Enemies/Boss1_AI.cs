@@ -21,8 +21,6 @@ public class Boss1_AI : Enemy
 	public bool attacking;
 	public bool choosing;
 
-	private bool alive;
-
 	public Transform pos1;
 	public Transform pos2;
 	public Transform pos3;

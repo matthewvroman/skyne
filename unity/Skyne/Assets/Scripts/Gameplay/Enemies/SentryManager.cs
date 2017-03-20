@@ -15,9 +15,6 @@ public class SentryManager : Enemy
 
 	public State state;
 
-	//Determines whether the enemy is alive or not. Is not currently ever changed.
-	private bool alive;
-
 	//Var holding the distance from the enemy to the player
 	float tarDistance;
 
@@ -32,11 +29,11 @@ public class SentryManager : Enemy
 	public float shotDelay;
 	float curShotDelay;
 
-	GameObject target;
+	public GameObject target;
 
 	GameObject bulletSpawner;
 
-	public Animator anim;
+	//public Animator anim;
 
 	//bool canSeeTarget;
 
@@ -57,6 +54,7 @@ public class SentryManager : Enemy
 
 	void SetupEnemy ()
 	{
+		Debug.Log("Sentry SetupEnemy()"); 
 		target = GameObject.FindGameObjectWithTag ("Player");
 
 		state = SentryManager.State.IDLE;
@@ -103,7 +101,8 @@ public class SentryManager : Enemy
 	{
 		if (GlobalManager.inst.GameplayIsActive ())
 		{
-			if (!started)
+			// TODO- this is a temporary fix to solve issues with level loading
+			if (!started && GameObject.FindGameObjectWithTag ("Player") != null)
 			{
 				SetupEnemy (); 
 			}
@@ -136,7 +135,16 @@ public class SentryManager : Enemy
 				state = SentryManager.State.IDLE;
 			} 
 		}
-	}
+
+		if (!alive)
+		{
+			agent.speed = 0; 
+
+			if (anim.GetCurrentAnimatorStateInfo(1).IsName("DeathDone"))
+			{
+				DestroyEnemy(); 
+			}
+		}}
 
 	void Idle ()
 	{

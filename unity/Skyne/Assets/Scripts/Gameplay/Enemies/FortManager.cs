@@ -12,13 +12,11 @@ public class FortManager : Enemy
 		POSITION,
 		TURN_TOWARDS_TARGET,
 		ATTACK,
+		DEFENSE,
 		MELEE
 	}
 
 	public State state;
-
-	//Determines whether the enemy is alive or not. Is not currently ever changed.
-	private bool alive;
 
 	//Var holding the distance from the enemy to the player
 	float tarDistance;
@@ -57,7 +55,7 @@ public class FortManager : Enemy
 
 	// Shooting
 	public float shootDelay; 
-	float curShootDelay;  
+	public float curShootDelay;  
 
 	/// <summary>
 	/// Custom Start() method invoked in Update() only once the game is fully loaded
@@ -94,7 +92,7 @@ public class FortManager : Enemy
 			}
 
 			// Update the shooting delay
-			if (curShootDelay >= 0)
+			if (curShootDelay >= 0 && state != State.DEFENSE && state != State.MELEE)
 			{
 				curShootDelay -= Time.deltaTime;
 				if (curShootDelay < 0)
@@ -109,8 +107,25 @@ public class FortManager : Enemy
 				{
 					cooldownTimer = 0; 
 
+					//curShootDelay = shootDelay; 
+
 					// Temporary
 					//tempShield.SetActive(false); 
+				}
+			}
+
+			if (anim.GetBool("isShooting") == true && anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+			{
+				anim.SetBool("isShooting", false); 
+			}
+
+			if (!alive)
+			{
+				agent.speed = 0; 
+
+				if (anim.GetCurrentAnimatorStateInfo(1).IsName("DeathDone"))
+				{
+					DestroyEnemy(); 
 				}
 			}
 		}
@@ -145,6 +160,10 @@ public class FortManager : Enemy
 				TurnTowardsTarget(); 
 				break; 
 
+			case State.DEFENSE:
+				Defense(); 
+				break; 
+
 			case State.MELEE:
 				Melee(); 
 				break; 
@@ -161,7 +180,6 @@ public class FortManager : Enemy
 			//Determines the distance from the enemy to the player
 			tarDistance = Vector3.Distance(target.position, transform.position);
 
-			//Switches between states based on the distance from the player to the enemy
 			if (state != State.MELEE)
 			{
 				if (tarDistance < attackDistance)
@@ -177,12 +195,60 @@ public class FortManager : Enemy
 					state = FortManager.State.IDLE;
 				}
 
+				if (cooldownTimer != 0)
+				{
+					state = FortManager.State.DEFENSE; 
+				}
+
+				if (tarDistance < meleeDistance)
+				{
+					TryMelee(); 
+				}
+			}
+			else
+			{
+				if (!anim.GetCurrentAnimatorStateInfo(2).IsName("Swing"))
+				{
+					anim.SetBool("isSwinging", false); 
+					state = FortManager.State.IDLE; 
+				}
+			}
+
+			/*
+			//Switches between states based on the distance from the player to the enemy
+			if (state != State.MELEE)
+			{
+				if (cooldownTimer == 0)
+				{
+					if (tarDistance < attackDistance)
+					{
+						TryAttack(); 
+					}
+					else if (tarDistance < aggroDistance)
+					{
+						state = FortManager.State.POSITION;
+					}
+					else
+					{
+						state = FortManager.State.IDLE;
+					}
+				}
+
 				// Check for melee attack
 				if (tarDistance < meleeDistance)
 				{
 					TryMelee(); 
 				}
 			}
+			else
+			{
+				if (!anim.GetCurrentAnimatorStateInfo(2).IsName("Swing"))
+				{
+					anim.SetBool("isSwinging", false); 
+					state = FortManager.State.IDLE; 
+				}
+			}
+			*/ 
 		}
 	}
 
@@ -205,7 +271,8 @@ public class FortManager : Enemy
 			//float dot = Vector3.Dot(transform.forward, (target.position - transform.position).normalized);
 			float dot = Vector3.Dot(frontFacingObj.transform.forward, (targetFlatPosition - thisFlatPosition).normalized);
 
-			if (dot > 0.9999f)
+			//if (dot > 0.9999f)
+			if (dot > 0.95f)
 			{
 				state = FortManager.State.ATTACK;
 			}
@@ -230,6 +297,7 @@ public class FortManager : Enemy
 		if (dot > meleeFrontZone)
 		{
 			state = FortManager.State.MELEE;
+			anim.SetBool("isSwinging", true); 
 		}
 	}
 
@@ -267,6 +335,8 @@ public class FortManager : Enemy
 	//The Idling state, what the enemy does when the player is not close.
 	void Idle ()
 	{
+		anim.SetBool("isWalking", false);
+		anim.SetBool("isDefending", false);
 		agent.speed = 0; 
 	}
 
@@ -274,6 +344,9 @@ public class FortManager : Enemy
 	//The Positioning state, when the enemy first notices the player, it will get closer so that it can start attacking.
 	void Position ()
 	{
+		anim.SetBool("isWalking", true);
+		anim.SetBool("isDefending", false);
+
 		Vector3 targetPosition = new Vector3 (target.position.x, this.transform.position.y, target.position.z);
 
 		agent.destination = target.position; 
@@ -285,6 +358,8 @@ public class FortManager : Enemy
 
 	void TurnTowardsTarget ()
 	{
+		anim.SetBool("isWalking", true);
+		anim.SetBool("isDefending", false);
 		agent.speed = 0;
 		Quaternion q = Quaternion.LookRotation(target.position - frontFacingObj.transform.position);
 		transform.rotation = Quaternion.RotateTowards(frontFacingObj.transform.rotation, q, attackTurnSpeed * Time.deltaTime);
@@ -294,6 +369,8 @@ public class FortManager : Enemy
 	//The Attcking state, once close enough, the enemy will charge at the player.  
 	void Attack ()
 	{
+		anim.SetBool("isWalking", false);
+		anim.SetBool("isDefending", false);
 		Vector3 targetPosition = new Vector3 (target.position.x, this.transform.position.y, target.position.z);
 
 		agent.speed = 0;
@@ -307,12 +384,26 @@ public class FortManager : Enemy
 
 			cooldownTimer = cooldownLength; 
 			//tempShield.SetActive(true); 
+
+			anim.SetBool("isShooting", true); 
 		}
+	}
+
+	void Defense ()
+	{
+		anim.SetBool("isWalking", false);
+		anim.SetBool("isDefending", true); 
+		agent.speed = 0;
+
+		Quaternion q = Quaternion.LookRotation(target.position - frontFacingObj.transform.position);
+		transform.rotation = Quaternion.RotateTowards(frontFacingObj.transform.rotation, q, attackTurnSpeed * Time.deltaTime);
 	}
 
 	void Melee ()
 	{
-		agent.speed = 0; 
+		anim.SetBool("isWalking", false);
+		anim.SetBool("isDefending", false);
+		agent.speed = 0;
 	}
 
 	public void EndMelee ()
