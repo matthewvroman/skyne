@@ -61,7 +61,11 @@ public class DoorControl : MonoBehaviour
 
 		if (door.transform.position == doorOpenPos.position)
 		{
-			//door.SetActive (false);
+			door.SetActive (false);
+		}
+		else
+		{
+			door.SetActive (true);
 		}
 
 		/*if (finalDoor)
