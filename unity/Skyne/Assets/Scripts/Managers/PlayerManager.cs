@@ -812,6 +812,11 @@ public class PlayerManager : MonoBehaviour
 			isWallJumping = true;
 			counter = moveSetting.startSlidingTimer;
 		}
+
+		if (col.gameObject.tag == "Spikes")
+		{
+			targetHealth = 0;
+		}
 	}
 
 	void OnCollisionExit (Collision col)
