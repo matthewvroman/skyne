@@ -65,8 +65,11 @@ public class MainCameraControl : MonoBehaviour
 	void LateUpdate()
 	{
 		// Get mouse movement to orbit the camera.
-		HorizontalAngle += Mathf.Clamp(Input.GetAxis("Mouse X"), -1, 1) * horizontalAimingSpeed * Time.unscaledDeltaTime;//Time.deltaTime;
-		VerticalAngle += Mathf.Clamp(Input.GetAxis("Mouse Y"), -1, 1) * verticalAimingSpeed * Time.unscaledDeltaTime;//Time.deltaTime;
+		// Mouse movement uses Timerscaler's CalculateDeltaTime function to return a custom deltaTime value based on slow motion
+		// The percentChange argument (1) specifies that the camera moves at the same speed in both slow motion and normal speed
+		// When Time.timeScale == 0, CalculateDeltaTime will return a 0, preventing the angle from changing
+		HorizontalAngle += Mathf.Clamp(Input.GetAxis("Mouse X"), -1, 1) * horizontalAimingSpeed * Timescaler.inst.CalculateDeltaTime(1);
+		VerticalAngle += Mathf.Clamp(Input.GetAxis("Mouse Y"), -1, 1) * verticalAimingSpeed * Timescaler.inst.CalculateDeltaTime(1);
 
 		// Set vertical movement limit.
 		VerticalAngle = Mathf.Clamp(VerticalAngle, minVerticalAngle, verticalAngleClamp);

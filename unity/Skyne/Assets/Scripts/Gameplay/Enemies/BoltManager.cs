@@ -97,8 +97,6 @@ public class BoltManager : Enemy
 
 		if (!alive)
 		{
-			agent.speed = 0; 
-
 			if (anim.GetCurrentAnimatorStateInfo(1).IsName("DeathDone"))
 			{
 				DestroyEnemy(); 
@@ -316,6 +314,6 @@ public class BoltManager : Enemy
 
 	protected override void EnemyDestroy()
 	{
-
+		agent.speed = 0; 
 	}
 }
