@@ -53,6 +53,11 @@ public class UIManager : Singleton<UIManager>
 		if (EventSystem.current == null)
 			EventSystem.current = levelEventSystem; 
 
+		if (GlobalManager.inst.globalState != GlobalManager.GlobalState.Gameplay)
+		{
+			return; 
+		}
+
 		// Escape sequence UI
 		if (GameState.inst.escapeSequenceActive)
 		{

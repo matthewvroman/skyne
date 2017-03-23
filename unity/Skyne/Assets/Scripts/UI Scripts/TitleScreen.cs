@@ -47,22 +47,22 @@ public class TitleScreen : MonoBehaviour
 	{
 		if (!ScreenTransition.inst.transitionActive)
 		{
-			Debug.Log("New game button clicked"); 
-
 			// For now, clear PlayerPrefs when a new gameplay screen is loaded
 			PlayerPrefs.DeleteAll(); 
 
-			//GlobalManager.inst.LoadGameplayScreen(); 
 			ScreenTransition.inst.SetFadeOut(transitionFadeOutSpeed); 
-			StartCoroutine("NewGameFadeOut"); 
+			StartCoroutine("StartGameFadeOut"); 
 		}
 	}
 
 	// LoadGameButton
 	public void OnContinueButton()
 	{
-		Debug.Log("Continue button clicked"); 
-		GlobalManager.inst.LoadGameplayScreen(); 
+		if (!ScreenTransition.inst.transitionActive)
+		{
+			ScreenTransition.inst.SetFadeOut(transitionFadeOutSpeed); 
+			StartCoroutine("StartGameFadeOut"); 
+		}
 	}
 
 	// SettingsButton
@@ -89,7 +89,7 @@ public class TitleScreen : MonoBehaviour
 		EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(settingsButton.gameObject);
 	}
 
-	public IEnumerator NewGameFadeOut()
+	public IEnumerator StartGameFadeOut()
 	{
 		while (ScreenTransition.inst.curState == ScreenTransition.TransitionState.fadingOut)
 		{

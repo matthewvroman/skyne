@@ -60,6 +60,7 @@ public class GlobalManager : Singleton<GlobalManager>
 	// Use this for initialization
 	void Start () 
 	{
+
 		// Used for directly loading the game from within gameplay while in the editor
 		#if UNITY_EDITOR
 		if (globalState == GlobalState.Gameplay || globalState == GlobalState.SetupGameplay || globalState == GlobalState.EditorOnlyLoadGameplay)
@@ -272,6 +273,9 @@ public class GlobalManager : Singleton<GlobalManager>
 		SetGamePaused(false); 
 	}
 
+	/// <summary>
+	/// Called from TitleScreen to initiate the new/load game sequence
+	/// </summary>
 	public void TitleToLoadScreen()
 	{
 		UnloadSceneIfLoaded("Title"); 
@@ -280,6 +284,9 @@ public class GlobalManager : Singleton<GlobalManager>
 		SetGamePaused(true); 
 	}
 
+	/// <summary>
+	/// Called in TitleToLoadScreen. Ensures that the title screen is unloaded, the loaded screen is loaded, and the fade out is finished before fading in to the loading screen
+	/// </summary>
 	public IEnumerator NewGameUnloadTitleScreen()
 	{  
 		while (SceneManager.GetSceneByName("Title").isLoaded || !SceneManager.GetSceneByName("Loading").isLoaded || ScreenTransition.inst.curState != ScreenTransition.TransitionState.blackScreenRest)
@@ -291,7 +298,8 @@ public class GlobalManager : Singleton<GlobalManager>
 	}
 
 	/// <summary>
-	/// Fades into the loading screen after the previous fade out has finished
+	/// Fades into the loading screen after the previous fade out has finished. 
+	/// Once the fade in is complete (ensuring the Skyne logo is fully visible before the current loading freezes), LoadGameplayScreen is called
 	/// </summary>
 	public IEnumerator NewGameFadeIntoLoadingScreen()
 	{
