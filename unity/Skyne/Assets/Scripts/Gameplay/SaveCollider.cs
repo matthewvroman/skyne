@@ -8,6 +8,11 @@ public class SaveCollider : MonoBehaviour
 
 	void OnTriggerEnter (Collider col)
 	{
+		if (!GlobalManager.inst.GameplayIsActive())
+		{
+			return; 
+		}
+
 		if (col.tag == "Player")
 		{
 			playerInside = true;  
@@ -19,6 +24,7 @@ public class SaveCollider : MonoBehaviour
 		if (col.tag == "Player")
 		{
 			playerInside = false; 
+			SaveRoomManager.inst.saveReady = true; 
 		}
 	}
 

@@ -9,6 +9,9 @@ public class SaveRoomManager : Singleton<SaveRoomManager>
 	[HideInInspector] public SaveRoom curSaveRoom; 
 	public bool justSaved; 
 
+	// Stop save UI from appearing when a save is loaded
+	[HideInInspector] public bool saveReady; 
+
 	// Temporary saving UI
 	public GameObject pressToSaveText;
 	public GameObject gameSavedText; 
@@ -20,7 +23,7 @@ public class SaveRoomManager : Singleton<SaveRoomManager>
 		gameSavedText.SetActive(false);
 
 		// Check save room usage
-		if (inSaveRoom && curSaveRoom != null)
+		if (inSaveRoom && curSaveRoom != null && saveReady)
 		{
 			if (curSaveRoom.readyToSave && !justSaved)
 			{
@@ -41,39 +44,6 @@ public class SaveRoomManager : Singleton<SaveRoomManager>
 				gameSavedText.SetActive(true); 
 			}
 		}
-
-
-		// Check save room usage
-		/*
-		if (inSaveRoom && curSaveRoom != null)
-		{
-			if (!justSaved)
-			{
-				pressToSaveText.SetActive(true); 
-				gameSavedText.SetActive(false); 
-
-				// Input for confirming the save
-				if (Input.GetKeyDown(KeyCode.E))
-				{
-					justSaved = true; 
-					curSaveRoom.readyToSave = false; 
-
-					// Call PlayerPrefsManager to create the save
-					PlayerPrefsManager.inst.SavePlayerPrefs(); 
-				}
-			}
-			else
-			{
-				pressToSaveText.SetActive(false); 
-				gameSavedText.SetActive(true); 
-			}
-		}
-		else
-		{
-			pressToSaveText.SetActive(false); 
-			gameSavedText.SetActive(false); 
-		}
-		*/ 
 	}
 
 	public SaveRoom GetSaveRoom(string name)

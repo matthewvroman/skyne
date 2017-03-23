@@ -8,7 +8,7 @@ public class SaveRoom : MonoBehaviour
 
 	SaveCollider saveCollider; 
 
-	// Ensures that you can only save once per time entering the save room, as well as prevents saving when first respawning in the save point
+	// Ensures that you can only save once per time entering the save room
 	public bool readyToSave; 
 
 	void Start()
