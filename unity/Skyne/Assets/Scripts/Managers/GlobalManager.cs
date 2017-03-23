@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GlobalManager : Singleton<GlobalManager> 
 {
-	public enum GlobalState {Menu, LoadMainGameplayScene, SetupGameplay, Gameplay, GameOver, GameplayToMenu, GameplayToGameOver, EditorOnlyLoadGameplay};  
+	public enum GlobalState {Menu, LoadMainGameplayScene, SetupGameplay, Gameplay, GameOver, GameplayToMenu, GameplayToGameOver, EditorOnlyLoadGameplay, TransitionWait};  
 
 	[Tooltip("The state machine of the game. Set to Menu when starting from Menu; set to Gameplay when starting in the middle of the game.")]
 	public GlobalState globalState; 
@@ -13,7 +13,14 @@ public class GlobalManager : Singleton<GlobalManager>
 	public bool initialLoadFinished; 
 	[SerializeField] private bool m_gamePaused; 
 
+	public float loadScreenFadeSpeed; 
+	public float levelFadeInSpeed; 
+	public float levelFadeOutSpeed; 
+
 	public static System.Action<bool> OnGamePausedUpdated; 
+
+	[Tooltip("The default camera when the player character is not being used.")]
+	public Camera globalCamera; 
 
 	public bool gamePaused
 	{
@@ -93,12 +100,12 @@ public class GlobalManager : Singleton<GlobalManager>
 		{
 			// Once everything has been loaded
 			//if (!SceneLoading.inst.LevelScenesBeingLoaded() && SceneLoading.inst.startedLoadingLevels)
-			if (!SceneLoading.inst.LevelScenesBeingLoaded())
+			if (!SceneLoading.inst.LevelScenesBeingLoaded() && ScreenTransition.inst.curState == ScreenTransition.TransitionState.transparentScreenRest)
 			{
 				//Debug.Log("Test finished loading"); 
-				globalState = GlobalState.Gameplay; 
-				MainGameplayManager.inst.OnGameplayStart(); 
-
+				ScreenTransition.inst.SetFadeOut(loadScreenFadeSpeed); 
+				globalState = GlobalState.TransitionWait; 
+				StartCoroutine("GameplayStartFadeOut"); 
 			}
 		}
 		else if (globalState == GlobalState.GameplayToGameOver)
@@ -123,6 +130,16 @@ public class GlobalManager : Singleton<GlobalManager>
 			{
 				LoadGameplayScreen(); 
 			}
+		}
+
+		// Update Main Camera
+		if (globalState == GlobalState.Gameplay)
+		{
+			globalCamera.gameObject.SetActive(false); 
+		}
+		else
+		{
+			globalCamera.gameObject.SetActive(true); 
 		}
 	}
 
@@ -162,9 +179,6 @@ public class GlobalManager : Singleton<GlobalManager>
 	public void LoadGameplayScreen()
 	{
 		globalState = GlobalState.LoadMainGameplayScene; 
-
-		// Add the loading screen
-		LoadSceneIfUnloaded("Loading"); 
 
 		// Add the MainLevel screen
 		LoadSceneIfUnloaded("MainLevel"); 
@@ -229,5 +243,62 @@ public class GlobalManager : Singleton<GlobalManager>
 			return true; 
 		}
 		return false; 
+	}
+
+	// Coroutines for transitions when level is loaded
+	// The first coroutine fades out on the loading screen
+	public IEnumerator GameplayStartFadeOut()
+	{
+		while (ScreenTransition.inst.curState != ScreenTransition.TransitionState.blackScreenRest)
+		{
+			yield return null; 
+		}
+		ScreenTransition.inst.SetFadeIn(levelFadeInSpeed); 
+		UnloadSceneIfLoaded("Loading"); 
+		StartCoroutine("GameplayStartUnloadLoadingScreen"); 
+
+	}
+
+	// The second coroutine gives the player control once the loading screen has finished unloading
+	public IEnumerator GameplayStartUnloadLoadingScreen()
+	{
+		while (SceneManager.GetSceneByName("Loading").isLoaded)
+		{
+			yield return null; 
+		}
+
+		globalState = GlobalState.Gameplay; 
+		MainGameplayManager.inst.OnGameplayStart(); 
+		SetGamePaused(false); 
+	}
+
+	public void TitleToLoadScreen()
+	{
+		UnloadSceneIfLoaded("Title"); 
+		LoadSceneIfUnloaded("Loading"); 
+		StartCoroutine("NewGameUnloadTitleScreen"); 
+		SetGamePaused(true); 
+	}
+
+	public IEnumerator NewGameUnloadTitleScreen()
+	{  
+		while (SceneManager.GetSceneByName("Title").isLoaded || !SceneManager.GetSceneByName("Loading").isLoaded || ScreenTransition.inst.curState != ScreenTransition.TransitionState.blackScreenRest)
+		{
+			yield return null; 
+		}
+		ScreenTransition.inst.SetFadeIn(loadScreenFadeSpeed);
+		StartCoroutine("NewGameFadeIntoLoadingScreen");  
+	}
+
+	/// <summary>
+	/// Fades into the loading screen after the previous fade out has finished
+	/// </summary>
+	public IEnumerator NewGameFadeIntoLoadingScreen()
+	{
+		while (ScreenTransition.inst.curState != ScreenTransition.TransitionState.transparentScreenRest)
+		{
+			yield return null; 
+		}
+		LoadGameplayScreen(); 
 	}
 }

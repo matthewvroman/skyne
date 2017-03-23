@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; 
 using UnityEngine.EventSystems; 
+using UnityEngine.SceneManagement; 
 
 public class TitleScreen : MonoBehaviour 
 {
@@ -16,6 +17,8 @@ public class TitleScreen : MonoBehaviour
 	public GameObject settingsMenu;
 
 	public EventSystem titleEventSystem; 
+
+	public float transitionFadeOutSpeed; 
 		
 	
 	// Update is called once per frame
@@ -42,12 +45,17 @@ public class TitleScreen : MonoBehaviour
 	// Button click functions
 	public void OnNewGameButton()
 	{
-		Debug.Log("New game button clicked"); 
+		if (!ScreenTransition.inst.transitionActive)
+		{
+			Debug.Log("New game button clicked"); 
 
-		// For now, clear PlayerPrefs when a new gameplay screen is loaded
-		PlayerPrefs.DeleteAll(); 
+			// For now, clear PlayerPrefs when a new gameplay screen is loaded
+			PlayerPrefs.DeleteAll(); 
 
-		GlobalManager.inst.LoadGameplayScreen(); 
+			//GlobalManager.inst.LoadGameplayScreen(); 
+			ScreenTransition.inst.SetFadeOut(transitionFadeOutSpeed); 
+			StartCoroutine("NewGameFadeOut"); 
+		}
 	}
 
 	// LoadGameButton
@@ -79,5 +87,15 @@ public class TitleScreen : MonoBehaviour
 		mainMenu.SetActive (true);
 
 		EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(settingsButton.gameObject);
+	}
+
+	public IEnumerator NewGameFadeOut()
+	{
+		while (ScreenTransition.inst.curState == ScreenTransition.TransitionState.fadingOut)
+		{
+			yield return null; 
+		}
+
+		GlobalManager.inst.TitleToLoadScreen(); 
 	}
 }

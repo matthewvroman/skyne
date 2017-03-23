@@ -28,6 +28,11 @@ public class DoorControl : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		if (!GlobalManager.inst.GameplayIsActive())
+		{
+			return; 
+		}
+
 		if (canClose)
 		{
 			if (isOpen)

@@ -11,5 +11,8 @@ public class ExplosionManager : Singleton<ExplosionManager>
 		GameObject newExplosion = GameObject.Instantiate(enemyExplosionPrefab, spawnPos, Quaternion.identity, transform); 
 	}
 
-
+	public void SpawnBulletExplosion(Vector3 spawnPos, Quaternion spawnRot, GameObject explosionPrefab)
+	{
+		GameObject newExplosion = GameObject.Instantiate(explosionPrefab, spawnPos, spawnRot, transform); 
+	}
 }
