@@ -91,7 +91,7 @@ public class TitleScreen : MonoBehaviour
 
 	public IEnumerator StartGameFadeOut()
 	{
-		while (ScreenTransition.inst.curState == ScreenTransition.TransitionState.fadingOut)
+		while (ScreenTransition.inst.curState != ScreenTransition.TransitionState.blackScreenRest)
 		{
 			yield return null; 
 		}

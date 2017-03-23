@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GlobalManager : Singleton<GlobalManager> 
 {
-	public enum GlobalState {Menu, LoadMainGameplayScene, SetupGameplay, Gameplay, GameOver, GameplayToMenu, GameplayToGameOver, EditorOnlyLoadGameplay, TransitionWait};  
+	public enum GlobalState {Menu, LoadMainGameplayScene, SetupGameplay, Gameplay, GameOver, GameplayToMenu, UnloadGameplayScenes, EditorOnlyLoadGameplay, TransitionWait, GameplayFadeOut};  
 
 	[Tooltip("The state machine of the game. Set to Menu when starting from Menu; set to Gameplay when starting in the middle of the game.")]
 	public GlobalState globalState; 
@@ -109,10 +109,11 @@ public class GlobalManager : Singleton<GlobalManager>
 				StartCoroutine("GameplayStartFadeOut"); 
 			}
 		}
-		else if (globalState == GlobalState.GameplayToGameOver)
+		else if (globalState == GlobalState.UnloadGameplayScenes)
 		{
 			if (SceneLoading.inst.LevelUnloadComplete())
 			{
+				ScreenTransition.inst.SetFadeIn(loadScreenFadeSpeed); 
 				ChangeToGameOver();
 				SetGamePaused(false); 
 			}
@@ -134,7 +135,7 @@ public class GlobalManager : Singleton<GlobalManager>
 		}
 
 		// Update Main Camera
-		if (globalState == GlobalState.Gameplay)
+		if (globalState == GlobalState.Gameplay || globalState == GlobalState.GameplayFadeOut)
 		{
 			globalCamera.gameObject.SetActive(false); 
 		}
@@ -187,13 +188,18 @@ public class GlobalManager : Singleton<GlobalManager>
 
 	public void LoadGameOver()
 	{
-		globalState = GlobalState.GameplayToGameOver; 
+		/*
+		globalState = GlobalState.UnloadGameplayScenes; 
 
 		// Unload all level scenes as well as the MainLevel
-		//LevelData.inst.UnloadAllLevelScenes(); 
 		SceneLoading.inst.UnloadAllLevelScenes(SceneMapping.inst.sceneList); 
 		LoadSceneIfUnloaded("Loading"); 
 		UnloadSceneIfLoaded("MainLevel"); 
+		*/ 
+
+		globalState = GlobalState.GameplayFadeOut; 
+		ScreenTransition.inst.SetFadeOut(levelFadeOutSpeed); 
+		StartCoroutine("GameplayFadeOut"); 
 	}
 
 	/// <summary>
@@ -210,6 +216,7 @@ public class GlobalManager : Singleton<GlobalManager>
 	void ChangeToTitle()
 	{
 		globalState = GlobalState.Menu;
+		ScreenTransition.inst.SetFadeIn(levelFadeInSpeed); 
 		LoadSceneIfUnloaded("Title");
 		UnloadSceneIfLoaded("Loading"); 
 		Cursor.lockState = CursorLockMode.Confined; 
@@ -246,9 +253,72 @@ public class GlobalManager : Singleton<GlobalManager>
 		return false; 
 	}
 
+	/// <summary>
+	/// Called from TitleScreen to initiate the new/load game sequence
+	/// </summary>
+	public void TitleToLoadScreen()
+	{
+		SetGamePaused(true); 
+		UnloadSceneIfLoaded("Title"); 
+		LoadSceneIfUnloaded("Loading"); 
+		StartCoroutine("StartGameUnloadTitleScreen"); 
+	}
+
+	/// <summary>
+	/// Called from GameOverScreen to initiate the new/load game sequence
+	/// </summary>
+	public void GameOverToLoadScreen()
+	{
+		SetGamePaused(true); 
+		UnloadSceneIfLoaded("GameOver"); 
+		LoadSceneIfUnloaded("Loading"); 
+		StartCoroutine("StartGameUnloadGameOver"); 
+	}
+
+	/// <summary>
+	/// Called in GameOverToLoadScreen. Ensures that the game over screen is unloaded, the loaded screen is loaded, and the fade out is finished before fading into the loading screen
+	/// </summary>
+	/// <returns>The game unload game over.</returns>
+	IEnumerator StartGameUnloadGameOver()
+	{
+		while (SceneManager.GetSceneByName("GameOver").isLoaded || !!SceneManager.GetSceneByName("Loading").isLoaded || ScreenTransition.inst.curState != ScreenTransition.TransitionState.blackScreenRest)
+		{
+			yield return null; 
+		}
+		ScreenTransition.inst.SetFadeIn(loadScreenFadeSpeed);
+		StartCoroutine("StartGameFadeIntoLoadingScreen");
+	}
+
+	/// <summary>
+	/// Called in TitleToLoadScreen. Ensures that the title screen is unloaded, the loaded screen is loaded, and the fade out is finished before fading in to the loading screen
+	/// </summary>
+	IEnumerator StartGameUnloadTitleScreen()
+	{  
+		while (SceneManager.GetSceneByName("Title").isLoaded || !SceneManager.GetSceneByName("Loading").isLoaded || ScreenTransition.inst.curState != ScreenTransition.TransitionState.blackScreenRest)
+		{
+			yield return null; 
+		}
+		ScreenTransition.inst.SetFadeIn(loadScreenFadeSpeed);
+		StartCoroutine("StartGameFadeIntoLoadingScreen");  
+	}
+
+	/// <summary>
+	/// Fades into the loading screen after the previous fade out has finished. 
+	/// Once the fade in is complete (ensuring the Skyne logo is fully visible before the current loading freezes), LoadGameplayScreen is called
+	/// </summary>
+	IEnumerator StartGameFadeIntoLoadingScreen()
+	{
+		while (ScreenTransition.inst.curState != ScreenTransition.TransitionState.transparentScreenRest)
+		{
+			yield return null; 
+		}
+		LoadGameplayScreen(); 
+	}
+
+
 	// Coroutines for transitions when level is loaded
 	// The first coroutine fades out on the loading screen
-	public IEnumerator GameplayStartFadeOut()
+	IEnumerator GameplayStartFadeOut()
 	{
 		while (ScreenTransition.inst.curState != ScreenTransition.TransitionState.blackScreenRest)
 		{
@@ -257,56 +327,37 @@ public class GlobalManager : Singleton<GlobalManager>
 		ScreenTransition.inst.SetFadeIn(levelFadeInSpeed); 
 		UnloadSceneIfLoaded("Loading"); 
 		StartCoroutine("GameplayStartUnloadLoadingScreen"); 
-
 	}
 
 	// The second coroutine gives the player control once the loading screen has finished unloading
-	public IEnumerator GameplayStartUnloadLoadingScreen()
+	IEnumerator GameplayStartUnloadLoadingScreen()
 	{
 		while (SceneManager.GetSceneByName("Loading").isLoaded)
 		{
 			yield return null; 
 		}
 
+		SetGamePaused(false); 
 		globalState = GlobalState.Gameplay; 
 		MainGameplayManager.inst.OnGameplayStart(); 
-		SetGamePaused(false); 
 	}
 
-	/// <summary>
-	/// Called from TitleScreen to initiate the new/load game sequence
-	/// </summary>
-	public void TitleToLoadScreen()
+
+	// Coroutines for game over screen loading
+
+	// Waits until the fade out screen transition is complete to unload all the level scenes
+	IEnumerator GameplayFadeOut()
 	{
-		UnloadSceneIfLoaded("Title"); 
+		while (ScreenTransition.inst.curState != ScreenTransition.TransitionState.blackScreenRest)
+		{
+			yield return null; 
+		}
+
+		globalState = GlobalState.UnloadGameplayScenes; 
+
+		// Unload all level scenes as well as the MainLevel
+		SceneLoading.inst.UnloadAllLevelScenes(SceneMapping.inst.sceneList); 
 		LoadSceneIfUnloaded("Loading"); 
-		StartCoroutine("NewGameUnloadTitleScreen"); 
-		SetGamePaused(true); 
-	}
-
-	/// <summary>
-	/// Called in TitleToLoadScreen. Ensures that the title screen is unloaded, the loaded screen is loaded, and the fade out is finished before fading in to the loading screen
-	/// </summary>
-	public IEnumerator NewGameUnloadTitleScreen()
-	{  
-		while (SceneManager.GetSceneByName("Title").isLoaded || !SceneManager.GetSceneByName("Loading").isLoaded || ScreenTransition.inst.curState != ScreenTransition.TransitionState.blackScreenRest)
-		{
-			yield return null; 
-		}
-		ScreenTransition.inst.SetFadeIn(loadScreenFadeSpeed);
-		StartCoroutine("NewGameFadeIntoLoadingScreen");  
-	}
-
-	/// <summary>
-	/// Fades into the loading screen after the previous fade out has finished. 
-	/// Once the fade in is complete (ensuring the Skyne logo is fully visible before the current loading freezes), LoadGameplayScreen is called
-	/// </summary>
-	public IEnumerator NewGameFadeIntoLoadingScreen()
-	{
-		while (ScreenTransition.inst.curState != ScreenTransition.TransitionState.transparentScreenRest)
-		{
-			yield return null; 
-		}
-		LoadGameplayScreen(); 
+		UnloadSceneIfLoaded("MainLevel"); 
 	}
 }
