@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GlobalManager : Singleton<GlobalManager> 
 {
-	public enum GlobalState {Menu, LoadMainGameplayScene, SetupGameplay, Gameplay, GameOver, GameplayToMenu, UnloadGameplayScenes, EditorOnlyLoadGameplay, TransitionWait, GameplayFadeOut};  
+	public enum GlobalState {Menu, LoadMainGameplayScene, SetupGameplay, Gameplay, GameOver, GameOverUnloadGameplayScenes, TitleUnloadGameplayScenes, EditorOnlyLoadGameplay, TransitionWait, GameplayFadeOut};  
 
 	[Tooltip("The state machine of the game. Set to Menu when starting from Menu; set to Gameplay when starting in the middle of the game.")]
 	public GlobalState globalState; 
@@ -76,7 +76,7 @@ public class GlobalManager : Singleton<GlobalManager>
 
 		if (globalState == GlobalState.Menu)
 		{
-			LoadTitle();  
+			LoadTitleAtStart();  
 		}
 	}
 	
@@ -109,7 +109,7 @@ public class GlobalManager : Singleton<GlobalManager>
 				StartCoroutine("GameplayStartFadeOut"); 
 			}
 		}
-		else if (globalState == GlobalState.UnloadGameplayScenes)
+		else if (globalState == GlobalState.GameOverUnloadGameplayScenes)
 		{
 			if (SceneLoading.inst.LevelUnloadComplete())
 			{
@@ -118,7 +118,7 @@ public class GlobalManager : Singleton<GlobalManager>
 				SetGamePaused(false); 
 			}
 		}
-		else if (globalState == GlobalState.GameplayToMenu)
+		else if (globalState == GlobalState.TitleUnloadGameplayScenes)
 		{
 			if (SceneLoading.inst.LevelUnloadComplete())
 			{
@@ -145,10 +145,9 @@ public class GlobalManager : Singleton<GlobalManager>
 		}
 	}
 
-	public void LoadTitle()
+	public void LoadTitleAtStart()
 	{
 		// If starting the game and loading the title for the first time
-		// These scenes are removed if they've been loaded (though they shouldn't be loaded in the actual build)
 		if (globalState == GlobalState.Menu)
 		{ 
 			UnloadSceneIfLoaded("GameOver"); 
@@ -163,19 +162,6 @@ public class GlobalManager : Singleton<GlobalManager>
 
 			ChangeToTitle(); 
 		}
-		else if (globalState == GlobalState.Gameplay)
-		{
-			globalState = GlobalState.GameplayToMenu; 
-			SceneLoading.inst.UnloadAllLevelScenes(SceneMapping.inst.sceneList);
-			LoadSceneIfUnloaded("Loading"); 
-			UnloadSceneIfLoaded("MainLevel");
-
-		}
-		else if (globalState == GlobalState.GameOver)
-		{
-			UnloadSceneIfLoaded("GameOver");
-			ChangeToTitle();  
-		}
 	}
 
 	public void LoadGameplayScreen()
@@ -188,18 +174,9 @@ public class GlobalManager : Singleton<GlobalManager>
 
 	public void LoadGameOver()
 	{
-		/*
-		globalState = GlobalState.UnloadGameplayScenes; 
-
-		// Unload all level scenes as well as the MainLevel
-		SceneLoading.inst.UnloadAllLevelScenes(SceneMapping.inst.sceneList); 
-		LoadSceneIfUnloaded("Loading"); 
-		UnloadSceneIfLoaded("MainLevel"); 
-		*/ 
-
 		globalState = GlobalState.GameplayFadeOut; 
 		ScreenTransition.inst.SetFadeOut(levelFadeOutSpeed); 
-		StartCoroutine("GameplayFadeOut"); 
+		StartCoroutine("GameOverGameplayFadeOut"); 
 	}
 
 	/// <summary>
@@ -275,6 +252,23 @@ public class GlobalManager : Singleton<GlobalManager>
 		StartCoroutine("StartGameUnloadGameOver"); 
 	}
 
+	public void GameOverToTitleScreen()
+	{
+		UnloadSceneIfLoaded("GameOver");
+		ChangeToTitle(); 
+	}
+
+	/// <summary>
+	/// Called from MainLevel screen in UIManager to initiate the new/load game sequence
+	/// </summary>
+	public void GameplayToTitleScreen()
+	{
+		SetGamePaused(true); 
+		globalState = GlobalState.GameplayFadeOut; 
+		ScreenTransition.inst.SetFadeOut(levelFadeOutSpeed); 
+		StartCoroutine("TitleGameplayFadeOut"); 
+	}
+
 	/// <summary>
 	/// Called in GameOverToLoadScreen. Ensures that the game over screen is unloaded, the loaded screen is loaded, and the fade out is finished before fading into the loading screen
 	/// </summary>
@@ -346,18 +340,36 @@ public class GlobalManager : Singleton<GlobalManager>
 	// Coroutines for game over screen loading
 
 	// Waits until the fade out screen transition is complete to unload all the level scenes
-	IEnumerator GameplayFadeOut()
+	IEnumerator GameOverGameplayFadeOut()
 	{
 		while (ScreenTransition.inst.curState != ScreenTransition.TransitionState.blackScreenRest)
 		{
 			yield return null; 
 		}
 
-		globalState = GlobalState.UnloadGameplayScenes; 
+		globalState = GlobalState.GameOverUnloadGameplayScenes; 
 
 		// Unload all level scenes as well as the MainLevel
 		SceneLoading.inst.UnloadAllLevelScenes(SceneMapping.inst.sceneList); 
 		LoadSceneIfUnloaded("Loading"); 
 		UnloadSceneIfLoaded("MainLevel"); 
 	}
+
+	// Coroutines for title screen loading from in-game
+
+	IEnumerator TitleGameplayFadeOut()
+	{
+		while (ScreenTransition.inst.curState != ScreenTransition.TransitionState.blackScreenRest)
+		{
+			yield return null; 
+		}
+
+		globalState = GlobalState.TitleUnloadGameplayScenes; 
+
+		// Unload all level scenes as well as the MainLevel
+		SceneLoading.inst.UnloadAllLevelScenes(SceneMapping.inst.sceneList); 
+		LoadSceneIfUnloaded("Loading"); 
+		UnloadSceneIfLoaded("MainLevel");
+	}
+
 }

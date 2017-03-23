@@ -10,7 +10,8 @@ public class EndGameCollider : MonoBehaviour
 		{
 			if (GameState.inst.escapeSequenceActive)
 			{
-				GlobalManager.inst.LoadTitle(); 
+				//GlobalManager.inst.LoadTitle(); 
+				GlobalManager.inst.GameplayToTitleScreen(); 
 			}
 		}
 	}

@@ -53,6 +53,6 @@ public class GameOverScreen : MonoBehaviour
 		{
 			yield return null; 
 		}
-		GlobalManager.inst.LoadTitle(); 
+		GlobalManager.inst.GameOverToTitleScreen(); 
 	}
 }

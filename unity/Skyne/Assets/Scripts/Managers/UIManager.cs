@@ -199,8 +199,11 @@ public class UIManager : Singleton<UIManager>
 
 	public void OnQuitButton()
 	{
+		/*
 		Time.timeScale = 1;
 		GlobalManager.inst.LoadTitle (); 
+		*/ 
+		GlobalManager.inst.GameplayToTitleScreen(); 
 	}
 
 
