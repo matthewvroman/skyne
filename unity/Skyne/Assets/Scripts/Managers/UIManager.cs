@@ -24,9 +24,9 @@ public class UIManager : Singleton<UIManager>
 	//[SerializeField] private Toggle level2Toggle; 
 	//[SerializeField] private Toggle level3Toggle; 
 
-	[SerializeField] private GameObject level1Button; 
-	[SerializeField] private GameObject level2Button; 
-	[SerializeField] private GameObject level3Button; 
+	[SerializeField] private GameObject topLevelButton; 
+	[SerializeField] private GameObject middleLevelButton; 
+	[SerializeField] private GameObject bottomLevelButton; 
 
 	[SerializeField] private GameObject sfxSlider; 
 	[SerializeField] private GameObject musicSlider; 
@@ -133,12 +133,12 @@ public class UIManager : Singleton<UIManager>
 		{
 			if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
 			{
-				MapDisplay.inst.DecrementDisplayFloor(); 
+				MapDisplay.inst.IncrementDisplayFloor(); 
 				UpdateMapPanelToggles(); 
 			}
 			else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
 			{
-				MapDisplay.inst.IncrementDisplayFloor(); 
+				MapDisplay.inst.DecrementDisplayFloor(); 
 				UpdateMapPanelToggles(); 
 			}
 		}
@@ -165,21 +165,21 @@ public class UIManager : Singleton<UIManager>
 	{
 		if (MapDisplay.inst.displayLevel == 1)
 		{
-			level1Button.GetComponent<Image>().color = new Color (1, 1, 1); 
-			level2Button.GetComponent<Image>().color = new Color (0.8f, 0.8f, 0.8f); 
-			level3Button.GetComponent<Image>().color = new Color (0.8f, 0.8f, 0.8f); 
+			bottomLevelButton.GetComponent<Image>().color = new Color (1, 1, 1); 
+			middleLevelButton.GetComponent<Image>().color = new Color (0.8f, 0.8f, 0.8f); 
+			topLevelButton.GetComponent<Image>().color = new Color (0.8f, 0.8f, 0.8f); 
 		}
 		else if (MapDisplay.inst.displayLevel == 2)
 		{
-			level1Button.GetComponent<Image>().color = new Color (0.8f, 0.8f, 0.8f); 
-			level2Button.GetComponent<Image>().color = new Color (1, 1, 1); 
-			level3Button.GetComponent<Image>().color = new Color (0.8f, 0.8f, 0.8f); 
+			bottomLevelButton.GetComponent<Image>().color = new Color (0.8f, 0.8f, 0.8f); 
+			middleLevelButton.GetComponent<Image>().color = new Color (1, 1, 1); 
+			topLevelButton.GetComponent<Image>().color = new Color (0.8f, 0.8f, 0.8f); 
 		}
 		else if (MapDisplay.inst.displayLevel == 3)
 		{
-			level1Button.GetComponent<Image>().color = new Color (0.8f, 0.8f, 0.8f); 
-			level2Button.GetComponent<Image>().color = new Color (0.8f, 0.8f, 0.8f); 
-			level3Button.GetComponent<Image>().color = new Color (1, 1, 1); 
+			bottomLevelButton.GetComponent<Image>().color = new Color (0.8f, 0.8f, 0.8f); 
+			middleLevelButton.GetComponent<Image>().color = new Color (0.8f, 0.8f, 0.8f); 
+			topLevelButton.GetComponent<Image>().color = new Color (1, 1, 1); 
 		}
 	}
 

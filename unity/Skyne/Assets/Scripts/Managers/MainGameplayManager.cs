@@ -32,9 +32,6 @@ public class MainGameplayManager : Singleton<MainGameplayManager>
 		if (SceneMapping.inst == null)
 			Debug.Log("null SceneMapping"); 
 
-		// Load in the scene names from the directory (if in editor)
-		//SceneMapping.inst.StartReadInListFromDirectory(); 
-
 		// Generate the scene mapping
 		SceneMapping.inst.GenerateSceneMapping(LevelData.inst.numLevels, LevelData.inst.numColumns, LevelData.inst.numRows); 
 
@@ -42,16 +39,7 @@ public class MainGameplayManager : Singleton<MainGameplayManager>
 		// In GameStateManager, load the corresponding data from PlayerPrefs
 		GameState.inst.LoadGame(); 
 
-		// Place other objects in the scene?
-
-		//MapDisplay.inst.SpawnMap(); 
-
 		LevelData.inst.UpdatePlayerGridPos ();
-
-		/*
-		if (MapDisplay.inst != null)
-			MapDisplay.inst.SpawnMap(); 
-			*/ 
 
 		// Set the player's active state to false until the game is done loading
 		player.SetActive(false); 
