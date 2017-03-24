@@ -24,7 +24,6 @@ public class SaveCollider : MonoBehaviour
 		if (col.tag == "Player")
 		{
 			playerInside = false; 
-			SaveRoomManager.inst.saveReady = true; 
 		}
 	}
 

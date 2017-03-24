@@ -44,6 +44,11 @@ public class SaveRoomManager : Singleton<SaveRoomManager>
 				gameSavedText.SetActive(true); 
 			}
 		}
+
+		if (GlobalManager.inst.GameplayIsActive() && !inSaveRoom)
+		{
+			saveReady = true; 
+		}
 	}
 
 	public SaveRoom GetSaveRoom(string name)
