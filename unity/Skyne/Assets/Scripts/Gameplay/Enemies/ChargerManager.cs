@@ -29,6 +29,10 @@ public class ChargerManager : Enemy
 	[Tooltip ("Charger's charging speed")]
 	public float chargeSpeed;
 
+	public float waitingSpeed;
+	public float chargeCooldown;
+	public float chargeCounter = 0;
+
 	AudioSource chargerAudio;
 
 	public AudioClip sawSound;
@@ -136,7 +140,7 @@ public class ChargerManager : Enemy
 			tarDistance = Vector3.Distance (target.transform.position, transform.position);
 
 			//Switches between states based on the distance from the player to the enemy
-			if (tarDistance < attackDistance)
+			/*if (tarDistance < attackDistance)
 			{
 				state = ChargerManager.State.ATTACK;
 			}
@@ -147,11 +151,11 @@ public class ChargerManager : Enemy
 			else
 			{
 				state = ChargerManager.State.IDLE;
-			}
+			} */
 		}
 	}
 
-	/*bool canSeeTarget ()
+	bool canSeeTarget ()
 	{
 		Vector3 dir = (target.transform.position - transform.position).normalized; 
 		Vector3 start = transform.position + dir * 0.5f; 
@@ -168,12 +172,21 @@ public class ChargerManager : Enemy
 			Debug.DrawLine (start, end, Color.white); 
 			return true; 
 		}
-	} */
+	}
 
 	//The Idling state, what the enemy does when the player is not close.
 	void Idle ()
 	{
+		agent.Resume ();
+
+		if (tarDistance < aggroDistance && canSeeTarget())
+		{
+			state = ChargerManager.State.POSITION;
+		}
+
 		transform.rotation = Quaternion.Euler (0, 0, 0);
+
+		chargeCounter = 0;
 
 		agent.destination = transform.position;
 
@@ -193,6 +206,26 @@ public class ChargerManager : Enemy
 		//this.transform.LookAt (targetPosition);
 
 		//rBody.AddForce (transform.forward * moveSpeed);
+
+		agent.Resume ();
+
+		if (tarDistance > aggroDistance)
+		{
+			state = ChargerManager.State.IDLE;
+		} 
+		else if (tarDistance < attackDistance)
+		{
+			state = ChargerManager.State.ATTACK;
+		}
+
+		if (chargeCounter <= 0)
+		{
+			chargeCounter = 0;
+		}
+		else
+		{
+			chargeCounter -= Time.deltaTime;
+		}
 
 		agent.speed = moveSpeed;
 		agent.acceleration = moveSpeed;
@@ -216,6 +249,17 @@ public class ChargerManager : Enemy
 		//Debug.Log ("Positioning");
 	}
 
+	IEnumerator Charge() {
+		agent.speed = chargeSpeed;
+		agent.acceleration = chargeSpeed;
+
+		yield return new WaitForSeconds (1);
+
+		agent.Stop ();
+
+		chargeCounter = chargeCooldown;
+	}
+
 	//The Attcking state, once close enough, the enemy will charge at the player.  
 	void Attack ()
 	{
@@ -224,8 +268,26 @@ public class ChargerManager : Enemy
 
 		rBody.AddForce (transform.forward * chargeSpeed); */
 
-		agent.speed = chargeSpeed;
-		agent.acceleration = chargeSpeed;
+		if (tarDistance > aggroDistance)
+		{
+			state = ChargerManager.State.IDLE;
+		} 
+		else if (tarDistance > attackDistance)
+		{
+			state = ChargerManager.State.POSITION;
+		}
+
+		if (chargeCounter > 0)
+		{
+			agent.speed = waitingSpeed;
+			agent.acceleration = waitingSpeed;
+			agent.Resume ();
+			chargeCounter -= Time.deltaTime;
+		} 
+		else if (chargeCounter <= 0)
+		{
+			StartCoroutine ("Charge");
+		}
 
 		if (!chargerAudio.isPlaying)
 		{

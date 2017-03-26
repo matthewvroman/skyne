@@ -26,12 +26,15 @@ public class SentryManager : Enemy
 
 	public float moveSpeed;
 
+	public float turnSpeed;
+
 	public float shotDelay;
 	float curShotDelay;
 
 	public GameObject target;
 
 	GameObject bulletSpawner;
+	//GameObject frontObject;
 
 	AudioSource sentryAudio;
 
@@ -72,6 +75,7 @@ public class SentryManager : Enemy
 		sentryAudio = GetComponent<AudioSource> ();
 
 		bulletSpawner = transform.Find ("BulletSpawner").gameObject; 
+		//frontObject = bulletSpawner;
 
 		//START State Machine
 		StartCoroutine ("SSM");
@@ -224,14 +228,18 @@ public class SentryManager : Enemy
 
 	void Attack ()
 	{
-		if (agent.speed > 1)
+		/*if (agent.speed > 1)
 		{
 			StartCoroutine ("SlowDown");
-		}
+		} */
 
 		//Vector3 targetPosition = new Vector3 (target.transform.position.x, this.transform.position.y, target.transform.position.z);
 
-		agent.destination = target.transform.position;
+		//agent.destination = target.transform.position;
+
+		agent.speed = 0;
+		Quaternion q = Quaternion.LookRotation(target.transform.position - bulletSpawner.transform.position);
+		transform.rotation = Quaternion.RotateTowards(bulletSpawner.transform.rotation, q, turnSpeed * Time.deltaTime);
 
 		if (agent.velocity.magnitude > 0)
 		{
