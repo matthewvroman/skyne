@@ -25,6 +25,12 @@ public class PlatformFunc : MonoBehaviour
 		{
 			col.transform.parent = gameObject.transform;
 		}
+
+		if (col.gameObject.tag == "Bullet")
+		{
+			//Debug.Log ("Hello");
+			platMan.SetPos (!platMan.GetSetPos ());
+		}
 	}
 
 	void OnCollisionStay (Collision col)
@@ -40,15 +46,6 @@ public class PlatformFunc : MonoBehaviour
 		if (col.gameObject.tag == "Player")
 		{
 			col.transform.parent = null;
-		}
-	}
-
-	void OnTriggerEnter (Collider col)
-	{
-		if (col.gameObject.tag == "Bullet")
-		{
-			//Debug.Log ("Hello");
-			platMan.SetPos (!platMan.GetSetPos ());
 		}
 	}
 
