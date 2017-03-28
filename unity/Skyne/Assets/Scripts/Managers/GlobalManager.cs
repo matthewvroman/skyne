@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement; 
+using UnityEngine.Audio; 
 
 public class GlobalManager : Singleton<GlobalManager> 
 {
@@ -23,6 +24,8 @@ public class GlobalManager : Singleton<GlobalManager>
 	public Camera globalCamera; 
 
 	public AsyncOperation mainLevelLoadOp; 
+
+	public AudioMixer mixer; 
 
 	public bool gamePaused
 	{
@@ -80,6 +83,10 @@ public class GlobalManager : Singleton<GlobalManager>
 		{
 			LoadTitleAtStart();  
 		}
+
+		// Set default audio levels
+		SetMusicVolume(0); 
+		SetSFXVolume(0); 
 	}
 	
 	// Update is called once per frame
@@ -148,6 +155,30 @@ public class GlobalManager : Singleton<GlobalManager>
 		{
 			globalCamera.gameObject.SetActive(true); 
 		}
+	}
+
+	public float GetSFXVolume()
+	{
+		float curVolume; 
+		mixer.GetFloat("SFXVolume", out curVolume); 
+		return curVolume; 
+	}
+
+	public void SetSFXVolume(float newVolume)
+	{
+		mixer.SetFloat("SFXVolume", newVolume); 
+	}
+
+	public float GetMusicVolume()
+	{
+		float curVolume; 
+		mixer.GetFloat("MusicVolume", out curVolume); 
+		return curVolume; 
+	}
+
+	public void SetMusicVolume(float newVolume)
+	{
+		mixer.SetFloat("MusicVolume", newVolume); 
 	}
 
 	public void LoadTitleAtStart()
