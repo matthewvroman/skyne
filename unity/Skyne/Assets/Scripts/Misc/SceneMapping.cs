@@ -62,6 +62,8 @@ public class SceneMapping : Singleton<SceneMapping>
 	/// <param name="levelManager">Level manager.</param>
 	public void GenerateSceneMapping(int numLevels, int numColumns, int numRows)
 	{
+		System.Diagnostics.Stopwatch.StartNew(); 
+
 		// First, for each element in scene map, fill out the gridPositions array by parsing the scene name
 		// sceneName must be formatted in two parts
 		// Part 1 specifies the height levels the scene takes up
@@ -74,13 +76,16 @@ public class SceneMapping : Singleton<SceneMapping>
 		// Example 1: 1-A2
 		// Example 2: 1,2-C12,C13,D12,D13 (any order works for grid spaces)
 
+		string gPositions; 
+		string gLevels;
+		string[] splitLevels; 
 		for (int i = 0; i < sceneList.Length; i++)
 		{
-			string gPositions = LevelDataFunctions.GetColumnAndRowSubstringFrom(sceneList[i].sceneName); 
+			gPositions = LevelDataFunctions.GetColumnAndRowSubstringFrom(sceneList[i].sceneName); 
 			sceneList[i].gridPositions = gPositions.Split(','); 
 
-			string gLevels = LevelDataFunctions.GetLevelSubstringFrom(sceneList[i].sceneName); 
-			string[] splitLevels = gLevels.Split(',');
+			gLevels = LevelDataFunctions.GetLevelSubstringFrom(sceneList[i].sceneName); 
+			splitLevels = gLevels.Split(',');
 			sceneList[i].gridLevels = new int[splitLevels.Length]; 
 			for (int g = 0; g < splitLevels.Length; g++)
 				sceneList[i].gridLevels[g] = int.Parse(splitLevels[g]); 
@@ -132,7 +137,6 @@ public class SceneMapping : Singleton<SceneMapping>
 					// If no errors, replace "EMPTY" with the corresponding scene name
 					else
 					{
-						// TODO: this might be wrong; why not curPosition - 1?
 						sceneMapping[sceneList[i].gridLevels[l] - 1, curPosition[0] - 1, curPosition[1] - 1] = sceneList[i].sceneName; 
 					}
 				}
@@ -141,6 +145,8 @@ public class SceneMapping : Singleton<SceneMapping>
 			
 		//Debug.Log("Test: " + sceneMapping[0, 0, 0]); 
 		//PrintSceneMapping(); 
+
+		Debug.Log("GenerateSceneMapping time: " + System.Diagnostics.Stopwatch.GetTimestamp()); 
 	}
 
 	/// <summary>

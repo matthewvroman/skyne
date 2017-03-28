@@ -17,10 +17,13 @@ public class SceneLoading : Singleton<SceneLoading>
 
 	public float loadingProgress; 
 
+	Queue<string> sceneQ; 
+	AsyncOperation sceneOp; 
+
 	// Use this for initialization
 	void Start () 
 	{
-	
+		sceneQ = new Queue<string> (); 
 	}
 
 	// Update is called once per frame
@@ -58,6 +61,17 @@ public class SceneLoading : Singleton<SceneLoading>
 
 		// Update loading progress
 		//loadingProgress = scenesBeingLoaded.Count
+
+		// Update queue loading
+		if (sceneQ.Count > 0 && sceneOp != null && sceneOp.isDone)
+		{
+			sceneQ.Dequeue(); 
+
+			if (sceneQ.Count > 0)
+			{
+				SetAsynchLevelLoad(); 
+			}
+		}
 			
 	}
 
@@ -91,7 +105,8 @@ public class SceneLoading : Singleton<SceneLoading>
 		}
 		//Debug.Log("Set scene to load: " + name); 
 
-		SceneManager.LoadSceneAsync(name, LoadSceneMode.Additive);
+		//SceneManager.LoadSceneAsync(name, LoadSceneMode.Additive);
+		EnqueueScene(name);  
 
 		//startedLoadingLevels = true; 
 
@@ -134,5 +149,21 @@ public class SceneLoading : Singleton<SceneLoading>
 				scenesToUnload.Add(sceneList[i].sceneName); 
 			}
 		}
+	}
+
+	void EnqueueScene(string name)
+	{
+		sceneQ.Enqueue(name); 
+
+		// If this is the first scene being added to the queue
+		if (sceneQ.Count == 1)
+		{
+			SetAsynchLevelLoad(); 
+		}
+	}
+
+	void SetAsynchLevelLoad()
+	{
+		sceneOp = SceneManager.LoadSceneAsync(sceneQ.Peek(), LoadSceneMode.Additive);
 	}
 }

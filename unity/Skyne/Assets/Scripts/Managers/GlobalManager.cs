@@ -22,6 +22,8 @@ public class GlobalManager : Singleton<GlobalManager>
 	[Tooltip("The default camera when the player character is not being used.")]
 	public Camera globalCamera; 
 
+	public AsyncOperation mainLevelLoadOp; 
+
 	public bool gamePaused
 	{
 		get {
@@ -85,6 +87,7 @@ public class GlobalManager : Singleton<GlobalManager>
 	{
 		if (globalState == GlobalState.LoadMainGameplayScene)
 		{
+			/*
 			// Once the main (global) level scene is loaded, call it to setup the rest of the game and load the remaining level scenes
 			if (SceneManager.GetSceneByName("MainLevel").isLoaded)
 			{
@@ -96,6 +99,7 @@ public class GlobalManager : Singleton<GlobalManager>
 				SceneLoading.inst.lockLevelSceneLoad = false; 
 				MainGameplayManager.inst.SetupGameplayScreen(); 
 			}
+			*/ 
 		}
 		else if (globalState == GlobalState.SetupGameplay)
 		{
@@ -108,6 +112,7 @@ public class GlobalManager : Singleton<GlobalManager>
 				globalState = GlobalState.TransitionWait; 
 				StartCoroutine("GameplayStartFadeOut"); 
 			}
+
 		}
 		else if (globalState == GlobalState.GameOverUnloadGameplayScenes)
 		{
@@ -275,11 +280,20 @@ public class GlobalManager : Singleton<GlobalManager>
 	/// <returns>The game unload game over.</returns>
 	IEnumerator StartGameUnloadGameOver()
 	{
-		while (SceneManager.GetSceneByName("GameOver").isLoaded || !!SceneManager.GetSceneByName("Loading").isLoaded || ScreenTransition.inst.curState != ScreenTransition.TransitionState.blackScreenRest)
+		while (!SceneManager.GetSceneByName("Loading").isLoaded)
 		{
 			yield return null; 
 		}
-		ScreenTransition.inst.SetFadeIn(loadScreenFadeSpeed);
+
+		// Load the main level as soon as the loading screen finishes fading in, but don't let the main level start yet
+		mainLevelLoadOp = SceneManager.LoadSceneAsync("MainLevel", LoadSceneMode.Additive); 
+		mainLevelLoadOp.allowSceneActivation = false; 
+
+		while (SceneManager.GetSceneByName("GameOver").isLoaded || ScreenTransition.inst.curState != ScreenTransition.TransitionState.blackScreenRest)
+		{
+			yield return null; 
+		}
+
 		StartCoroutine("StartGameFadeIntoLoadingScreen");
 	}
 
@@ -288,11 +302,20 @@ public class GlobalManager : Singleton<GlobalManager>
 	/// </summary>
 	IEnumerator StartGameUnloadTitleScreen()
 	{  
-		while (SceneManager.GetSceneByName("Title").isLoaded || !SceneManager.GetSceneByName("Loading").isLoaded || ScreenTransition.inst.curState != ScreenTransition.TransitionState.blackScreenRest)
+		while (!SceneManager.GetSceneByName("Loading").isLoaded)
 		{
 			yield return null; 
 		}
-		ScreenTransition.inst.SetFadeIn(loadScreenFadeSpeed);
+
+		// Load the main level as soon as the loading screen finishes fading in, but don't let the main level start yet
+		mainLevelLoadOp = SceneManager.LoadSceneAsync("MainLevel", LoadSceneMode.Additive); 
+		mainLevelLoadOp.allowSceneActivation = false; 
+
+		while (SceneManager.GetSceneByName("Title").isLoaded || ScreenTransition.inst.curState != ScreenTransition.TransitionState.blackScreenRest)
+		{
+			yield return null; 
+		}
+			
 		StartCoroutine("StartGameFadeIntoLoadingScreen");  
 	}
 
@@ -302,11 +325,37 @@ public class GlobalManager : Singleton<GlobalManager>
 	/// </summary>
 	IEnumerator StartGameFadeIntoLoadingScreen()
 	{
+		// Set a fade in and wait until the fade in is complete
+		ScreenTransition.inst.SetFadeIn(loadScreenFadeSpeed);
 		while (ScreenTransition.inst.curState != ScreenTransition.TransitionState.transparentScreenRest)
 		{
 			yield return null; 
 		}
-		LoadGameplayScreen(); 
+
+		while (mainLevelLoadOp.progress < 0.89f)
+		{
+			yield return null; 
+		}
+
+		mainLevelLoadOp.allowSceneActivation = true;
+
+		while (!mainLevelLoadOp.isDone)
+		{
+			yield return null; 
+		}
+
+		// At this point, there will be a brief freezing hitch as the MainLevel starts
+		// This currently is not going to be feasible to solve
+
+		// Once the main (global) level scene is loaded, call it to setup the rest of the game and load the remaining level scenes
+		globalState = GlobalState.SetupGameplay; 
+		SceneLoading.inst.lockLevelSceneLoad = false; 
+		MainGameplayManager.inst.SetupGameplayScreen(); 
+
+
+			
+		// Currently, Update() checks when all the scenes have been loaded. Once that happens, GameplayStartFadeOut() is called
+		// This might need to be moved from Update() to here in the coroutine
 	}
 
 
