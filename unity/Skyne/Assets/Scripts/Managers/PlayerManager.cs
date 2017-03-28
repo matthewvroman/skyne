@@ -54,7 +54,9 @@ public class PlayerManager : MonoBehaviour
 	public class PhysSettings
 	{
 		[Tooltip ("Player's downward acceleration when falling after a jump")]
-		public float downAccel = 0.75f;
+		public float normDownAccel = 0.75f;
+
+		public float downWallAccel = 0.35f;
 	}
 
 	[System.Serializable]
@@ -84,6 +86,8 @@ public class PlayerManager : MonoBehaviour
 	MeshRenderer playerMesh;
 	Color playerColor;
 
+	float curDownAccel;
+
 	bool isOriented = true;
 
 	bool isFalling = false;
@@ -101,7 +105,11 @@ public class PlayerManager : MonoBehaviour
 	bool startSliding = false;
 	float counter;
 	RaycastHit wallHit;
+
 	bool backToWall = false;
+	bool faceToWall = false;
+	bool rSideToWall = false;
+	bool lSideToWall = false;
 
 	float dashCounter;
 	bool startCooldown;
@@ -111,6 +119,8 @@ public class PlayerManager : MonoBehaviour
 	bool isPushed = false;
 
 	bool isDoubleJumping = false;
+
+	Quaternion lastRot;
 
 	Vector3 velocity = Vector3.zero;
 	Quaternion targetRotation;
@@ -175,6 +185,8 @@ public class PlayerManager : MonoBehaviour
 		forwardInput = 0;
 		strafeInput = 0;
 		jumpInput = 0;
+
+		curDownAccel = physSetting.normDownAccel;
 
 		currentHealth = maxHealth;
 		targetHealth = maxHealth;
@@ -296,7 +308,10 @@ public class PlayerManager : MonoBehaviour
 			//GlobalManager.inst.Lo ();
 		}
 
-		Debug.Log ("DJ: " + canDoubleJump);
+		Debug.Log ("Back:" + backToWall);
+		Debug.Log ("Front:" + faceToWall);
+		Debug.Log ("Right:" + rSideToWall);
+		Debug.Log ("Left:" + lSideToWall);
 
 		Animations ();
 	}
@@ -319,10 +334,10 @@ public class PlayerManager : MonoBehaviour
 			StartCoroutine (AirDash ());
 		}
 
-		if (startSliding)
+		/*if (startSliding)
 		{
 			velocity.y -= physSetting.downAccel * 2;
-		}
+		} */
 
 		rBody.velocity = transform.TransformDirection (velocity);
 	}
@@ -347,12 +362,9 @@ public class PlayerManager : MonoBehaviour
 		if (Mathf.Abs (forwardInput) > inputSetting.inputDelay && !isWallJumping && isPushed == false)
 		{
 			//move
-			if (!isHuggingWall)
-			{
 				velocity.z = moveSetting.forwardVel * forwardInput * Time.timeScale;
-			}
 		}
-		else if (forwardInput == 0 && isDashing == false && Grounded ())
+		else if (forwardInput == 0 && isDashing == false && !isWallJumping && Grounded ())
 		{
 			//zero velocity
 			velocity.z = 0;
@@ -367,13 +379,10 @@ public class PlayerManager : MonoBehaviour
 		if (Mathf.Abs (strafeInput) > inputSetting.inputDelay && !isWallJumping && isPushed == false)
 		{
 			//move
-			if (!isHuggingWall)
-			{
 				velocity.x = moveSetting.strafeVel * strafeInput * Time.timeScale;
 				anim.SetFloat ("orientation", velocity.x);
-			}
 		}
-		else if (strafeInput == 0 && isDashing == false && Grounded ())
+		else if (strafeInput == 0 && isDashing == false && !isWallJumping && Grounded ())
 		{
 			//zero velocity
 			velocity.x = 0;
@@ -427,10 +436,10 @@ public class PlayerManager : MonoBehaviour
 			velocity.y = 0;
 			isDoubleJumping = false;
 		}
-		else if (isHuggingWall == false)
+		else
 		{
 			//decrease velocity.y
-			velocity.y -= physSetting.downAccel * Time.timeScale;
+			velocity.y -= curDownAccel * Time.timeScale;
 
 			if (GameState.inst.upgradesFound [0])
 			{
@@ -449,6 +458,7 @@ public class PlayerManager : MonoBehaviour
 
 	void WallJump ()
 	{
+
 		if (Physics.Raycast (transform.position, -transform.forward, 1))
 		{
 			backToWall = true;
@@ -457,8 +467,96 @@ public class PlayerManager : MonoBehaviour
 		{
 			backToWall = false;
 		}
+
+		if (Physics.Raycast (transform.position, transform.forward, 1))
+		{
+			faceToWall = true;
+		}
+		else
+		{
+			faceToWall = false;
+		}
+
+		if (Physics.Raycast (transform.position, transform.right, 1))
+		{
+			rSideToWall = true;
+		}
+		else
+		{
+			rSideToWall = false;
+		}
+
+		if (Physics.Raycast (transform.position, -transform.right, 1))
+		{
+			lSideToWall = true;
+		}
+		else
+		{
+			lSideToWall = false;
+		}
+
+		if (isWallJumping)
+		{
+			if (isHuggingWall && !Grounded ())
+			{
+				curDownAccel = physSetting.downWallAccel;
+				velocity.x = 0;
+				velocity.z = 0;
+				isOriented = false;
+			}
+
+			if (faceToWall)
+			{
+				if (Input.GetKeyDown (KeyCode.Space) && isHuggingWall)
+				{
+					isOriented = true;
+					curDownAccel = physSetting.normDownAccel;
+					velocity.y = moveSetting.jumpVel;
+					velocity.z = moveSetting.forwardVel * -1;
+					isHuggingWall = false;
+				}
+			}
+			else if (backToWall)
+			{
+				if (Input.GetKeyDown (KeyCode.Space) && isHuggingWall)
+				{
+					isOriented = true;
+					curDownAccel = physSetting.normDownAccel;
+					velocity.y = moveSetting.jumpVel;
+					velocity.z = moveSetting.forwardVel * 1;
+					isHuggingWall = false;
+				}
+			}
+			else if (rSideToWall)
+			{
+				if (Input.GetKeyDown (KeyCode.Space) && isHuggingWall)
+				{
+					isOriented = true;
+					curDownAccel = physSetting.normDownAccel;
+					velocity.y = moveSetting.jumpVel;
+					velocity.x = moveSetting.strafeVel * -1;
+					isHuggingWall = false;
+				}
+			}
+			else if (lSideToWall)
+			{
+				if (Input.GetKeyDown (KeyCode.Space) && isHuggingWall)
+				{
+					isOriented = true;
+					curDownAccel = physSetting.normDownAccel;
+					velocity.y = moveSetting.jumpVel;
+					velocity.x = moveSetting.strafeVel * 1;
+					isHuggingWall = false;
+				}
+			}
+		}
+		else
+		{
+			curDownAccel = physSetting.normDownAccel;
+			isOriented = true;
+		}
 			
-		if (isHuggingWall)
+		/*if (isHuggingWall)
 		{
 			if (Input.GetKeyDown(KeyCode.Space)) 
 			{
@@ -491,7 +589,7 @@ public class PlayerManager : MonoBehaviour
 					velocity.y = 0;
 				}
 			}
-		}
+		}*/
 	}
 
 	/// <summary>
@@ -503,6 +601,11 @@ public class PlayerManager : MonoBehaviour
 		if (isOriented)
 		{
 			transform.rotation = Quaternion.Euler (transform.eulerAngles.x, cam.transform.eulerAngles.y, transform.eulerAngles.z);
+			lastRot = Quaternion.Euler (transform.eulerAngles.x, cam.transform.eulerAngles.y, transform.eulerAngles.z);
+		}
+		else
+		{
+			transform.rotation = lastRot;
 		}
 
 		/*if (Input.GetKey (KeyCode.Q))
@@ -788,7 +891,23 @@ public class PlayerManager : MonoBehaviour
 			StartCoroutine (Knockback ());
 		}
 
-		if (col.gameObject.tag == "Wall" && !Grounded () && backToWall)
+		if (col.gameObject.tag == "Wall" && !Grounded ())
+		{
+			/*if (isHuggingWall == false)
+			{
+				playerAudio.clip = null;
+				playerAudio.PlayOneShot (WallJumpSound);
+			} */
+
+			isHuggingWall = true;
+			isWallJumping = true;
+			//counter = moveSetting.startSlidingTimer;
+		}
+		else
+		{
+			isHuggingWall = false;
+		}
+		/*else if (col.gameObject.tag == "Wall" && !Grounded () && isWallJumping)
 		{
 			if (isHuggingWall == false)
 			{
@@ -799,19 +918,7 @@ public class PlayerManager : MonoBehaviour
 			isHuggingWall = true;
 			isWallJumping = true;
 			counter = moveSetting.startSlidingTimer;
-		}
-		else if (col.gameObject.tag == "Wall" && !Grounded () && isWallJumping)
-		{
-			if (isHuggingWall == false)
-			{
-				playerAudio.clip = null;
-				playerAudio.PlayOneShot (WallJumpSound);
-			}
-
-			isHuggingWall = true;
-			isWallJumping = true;
-			counter = moveSetting.startSlidingTimer;
-		}
+		} */
 
 		if (col.gameObject.tag == "Spikes")
 		{
@@ -824,7 +931,7 @@ public class PlayerManager : MonoBehaviour
 		if (col.gameObject.tag == "Wall")
 		{
 			isHuggingWall = false;
-			counter = moveSetting.startSlidingTimer;
+			//counter = moveSetting.startSlidingTimer;
 		}
 	}
 
@@ -843,7 +950,7 @@ public class PlayerManager : MonoBehaviour
 			StartCoroutine (Invicibility ());
 		}
 
-		if (col.gameObject.tag == "Wall" && isHuggingWall)
+		/*if (col.gameObject.tag == "Wall" && isHuggingWall)
 		{
 			if (counter > 0)
 			{
@@ -854,7 +961,7 @@ public class PlayerManager : MonoBehaviour
 			{
 				startSliding = true;
 			}
-		}
+		} */
 	}
 
 	void OnTriggerEnter (Collider col)
