@@ -62,8 +62,6 @@ public class SceneMapping : Singleton<SceneMapping>
 	/// <param name="levelManager">Level manager.</param>
 	public void GenerateSceneMapping(int numLevels, int numColumns, int numRows)
 	{
-		System.Diagnostics.Stopwatch.StartNew(); 
-
 		// First, for each element in scene map, fill out the gridPositions array by parsing the scene name
 		// sceneName must be formatted in two parts
 		// Part 1 specifies the height levels the scene takes up
@@ -145,8 +143,6 @@ public class SceneMapping : Singleton<SceneMapping>
 			
 		//Debug.Log("Test: " + sceneMapping[0, 0, 0]); 
 		//PrintSceneMapping(); 
-
-		Debug.Log("GenerateSceneMapping time: " + System.Diagnostics.Stopwatch.GetTimestamp()); 
 	}
 
 	/// <summary>

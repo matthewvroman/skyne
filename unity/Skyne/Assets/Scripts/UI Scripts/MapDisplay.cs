@@ -145,6 +145,11 @@ public class MapDisplay : Singleton<MapDisplay>
 		// Removed- the player should be able to change this at any time
 		//displayLevel = LevelData.inst.curLevel; 
 
+		if (GlobalManager.inst.globalState != GlobalManager.GlobalState.Gameplay)
+		{
+			return;
+		}
+
 		// Update display level
 		for (int i = 0; i < mapTileParents.Length; i++)
 		{
