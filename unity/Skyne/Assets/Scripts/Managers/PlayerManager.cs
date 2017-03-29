@@ -48,6 +48,8 @@ public class PlayerManager : MonoBehaviour
 		[Tooltip ("The UI object representing the image for stamina")]
 		public GameObject staminaBarFill;
 		// The stamina UI bar.
+
+		public float staminaDrain;
 	}
 
 	[System.Serializable]
@@ -308,10 +310,7 @@ public class PlayerManager : MonoBehaviour
 			//GlobalManager.inst.Lo ();
 		}
 
-		Debug.Log ("Back:" + backToWall);
-		Debug.Log ("Front:" + faceToWall);
-		Debug.Log ("Right:" + rSideToWall);
-		Debug.Log ("Left:" + lSideToWall);
+		Debug.Log ("Knockback:" + isPushed);
 
 		Animations ();
 	}
@@ -711,13 +710,12 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	/// <returns>The calculator.</returns>
 	/// <param name="damageRecieved">Damage recieved.</param>
-	public static IEnumerator DamageCalculator (float damageRecieved)
+	public static void DamageCalculator (float damageRecieved)
 	{
 		if (currentHealth > 0)
 		{
 			targetHealth = currentHealth - damageRecieved;
 		}
-		yield return new WaitForSeconds (1);
 	}
 
 	/// <summary>
@@ -736,7 +734,7 @@ public class PlayerManager : MonoBehaviour
 	{
 		if (isFalling)
 		{
-			if (currentStamina > 0)
+			if (Input.GetMouseButton(1) && currentStamina > 0)
 			{
 				cooldownTimer = 0;
 				DecreaseStamina ();
@@ -764,7 +762,7 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void DecreaseStamina ()
 	{
-		currentStamina -= 2 * Time.unscaledDeltaTime;
+		currentStamina -= playerSetting.staminaDrain * Time.unscaledDeltaTime;
 	}
 
 	/// <summary>
@@ -772,7 +770,7 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void IncreaseStamina ()
 	{
-		currentStamina += 2 * Time.unscaledDeltaTime;
+		currentStamina += playerSetting.staminaDrain * Time.unscaledDeltaTime;
 	}
 
 	/// <summary>
@@ -801,6 +799,10 @@ public class PlayerManager : MonoBehaviour
 
 		velocity.z = moveSetting.forwardVel * -forwardInput;
 		velocity.x = moveSetting.strafeVel * -strafeInput;
+
+		//velocity.z = 0;
+		//velocity.x = 0;
+		//velocity.y = 0;
 
 		yield return new WaitForSeconds ((moveSetting.knockbackForce / 2) * 0.01f);
 
@@ -870,25 +872,23 @@ public class PlayerManager : MonoBehaviour
 		{
 			//When the player collides with an enemy, it checks to see if the player is currently invincible or not. 
 			//If not, then the player will take damage
-			if (isInvincible == false)
-			{
-				//DamageCalculator (10);
-				Debug.Log ("hello");
-				StartCoroutine (DamageCalculator (10));
-			}
+			DamageCalculator (10);
 
-			StartCoroutine (Invicibility ());
+			//StartCoroutine (Invicibility ());
 
 			// Calculate Angle Between the collision point and the player
-			Vector3 dir = col.contacts [0].point - transform.position;
+			Vector3 dir = -(col.contacts [0].point - transform.position).normalized;
 			// We then get the opposite (-Vector3) and normalize it
-			dir = -dir.normalized;
+			//dir = -dir.normalized;
+			dir.y = 1;
 
 			// And finally we add force in the direction of dir and multiply it by force. 
 			// This will push back the player
-			rBody.AddForce (dir * moveSetting.knockbackForce, ForceMode.Impulse);
+			rBody.AddForce (dir * moveSetting.knockbackForce, ForceMode.VelocityChange);
 
 			StartCoroutine (Knockback ());
+
+
 		}
 
 		if (col.gameObject.tag == "Wall" && !Grounded ())
@@ -944,10 +944,10 @@ public class PlayerManager : MonoBehaviour
 			//If not, then the player will take damage
 			if (isInvincible == false)
 			{
-				//DamageCalculator (10);
-				StartCoroutine (DamageCalculator (10));
+				DamageCalculator (10);
+				//StartCoroutine (DamageCalculator (10));
 			}
-			StartCoroutine (Invicibility ());
+			//StartCoroutine (Invicibility ());
 		}
 
 		/*if (col.gameObject.tag == "Wall" && isHuggingWall)
@@ -973,11 +973,11 @@ public class PlayerManager : MonoBehaviour
 			//If not, then the player will take damage
 			if (isInvincible == false)
 			{
-				//DamageCalculator (10);
-				StartCoroutine (DamageCalculator (10));
+				DamageCalculator (10);
+				//StartCoroutine (DamageCalculator (10));
 			}
 
-			StartCoroutine (Invicibility ());
+			//StartCoroutine (Invicibility ());
 		}
 		else if (col.gameObject.tag == "Bullet")
 		{
@@ -989,7 +989,7 @@ public class PlayerManager : MonoBehaviour
 				playerAudio.clip = null;
 				playerAudio.PlayOneShot (ameliaGrunt2);
 
-				StartCoroutine (DamageCalculator (bullet.damage)); 
+				DamageCalculator (bullet.damage); 
 			}
 		}
 	}
@@ -1003,10 +1003,10 @@ public class PlayerManager : MonoBehaviour
 			//If not, then the player will take damage
 			if (isInvincible == false)
 			{
-				//DamageCalculator (10);
-				StartCoroutine (DamageCalculator (10));
+				DamageCalculator (10);
+				//StartCoroutine (DamageCalculator (10));
 			}
-			StartCoroutine (Invicibility ());
+			//StartCoroutine (Invicibility ());
 		}
 	}
 }

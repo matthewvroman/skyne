@@ -20,6 +20,8 @@ public class ChargerManager : Enemy
 
 	public NavMeshAgent agent;
 
+	Rigidbody rBody;
+
 	[Tooltip ("The distance at which the enemy will start attacking")]
 	public float attackDistance;
 	[Tooltip ("Distance at which enemy starts moving towards player")]
@@ -74,6 +76,8 @@ public class ChargerManager : Enemy
 		alive = true;
 
 		agent = gameObject.GetComponent<NavMeshAgent> ();
+
+		rBody = GetComponent<Rigidbody> ();
 
 		chargerAudio = GetComponent<AudioSource> ();
 
@@ -320,6 +324,28 @@ public class ChargerManager : Enemy
 	protected override void EnemyDestroy()
 	{
 
+	}
+
+	void OnCollisionEnter(Collision col) {
+		if (col.gameObject.tag == "Player")
+		{
+			StopCoroutine ("Charge");
+			agent.velocity = -agent.velocity;
+
+			//agent.speed = 0;
+			//agent.acceleration = 0;
+
+			// Calculate Angle Between the collision point and the player
+			//Vector3 dir = -(col.contacts [0].point - transform.position).normalized;
+			// We then get the opposite (-Vector3) and normalize it
+			//dir = -dir.normalized;
+			//dir.y = 1;
+
+			// And finally we add force in the direction of dir and multiply it by force. 
+			// This will push back the player
+			//rBody.AddForce (dir * , ForceMode.VelocityChange);
+			//chargeCounter = chargeCooldown;
+		}
 	}
 }
 
