@@ -15,6 +15,9 @@ public class SentryManager : Enemy
 
 	public State state;
 
+	[Tooltip ("Drag in the bullet prefab for the sentry")]
+	public GameObject bulletPrefab; 
+
 	//Var holding the distance from the enemy to the player
 	float tarDistance;
 
@@ -259,7 +262,8 @@ public class SentryManager : Enemy
 		if (curShotDelay == 0)
 		{
 			curShotDelay = shotDelay; 
-			ProjectileManager.inst.Shoot_E_Normal (bulletSpawner, false);
+			//ProjectileManager.inst.Shoot_E_Normal (bulletSpawner, false);
+			ProjectileManager.inst.EnemyShoot(bulletSpawner, bulletPrefab, false); 
 
 			sentryAudio.volume = Random.Range (0.8f, 1);
 			sentryAudio.pitch = Random.Range (0.8f, 1);

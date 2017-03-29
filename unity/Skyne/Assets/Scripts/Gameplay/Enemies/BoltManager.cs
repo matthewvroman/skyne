@@ -16,6 +16,9 @@ public class BoltManager : Enemy
 
 	public State state;
 
+	[Tooltip ("Drag in the bullet prefab for the bolt")]
+	public GameObject bulletPrefab; 
+
 	//Var holding the distance from the enemy to the player
 	float tarDistance;
 
@@ -292,7 +295,8 @@ public class BoltManager : Enemy
 			curShootDelay = shootDelay;
 
 			// Pass ProjectileManager this bolt's bullet spawner and shoot a new bullet
-			ProjectileManager.inst.Shoot_E_Normal(bulletSpawner, true); 
+			//ProjectileManager.inst.Shoot_E_Normal(bulletSpawner, true); 
+			ProjectileManager.inst.EnemyShoot(bulletSpawner, bulletPrefab, true); 
 
 			boltAudio.volume = Random.Range (0.8f, 1);
 			boltAudio.pitch = Random.Range (0.8f, 1);

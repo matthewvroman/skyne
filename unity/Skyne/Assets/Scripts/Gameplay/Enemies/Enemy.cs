@@ -77,6 +77,9 @@ public abstract class Enemy : MonoBehaviour
 
 			// TODO: Animate the enemy taking damage
 
+			// Spawn some hit particles
+			ExplosionManager.inst.SpawnEnemyHitParticles(transform.position); 
+
 			// Check for the enemy's death
 			if (health <= 0 && alive)
 			{

@@ -4,12 +4,9 @@ using UnityEngine;
 
 
 public class ProjectileManager : Singleton<ProjectileManager> 
-{
-	public GameObject bulletPrefab; 
+{ 
 	public Vector3 testHitPoint; 
 
-	public GameObject enemyBulletPrefab; 
-	public GameObject fortBulletPrefab; 
 	public GameObject bossHomingBulletPrefab; 
 	public GameObject bossBigBulletPrefab; 
 
@@ -88,9 +85,9 @@ public class ProjectileManager : Singleton<ProjectileManager>
 	 * Add functions here for enemy shooting. Any enemies that need to shoot should call a function here and pass in the spawner
 	 */
 
-	public void Shoot_E_Normal(GameObject spawner, bool lookAtTarget)
+	public void EnemyShoot(GameObject spawner, GameObject bulletPrefab, bool lookAtTarget)
 	{
-		GameObject newBullet = GameObject.Instantiate(enemyBulletPrefab, spawner.transform.position, spawner.transform.rotation, transform); 
+		GameObject newBullet = GameObject.Instantiate(bulletPrefab, spawner.transform.position, spawner.transform.rotation, transform); 
 		Bullet bullet = newBullet.GetComponent<Bullet>(); 
 
 		if (lookAtTarget)
@@ -116,6 +113,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
 		Bullet bullet = newBullet.GetComponent<Bullet>(); 
 	}
 
+	/*
 	public void Shoot_Fort(GameObject spawner, bool lookAtTarget)
 	{
 		GameObject newBullet = GameObject.Instantiate(fortBulletPrefab, spawner.transform.position, spawner.transform.rotation, transform); 
@@ -127,6 +125,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
 			bullet.hasTarget = true; 
 		}
 	}
+	*/ 
 
 	// Struct for getting the raycast target and determining if a target was actually found
 	// This could be extended to include the actual RaycastHit object and passed into the Bullet, which would give the Bullet access to its target before hitting it

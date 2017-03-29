@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ExplosionManager : Singleton<ExplosionManager> 
 {
-	public GameObject enemyExplosionPrefab; 
+	public GameObject enemyExplosionPrefab;
+	public GameObject enemyHitParticlesPrefab; 
 
 	public void SpawnEnemyExplosion(Vector3 spawnPos)
 	{
@@ -14,5 +15,10 @@ public class ExplosionManager : Singleton<ExplosionManager>
 	public void SpawnBulletExplosion(Vector3 spawnPos, Quaternion spawnRot, GameObject explosionPrefab)
 	{
 		GameObject newExplosion = GameObject.Instantiate(explosionPrefab, spawnPos, spawnRot, transform); 
+	}
+
+	public void SpawnEnemyHitParticles(Vector3 spawnPos)
+	{
+		GameObject newParticles = GameObject.Instantiate(enemyHitParticlesPrefab, spawnPos, Quaternion.identity, transform); 
 	}
 }

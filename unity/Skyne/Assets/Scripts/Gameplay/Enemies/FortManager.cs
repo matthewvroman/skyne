@@ -18,6 +18,9 @@ public class FortManager : Enemy
 
 	public State state;
 
+	[Tooltip ("Drag in the bullet prefab for the fort")]
+	public GameObject bulletPrefab; 
+
 	//Var holding the distance from the enemy to the player
 	float tarDistance;
 
@@ -421,7 +424,8 @@ public class FortManager : Enemy
 			fortAudio.PlayOneShot (shootSound);
 
 			// Pass ProjectileManager this bolt's bullet spawner and shoot a new bullet
-			ProjectileManager.inst.Shoot_Fort(bulletSpawner, true); 
+			//ProjectileManager.inst.Shoot_Fort(bulletSpawner, true); 
+			ProjectileManager.inst.EnemyShoot(bulletSpawner, bulletPrefab, true); 
 
 			cooldownTimer = cooldownLength; 
 			//tempShield.SetActive(true); 
