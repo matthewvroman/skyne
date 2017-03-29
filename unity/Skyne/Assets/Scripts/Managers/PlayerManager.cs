@@ -229,7 +229,7 @@ public class PlayerManager : MonoBehaviour
 	void Update ()
 	{
 		GetInput ();
-		Focus ();
+		//Focus ();
 		Health ();
 		Stamina ();
 		SlowMo ();
@@ -362,7 +362,7 @@ public class PlayerManager : MonoBehaviour
 		if (Mathf.Abs (forwardInput) > inputSetting.inputDelay && !isWallJumping && isPushed == false)
 		{
 			//move
-				velocity.z = moveSetting.forwardVel * forwardInput * Time.timeScale;
+			velocity.z = moveSetting.forwardVel * forwardInput * Time.timeScale;
 		}
 		else if (forwardInput == 0 && isDashing == false && !isWallJumping && Grounded ())
 		{
@@ -379,8 +379,8 @@ public class PlayerManager : MonoBehaviour
 		if (Mathf.Abs (strafeInput) > inputSetting.inputDelay && !isWallJumping && isPushed == false)
 		{
 			//move
-				velocity.x = moveSetting.strafeVel * strafeInput * Time.timeScale;
-				anim.SetFloat ("orientation", velocity.x);
+			velocity.x = moveSetting.strafeVel * strafeInput * Time.timeScale;
+			anim.SetFloat ("orientation", velocity.x);
 		}
 		else if (strafeInput == 0 && isDashing == false && !isWallJumping && Grounded ())
 		{
@@ -734,7 +734,7 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Stamina ()
 	{
-		if (isFocused && isFalling)
+		if (isFalling)
 		{
 			if (currentStamina > 0)
 			{
@@ -780,7 +780,7 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void SlowMo ()
 	{
-		if (isFocused && isFalling && currentStamina > 0)
+		if (Input.GetMouseButton(1) && isFalling && currentStamina > 0)
 		{
 			Timescaler.inst.timeSlowed = true;
 		}
@@ -873,7 +873,7 @@ public class PlayerManager : MonoBehaviour
 			if (isInvincible == false)
 			{
 				//DamageCalculator (10);
-				Debug.Log("hello");
+				Debug.Log ("hello");
 				StartCoroutine (DamageCalculator (10));
 			}
 
