@@ -24,6 +24,9 @@ public class Bullet : MonoBehaviour
 
 	public bool shouldDestroy; 
 
+	public bool isDissipating; 
+	ParticleSystem[] particleSystems; 
+
 	float lifetimeTimer; 
 
 	// when time slows, what percent is used in the deltaTime calculation
@@ -87,13 +90,19 @@ public class Bullet : MonoBehaviour
 
 		// Destroy the bullet when the lifetimeTimer runs out
 		if (lifetimeTimer <= 0)
-			shouldDestroy = true; 
+			StartDissipate(); 
 
 		if (playerShootable && health <= 0)
 			shouldDestroy = true; 
 
 		if (shouldDestroy)
-			DestroyBullet(); 
+		{
+			DestroyBullet();  
+		}
+
+		if (isDissipating)
+			CheckDissipateDone(); 
+			
 
 		if (!contact.Equals(null))
 		{
@@ -166,9 +175,20 @@ public class Bullet : MonoBehaviour
 				// Take away health from the enemy bullet
 				col.GetComponent<Bullet>().health -= damage; 
 			}
+			// If the player bullet hits an enemy
+			else if (col.tag == "Enemy")
+			{
+				// If the enemy collider has an EnemyWeakPoint, call its OnShot function
+				if (col.GetComponent<EnemyWeakPoint>() != null)
+				{
+					col.GetComponent<EnemyWeakPoint>().OnShot(collision, this); 
+				}
 
+				// Destroy the player bullet
+				shouldDestroy = true; 
+			}
 			// Player bullet has hit a solid surface and should be destroyed
-			if (col.tag != "Player" && col.tag != "Enemy")
+			else if (col.tag != "Player" && col.tag != "Enemy")
 			{ 
 				// Destroy the player bullet
 				shouldDestroy = true;  
@@ -180,6 +200,8 @@ public class Bullet : MonoBehaviour
 			if (col.tag == "Player")
 			{
 				col.GetComponent<PlayerManager>().OnShot(collision, this); 
+
+				// Destroy the player bullet
 				shouldDestroy = true; 
 			}
 			else if (col.tag != "Enemy")
@@ -210,6 +232,38 @@ public class Bullet : MonoBehaviour
 			}
 		}
 
+
+		Destroy(this.gameObject); 
+
+	}
+
+	/// <summary>
+	/// Set the particle effects to stop emitting and destroy once particles are gone.
+	/// </summary>
+	void StartDissipate()
+	{
+		isDissipating = true; 
+		dontSpawnExplosion = true; 
+
+		particleSystems = GetComponentsInChildren<ParticleSystem>(); 
+
+		foreach (ParticleSystem particles in particleSystems)
+		{
+			particles.enableEmission = false; 
+		}
+	}
+
+	void CheckDissipateDone()
+	{
+		foreach (ParticleSystem particles in particleSystems)
+		{
+			if (particles.particleCount != 0)
+			{
+				return; 
+			}
+		}
+
+		// If all particles are gone, destroy the object
 		Destroy(this.gameObject); 
 	}
 }

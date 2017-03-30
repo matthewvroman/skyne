@@ -59,9 +59,9 @@ public abstract class Enemy : MonoBehaviour
 	}
 		
 		
-	public void OnShot(Collider col, float defenseModifier)
+	public void OnShot(Collision collision, Bullet bullet, float defenseModifier)
 	{
-		Bullet bullet = col.GetComponent<Bullet>();
+		Collider col = collision.collider; 
 
 		Debug.Log("On shot; bullet.playerBullet = " + bullet.playerBullet + "; bullet.shouldDestroy = " + bullet.shouldDestroy); 
 
@@ -71,9 +71,6 @@ public abstract class Enemy : MonoBehaviour
 			// Update the enemy health
 			health -= bullet.damage * defenseModifier; 
 			Debug.Log("bullet.damage: " + bullet.damage * defenseModifier); 
-
-			// Set the bullet to be destroyed
-			bullet.shouldDestroy = true;  
 
 			// TODO: Animate the enemy taking damage
 
