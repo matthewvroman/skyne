@@ -145,29 +145,42 @@ public class Bullet : MonoBehaviour
 	{
 		Collider col = collision.collider; 
 
+		// Create the contact point
+		contact = collision.contacts[0]; 
+
 		// Collision with another bullet of the same type
 		if (col.tag == "Bullet" && col.GetComponent<Bullet>().playerBullet == playerBullet)
 		{
 			return; 
 		}
 
+		// Player bullet has hit something
 		if (playerBullet)
 		{
-			if (col.tag != "Player" && col.tag != "Enemy")
+			// If the player bullet hits an enemy bullet
+			if (col.tag == "Bullet" && col.GetComponent<Bullet>().playerBullet == false)
 			{
-				//Debug.Log("Set shouldDestroy to true"); 
+				// Destroy the player bullet
 				shouldDestroy = true; 
 
-				//transform.LookAt(collision.contacts[0].normal); 
-				//contactRot = Quaternion.FromToRotation(Vector3.up, collision.contacts[0].normal);
-				contact = collision.contacts[0]; 
+				// Take away health from the enemy bullet
+				col.GetComponent<Bullet>().health -= damage; 
+			}
+
+			// Player bullet has hit a solid surface and should be destroyed
+			if (col.tag != "Player" && col.tag != "Enemy")
+			{ 
+				// Destroy the player bullet
+				shouldDestroy = true;  
 			}
 		}
+		// Enemy bullet has hit something
 		else
 		{
-			if (playerShootable && col.tag == "Bullet" && col.GetComponent<Bullet>().playerBullet)
+			if (col.tag == "Player")
 			{
-				health -= col.GetComponent<Bullet>().damage; 
+				col.GetComponent<PlayerManager>().OnShot(collision, this); 
+				shouldDestroy = true; 
 			}
 			else if (col.tag != "Enemy")
 			{

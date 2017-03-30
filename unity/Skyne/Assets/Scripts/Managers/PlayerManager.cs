@@ -979,19 +979,6 @@ public class PlayerManager : MonoBehaviour
 
 			//StartCoroutine (Invicibility ());
 		}
-		else if (col.gameObject.tag == "Bullet")
-		{
-			Bullet bullet = col.GetComponent<Bullet> (); 
-			if (!bullet.playerBullet)
-			{
-				bullet.shouldDestroy = true; 
-
-				playerAudio.clip = null;
-				playerAudio.PlayOneShot (ameliaGrunt2);
-
-				DamageCalculator (bullet.damage); 
-			}
-		}
 	}
 
 	void OnTriggerStay (Collider col)
@@ -1008,5 +995,17 @@ public class PlayerManager : MonoBehaviour
 			}
 			//StartCoroutine (Invicibility ());
 		}
+	}
+
+	/// <summary>
+	/// Called from the bullet class when a bullet hits a collider with the Player tag
+	/// </summary>
+	/// <param name="col">Col.</param>
+	public void OnShot (Collision col, Bullet bullet)
+	{ 
+		playerAudio.clip = null;
+		playerAudio.PlayOneShot (ameliaGrunt2);
+
+		DamageCalculator (bullet.damage); 
 	}
 }
