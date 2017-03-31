@@ -77,6 +77,8 @@ public class ChargerManager : Enemy
 
 		agent = gameObject.GetComponent<NavMeshAgent> ();
 
+		maxHealth = health; 
+
 		rBody = GetComponent<Rigidbody> ();
 
 		chargerAudio = GetComponent<AudioSource> ();

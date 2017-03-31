@@ -63,6 +63,7 @@ public class BoltManager : Enemy
 		agent = GetComponent<NavMeshAgent>();
 		alive = true;
 		state = BoltManager.State.IDLE;
+		maxHealth = health; 
 
 		boltAudio = GetComponent<AudioSource> ();
 
@@ -319,5 +320,6 @@ public class BoltManager : Enemy
 	protected override void EnemyDestroy()
 	{
 		agent.speed = 0; 
+		agent.enabled = false; 
 	}
 }

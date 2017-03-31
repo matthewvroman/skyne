@@ -80,6 +80,8 @@ public class SentryManager : Enemy
 		bulletSpawner = transform.Find ("BulletSpawner").gameObject; 
 		//frontObject = bulletSpawner;
 
+		maxHealth = health; 
+
 		//START State Machine
 		StartCoroutine ("SSM");
 

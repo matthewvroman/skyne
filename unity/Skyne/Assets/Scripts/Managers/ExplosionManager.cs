@@ -17,8 +17,11 @@ public class ExplosionManager : Singleton<ExplosionManager>
 		GameObject newExplosion = GameObject.Instantiate(explosionPrefab, spawnPos, spawnRot, transform); 
 	}
 
-	public void SpawnEnemyHitParticles(Vector3 spawnPos)
+	public void SpawnEnemyHitParticles(Vector3 spawnPos, int numParticles)
 	{
 		GameObject newParticles = GameObject.Instantiate(enemyHitParticlesPrefab, spawnPos, Quaternion.identity, transform); 
+
+		ParticleSystem particles = newParticles.GetComponent<ParticleSystem>(); 
+		particles.Emit(numParticles); 
 	}
 }

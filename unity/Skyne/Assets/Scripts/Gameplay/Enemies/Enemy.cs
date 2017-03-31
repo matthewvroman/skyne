@@ -25,6 +25,20 @@ public abstract class Enemy : MonoBehaviour
 
 	public Animator anim;
 
+	// Smoke Particles
+	[System.Serializable]
+	public struct SmokeParticles
+	{
+		public ParticleSystem system; 
+		public int maxParticles; 
+		public float startSmokingHealth; 
+
+		public float nearDeathHealth; 
+		public float nearDeathMultiplier; 
+	}
+
+	public SmokeParticles[] smokeParticles; 
+
 	/// <summary>
 	/// Weak points determine colliders that are affected by shots and the defense
 	/// </summary>
@@ -59,7 +73,7 @@ public abstract class Enemy : MonoBehaviour
 	}
 		
 		
-	public void OnShot(Collision collision, Bullet bullet, float defenseModifier)
+	public void OnShot(Collision collision, Bullet bullet, float defenseModifier, bool isWeakPoint)
 	{
 		Collider col = collision.collider; 
 
@@ -69,13 +83,34 @@ public abstract class Enemy : MonoBehaviour
 		if (bullet.playerBullet && !bullet.shouldDestroy)
 		{
 			// Update the enemy health
-			health -= bullet.damage * defenseModifier; 
+			float actualDamage = bullet.damage * defenseModifier; 
+			health -= actualDamage; 
 			Debug.Log("bullet.damage: " + bullet.damage * defenseModifier); 
+
+			// Update the smoke particles
+			UpdateSmokeParticleEmission(); 
 
 			// TODO: Animate the enemy taking damage
 
 			// Spawn some hit particles
-			ExplosionManager.inst.SpawnEnemyHitParticles(transform.position); 
+			// Determine how many to spawn
+			int numParticles = (int)(actualDamage * 6); 
+
+			// If the bullet has hit an enemy weak point
+			if (isWeakPoint)
+			{
+				numParticles *= 2; 
+
+				// Do an extra particle effect to indicate that a weak point has been hit
+				// Do a weak damage flash
+			}
+			// If the bullet has hit a part of the enemy that isn't a weak point but still does damage
+			else
+			{
+				// Do a strong damage flash
+			}
+
+			ExplosionManager.inst.SpawnEnemyHitParticles(transform.position, numParticles);
 
 			// Check for the enemy's death
 			if (health <= 0 && alive)
@@ -95,9 +130,36 @@ public abstract class Enemy : MonoBehaviour
 		}
 	}
 
+	void UpdateSmokeParticleEmission()
+	{
+		for (int i = 0; i < smokeParticles.Length; i++)
+		{
+			ParticleSystem.EmissionModule emis = smokeParticles[i].system.emission; 
+
+			if (health <= smokeParticles[i].nearDeathHealth)
+			{
+				emis.rateOverTime = ((smokeParticles[i].maxParticles * (maxHealth - health)) / maxHealth) * smokeParticles[i].nearDeathMultiplier;  
+			}
+			else if (health <= smokeParticles[i].startSmokingHealth)
+			{
+				emis.rateOverTime = (smokeParticles[i].maxParticles * (maxHealth - health)) / maxHealth;
+			}
+		}
+	}
+
+	void DisableSmokeParticles()
+	{
+		for (int i = 0; i < smokeParticles.Length; i++)
+		{
+			smokeParticles[i].system.enableEmission = false; 
+		}
+	}
+
 	public void DestroyEnemy()
 	{
 		EnemyDestroy(); 
+
+		DisableSmokeParticles(); 
 
 		// Call HealthPickupManager to potentially spawn a healthpickup
 		// TODO: replace transform.position with a more specific spawn point where the health pickup should be instantiated

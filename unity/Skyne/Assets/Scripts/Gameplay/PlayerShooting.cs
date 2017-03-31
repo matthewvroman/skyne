@@ -28,6 +28,12 @@ public class PlayerShooting : Singleton<PlayerShooting>
 	public AudioClip chargingSound;
 	public AudioClip chargeShotSound;
 
+	// Gun particles
+	public ParticleSystem gunshotParticles; 
+	public ParticleSystem chargingParticles;
+	public float maxChargingSize; 
+	public ParticleSystem chargedParticles; 
+
 	[Space(5)]
 	[Header("Player: Normal Bullet")]
 	public GameObject pNormalBulletPrefab; 
@@ -135,6 +141,29 @@ public class PlayerShooting : Singleton<PlayerShooting>
 			weaponIcon.sprite = iconSprites[3]; 
 		}
 
+		// Charging particle effects
+		if (GameState.inst.pShootMode == PlayerShootMode.Charge)
+		{
+			if (curCharge < fullCharge)
+			{
+				chargingParticles.enableEmission = true; 
+				chargedParticles.enableEmission = false;
+
+				// curCharge / fullCharge     curChargingSize / maxChargingSize
+				chargingParticles.startSize = (maxChargingSize * curCharge) / fullCharge;
+			}
+			else
+			{
+				chargingParticles.enableEmission = false; 
+				chargedParticles.enableEmission = true;
+			}
+		}
+		else
+		{
+			chargingParticles.enableEmission = false; 
+			chargedParticles.enableEmission = false; 
+		}
+			
 		if (curCharge == fullCharge)
 		{
 			gunAudio.clip = null;
@@ -205,6 +234,7 @@ public class PlayerShooting : Singleton<PlayerShooting>
 			gunAudio.clip = null;
 			gunAudio.PlayOneShot(normalShotSound);
 			shootDelay = normalShootDelay; 
+			gunshotParticles.Play(); 
 		}
 	}
 
@@ -230,8 +260,10 @@ public class PlayerShooting : Singleton<PlayerShooting>
 			ProjectileManager.inst.Shoot_P_Charge(bulletSpawner); 
 			gunAudio.clip = null;
 			gunAudio.PlayOneShot (chargeShotSound);
-			curCharge = 0; 
+			gunshotParticles.Play(); 
 		}
+
+		curCharge = 0; 
 	}
 
 	// Player wide shot
@@ -244,6 +276,7 @@ public class PlayerShooting : Singleton<PlayerShooting>
 			gunAudio.clip = null;
 			gunAudio.PlayOneShot(wideShotSound);
 			shootDelay = wideShootDelay; 
+			gunshotParticles.Play(); 
 		}
 	}
 
@@ -257,6 +290,7 @@ public class PlayerShooting : Singleton<PlayerShooting>
 			gunAudio.clip = null;
 			gunAudio.PlayOneShot(rapidShotSound);
 			shootDelay = rapidShootDelay; 
+			gunshotParticles.Play(); 
 		}
 	}
 

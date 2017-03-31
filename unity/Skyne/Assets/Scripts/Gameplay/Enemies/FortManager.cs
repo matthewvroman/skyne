@@ -82,6 +82,8 @@ public class FortManager : Enemy
 
 		fortAudio = GetComponent<AudioSource> ();
 
+		maxHealth = health; 
+
 		//START State Machine
 		StartCoroutine ("FSM");
 
