@@ -13,6 +13,9 @@ public abstract class Enemy : MonoBehaviour
 	public int minHPDrop;
 	public int maxHPDrop; 
 
+	[Tooltip("The array of possible health pickup spawn counts. One index is randomly choosen to spawn x number of pickups")]
+	public int[] hpDropChoices; 
+
 	[Tooltip("Set to true once the enemy state machine has been started (cannot happen before level load finished).")]
 	public bool started; 
 
@@ -165,7 +168,8 @@ public abstract class Enemy : MonoBehaviour
 		// TODO: replace transform.position with a more specific spawn point where the health pickup should be instantiated
 		//HealthPickupManager.inst.TrySpawnHealthPickup(transform.position, hpDropPercChance); 
 
-		HealthPickupManager.inst.SpawnHealthPickups(transform.position, minHPDrop, maxHPDrop); 
+		//HealthPickupManager.inst.SpawnHealthPickups(transform.position, minHPDrop, maxHPDrop); 
+		HealthPickupManager.inst.SpawnHealthPickups(transform.position, hpDropChoices); 
 
 		// Call ExplosionManager to create an explosion
 		ExplosionManager.inst.SpawnEnemyExplosion(transform.position); 
