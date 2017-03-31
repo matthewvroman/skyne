@@ -122,6 +122,8 @@ public class PlayerManager : MonoBehaviour
 
 	bool isDoubleJumping = false;
 
+	bool isAlive = true;
+
 	Quaternion lastRot;
 
 	Vector3 velocity = Vector3.zero;
@@ -230,13 +232,16 @@ public class PlayerManager : MonoBehaviour
 
 	void Update ()
 	{
-		GetInput ();
-		//Focus ();
-		Health ();
-		Stamina ();
-		SlowMo ();
-		PlaySounds ();
-		Footsteps ();
+		if (isAlive)
+		{
+			GetInput ();
+			//Focus ();
+			Health ();
+			Stamina ();
+			SlowMo ();
+			PlaySounds ();
+			Footsteps ();
+		}
 
 		transform.rotation = Quaternion.Euler (0, transform.rotation.y, 0);
 
@@ -317,11 +322,14 @@ public class PlayerManager : MonoBehaviour
 
 	void FixedUpdate ()
 	{
-		Run ();
-		Strafe ();
-		anim.SetFloat ("velocity", Mathf.Abs (forwardInput) + Mathf.Abs (strafeInput));
+		if (isAlive)
+		{
+			Run ();
+			Strafe ();
+			Jump ();
+		}
 
-		Jump ();
+		anim.SetFloat ("velocity", Mathf.Abs (forwardInput) + Mathf.Abs (strafeInput));
 
 		if (GameState.inst.upgradesFound [1])
 		{
@@ -734,7 +742,7 @@ public class PlayerManager : MonoBehaviour
 	{
 		if (isFalling)
 		{
-			if (Input.GetMouseButton(1) && currentStamina > 0)
+			if (Input.GetMouseButton (1) && currentStamina > 0)
 			{
 				cooldownTimer = 0;
 				DecreaseStamina ();
@@ -778,7 +786,7 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void SlowMo ()
 	{
-		if (Input.GetMouseButton(1) && isFalling && currentStamina > 0)
+		if (Input.GetMouseButton (1) && isFalling && currentStamina > 0)
 		{
 			Timescaler.inst.timeSlowed = true;
 		}
