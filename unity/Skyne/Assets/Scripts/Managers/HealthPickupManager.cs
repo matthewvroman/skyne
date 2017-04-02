@@ -63,6 +63,11 @@ public class HealthPickupManager : Singleton<HealthPickupManager>
 
 	public void SpawnHealthPickups(Vector3 spawnPos, int[] choices)
 	{
+		if (choices.Length == 0)
+		{
+			return; 
+		}
+
 		int choosenIndex = Mathf.RoundToInt(Random.Range(0, choices.Length - 1)); 
 		int numSpawn = choices[choosenIndex]; 
 
