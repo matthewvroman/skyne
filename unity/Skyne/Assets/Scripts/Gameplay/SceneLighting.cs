@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class SceneLighting : MonoBehaviour 
 {
+	[Tooltip ("Drag in the player gameObject")]
 	public GameObject player;
 
-	public Light dirLight;
+	//public Light dirLight;
 
+	[Tooltip ("(Read only) Whether the player is indoors and indoor lighting is being used")]
 	public bool indoorLighting; 
 
+	[Tooltip ("How quickly the ambient light color lerps between indoor/outdoor colors")]
 	public float lightLerpSpeed; 
+
+	[Tooltip ("The distance around the player that is raycast tested by shooting a raycast up. All raycasts around the player must have the same result before indoorLighting changes")]
+	public float playerTestRadius; 
 
 	[Space(5)]
 	[Header("Ambient light settings")]
@@ -30,7 +36,7 @@ public class SceneLighting : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		StartCoroutine("CheckForCeiling"); 
+		StartCoroutine("CheckForCeiling");
 	}
 	
 	// Update is called once per frame
@@ -58,7 +64,7 @@ public class SceneLighting : MonoBehaviour
 		}
 	}
 
-	public IEnumerator CheckForCeiling()
+	public IEnumerator CheckForCeilingOld()
 	{
 		while (true)
 		{
@@ -72,7 +78,7 @@ public class SceneLighting : MonoBehaviour
 				if (Physics.Raycast(player.transform.position, transform.up, out hit, 100))
 				{
 					// Temporary way to deal with collision types. Should probably use a collision layer for the raycast
-					if (hit.collider.tag != "Enemy" && hit.collider.tag != "Bullet")
+					if (hit.collider.tag == "Ceiling")
 					{
 						indoorLighting = true; 
 					}
@@ -82,4 +88,75 @@ public class SceneLighting : MonoBehaviour
 			yield return new WaitForSecondsRealtime(0.1f); 
 		}
 	}
+
+
+	public IEnumerator CheckForCeiling()
+	{
+		RaycastHit hit;
+		Vector3[] testPositions = new Vector3[5]; 
+		bool isIndoor = false; 
+		bool hitSomething; 
+		bool validChange; 
+
+
+		while (true)
+		{
+			if (GlobalManager.inst.GameplayIsActive())
+			{
+				// Test five positions relative to the player
+				testPositions[0] = new Vector3 (player.transform.position.x, player.transform.position.y, player.transform.position.z); 
+				testPositions[1] = new Vector3 (player.transform.position.x + playerTestRadius, player.transform.position.y, player.transform.position.z); 
+				testPositions[2] = new Vector3 (player.transform.position.x - playerTestRadius, player.transform.position.y, player.transform.position.z); 
+				testPositions[3] = new Vector3 (player.transform.position.x, player.transform.position.y, player.transform.position.z + playerTestRadius);
+				testPositions[4] = new Vector3 (player.transform.position.x, player.transform.position.y, player.transform.position.z - playerTestRadius); 
+
+				validChange = true; 
+
+				for (int i = 0; i < testPositions.Length && validChange; i++)
+				{
+					hitSomething = Physics.Raycast(testPositions[i], transform.up, out hit, 100); 
+
+					// If the raycast hit something that's not a ceiling, don't test any more
+					if (hitSomething && hit.collider.tag != "Ceiling")
+					{
+						validChange = false; 
+					}
+					// If the raycast hit a ceiling
+					else if (hitSomething)
+					{
+						if (i == 0)
+						{
+							isIndoor = true; 
+						}
+						else if (!isIndoor)
+						{
+							validChange = false; 
+						}
+					}
+					// If the raycast didn't hit a ceiling
+					else
+					{
+						if (i == 0)
+						{
+							isIndoor = false; 
+						}
+						else if (isIndoor)
+						{
+							validChange = false; 
+						}
+					}
+				}
+
+
+				if (validChange)
+				{
+					indoorLighting = isIndoor; 
+				}
+
+			}
+
+			yield return new WaitForSecondsRealtime(0.1f); 
+		}
+	}
+
 }
