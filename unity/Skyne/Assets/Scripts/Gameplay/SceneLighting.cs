@@ -17,12 +17,14 @@ public class SceneLighting : MonoBehaviour
 	public Color indoorAmbientColor; 
 	public Color outdoorAmbientColor; 
 
+	/*
 	[Space(5)]
 	[Header("Directional light settings")]
 	public float indoorIntensity; 
 	public float outdoorIntensity; 
 	public Color indoorColor; 
 	public Color outdoorColor; 
+	*/ 
 
 
 	// Use this for initialization
@@ -37,15 +39,22 @@ public class SceneLighting : MonoBehaviour
 		// Temporary lighting state machine; replace with current color variable and lerping transitions
 		if (indoorLighting)
 		{
-			RenderSettings.ambientLight = indoorAmbientColor; 
-			dirLight.intensity = indoorIntensity; 
-			dirLight.color = indoorColor; 
+			//RenderSettings.ambientLight = indoorAmbientColor; 
+
+			RenderSettings.ambientLight = Color.Lerp(RenderSettings.ambientLight, indoorAmbientColor, lightLerpSpeed);
+
+			//dirLight.color = indoorColor; 
+			//dirLight.intensity = indoorIntensity; 
+
 		}
 		else
 		{
-			RenderSettings.ambientLight = outdoorAmbientColor;
-			dirLight.intensity = outdoorIntensity; 
-			dirLight.color = outdoorColor; 
+			//RenderSettings.ambientLight = outdoorAmbientColor;
+
+			RenderSettings.ambientLight = Color.Lerp(RenderSettings.ambientLight, outdoorAmbientColor, lightLerpSpeed);
+
+			//dirLight.color = outdoorColor;
+			//dirLight.intensity = outdoorIntensity;
 		}
 	}
 
@@ -70,7 +79,7 @@ public class SceneLighting : MonoBehaviour
 				}
 			}
 
-			yield return new WaitForSecondsRealtime(0.5f); 
+			yield return new WaitForSecondsRealtime(0.1f); 
 		}
 	}
 }
