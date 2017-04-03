@@ -6,10 +6,16 @@ ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: WallShell
     400000: //RootNode
+    400002: WallShell
     2300000: //RootNode
+    2300002: WallShell
     3300000: //RootNode
+    3300002: WallShell
     4300000: WallTile8x8Bottom
+    4300002: Bottom_Wall
+    4300004: WallShell
   materials:
     importMaterials: 1
     materialName: 0

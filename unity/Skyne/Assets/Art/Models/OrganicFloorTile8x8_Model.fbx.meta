@@ -6,10 +6,16 @@ ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: FloorShell
     400000: //RootNode
+    400002: FloorShell
     2300000: //RootNode
+    2300002: FloorShell
     3300000: //RootNode
+    3300002: FloorShell
     4300000: FloorTile8x8
+    4300002: Organic_Floor
+    4300004: FloorShell
   materials:
     importMaterials: 1
     materialName: 0
