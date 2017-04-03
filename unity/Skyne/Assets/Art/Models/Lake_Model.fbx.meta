@@ -8,17 +8,27 @@ ModelImporter:
     100000: //RootNode
     100002: Lake_Statue
     100004: Padding
+    100006: Basin
+    100008: Statue
     400000: //RootNode
     400002: Lake_Statue
     400004: Padding
+    400006: Basin
+    400008: Statue
     2300000: //RootNode
     2300002: Lake_Statue
     2300004: Padding
+    2300006: Basin
+    2300008: Statue
     3300000: //RootNode
     3300002: Lake_Statue
     3300004: Padding
+    3300006: Basin
+    3300008: Statue
     4300000: Lake_Statue
     4300002: Padding
+    4300004: Basin
+    4300006: Statue
   materials:
     importMaterials: 1
     materialName: 0

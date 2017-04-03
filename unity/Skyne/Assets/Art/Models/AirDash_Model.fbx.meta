@@ -37,6 +37,8 @@ ModelImporter:
     100058: transform11
     100060: transform16
     100062: transform17
+    100064: L_AirDash
+    100066: R_AirDash
     400000: //RootNode
     400002: L_AirDashUpgrade
     400004: R_AirDashUpgrade
@@ -69,18 +71,26 @@ ModelImporter:
     400058: transform11
     400060: transform16
     400062: transform17
+    400064: L_AirDash
+    400066: R_AirDash
     2300000: L_AirDashUpgrade
     2300002: R_AirDashUpgrade
     2300004: polySurface4
     2300006: polySurface13
+    2300008: L_AirDash
+    2300010: R_AirDash
     3300000: L_AirDashUpgrade
     3300002: R_AirDashUpgrade
     3300004: polySurface4
     3300006: polySurface13
+    3300008: L_AirDash
+    3300010: R_AirDash
     4300000: R_AirDashUpgrade
     4300002: L_AirDashUpgrade
     4300004: polySurface4
     4300006: polySurface13
+    4300008: L_AirDash
+    4300010: R_AirDash
   materials:
     importMaterials: 1
     materialName: 0

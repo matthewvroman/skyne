@@ -8,9 +8,15 @@ ModelImporter:
     100000: Body_Mesh
     100002: //RootNode
     100004: Spike_Mesh
+    100006: Charger
+    100008: Joint_Root
+    100010: Joint_Spikes
     400000: Body_Mesh
     400002: //RootNode
     400004: Spike_Mesh
+    400006: Charger
+    400008: Joint_Root
+    400010: Joint_Spikes
     2300000: Body_Mesh
     2300002: Spike_Mesh
     3300000: Body_Mesh

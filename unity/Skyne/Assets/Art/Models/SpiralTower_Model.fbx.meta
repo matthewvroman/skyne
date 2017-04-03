@@ -6,10 +6,19 @@ ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Collider
+    100004: SpiralTower 1
     400000: //RootNode
+    400002: Collider
+    400004: SpiralTower 1
     2300000: //RootNode
+    2300002: Collider
+    2300004: SpiralTower 1
     3300000: //RootNode
+    3300002: Collider
+    3300004: SpiralTower 1
     4300000: SpiralTower
+    4300002: Collider
   materials:
     importMaterials: 1
     materialName: 0

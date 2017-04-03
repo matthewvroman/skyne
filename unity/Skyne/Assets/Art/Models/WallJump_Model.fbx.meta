@@ -37,6 +37,8 @@ ModelImporter:
     100058: transform11
     100060: transform14
     100062: transform15
+    100064: L_WallJump
+    100066: R_WallJump
     400000: L_WallJumpUpgrade
     400002: R_WallJumpUpgrade
     400004: //RootNode
@@ -69,18 +71,26 @@ ModelImporter:
     400058: transform11
     400060: transform14
     400062: transform15
+    400064: L_WallJump
+    400066: R_WallJump
     2300000: L_WallJumpUpgrade
     2300002: R_WallJumpUpgrade
     2300004: polySurface4
     2300006: polySurface9
+    2300008: L_WallJump
+    2300010: R_WallJump
     3300000: L_WallJumpUpgrade
     3300002: R_WallJumpUpgrade
     3300004: polySurface4
     3300006: polySurface9
+    3300008: L_WallJump
+    3300010: R_WallJump
     4300000: R_WallJumpUpgrade
     4300002: L_WallJumpUpgrade
     4300004: polySurface4
     4300006: polySurface9
+    4300008: R_WallJump
+    4300010: L_WallJump
   materials:
     importMaterials: 1
     materialName: 0

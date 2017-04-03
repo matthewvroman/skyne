@@ -14,6 +14,15 @@ ModelImporter:
     100012: Mask_Mesh
     100014: R_Joint_Mesh
     100016: R_Stub_Mesh
+    100018: Body
+    100020: Bolt
+    100022: Canon
+    100024: joint2
+    100026: L_BaseTop
+    100028: L_Joint
+    100030: R_BaseTop
+    100032: R_Joint
+    100034: Root
     400000: Body_Mesh
     400002: //RootNode
     400004: GunBody_Mesh
@@ -23,6 +32,15 @@ ModelImporter:
     400012: Mask_Mesh
     400014: R_Joint_Mesh
     400016: R_Stub_Mesh
+    400018: Body
+    400020: Bolt
+    400022: Canon
+    400024: joint2
+    400026: L_BaseTop
+    400028: L_Joint
+    400030: R_BaseTop
+    400032: R_Joint
+    400034: Root
     2300000: Body_Mesh
     2300002: GunBody_Mesh
     2300004: GunTop_Mesh
@@ -31,6 +49,7 @@ ModelImporter:
     2300010: Mask_Mesh
     2300012: R_Joint_Mesh
     2300014: R_Stub_Mesh
+    2300016: Body
     3300000: Body_Mesh
     3300002: GunBody_Mesh
     3300004: GunTop_Mesh
@@ -39,6 +58,7 @@ ModelImporter:
     3300010: Mask_Mesh
     3300012: R_Joint_Mesh
     3300014: R_Stub_Mesh
+    3300016: Body
     4300000: L_Joint_Mesh
     4300002: R_Joint_Mesh
     4300004: L_Stub_Mesh
@@ -47,6 +67,7 @@ ModelImporter:
     4300010: GunTop_Mesh
     4300012: GunBody_Mesh
     4300014: Body_Mesh
+    4300016: Body
   materials:
     importMaterials: 1
     materialName: 0

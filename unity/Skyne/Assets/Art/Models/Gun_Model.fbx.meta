@@ -1,0 +1,237 @@
+fileFormatVersion: 2
+guid: ea71eb130bc2145f088cb44618c92093
+timeCreated: 1491203916
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Body
+    100002: ChargeNozzle
+    100004: Chargeshot_Body
+    100006: Gun_Body
+    100008: Gun_Body 1
+    100010: //RootNode
+    100012: Gun_Trigger
+    100014: L_Back_Auning
+    100016: L_Fan
+    100018: L_Front_Auning
+    100020: L_Middle_Auning
+    100022: L_Pivot
+    100024: L_Pole1
+    100026: L_Pole2
+    100028: L_Pole3
+    100030: L_Pole4
+    100032: NormalNozzle
+    100034: NormalNozzle_Body
+    100036: NormalNozzle_Cock
+    100038: Petal_1
+    100040: Petal_2
+    100042: Petal_3
+    100044: Petal_4
+    100046: Petal_5
+    100048: Petal_6
+    100050: R_Back_Auning
+    100052: R_Fan
+    100054: R_Front_Auning
+    100056: R_Middle_Auning
+    100058: R_Pivot
+    100060: R_Pole1
+    100062: R_Pole2
+    100064: R_Pole3
+    100066: R_Pole4
+    100068: RapidNozzle
+    100070: WideShot_Source1:WideShotNozzle
+    100072: WideShotNozzle
+    400000: Body
+    400002: ChargeNozzle
+    400004: Chargeshot_Body
+    400006: Gun_Body
+    400008: Gun_Body 1
+    400010: //RootNode
+    400012: Gun_Trigger
+    400014: L_Back_Auning
+    400016: L_Fan
+    400018: L_Front_Auning
+    400020: L_Middle_Auning
+    400022: L_Pivot
+    400024: L_Pole1
+    400026: L_Pole2
+    400028: L_Pole3
+    400030: L_Pole4
+    400032: NormalNozzle
+    400034: NormalNozzle_Body
+    400036: NormalNozzle_Cock
+    400038: Petal_1
+    400040: Petal_2
+    400042: Petal_3
+    400044: Petal_4
+    400046: Petal_5
+    400048: Petal_6
+    400050: R_Back_Auning
+    400052: R_Fan
+    400054: R_Front_Auning
+    400056: R_Middle_Auning
+    400058: R_Pivot
+    400060: R_Pole1
+    400062: R_Pole2
+    400064: R_Pole3
+    400066: R_Pole4
+    400068: RapidNozzle
+    400070: WideShot_Source1:WideShotNozzle
+    400072: WideShotNozzle
+    2300000: Body
+    2300002: Chargeshot_Body
+    2300004: Gun_Body 1
+    2300006: Gun_Trigger
+    2300008: L_Back_Auning
+    2300010: L_Front_Auning
+    2300012: L_Middle_Auning
+    2300014: L_Pivot
+    2300016: L_Pole1
+    2300018: L_Pole2
+    2300020: L_Pole3
+    2300022: L_Pole4
+    2300024: NormalNozzle_Body
+    2300026: NormalNozzle_Cock
+    2300028: Petal_1
+    2300030: Petal_2
+    2300032: Petal_3
+    2300034: Petal_4
+    2300036: Petal_5
+    2300038: Petal_6
+    2300040: R_Back_Auning
+    2300042: R_Front_Auning
+    2300044: R_Middle_Auning
+    2300046: R_Pivot
+    2300048: R_Pole1
+    2300050: R_Pole2
+    2300052: R_Pole3
+    2300054: R_Pole4
+    2300056: WideShot_Source1:WideShotNozzle
+    3300000: Body
+    3300002: Chargeshot_Body
+    3300004: Gun_Body 1
+    3300006: Gun_Trigger
+    3300008: L_Back_Auning
+    3300010: L_Front_Auning
+    3300012: L_Middle_Auning
+    3300014: L_Pivot
+    3300016: L_Pole1
+    3300018: L_Pole2
+    3300020: L_Pole3
+    3300022: L_Pole4
+    3300024: NormalNozzle_Body
+    3300026: NormalNozzle_Cock
+    3300028: Petal_1
+    3300030: Petal_2
+    3300032: Petal_3
+    3300034: Petal_4
+    3300036: Petal_5
+    3300038: Petal_6
+    3300040: R_Back_Auning
+    3300042: R_Front_Auning
+    3300044: R_Middle_Auning
+    3300046: R_Pivot
+    3300048: R_Pole1
+    3300050: R_Pole2
+    3300052: R_Pole3
+    3300054: R_Pole4
+    3300056: WideShot_Source1:WideShotNozzle
+    4300000: Gun_Trigger
+    4300002: Gun_Body
+    4300004: Petal_1
+    4300006: Petal_2
+    4300008: Petal_3
+    4300010: Petal_4
+    4300012: Petal_5
+    4300014: Petal_6
+    4300016: Chargeshot_Body
+    4300018: Body
+    4300020: L_Pole1
+    4300022: L_Pole2
+    4300024: L_Pole3
+    4300026: L_Pole4
+    4300028: L_Front_Auning
+    4300030: L_Middle_Auning
+    4300032: L_Back_Auning
+    4300034: L_Pivot
+    4300036: R_Pole1
+    4300038: R_Pole2
+    4300040: R_Pole3
+    4300042: R_Pole4
+    4300044: R_Front_Auning
+    4300046: R_Middle_Auning
+    4300048: R_Back_Auning
+    4300050: R_Pivot
+    4300052: NormalNozzle_Body
+    4300054: NormalNozzle_Cock
+    4300056: WideShot_Source1:WideShotNozzle
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
