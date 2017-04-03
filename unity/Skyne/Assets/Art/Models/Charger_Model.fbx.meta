@@ -23,6 +23,10 @@ ModelImporter:
     3300002: Spike_Mesh
     4300000: Spike_Mesh
     4300002: Body_Mesh
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Body_Mesh
+    13700002: Spike_Mesh
   materials:
     importMaterials: 1
     materialName: 0
@@ -37,7 +41,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -82,10 +86,10 @@ ModelImporter:
     rootMotionBoneName: 
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

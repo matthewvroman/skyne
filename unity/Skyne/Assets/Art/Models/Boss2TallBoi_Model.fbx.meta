@@ -21,6 +21,23 @@ ModelImporter:
     100026: R_wrist
     100028: root
     100030: torso
+    100032: Boss
+    100034: Head
+    100036: L_ForeArm
+    100038: L_Hand
+    100040: L_Leg
+    100042: L_LegTop
+    100044: L_Shoulder
+    100046: L_ShoulderJoint
+    100048: Mask
+    100050: Pelvis
+    100052: R_ForeArm
+    100054: R_Leg
+    100056: R_LegTop
+    100058: R_Shoulder
+    100060: R_UpperArm
+    100062: R_WristJoint
+    100064: Torso
     400000: //RootNode
     400002: core
     400004: head
@@ -37,8 +54,57 @@ ModelImporter:
     400026: R_wrist
     400028: root
     400030: torso
+    400032: Boss
+    400034: Head
+    400036: L_ForeArm
+    400038: L_Hand
+    400040: L_Leg
+    400042: L_LegTop
+    400044: L_Shoulder
+    400046: L_ShoulderJoint
+    400048: Mask
+    400050: Pelvis
+    400052: R_ForeArm
+    400054: R_Leg
+    400056: R_LegTop
+    400058: R_Shoulder
+    400060: R_UpperArm
+    400062: R_WristJoint
+    400064: Torso
+    4300000: Head
+    4300002: R_Shoulder
+    4300004: L_Shoulder
+    4300006: Pelvis
+    4300008: Mask
+    4300010: Torso
+    4300012: L_ForeArm
+    4300014: R_ForeArm
+    4300016: L_Leg
+    4300018: R_Leg
+    4300020: L_LegTop
+    4300022: R_LegTop
+    4300024: R_UpperArm
+    4300026: L_ShoulderJoint
+    4300028: R_WristJoint
+    4300030: L_Hand
     7400000: Take 001
     9500000: //RootNode
+    13700000: Head
+    13700002: L_ForeArm
+    13700004: L_Hand
+    13700006: L_Leg
+    13700008: L_LegTop
+    13700010: L_Shoulder
+    13700012: L_ShoulderJoint
+    13700014: Mask
+    13700016: Pelvis
+    13700018: R_ForeArm
+    13700020: R_Leg
+    13700022: R_LegTop
+    13700024: R_Shoulder
+    13700026: R_UpperArm
+    13700028: R_WristJoint
+    13700030: Torso
   materials:
     importMaterials: 1
     materialName: 0
