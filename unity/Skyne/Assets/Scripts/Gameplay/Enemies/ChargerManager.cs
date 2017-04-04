@@ -161,7 +161,7 @@ public class ChargerManager : Enemy
 		}
 	}
 
-	bool canSeeTarget ()
+	bool CanSeeTarget ()
 	{
 		Vector3 dir = (target.transform.position - transform.position).normalized; 
 		Vector3 start = transform.position + dir * 0.5f; 
@@ -185,7 +185,7 @@ public class ChargerManager : Enemy
 	{
 		agent.Resume ();
 
-		if (tarDistance < aggroDistance && canSeeTarget())
+		if (tarDistance < aggroDistance && CanSeeTarget())
 		{
 			state = ChargerManager.State.POSITION;
 		}
