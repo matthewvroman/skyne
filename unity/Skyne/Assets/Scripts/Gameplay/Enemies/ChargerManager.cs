@@ -117,8 +117,10 @@ public class ChargerManager : Enemy
 		}
 	}
 
-	void Update ()
+	protected override void Update ()
 	{
+		base.Update ();
+
 		// TODO- fix global level loading bug here
 		if (!started && GlobalManager.inst.GameplayIsActive() && GameObject.FindGameObjectWithTag ("Player") != null)
 		{

@@ -166,7 +166,7 @@ public class MapDisplay : Singleton<MapDisplay>
 		if (useBlinkingTile)
 		{
 			string curName = "L:" + (1) + ", C:" + (LevelData.inst.curColumn) + ", R:" + (LevelData.inst.curRow);
-			Debug.Log("Map curName: " + curName); 
+			//Debug.Log("Map curName: " + curName); 
 			float xPos = mapTileParents[0].transform.Find(curName).position.x; 
 			float yPos = mapTileParents[0].transform.Find(curName).position.y; 
 

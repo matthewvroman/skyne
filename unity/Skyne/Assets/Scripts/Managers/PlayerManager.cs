@@ -315,7 +315,7 @@ public class PlayerManager : MonoBehaviour
 			//GlobalManager.inst.Lo ();
 		}
 
-		Debug.Log ("Knockback:" + isPushed);
+		//Debug.Log ("Knockback:" + isPushed);
 
 		Animations ();
 	}
