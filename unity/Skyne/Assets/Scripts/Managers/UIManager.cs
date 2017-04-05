@@ -17,8 +17,8 @@ public class UIManager : Singleton<UIManager>
 	//public bool isPaused = false; //determines whether the game is paused or not.
 
 
-	[SerializeField] private Button reloadButton; 
 	[SerializeField] private Button continueButton; 
+	[SerializeField] private Button quitButton; 
 
 	//[SerializeField] private Toggle level1Toggle; 
 	//[SerializeField] private Toggle level2Toggle; 
@@ -34,11 +34,6 @@ public class UIManager : Singleton<UIManager>
 	public EventSystem levelEventSystem; 
 
 	public Text endTimerUI; 
-
-	void Awake()
-	{
-		//reloadButton.onClick.AddListener (() => { LoadGameClicked(); });
-	}
 
 	void Start()
 	{
@@ -72,6 +67,7 @@ public class UIManager : Singleton<UIManager>
 			if (!gameMenuActive)
 			{
 				GlobalManager.inst.SetGamePaused(true); 
+				GlobalManager.inst.buttonUIIsActive = true; 
 
 				if (gameMenuState == GameMenuState.Options)
 				{
@@ -88,6 +84,8 @@ public class UIManager : Singleton<UIManager>
 			else
 			{
 				GlobalManager.inst.SetGamePaused(false); 
+				GlobalManager.inst.buttonUIIsActive = false; 
+
 				DisablePanels(); 
 				gameMenuActive = false; 
 				EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(null);
@@ -192,6 +190,7 @@ public class UIManager : Singleton<UIManager>
 	public void OnContinueButton()
 	{
 		GlobalManager.inst.SetGamePaused(false); 
+		GlobalManager.inst.buttonUIIsActive = false;
 		DisablePanels(); 
 		gameMenuActive = false; 
 		EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(null);
@@ -199,11 +198,20 @@ public class UIManager : Singleton<UIManager>
 
 	public void OnQuitButton()
 	{
-		/*
-		Time.timeScale = 1;
-		GlobalManager.inst.LoadTitle (); 
-		*/ 
+		GlobalManager.inst.buttonUIIsActive = false;
 		GlobalManager.inst.GameplayToTitleScreen(); 
+	}
+
+	public void SetToSelectedButton(string buttonName)
+	{
+		if (buttonName == "ContinueButton")
+		{
+			levelEventSystem.SetSelectedGameObject(continueButton.gameObject); 
+		}
+		else if (buttonName == "QuitButton")
+		{
+			levelEventSystem.SetSelectedGameObject(quitButton.gameObject); 
+		}
 	}
 
 

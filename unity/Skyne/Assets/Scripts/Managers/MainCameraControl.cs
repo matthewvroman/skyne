@@ -54,7 +54,7 @@ public class MainCameraControl : MonoBehaviour
 	}
 
 	void Update() {
-		Cursor.lockState = CursorLockMode.Locked;
+		//Cursor.lockState = CursorLockMode.Locked;
 	}
 
 	void FixedUpdate() 

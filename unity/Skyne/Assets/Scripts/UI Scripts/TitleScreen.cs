@@ -7,11 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class TitleScreen : MonoBehaviour 
 {
-	//[SerializeField] private Button newGameButton; 
+	[SerializeField] private Button newGameButton; 
 	[SerializeField] private Button continueButton; 
-
 	[SerializeField] private Button settingsButton; 
 	[SerializeField] private Button backButton; 
+	[SerializeField] private Button quitButton; 
 
 	public GameObject mainMenu;
 	public GameObject settingsMenu;
@@ -28,7 +28,7 @@ public class TitleScreen : MonoBehaviour
 		{
 			continueButton.interactable = true; 
 		}
-		else
+		else if (GlobalManager.inst.buttonUIIsActive)
 		{
 			continueButton.interactable = false; 
 		}
@@ -38,7 +38,9 @@ public class TitleScreen : MonoBehaviour
 			EventSystem.current = titleEventSystem; 
 		}
 
-		Cursor.lockState = CursorLockMode.Locked;
+		//Cursor.lockState = CursorLockMode.Locked;
+
+		//if (titleEventSystem.
 	}
 
 
@@ -48,7 +50,9 @@ public class TitleScreen : MonoBehaviour
 		if (!ScreenTransition.inst.transitionActive)
 		{
 			// For now, clear PlayerPrefs when a new gameplay screen is loaded
-			PlayerPrefs.DeleteAll(); 
+			PlayerPrefs.DeleteAll();
+
+			GlobalManager.inst.buttonUIIsActive = false; 
 
 			ScreenTransition.inst.SetFadeOut(transitionFadeOutSpeed); 
 			StartCoroutine("StartGameFadeOut"); 
@@ -60,6 +64,8 @@ public class TitleScreen : MonoBehaviour
 	{
 		if (!ScreenTransition.inst.transitionActive)
 		{
+			GlobalManager.inst.buttonUIIsActive = false; 
+
 			ScreenTransition.inst.SetFadeOut(transitionFadeOutSpeed); 
 			StartCoroutine("StartGameFadeOut"); 
 		}
@@ -97,5 +103,25 @@ public class TitleScreen : MonoBehaviour
 		}
 
 		GlobalManager.inst.TitleToLoadScreen(); 
+	}
+
+	public void SetToSelectedButton(string buttonName)
+	{
+		if (buttonName == "NewGameButton")
+		{
+			titleEventSystem.SetSelectedGameObject(newGameButton.gameObject); 
+		}
+		else if (buttonName == "LoadGameButton")
+		{
+			titleEventSystem.SetSelectedGameObject(continueButton.gameObject); 
+		}
+		else if (buttonName == "SettingsButton")
+		{
+			titleEventSystem.SetSelectedGameObject(settingsButton.gameObject); 
+		}
+		else if (buttonName == "QuitGameButton")
+		{
+			titleEventSystem.SetSelectedGameObject(quitButton.gameObject); 
+		}
 	}
 }

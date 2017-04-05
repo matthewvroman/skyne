@@ -23,6 +23,7 @@ public class GameOverScreen : MonoBehaviour
 	{
 		if (!ScreenTransition.inst.transitionActive)
 		{
+			GlobalManager.inst.buttonUIIsActive = false; 
 			ScreenTransition.inst.SetFadeOut(transitionFadeOutSpeed); 
 			StartCoroutine("StartGameFadeOut"); 
 		}
@@ -32,6 +33,7 @@ public class GameOverScreen : MonoBehaviour
 	{
 		if (!ScreenTransition.inst.transitionActive)
 		{ 
+			GlobalManager.inst.buttonUIIsActive = false; 
 			ScreenTransition.inst.SetFadeOut(transitionFadeOutSpeed); 
 			StartCoroutine("LoadTitleFadeOut"); 
 		}
@@ -54,5 +56,17 @@ public class GameOverScreen : MonoBehaviour
 			yield return null; 
 		}
 		GlobalManager.inst.GameOverToTitleScreen(); 
+	}
+
+	public void SetToSelectedButton(string buttonName)
+	{
+		if (buttonName == "ContinueButton")
+		{
+			gameOverEventSystem.SetSelectedGameObject(retryButton.gameObject); 
+		}
+		else if (buttonName == "QuitButton")
+		{
+			gameOverEventSystem.SetSelectedGameObject(quitToTitleButton.gameObject); 
+		}
 	}
 }

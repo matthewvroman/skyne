@@ -11,6 +11,9 @@ public class GlobalManager : Singleton<GlobalManager>
 	[Tooltip("The state machine of the game. Set to Menu when starting from Menu; set to Gameplay when starting in the middle of the game.")]
 	public GlobalState globalState; 
 
+	[Tooltip("(Read only) True if the button UI is active and the mouse needs to be set to visible")]
+	public bool buttonUIIsActive; 
+
 	public bool initialLoadFinished; 
 	[SerializeField] private bool m_gamePaused; 
 
@@ -155,6 +158,18 @@ public class GlobalManager : Singleton<GlobalManager>
 		{
 			globalCamera.gameObject.SetActive(true); 
 		}
+
+		// Update cursor lock state
+		if (buttonUIIsActive && !ScreenTransition.inst.transitionActive)
+		{
+			Cursor.visible = true; 
+			Cursor.lockState = CursorLockMode.Confined;
+		}
+		else
+		{
+			Cursor.visible = false; 
+			Cursor.lockState = CursorLockMode.Locked; 
+		}
 	}
 
 	public float GetSFXVolume()
@@ -223,7 +238,8 @@ public class GlobalManager : Singleton<GlobalManager>
 		globalState = GlobalState.GameOver; 
 		LoadSceneIfUnloaded("GameOver"); 
 		UnloadSceneIfLoaded("Loading"); 
-		Cursor.lockState = CursorLockMode.Confined;
+		//Cursor.lockState = CursorLockMode.Confined;
+		buttonUIIsActive = true; 
 	}
 
 	void ChangeToTitle()
@@ -232,7 +248,8 @@ public class GlobalManager : Singleton<GlobalManager>
 		ScreenTransition.inst.SetFadeIn(levelFadeInSpeed); 
 		LoadSceneIfUnloaded("Title");
 		UnloadSceneIfLoaded("Loading"); 
-		Cursor.lockState = CursorLockMode.Confined; 
+		//Cursor.lockState = CursorLockMode.Confined; 
+		buttonUIIsActive = true; 
 	}
 
 
