@@ -33,13 +33,6 @@ public class PlayerManager : MonoBehaviour
 	[System.Serializable]
 	public class PlayerSettings
 	{
-		[Tooltip ("Speed at which color attempts to complete the lerp during invuln")]
-		public float colorLerpSpeed;
-		[Tooltip ("Number of seconds that invincibility frames last")]
-		public float invulnTime;
-		[Tooltip ("Speed at which player flashes during invuln")]
-		public float flashSpeed;
-
 		[Tooltip ("The UI object representing the image for the health")]
 		public Transform healthbarFill;
 		[Tooltip ("The UI text representing the text for health")]
@@ -95,8 +88,6 @@ public class PlayerManager : MonoBehaviour
 	bool isFalling = false;
 
 	bool isFocused = false;
-
-	bool isInvincible = false;
 
 	bool jump = false;
 	bool canDoubleJump = false;
@@ -246,15 +237,6 @@ public class PlayerManager : MonoBehaviour
 		transform.rotation = Quaternion.Euler (0, transform.rotation.y, 0);
 
 		OrientPlayer (playerCamera);
-
-		if (isInvincible)
-		{
-			DamageFlash ();
-		}
-		else
-		{
-			playerMesh.material.color = playerColor;
-		}
 
 		if (velocity.y < 0)
 		{
@@ -650,23 +632,35 @@ public class PlayerManager : MonoBehaviour
 			GlobalManager.inst.LoadGameOver ();
 		}
 	}
-
-	/// <summary>
-	/// Causes the player to become invincible for a specified number of seconds
-	/// </summary>
-	IEnumerator Invicibility ()
+		
+	IEnumerator DamageFlash ()
 	{
-		isInvincible = true;
-		yield return new WaitForSeconds (playerSetting.invulnTime);
-		isInvincible = false;
-	}
+		Renderer[] renderer = this.GetComponentsInChildren<Renderer>();
+		Color color = renderer[0].material.color;
 
-	/// <summary>
-	/// Causes player model to flash red during invuln
-	/// </summary>
-	void DamageFlash ()
-	{
-		playerMesh.material.color = Color.Lerp (playerColor, Color.red, Mathf.PingPong (Time.time * playerSetting.flashSpeed, playerSetting.colorLerpSpeed));
+		color = Color.red;
+
+		foreach (Renderer rend in renderer)
+		{
+			rend.material.color = color;
+		}
+
+		yield return new WaitForSeconds(0.2f);
+
+		float time = 0.0f;
+
+		while(color != Color.gray)
+		{
+			
+			color = Color.Lerp (Color.red, Color.gray, time * 2);
+			time += Time.deltaTime;
+			foreach (Renderer rend in renderer)
+			{
+				rend.material.color = color;
+			}
+			//renderer.material.color = color;
+			yield return new WaitForEndOfFrame();
+		} 
 	}
 
 	/// <summary>
@@ -882,7 +876,8 @@ public class PlayerManager : MonoBehaviour
 			//If not, then the player will take damage
 			DamageCalculator (10);
 
-			//StartCoroutine (Invicibility ());
+			StopCoroutine ("DamageFlash");
+			StartCoroutine ("DamageFlash");
 
 			// Calculate Angle Between the collision point and the player
 			Vector3 dir = -(col.contacts [0].point - transform.position).normalized;
@@ -894,9 +889,8 @@ public class PlayerManager : MonoBehaviour
 			// This will push back the player
 			rBody.AddForce (dir * moveSetting.knockbackForce, ForceMode.VelocityChange);
 
-			StartCoroutine (Knockback ());
-
-
+			StopCoroutine ("Knockback");
+			StartCoroutine ("Knockback");
 		}
 
 		if (col.gameObject.tag == "Wall" && !Grounded ())
@@ -946,16 +940,11 @@ public class PlayerManager : MonoBehaviour
 	void OnCollisionStay (Collision col)
 	{
 		//If the player is still touching the enemy when invuln wears off, ininitate invincibility coroutine again
-		if (col.gameObject.tag == "Enemy" && isInvincible == false)
+		if (col.gameObject.tag == "Enemy")
 		{
-			//When the player collides with an enemy, it checks to see if the player is currently invincible or not. 
-			//If not, then the player will take damage
-			if (isInvincible == false)
-			{
-				DamageCalculator (10);
-				//StartCoroutine (DamageCalculator (10));
-			}
-			//StartCoroutine (Invicibility ());
+			DamageCalculator (10);
+			//StartCoroutine (DamageCalculator (10));
+
 		}
 
 		/*if (col.gameObject.tag == "Wall" && isHuggingWall)
@@ -977,31 +966,18 @@ public class PlayerManager : MonoBehaviour
 		//If the player comes in contact with an enemy, initiate invincibility coroutine
 		if (col.gameObject.tag == "Enemy")
 		{
-			//When the player collides with an enemy, it checks to see if the player is currently invincible or not. 
-			//If not, then the player will take damage
-			if (isInvincible == false)
-			{
-				DamageCalculator (10);
-				//StartCoroutine (DamageCalculator (10));
-			}
-
-			//StartCoroutine (Invicibility ());
+			DamageCalculator (10);
+			//StartCoroutine (DamageCalculator (10));
 		}
 	}
 
 	void OnTriggerStay (Collider col)
 	{
 		//If the player is still touching the enemy when invuln wears off, ininitate invincibility coroutine again
-		if (col.gameObject.tag == "Enemy" && isInvincible == false)
+		if (col.gameObject.tag == "Enemy")
 		{
-			//When the player collides with an enemy, it checks to see if the player is currently invincible or not. 
-			//If not, then the player will take damage
-			if (isInvincible == false)
-			{
-				DamageCalculator (10);
-				//StartCoroutine (DamageCalculator (10));
-			}
-			//StartCoroutine (Invicibility ());
+			DamageCalculator (10);
+			//StartCoroutine (DamageCalculator (10));
 		}
 	}
 
@@ -1013,6 +989,9 @@ public class PlayerManager : MonoBehaviour
 	{ 
 		playerAudio.clip = null;
 		playerAudio.PlayOneShot (ameliaGrunt2);
+
+		StopCoroutine ("DamageFlash");
+		StartCoroutine ("DamageFlash");
 
 		DamageCalculator (bullet.damage); 
 	}

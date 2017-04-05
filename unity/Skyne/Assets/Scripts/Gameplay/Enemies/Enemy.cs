@@ -164,22 +164,29 @@ public class Enemy : MonoBehaviour
 
 	IEnumerator DamageFlash ()
 	{
-		SkinnedMeshRenderer renderer = this.GetComponentInChildren<SkinnedMeshRenderer>();
-		Color color = renderer.material.color;
+		SkinnedMeshRenderer[] renderer = this.GetComponentsInChildren<SkinnedMeshRenderer>();
+		Color color = renderer[0].material.color;
 		color = Color.red;
-		renderer.material.color = color;
+		foreach (SkinnedMeshRenderer rend in renderer)
+		{
+			rend.material.color = color;
+		}
 
 		yield return new WaitForSeconds(0.2f);
 
 		float time = 0.0f;
 
-		while(color != Color.white)
+		while(color != Color.gray)
 		{
-			color = Color.Lerp (Color.red, Color.white, time * 2);
+			color = Color.Lerp (Color.red, Color.gray, time * 2);
 			time += Time.deltaTime;
-			renderer.material.color = color;
+			foreach (SkinnedMeshRenderer rend in renderer)
+			{
+				rend.material.color = color;
+			}
+			//renderer.material.color = color;
 			yield return new WaitForEndOfFrame();
-		}
+		} 
 	}
 
 	void DisableSmokeParticles ()
