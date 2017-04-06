@@ -223,6 +223,12 @@ public class PlayerManager : MonoBehaviour
 
 	void Update ()
 	{
+
+		if (currentHealth <= 0)
+		{
+			isAlive = false;
+		}
+
 		if (isAlive)
 		{
 			GetInput ();
@@ -649,10 +655,10 @@ public class PlayerManager : MonoBehaviour
 
 		float time = 0.0f;
 
-		while(color != Color.gray)
+		while(color != Color.white)
 		{
 			
-			color = Color.Lerp (Color.red, Color.gray, time * 2);
+			color = Color.Lerp (Color.red, Color.white, time * 2);
 			time += Time.deltaTime;
 			foreach (Renderer rend in renderer)
 			{
@@ -966,8 +972,12 @@ public class PlayerManager : MonoBehaviour
 		//If the player comes in contact with an enemy, initiate invincibility coroutine
 		if (col.gameObject.tag == "Enemy")
 		{
+			//When the player collides with an enemy, it checks to see if the player is currently invincible or not. 
+			//If not, then the player will take damage
 			DamageCalculator (10);
-			//StartCoroutine (DamageCalculator (10));
+
+			StopCoroutine ("DamageFlash");
+			StartCoroutine ("DamageFlash");
 		}
 	}
 
@@ -978,6 +988,9 @@ public class PlayerManager : MonoBehaviour
 		{
 			DamageCalculator (10);
 			//StartCoroutine (DamageCalculator (10));
+
+			StopCoroutine ("DamageFlash");
+			StartCoroutine ("DamageFlash");
 		}
 	}
 
