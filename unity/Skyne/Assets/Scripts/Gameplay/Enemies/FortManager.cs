@@ -339,6 +339,7 @@ public class FortManager : Enemy
 
 	void Melee()
 	{
+		anim.SetTrigger("Melee"); 
 		anim.SetBool("isWalking", false); 
 		agent.speed = 0;
 	}
