@@ -109,7 +109,7 @@ public class BoltManager : Enemy
 			if (state != BoltManager.State.IDLE && CanHitTarget())
 			{
 				// Update the shooting delay
-				if (curShootDelay >= 0)
+				if (curShootDelay >= 0 && !anim.GetCurrentAnimatorStateInfo(1).IsName("Shoot"))
 				{
 					curShootDelay -= Time.deltaTime;
 					if (curShootDelay < 0)
@@ -184,12 +184,7 @@ public class BoltManager : Enemy
 	{
 		// Don't let it attack until facing the player
 
-		// Uses flattened height by giving this position and the target the same y value
-		Vector3 targetFlatPosition = new Vector3(target.position.x, frontFacingObj.transform.position.y, target.position.z); 
-		Vector3 thisFlatPosition = new Vector3(frontFacingObj.transform.position.x, frontFacingObj.transform.position.y, frontFacingObj.transform.position.z); 
-
-		//float dot = Vector3.Dot(transform.forward, (target.position - transform.position).normalized);
-		float dot = Vector3.Dot(frontFacingObj.transform.forward, (targetFlatPosition - thisFlatPosition).normalized);
+		float dot = GetDot(); 
 
 		// Also test dot for vertical level
 		Vector3 targetVertical = new Vector3(0, 0, 0);
@@ -204,8 +199,17 @@ public class BoltManager : Enemy
 
 	void TryAttackWalk()
 	{
-		Debug.Log("Bolt walking attack"); 
-		Attack(); 
+		// Don't let it attack until facing the player
+
+		float dot = GetDot(); 
+
+		//Debug.Log("Bolt walk dot: " + dot); 
+
+		if (dot > 0.95f)
+		{
+			//Debug.Log("Bolt walking attack"); 
+			Attack(); 
+		}
 	}
 
 
@@ -273,7 +277,17 @@ public class BoltManager : Enemy
 
 	void TurnTowardsTarget ()
 	{
-		anim.SetBool("isWalking", true); 
+		float dot = GetDot(); 
+
+		if (dot < 0.95f)
+		{
+			anim.SetBool("isWalking", true); 
+		}
+		else
+		{
+			anim.SetBool("isWalking", false); 
+		}
+
 		agent.speed = 0;
 
 		boltAudio.clip = moveSound;
@@ -303,7 +317,7 @@ public class BoltManager : Enemy
 			//anim.SetBool("isShooting", true); 
 		}
 	}
-
+		
 	void OnAnimShoot()
 	{
 		// Pass ProjectileManager this bolt's bullet spawner and shoot a new bullet
@@ -313,6 +327,15 @@ public class BoltManager : Enemy
 		boltAudio.volume = Random.Range (0.8f, 1);
 		boltAudio.pitch = Random.Range (0.8f, 1);
 		boltAudio.PlayOneShot (shootSound);
+	}
+
+	float GetDot()
+	{
+		// Uses flattened height by giving this position and the target the same y value
+		Vector3 targetFlatPosition = new Vector3(target.position.x, frontFacingObj.transform.position.y, target.position.z); 
+		Vector3 thisFlatPosition = new Vector3(frontFacingObj.transform.position.x, frontFacingObj.transform.position.y, frontFacingObj.transform.position.z); 
+
+		return Vector3.Dot(frontFacingObj.transform.forward, (targetFlatPosition - thisFlatPosition).normalized);
 	}
 
 	// Called if the enemy has a destroy animation, right as the destroy animation starts

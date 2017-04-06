@@ -33,6 +33,7 @@ public class FortManager : Enemy
 	[Tooltip ("Turning speed (only when the player is within attack range)")]
 	public float attackTurnSpeed;
 
+	// Melee
 	[Tooltip ("When the player is in front of the enemy, how close must they be for the enemy to melee attack")]
 	public float meleeDistance;
 	[Tooltip ("How close to the front-facing direction of the enemy does the player need to be for the fort to melee? 1 = exact front, < 1 = close range")]
@@ -62,6 +63,8 @@ public class FortManager : Enemy
 	// Shooting
 	public float shootDelay; 
 	float curShootDelay;  
+
+
 
 	/// <summary>
 	/// Custom Start() method invoked in Update() only once the game is fully loaded
@@ -96,15 +99,6 @@ public class FortManager : Enemy
 				SetupEnemy(); 
 			}
 
-			// TODO Redo this condition to use the new animation layer for shooting
-			// Potentially change shooting to a trigger
-			/*
-			if (anim.GetBool("isShooting") == true && anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-			{
-				anim.SetBool("isShooting", false); 
-			}
-			*/ 
-
 
 			// State machine changes
 
@@ -114,17 +108,34 @@ public class FortManager : Enemy
 			//Switches between states based on the distance from the player to the enemy
 
 			// Try attacking the player, as long as the enemy has moved out of idle 
-			if (state != FortManager.State.IDLE && CanHitTarget())
+			if (state != FortManager.State.IDLE && CanHitTarget() && state != FortManager.State.MELEE)
 			{
 				// Update the shooting delay
-				if (curShootDelay >= 0)
+				if (curShootDelay >= 0 && cooldownTimer == 0)
 				{
 					curShootDelay -= Time.deltaTime;
 					if (curShootDelay < 0)
 						curShootDelay = 0; 
 				}
 
-				if (tarDistance <= closeDistance)
+				if (cooldownTimer > 0)
+				{
+					cooldownTimer -= Time.deltaTime; 
+					if (cooldownTimer <= 0)
+					{
+						cooldownTimer = 0; 
+						anim.SetBool("isDefending", false); 
+					}
+				}
+
+				// Melee is first priority for tests
+				if (tarDistance < meleeDistance)
+				{
+					TryMelee(); 
+				}
+				// Make the fort stop a distance from the player if it still needs to shoot
+				// If in melee, the fort will continue moving up to the player
+				else if (tarDistance <= closeDistance && !anim.GetBool("isDefending"))
 				{
 					state = state = FortManager.State.TURN_TOWARDS_TARGET;
 					TryAttackClose(); 
@@ -135,11 +146,11 @@ public class FortManager : Enemy
 					TryAttackWalk(); 
 				}
 			}
-			else if (tarDistance < aggroDistance)
+			else if (tarDistance < aggroDistance && state != FortManager.State.MELEE)
 			{
 				state = FortManager.State.POSITION;
 			}
-			else
+			else if (state != FortManager.State.MELEE)
 			{
 				state = FortManager.State.IDLE;
 			}
@@ -179,6 +190,9 @@ public class FortManager : Enemy
 			case State.TURN_TOWARDS_TARGET:
 				TurnTowardsTarget(); 
 				break; 
+			case State.MELEE:
+				Melee(); 
+				break; 
 			}
 			yield return null;
 		}
@@ -192,13 +206,7 @@ public class FortManager : Enemy
 	void TryAttackClose()
 	{
 		// Don't let it attack until facing the player
-
-		// Uses flattened height by giving this position and the target the same y value
-		Vector3 targetFlatPosition = new Vector3(target.position.x, frontFacingObj.transform.position.y, target.position.z); 
-		Vector3 thisFlatPosition = new Vector3(frontFacingObj.transform.position.x, frontFacingObj.transform.position.y, frontFacingObj.transform.position.z); 
-
-		//float dot = Vector3.Dot(transform.forward, (target.position - transform.position).normalized);
-		float dot = Vector3.Dot(frontFacingObj.transform.forward, (targetFlatPosition - thisFlatPosition).normalized);
+		float dot = GetDot(); 
 
 		// Also test dot for vertical level
 		Vector3 targetVertical = new Vector3(0, 0, 0);
@@ -213,8 +221,29 @@ public class FortManager : Enemy
 
 	void TryAttackWalk()
 	{
-		Debug.Log("Fort walking attack"); 
-		Attack(); 
+		// Don't let it attack until facing the player
+		float dot = GetDot();
+
+		if (dot > 0.95f)
+		{
+			Debug.Log("Fort walking attack"); 
+			Attack(); 
+		}
+	}
+
+	void TryMelee()
+	{
+		Vector3 targetFlatPosition = new Vector3(target.position.x, transform.position.y, target.position.z); 
+		Vector3 thisFlatPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z); 
+
+		float dot = Vector3.Dot(transform.forward, (targetFlatPosition - thisFlatPosition).normalized);
+
+		if (dot > meleeFrontZone)
+		{
+			state = FortManager.State.MELEE;
+			//anim.SetBool("Melee", true); 
+			anim.SetTrigger("Melee"); 
+		}
 	}
 
 
@@ -261,7 +290,17 @@ public class FortManager : Enemy
 	//The Positioning state, when the enemy first notices the player, it will get closer so that it can start attacking.
 	void Position ()
 	{
-		anim.SetBool("isWalking", true); 
+		float dot = GetDot(); 
+
+		if (dot < 0.95f)
+		{
+			anim.SetBool("isWalking", true); 
+		}
+		else
+		{
+			anim.SetBool("isWalking", false); 
+		}
+
 
 		Vector3 targetPosition = new Vector3 (target.position.x, this.transform.position.y, target.position.z);
 
@@ -297,6 +336,12 @@ public class FortManager : Enemy
 		transform.rotation = Quaternion.RotateTowards(frontFacingObj.transform.rotation, q, attackTurnSpeed * Time.deltaTime);
 	}
 
+	void Melee()
+	{
+		anim.SetBool("isWalking", false); 
+		agent.speed = 0;
+	}
+
 	void Attack()
 	{
 		Vector3 targetPosition = new Vector3 (target.position.x, this.transform.position.y, target.position.z);
@@ -306,6 +351,7 @@ public class FortManager : Enemy
 			Debug.Log("Shoot bullet"); 
 
 			curShootDelay = shootDelay;
+			cooldownTimer = cooldownLength; 
 
 			// Pass ProjectileManager this bolt's bullet spawner and shoot a new bullet
 			//ProjectileManager.inst.Shoot_E_Normal(bulletSpawner, true); 
@@ -315,7 +361,8 @@ public class FortManager : Enemy
 			fortAudio.pitch = Random.Range (0.8f, 1);
 			fortAudio.PlayOneShot (shootSound);
 
-			anim.SetBool("isShooting", true); 
+			//anim.SetBool("isShooting", true); 
+			anim.SetTrigger("Shoot"); 
 		}
 	}
 
@@ -332,13 +379,23 @@ public class FortManager : Enemy
 		agent.enabled = false; 
 	}
 
+	float GetDot()
+	{
+		// Uses flattened height by giving this position and the target the same y value
+		Vector3 targetFlatPosition = new Vector3(target.position.x, frontFacingObj.transform.position.y, target.position.z); 
+		Vector3 thisFlatPosition = new Vector3(frontFacingObj.transform.position.x, frontFacingObj.transform.position.y, frontFacingObj.transform.position.z); 
+
+		return Vector3.Dot(frontFacingObj.transform.forward, (targetFlatPosition - thisFlatPosition).normalized);
+	}
+
 	void MeleeOver()
 	{
-
+		state = FortManager.State.POSITION; 
 	}
 
 	void ShotOver()
 	{
-
+		anim.SetBool("isDefending", true); 
+		anim.SetTrigger("Defend"); 
 	}
 }
