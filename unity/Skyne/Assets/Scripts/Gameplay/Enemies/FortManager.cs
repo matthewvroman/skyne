@@ -290,17 +290,7 @@ public class FortManager : Enemy
 	//The Positioning state, when the enemy first notices the player, it will get closer so that it can start attacking.
 	void Position ()
 	{
-		float dot = GetDot(); 
-
-		if (dot < 0.95f)
-		{
-			anim.SetBool("isWalking", true); 
-		}
-		else
-		{
-			anim.SetBool("isWalking", false); 
-		}
-
+		anim.SetBool("isWalking", true); 
 
 		Vector3 targetPosition = new Vector3 (target.position.x, this.transform.position.y, target.position.z);
 
@@ -321,6 +311,17 @@ public class FortManager : Enemy
 
 	void TurnTowardsTarget ()
 	{
+		float dot = GetDot(); 
+
+		if (dot < 0.95f)
+		{
+			anim.SetBool("isWalking", true); 
+		}
+		else
+		{
+			anim.SetBool("isWalking", false); 
+		}
+
 		anim.SetBool("isWalking", true); 
 		agent.speed = 0;
 
@@ -390,6 +391,7 @@ public class FortManager : Enemy
 
 	void MeleeOver()
 	{
+		Debug.Log("Fort MeleeOver"); 
 		state = FortManager.State.POSITION; 
 	}
 
