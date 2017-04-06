@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour
 	public int[] hpDropChoices;
 
 	[Tooltip ("Set to true once the enemy state machine has been started (cannot happen before level load finished).")]
-	public bool started;
+	[HideInInspector] public bool started;
 
 	public bool hasDeathAnimation;
 
@@ -135,6 +135,7 @@ public class Enemy : MonoBehaviour
 					// Call death animation
 					anim.SetBool ("isDead", true); 
 					alive = false; 
+					PreEnemyDestroy(); 
 				}
 				else
 				{
@@ -218,6 +219,10 @@ public class Enemy : MonoBehaviour
 	}
 
 	protected virtual void EnemyDestroy () {
+
+	}
+
+	protected virtual void PreEnemyDestroy () {
 
 	}
 }
