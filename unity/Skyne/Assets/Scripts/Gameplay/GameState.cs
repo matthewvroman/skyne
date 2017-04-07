@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class GameState : Singleton<GameState> 
 {
-// How can we save room data?
+	// How can we save room data?
 	// Option 1: Save keys related to the roomName, and additional modifiers after
 	// Option 2: Save a list of grid coordinates that have been entered, then match those up
 
 	// Associates a bool with each room
 	public RoomData[] roomStateData; 
+
+	public bool[] ambushRoomsDone;
 
 	/// <summary>
 	/// Holds data associated with the state of each room
