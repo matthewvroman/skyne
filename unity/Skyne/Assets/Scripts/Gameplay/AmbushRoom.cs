@@ -22,7 +22,9 @@ public class AmbushRoom : MonoBehaviour
 	public AudioClip battleMusic;
 	public AudioClip normalMusic;
 
-	bool isDone = false;
+	public int index;
+
+	bool isDone;
 
 	GameState gameState;
 	int keysHeld;
@@ -30,6 +32,8 @@ public class AmbushRoom : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		isDone = GameState.inst.ambushRoomsDone [index];
+
 		oneKey = new List<GameObject> ();
 
 		foreach (Transform enemy in noKeyHold.transform)
@@ -64,7 +68,8 @@ public class AmbushRoom : MonoBehaviour
 
 		if (this.noKeys.Count == 0 || this.oneKey.Count == 0 || this.twoKeys.Count == 0 || this.threeKeys.Count == 0)
 		{
-			isDone = true;
+			//isDone = true;
+			GameState.inst.ambushRoomsDone[index] = true;
 		}
 
 		if (isDone == false)
