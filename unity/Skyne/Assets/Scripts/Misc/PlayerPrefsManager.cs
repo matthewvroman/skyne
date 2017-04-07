@@ -66,6 +66,12 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 			PlayerPrefs.SetString("saveRoom", SaveRoomManager.inst.curSaveRoom.gameObject.name); 
 		}
 
+		// Save the ambush rooms
+		for (int i = 0; i < GameState.inst.ambushRoomsDone.Length; i++)
+		{
+			SetBool("ambush" + i, GameState.inst.ambushRoomsDone[i]); 
+		}
+
 		// Save which keys have been found
 		for (int i = 0; i < GameState.inst.keysFound.Length; i++)
 		{
@@ -110,6 +116,12 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 				LevelData.inst.player.transform.position = curSaveRoom.saveSpawnPoint.transform.position; 
 				LevelData.inst.player.transform.rotation = curSaveRoom.saveSpawnPoint.transform.rotation; 
 			}
+		}
+
+		// Load the ambush rooms done
+		for (int i = 0; i < GameState.inst.ambushRoomsDone.Length; i++)
+		{
+			GameState.inst.ambushRoomsDone[i] = GetBool("ambush" + i, false); 
 		}
 
 		// Load the keys found
