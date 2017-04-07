@@ -28,8 +28,9 @@ public class Enemy : MonoBehaviour
 
 	public Animator anim;
 
-	Color defaultColor;
-	Color damageColor = Color.red;
+	public Color defaultColor;
+	public Color hitColor; 
+	public Color criticalHitColor; 
 
 	// Smoke Particles
 	[System.Serializable]
@@ -107,23 +108,26 @@ public class Enemy : MonoBehaviour
 			// Determine how many to spawn
 			int numParticles = (int)(actualDamage * 6); 
 
+			StopCoroutine("DamageFlash");
+
 			// If the bullet has hit an enemy weak point
-			if (isWeakPoint)
+			if (!isWeakPoint)
 			{
 				numParticles *= 2; 
 
 				// Do an extra particle effect to indicate that a weak point has been hit
 				// Do a weak damage flash
+				StartCoroutine ("DamageFlash", hitColor);
 			}
 			// If the bullet has hit a part of the enemy that isn't a weak point but still does damage
 			else
 			{
 				// Do a strong damage flash
+				StartCoroutine("DamageFlash", criticalHitColor); 
 			}
 
 			//this.GetComponentInChildren<SkinnedMeshRenderer> ().material.color = Color.Lerp (Color.white, Color.red, Mathf.PingPong (Time.time * 4, 0.7f));
-			StopCoroutine("DamageFlash");
-			StartCoroutine ("DamageFlash");
+
 
 			ExplosionManager.inst.SpawnEnemyHitParticles (transform.position, numParticles);
 
@@ -163,11 +167,11 @@ public class Enemy : MonoBehaviour
 		}
 	}
 
-	IEnumerator DamageFlash ()
+	IEnumerator DamageFlash (Color flashColor)
 	{
 		SkinnedMeshRenderer[] renderer = this.GetComponentsInChildren<SkinnedMeshRenderer>();
 		Color color = renderer[0].material.color;
-		color = Color.red;
+		color = flashColor;
 		foreach (SkinnedMeshRenderer rend in renderer)
 		{
 			rend.material.color = color;
@@ -177,9 +181,9 @@ public class Enemy : MonoBehaviour
 
 		float time = 0.0f;
 
-		while(color != Color.gray)
+		while(color != defaultColor)
 		{
-			color = Color.Lerp (Color.red, Color.gray, time * 2);
+			color = Color.Lerp (flashColor, defaultColor, time * 2);
 			time += Time.deltaTime;
 			foreach (SkinnedMeshRenderer rend in renderer)
 			{
