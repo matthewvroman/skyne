@@ -62,19 +62,21 @@ public class Boss1_AI : Enemy
 
 	float healthPer;
 
-	public GameObject target;
+	GameObject target;
 
-	public GameObject boss;
+	GameObject boss;
+
+	public Animator anim;
 
 	GameObject bulletSpawner1;
-	GameObject bulletSpawner2;
-	GameObject bulletSpawner3;
 
 	GameObject stompCollider;
 	GameObject stompColliderExpand;
 
-	public GameObject laserCol;
-	public NavMeshAgent laserNav;
+	GameObject laserCol;
+	NavMeshAgent laserNav;
+
+	bool isSpinning = false;
 
 	//AudioSource boss1Audio;
 
@@ -115,21 +117,17 @@ public class Boss1_AI : Enemy
 		//boss = transform.Find ("Boss").gameObject;
 		boss = GameObject.Find("Boss");
 
+		anim = transform.Find ("Boss2TallBoi_Model").GetComponent<Animator> ();
+
 		//boss1Audio.Play ();
 
 		bulletSpawner1 = boss.transform.Find ("BulletSpawner1").gameObject; 
-		bulletSpawner2 = boss.transform.Find ("BulletSpawner2").gameObject; 
-		bulletSpawner3 = boss.transform.Find ("BulletSpawner3").gameObject; 
 
 		stompCollider = transform.Find ("StompCollision").gameObject;
 		stompColliderExpand = transform.Find ("StompCollisionExpand").gameObject;
 
 		laserCol = transform.Find ("LaserCol").gameObject;
 		laserNav = laserCol.GetComponent<NavMeshAgent> ();
-
-		//pos1 = transform.Find ("Pos1").gameObject.transform;
-		//pos2 = transform.Find ("Pos2").gameObject.transform;
-		//pos3 = transform.Find ("Pos3").gameObject.transform;
 
 		//START State Machine
 		StartCoroutine ("B1SM");
@@ -379,8 +377,7 @@ public class Boss1_AI : Enemy
 			if (curHomingDelay == 0)
 			{
 				curHomingDelay = homingDelay; 
-				ProjectileManager.inst.Shoot_BossHomingOrb (bulletSpawner1); //.Shoot_E_Normal (bulletSpawner1, true); 
-				ProjectileManager.inst.Shoot_BossHomingOrb (bulletSpawner2); //.Shoot_E_Normal (bulletSpawner2, true); 
+				ProjectileManager.inst.Shoot_BossHomingOrb (bulletSpawner1); //.Shoot_E_Normal (bulletSpawner1, true);  
 
 				//boss1Audio.volume = Random.Range (0.8f, 1);
 				//boss1Audio.pitch = Random.Range (0.8f, 1);
@@ -414,7 +411,7 @@ public class Boss1_AI : Enemy
 			if (curBusterDelay == 0)
 			{
 				curBusterDelay = busterDelay; 
-				ProjectileManager.inst.Shoot_BossBigOrb (bulletSpawner3); //Shoot_E_Normal (bulletSpawner3, true);
+				ProjectileManager.inst.Shoot_BossBigOrb (bulletSpawner1); //Shoot_E_Normal (bulletSpawner3, true);
 
 				//boss1Audio.volume = Random.Range (0.8f, 1);
 				//boss1Audio.pitch = Random.Range (0.8f, 1);
@@ -431,12 +428,15 @@ public class Boss1_AI : Enemy
 	void Laser() {
 		Debug.Log ("Laser..");
 
-		laserCol.SetActive (true);
+		if (timer < (laserLength - laserDelay))
+		{
+			laserCol.SetActive (true);
 
-		laserNav.destination = target.transform.position;
+			laserNav.destination = target.transform.position;
 
-		laserNav.speed = 15;
-		laserNav.acceleration = 15;
+			laserNav.speed = 15;
+			laserNav.acceleration = 15;
+		}
 
 
 		if (timer > 0.1)
@@ -465,6 +465,11 @@ public class Boss1_AI : Enemy
 		{
 			timer -= Time.deltaTime;
 
+			if (timer < (spinningLength - spinningDelay))
+			{
+				anim.SetTrigger ("Spin");
+			}
+
 			if (curSpinningDelay == 0)
 			{
 				curSpinningDelay = spinningDelay; 
@@ -483,25 +488,30 @@ public class Boss1_AI : Enemy
 
 		if (isStomping = true)
 		{
-			stompCollider.transform.localScale = Vector3.Lerp (stompCollider.transform.localScale, stompColliderExpand.transform.localScale, Time.deltaTime * 0.999f);
+			//stompCollider.transform.localScale = Vector3.Lerp (stompCollider.transform.localScale, stompColliderExpand.transform.localScale, Time.deltaTime * 0.999f);
 		}
 
 		if (timer > 0.1)
 		{
 			timer -= Time.deltaTime;
 
+			if (timer < (stompLength - stompDelay))
+			{
+				stompCollider.transform.localScale = Vector3.Lerp (stompCollider.transform.localScale, stompColliderExpand.transform.localScale, Time.deltaTime * 0.999f);
+			}
+
 			if (curStompDelay == 0)
 			{
 				curStompDelay = stompDelay; 
 				//stompCollider.SetActive (true);
-				isStomping = true;
+				//isStomping = true;
 			}
 
 		}
 		else
 		{
 			//stompCollider.SetActive (false);
-			isStomping = false;
+			//isStomping = false;
 			stompCollider.transform.localScale = new Vector3 (0, stompCollider.transform.localScale.y, 0);
 			choosing = true;
 			ChooseAttack ();
