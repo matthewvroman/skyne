@@ -33,6 +33,12 @@ public class Boss1_AI : Enemy
 
 	public float timer;
 
+	public float tarDistance;
+	public float stompAggroDist;
+
+	float tarHeight;
+	float upperLevelHeight;
+
 	public float homingDelay;
 	float curHomingDelay;
 	public float homingLength;
@@ -115,13 +121,15 @@ public class Boss1_AI : Enemy
 		//boss1Audio = GetComponent<AudioSource> ();
 
 		//boss = transform.Find ("Boss").gameObject;
-		boss = GameObject.Find("Boss");
+		boss = GameObject.Find ("Boss");
 
 		anim = transform.Find ("Boss2TallBoi_Model").GetComponent<Animator> ();
 
 		//boss1Audio.Play ();
 
 		bulletSpawner1 = boss.transform.Find ("BulletSpawner1").gameObject; 
+
+		upperLevelHeight = bulletSpawner1.transform.position.y;
 
 		stompCollider = transform.Find ("StompCollision").gameObject;
 		stompColliderExpand = transform.Find ("StompCollisionExpand").gameObject;
@@ -211,6 +219,9 @@ public class Boss1_AI : Enemy
 
 			healthPer = ((health / maxHealth) * 100);
 
+			tarDistance = Vector3.Distance (target.transform.position, transform.position);
+			tarHeight = target.transform.position.y;
+
 			if (curHomingDelay >= 0)
 			{
 				curHomingDelay -= Time.deltaTime;
@@ -254,9 +265,9 @@ public class Boss1_AI : Enemy
 			case 1:
 				if (timer <= 0)
 				{
-					timer = busterLength;
+					timer = stompLength;
 				}
-				state = Boss1_AI.State.BUSTER_SHOT;
+				state = Boss1_AI.State.STOMP;
 				break;
 
 			case 2:
@@ -270,33 +281,33 @@ public class Boss1_AI : Enemy
 			case 3:
 				if (timer <= 0)
 				{
-					timer = nothingLength;
+					timer = busterLength;
 				}
-				state = Boss1_AI.State.DO_NOTHING;
+				state = Boss1_AI.State.BUSTER_SHOT;
 				break;
 
 			case 4:
 				if (timer <= 0)
 				{
-					timer = laserLength;
+					timer = nothingLength;
 				}
-				state = Boss1_AI.State.LASER;
+				state = Boss1_AI.State.DO_NOTHING;
 				break;
 
 			case 5:
 				if (timer <= 0)
 				{
-					timer = stompLength;
+					timer = spinningLength;
 				}
-				state = Boss1_AI.State.STOMP;
+				state = Boss1_AI.State.SPINNING;
 				break;
 
 			case 6:
 				if (timer <= 0)
 				{
-					timer = spinningLength;
+					timer = laserLength;
 				}
-				state = Boss1_AI.State.SPINNING;
+				state = Boss1_AI.State.LASER;
 				break;
 			}
 		}
@@ -425,7 +436,8 @@ public class Boss1_AI : Enemy
 		}
 	}
 
-	void Laser() {
+	void Laser ()
+	{
 		Debug.Log ("Laser..");
 
 		if (timer < (laserLength - laserDelay))
@@ -458,7 +470,8 @@ public class Boss1_AI : Enemy
 		}
 	}
 
-	void Spinning() {
+	void Spinning ()
+	{
 		Debug.Log ("Spinning..");
 
 		if (timer > 0.1)
@@ -483,7 +496,8 @@ public class Boss1_AI : Enemy
 		}
 	}
 
-	void Stomp() {
+	void Stomp ()
+	{
 		Debug.Log ("Stomping");
 
 		if (isStomping = true)
@@ -544,7 +558,18 @@ public class Boss1_AI : Enemy
 	{
 		if (choosing)
 		{
-			chooseAttack = Random.Range (1, 7);
+			if (tarDistance > stompAggroDist && tarHeight < upperLevelHeight)
+			{
+				chooseAttack = Random.Range (2, 5);
+			}
+			else if (tarDistance < stompAggroDist && tarHeight < upperLevelHeight)
+			{
+				chooseAttack = Random.Range (1, 5);
+			}
+			else if (tarHeight > upperLevelHeight)
+			{
+				chooseAttack = Random.Range (2, 7);
+			}
 			choosing = false;
 		}
 
@@ -569,7 +594,7 @@ public class Boss1_AI : Enemy
 		}
 	} */
 
-	protected override void EnemyDestroy()
+	protected override void EnemyDestroy ()
 	{
 		GameState.inst.keysFound [0] = true;
 		//KeyPickupManager.inst.SpawnKeyPickup(transform.position, 0); 
