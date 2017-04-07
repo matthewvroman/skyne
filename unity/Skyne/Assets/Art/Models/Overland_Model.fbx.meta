@@ -37,6 +37,8 @@ ModelImporter:
     100058: transform7
     100060: transform8
     100062: transform9
+    100064: Side
+    100066: Top
     400000: //RootNode
     400002: polySurface1
     400004: polySurface1 1
@@ -69,9 +71,17 @@ ModelImporter:
     400058: transform7
     400060: transform8
     400062: transform9
+    400064: Side
+    400066: Top
     2300000: polySurface13
+    2300002: Side
+    2300004: Top
     3300000: polySurface13
+    3300002: Side
+    3300004: Top
     4300000: polySurface13
+    4300002: Side
+    4300004: Top
   materials:
     importMaterials: 1
     materialName: 0

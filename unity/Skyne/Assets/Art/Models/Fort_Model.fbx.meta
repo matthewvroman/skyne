@@ -81,6 +81,17 @@ ModelImporter:
     7400008: ReturnToIdle
     7400010: Death
     7400012: Move
+    7400014: IdleToWalk
+    7400016: Walk
+    7400018: WalkToIdle
+    7400020: Death
+    7400022: IdleToDefense
+    7400024: DefenseToIdle
+    7400026: Defending
+    7400028: IdleToSwing
+    7400030: SwingToIdle
+    7400032: DefendToSwing
+    7400034: SwingToDefend
     9500000: //RootNode
     13700000: Forearm
     13700002: Hand
@@ -201,10 +212,262 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Shoot
+      name: IdleToWalk
       takeName: Take 001
       firstFrame: 31
+      lastFrame: 45
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Fort
+        weight: 1
+      - path: Fort/Forearm
+        weight: 1
+      - path: Fort/Hand
+        weight: 1
+      - path: Fort/Head
+        weight: 1
+      - path: Fort/Left_CannonArm
+        weight: 1
+      - path: Fort/Left_LegJoint
+        weight: 1
+      - path: Fort/Left_Stub
+        weight: 1
+      - path: Fort/Middle_Joint
+        weight: 1
+      - path: Fort/Pelvis
+        weight: 1
+      - path: Fort/Right_LegJoint
+        weight: 1
+      - path: Fort/Right_Stub
+        weight: 1
+      - path: Fort/Shield
+        weight: 1
+      - path: Fort/Shoulder
+        weight: 1
+      - path: Fort/Torso
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/L_hip
+        weight: 1
+      - path: Root/L_hip/L_knee
+        weight: 1
+      - path: Root/R_hip
+        weight: 1
+      - path: Root/R_hip/R_knee
+        weight: 1
+      - path: Root/spine
+        weight: 1
+      - path: Root/spine/chest
+        weight: 1
+      - path: Root/spine/chest/Head 1
+        weight: 1
+      - path: Root/spine/chest/L_Shoulder
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder/R_elbow
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder/R_elbow/Joint_Shield
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder/R_elbow/R_Forearm
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Walk
+      takeName: Take 001
+      firstFrame: 46
       lastFrame: 76
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Fort
+        weight: 1
+      - path: Fort/Forearm
+        weight: 1
+      - path: Fort/Hand
+        weight: 1
+      - path: Fort/Head
+        weight: 1
+      - path: Fort/Left_CannonArm
+        weight: 1
+      - path: Fort/Left_LegJoint
+        weight: 1
+      - path: Fort/Left_Stub
+        weight: 1
+      - path: Fort/Middle_Joint
+        weight: 1
+      - path: Fort/Pelvis
+        weight: 1
+      - path: Fort/Right_LegJoint
+        weight: 1
+      - path: Fort/Right_Stub
+        weight: 1
+      - path: Fort/Shield
+        weight: 1
+      - path: Fort/Shoulder
+        weight: 1
+      - path: Fort/Torso
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/L_hip
+        weight: 1
+      - path: Root/L_hip/L_knee
+        weight: 1
+      - path: Root/R_hip
+        weight: 1
+      - path: Root/R_hip/R_knee
+        weight: 1
+      - path: Root/spine
+        weight: 1
+      - path: Root/spine/chest
+        weight: 1
+      - path: Root/spine/chest/Head 1
+        weight: 1
+      - path: Root/spine/chest/L_Shoulder
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder/R_elbow
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder/R_elbow/Joint_Shield
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder/R_elbow/R_Forearm
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: WalkToIdle
+      takeName: Take 001
+      firstFrame: 77
+      lastFrame: 92
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Fort
+        weight: 1
+      - path: Fort/Forearm
+        weight: 1
+      - path: Fort/Hand
+        weight: 1
+      - path: Fort/Head
+        weight: 1
+      - path: Fort/Left_CannonArm
+        weight: 1
+      - path: Fort/Left_LegJoint
+        weight: 1
+      - path: Fort/Left_Stub
+        weight: 1
+      - path: Fort/Middle_Joint
+        weight: 1
+      - path: Fort/Pelvis
+        weight: 1
+      - path: Fort/Right_LegJoint
+        weight: 1
+      - path: Fort/Right_Stub
+        weight: 1
+      - path: Fort/Shield
+        weight: 1
+      - path: Fort/Shoulder
+        weight: 1
+      - path: Fort/Torso
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/L_hip
+        weight: 1
+      - path: Root/L_hip/L_knee
+        weight: 1
+      - path: Root/R_hip
+        weight: 1
+      - path: Root/R_hip/R_knee
+        weight: 1
+      - path: Root/spine
+        weight: 1
+      - path: Root/spine/chest
+        weight: 1
+      - path: Root/spine/chest/Head 1
+        weight: 1
+      - path: Root/spine/chest/L_Shoulder
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder/R_elbow
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder/R_elbow/Joint_Shield
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder/R_elbow/R_Forearm
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Shoot
+      takeName: Take 001
+      firstFrame: 93
+      lastFrame: 123
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -293,10 +556,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Defend
+      name: Death
       takeName: Take 001
-      firstFrame: 77
-      lastFrame: 107
+      firstFrame: 124
+      lastFrame: 146
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -377,10 +640,354 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Melee
+      name: IdleToDefense
       takeName: Take 001
-      firstFrame: 108
-      lastFrame: 128
+      firstFrame: 147
+      lastFrame: 160
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Fort
+        weight: 1
+      - path: Fort/Forearm
+        weight: 1
+      - path: Fort/Hand
+        weight: 1
+      - path: Fort/Head
+        weight: 1
+      - path: Fort/Left_CannonArm
+        weight: 1
+      - path: Fort/Left_LegJoint
+        weight: 1
+      - path: Fort/Left_Stub
+        weight: 1
+      - path: Fort/Middle_Joint
+        weight: 1
+      - path: Fort/Pelvis
+        weight: 1
+      - path: Fort/Right_LegJoint
+        weight: 1
+      - path: Fort/Right_Stub
+        weight: 1
+      - path: Fort/Shield
+        weight: 1
+      - path: Fort/Shoulder
+        weight: 1
+      - path: Fort/Torso
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/L_hip
+        weight: 1
+      - path: Root/L_hip/L_knee
+        weight: 1
+      - path: Root/R_hip
+        weight: 1
+      - path: Root/R_hip/R_knee
+        weight: 1
+      - path: Root/spine
+        weight: 1
+      - path: Root/spine/chest
+        weight: 1
+      - path: Root/spine/chest/Head 1
+        weight: 1
+      - path: Root/spine/chest/L_Shoulder
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder/R_elbow
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder/R_elbow/Joint_Shield
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder/R_elbow/R_Forearm
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: DefenseToIdle
+      takeName: Take 001
+      firstFrame: 161
+      lastFrame: 175
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 1
+        functionName: DefenseDone
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 20d53574c51b64078bdfbace80208494,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Fort
+        weight: 1
+      - path: Fort/Forearm
+        weight: 1
+      - path: Fort/Hand
+        weight: 1
+      - path: Fort/Head
+        weight: 1
+      - path: Fort/Left_CannonArm
+        weight: 1
+      - path: Fort/Left_LegJoint
+        weight: 1
+      - path: Fort/Left_Stub
+        weight: 1
+      - path: Fort/Middle_Joint
+        weight: 1
+      - path: Fort/Pelvis
+        weight: 1
+      - path: Fort/Right_LegJoint
+        weight: 1
+      - path: Fort/Right_Stub
+        weight: 1
+      - path: Fort/Shield
+        weight: 1
+      - path: Fort/Shoulder
+        weight: 1
+      - path: Fort/Torso
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/L_hip
+        weight: 1
+      - path: Root/L_hip/L_knee
+        weight: 1
+      - path: Root/R_hip
+        weight: 1
+      - path: Root/R_hip/R_knee
+        weight: 1
+      - path: Root/spine
+        weight: 1
+      - path: Root/spine/chest
+        weight: 1
+      - path: Root/spine/chest/Head 1
+        weight: 1
+      - path: Root/spine/chest/L_Shoulder
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder/R_elbow
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder/R_elbow/Joint_Shield
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder/R_elbow/R_Forearm
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Defending
+      takeName: Take 001
+      firstFrame: 160
+      lastFrame: 161
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Fort
+        weight: 1
+      - path: Fort/Forearm
+        weight: 1
+      - path: Fort/Hand
+        weight: 1
+      - path: Fort/Head
+        weight: 1
+      - path: Fort/Left_CannonArm
+        weight: 1
+      - path: Fort/Left_LegJoint
+        weight: 1
+      - path: Fort/Left_Stub
+        weight: 1
+      - path: Fort/Middle_Joint
+        weight: 1
+      - path: Fort/Pelvis
+        weight: 1
+      - path: Fort/Right_LegJoint
+        weight: 1
+      - path: Fort/Right_Stub
+        weight: 1
+      - path: Fort/Shield
+        weight: 1
+      - path: Fort/Shoulder
+        weight: 1
+      - path: Fort/Torso
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/L_hip
+        weight: 1
+      - path: Root/L_hip/L_knee
+        weight: 1
+      - path: Root/R_hip
+        weight: 1
+      - path: Root/R_hip/R_knee
+        weight: 1
+      - path: Root/spine
+        weight: 1
+      - path: Root/spine/chest
+        weight: 1
+      - path: Root/spine/chest/Head 1
+        weight: 1
+      - path: Root/spine/chest/L_Shoulder
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder/R_elbow
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder/R_elbow/Joint_Shield
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder/R_elbow/R_Forearm
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: IdleToSwing
+      takeName: Take 001
+      firstFrame: 176
+      lastFrame: 186
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Fort
+        weight: 1
+      - path: Fort/Forearm
+        weight: 1
+      - path: Fort/Hand
+        weight: 1
+      - path: Fort/Head
+        weight: 1
+      - path: Fort/Left_CannonArm
+        weight: 1
+      - path: Fort/Left_LegJoint
+        weight: 1
+      - path: Fort/Left_Stub
+        weight: 1
+      - path: Fort/Middle_Joint
+        weight: 1
+      - path: Fort/Pelvis
+        weight: 1
+      - path: Fort/Right_LegJoint
+        weight: 1
+      - path: Fort/Right_Stub
+        weight: 1
+      - path: Fort/Shield
+        weight: 1
+      - path: Fort/Shoulder
+        weight: 1
+      - path: Fort/Torso
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/L_hip
+        weight: 1
+      - path: Root/L_hip/L_knee
+        weight: 1
+      - path: Root/R_hip
+        weight: 1
+      - path: Root/R_hip/R_knee
+        weight: 1
+      - path: Root/spine
+        weight: 1
+      - path: Root/spine/chest
+        weight: 1
+      - path: Root/spine/chest/Head 1
+        weight: 1
+      - path: Root/spine/chest/L_Shoulder
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder/R_elbow
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder/R_elbow/Joint_Shield
+        weight: 1
+      - path: Root/spine/chest/R_Shoulder/R_elbow/R_Forearm
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: SwingToIdle
+      takeName: Take 001
+      firstFrame: 187
+      lastFrame: 197
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -469,10 +1076,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: ReturnToIdle
+      name: DefendToSwing
       takeName: Take 001
-      firstFrame: 129
-      lastFrame: 159
+      firstFrame: 198
+      lastFrame: 206
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -553,10 +1160,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Death
+      name: SwingToDefend
       takeName: Take 001
-      firstFrame: 160
-      lastFrame: 168
+      firstFrame: 207
+      lastFrame: 215
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -575,91 +1182,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Fort
-        weight: 1
-      - path: Fort/Forearm
-        weight: 1
-      - path: Fort/Hand
-        weight: 1
-      - path: Fort/Head
-        weight: 1
-      - path: Fort/Left_CannonArm
-        weight: 1
-      - path: Fort/Left_LegJoint
-        weight: 1
-      - path: Fort/Left_Stub
-        weight: 1
-      - path: Fort/Middle_Joint
-        weight: 1
-      - path: Fort/Pelvis
-        weight: 1
-      - path: Fort/Right_LegJoint
-        weight: 1
-      - path: Fort/Right_Stub
-        weight: 1
-      - path: Fort/Shield
-        weight: 1
-      - path: Fort/Shoulder
-        weight: 1
-      - path: Fort/Torso
-        weight: 1
-      - path: Root
-        weight: 1
-      - path: Root/L_hip
-        weight: 1
-      - path: Root/L_hip/L_knee
-        weight: 1
-      - path: Root/R_hip
-        weight: 1
-      - path: Root/R_hip/R_knee
-        weight: 1
-      - path: Root/spine
-        weight: 1
-      - path: Root/spine/chest
-        weight: 1
-      - path: Root/spine/chest/Head 1
-        weight: 1
-      - path: Root/spine/chest/L_Shoulder
-        weight: 1
-      - path: Root/spine/chest/R_Shoulder
-        weight: 1
-      - path: Root/spine/chest/R_Shoulder/R_elbow
-        weight: 1
-      - path: Root/spine/chest/R_Shoulder/R_elbow/Joint_Shield
-        weight: 1
-      - path: Root/spine/chest/R_Shoulder/R_elbow/R_Forearm
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Move
-      takeName: Take 001
-      firstFrame: 173
-      lastFrame: 204
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
+      events:
+      - time: 1
+        functionName: MeleeOver
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 20d53574c51b64078bdfbace80208494,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
