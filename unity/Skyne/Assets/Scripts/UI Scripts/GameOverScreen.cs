@@ -58,6 +58,7 @@ public class GameOverScreen : MonoBehaviour
 		GlobalManager.inst.GameOverToTitleScreen(); 
 	}
 
+	/*
 	public void SetToSelectedButton(string buttonName)
 	{
 		if (buttonName == "ContinueButton")
@@ -69,4 +70,5 @@ public class GameOverScreen : MonoBehaviour
 			gameOverEventSystem.SetSelectedGameObject(quitToTitleButton.gameObject); 
 		}
 	}
+	*/ 
 }

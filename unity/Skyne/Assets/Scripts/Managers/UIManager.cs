@@ -88,9 +88,10 @@ public class UIManager : Singleton<UIManager>
 
 				DisablePanels(); 
 				gameMenuActive = false; 
-				EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(null);
+				//EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(null);
 			}
 		}
+		/*
 		else if (gameMenuActive)
 		{
 			if (EventSystem.current.GetComponent<EventSystem>().currentSelectedGameObject != sfxSlider && EventSystem.current.GetComponent<EventSystem>().currentSelectedGameObject != musicSlider)
@@ -125,6 +126,7 @@ public class UIManager : Singleton<UIManager>
 				}
 			}
 		}
+		*/ 
 
 		// Update the map
 		if (gameMenuActive && gameMenuState == GameMenuState.Map)
@@ -147,7 +149,7 @@ public class UIManager : Singleton<UIManager>
 	{
 		mapPanel.SetActive(false);
 		optionsPanel.SetActive(true); 
-		EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(continueButton.gameObject);
+		//EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(continueButton.gameObject);
 	}
 
 	void EnableMapPanel()
@@ -156,7 +158,7 @@ public class UIManager : Singleton<UIManager>
 		optionsPanel.SetActive(false); 
 
 		MapDisplay.inst.displayLevel = LevelData.inst.curLevel; 
-		UpdateMapPanelToggles(); 
+		//UpdateMapPanelToggles(); 
 	}
 
 	void UpdateMapPanelToggles()
@@ -193,7 +195,7 @@ public class UIManager : Singleton<UIManager>
 		GlobalManager.inst.buttonUIIsActive = false;
 		DisablePanels(); 
 		gameMenuActive = false; 
-		EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(null);
+		//EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(null);
 	}
 
 	public void OnQuitButton()
@@ -202,6 +204,37 @@ public class UIManager : Singleton<UIManager>
 		GlobalManager.inst.GameplayToTitleScreen(); 
 	}
 
+	public void OnTabButton()
+	{
+		if (gameMenuState == GameMenuState.Map)
+		{
+			gameMenuState = GameMenuState.Options; 
+			EnableOptionsPanel();
+		}
+		else if (gameMenuState == GameMenuState.Options)
+		{
+			gameMenuState = GameMenuState.Map; 
+			EnableMapPanel(); 
+		}
+	}
+
+	public void OnLevelButton(string levelName)
+	{
+		if (levelName == "Bottom")
+		{
+			MapDisplay.inst.displayLevel = 1; 
+		}
+		else if (levelName == "Middle")
+		{
+			MapDisplay.inst.displayLevel = 2; 
+		}
+		else if (levelName == "Top")
+		{
+			MapDisplay.inst.displayLevel = 3; 
+		}
+	}
+
+	/*
 	public void SetToSelectedButton(string buttonName)
 	{
 		if (buttonName == "ContinueButton")
@@ -213,6 +246,7 @@ public class UIManager : Singleton<UIManager>
 			levelEventSystem.SetSelectedGameObject(quitButton.gameObject); 
 		}
 	}
+	*/ 
 
 
 

@@ -77,7 +77,7 @@ public class TitleScreen : MonoBehaviour
 		mainMenu.SetActive (false);
 		settingsMenu.SetActive (true);
 
-		EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(backButton.gameObject); 
+		//EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(backButton.gameObject); 
 	}
 
 	// QuitGameButton
@@ -92,7 +92,7 @@ public class TitleScreen : MonoBehaviour
 		settingsMenu.SetActive (false);
 		mainMenu.SetActive (true);
 
-		EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(settingsButton.gameObject);
+		//EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(settingsButton.gameObject);
 	}
 
 	public IEnumerator StartGameFadeOut()
@@ -105,6 +105,12 @@ public class TitleScreen : MonoBehaviour
 		GlobalManager.inst.TitleToLoadScreen(); 
 	}
 
+	/// <summary>
+	/// Deprecated. Use for key navigation in conjunction with mouse navigation
+	/// To use, add an EventTrigger component to the button listening for a PointerEnter event
+	/// Then, call this function and pass the buttonName string
+	/// This keeps the last button the mouse hovered over selected 
+	/// </summary>
 	public void SetToSelectedButton(string buttonName)
 	{
 		if (buttonName == "NewGameButton")
