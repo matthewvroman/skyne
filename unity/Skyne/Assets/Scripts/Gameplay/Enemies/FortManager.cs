@@ -434,6 +434,9 @@ public class FortManager : Enemy
 		fortAudio.volume = Random.Range (0.8f, 1);
 		fortAudio.pitch = Random.Range (0.8f, 1);
 		fortAudio.PlayOneShot (shootSound);
+
+		if (shotFireParticles != null)
+			shotFireParticles.Play(); 
 	}
 
 	void DefenseDone()

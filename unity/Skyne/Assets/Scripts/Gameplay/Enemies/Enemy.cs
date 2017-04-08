@@ -51,6 +51,8 @@ public class Enemy : MonoBehaviour
 
 	public SmokeParticles[] smokeParticles;
 
+	public ParticleSystem shotFireParticles; 
+
 	/// <summary>
 	/// Weak points determine colliders that are affected by shots and the defense
 	/// </summary>

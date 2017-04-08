@@ -127,13 +127,18 @@ public class BoltManager : Enemy
 					TryAttackWalk(); 
 				}
 			}
-			else if (tarDistance < aggroDistance)
+			else if (state != BoltManager.State.IDLE && tarDistance < aggroDistance)
 			{
 				state = BoltManager.State.POSITION;
 			}
 			else
 			{
 				state = BoltManager.State.IDLE;
+
+				if (tarDistance < aggroDistance && CanHitTarget())
+				{
+					state = BoltManager.State.POSITION; 
+				}
 			}
 
 		}
@@ -327,6 +332,9 @@ public class BoltManager : Enemy
 		boltAudio.volume = Random.Range (0.8f, 1);
 		boltAudio.pitch = Random.Range (0.8f, 1);
 		boltAudio.PlayOneShot (shootSound);
+
+		if (shotFireParticles != null)
+			shotFireParticles.Play(); 
 	}
 
 	float GetDot()

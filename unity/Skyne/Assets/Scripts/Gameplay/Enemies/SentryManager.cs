@@ -270,6 +270,9 @@ public class SentryManager : Enemy
 			sentryAudio.volume = Random.Range (0.8f, 1);
 			sentryAudio.pitch = Random.Range (0.8f, 1);
 			sentryAudio.PlayOneShot (shootSound);
+
+			if (shotFireParticles != null)
+				shotFireParticles.Play(); 
 		}
 
 		anim.SetBool ("isShooting", true);
