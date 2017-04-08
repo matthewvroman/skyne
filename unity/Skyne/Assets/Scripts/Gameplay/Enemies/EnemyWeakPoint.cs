@@ -10,8 +10,12 @@ public class EnemyWeakPoint : MonoBehaviour
 	[Tooltip("The bullet damage is modified by this value to calculate the final damage value. 0.5 means half damage; 1 = normal damage; 0 = no damage")]
 	public float defenseModifier; 
 
-	[Tooltip("If this is marked as a weak point, special effects can be triggered when this collider is hit.")]
-	public bool isWeakPoint; 
+	//[Tooltip("If this is marked as a weak point, special effects can be triggered when this collider is hit.")]
+	//public bool isWeakPoint; 
+
+	public enum WeakPointType {Critical, Normal, Low}; 
+	[Tooltip("The type of weak point that will determine the flash color and particle effects.")]
+	public WeakPointType weakPointType; 
 
 	/// <summary>
 	/// Called by Bullet when it hits a gameObject with the enemy tag
@@ -32,7 +36,7 @@ public class EnemyWeakPoint : MonoBehaviour
 
 
 		//Debug.Log("Bullet hit enemy"); 
-		enemyParent.OnShot(collision, bullet, defenseModifier, isWeakPoint); 
+		enemyParent.OnShot(collision, bullet, defenseModifier, weakPointType); 
 
 	}
 }

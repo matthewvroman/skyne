@@ -39,6 +39,9 @@ public class FortManager : Enemy
 	[Tooltip ("How close to the front-facing direction of the enemy does the player need to be for the fort to melee? 1 = exact front, < 1 = close range")]
 	public float meleeFrontZone; 
 
+	public float meleeDelay; 
+	float curMeleeDelay; 
+
 	[Tooltip ("How long the enemy must wait after firing a shot")]
 	public float cooldownLength; 
 	float cooldownTimer; 
@@ -105,10 +108,14 @@ public class FortManager : Enemy
 			//Determines the distance from the enemy to the player
 			tarDistance = Vector3.Distance(target.position, transform.position);
 
-			//Switches between states based on the distance from the player to the enemy
 
+			//Switches between states based on the distance from the player to the enemy
+			if (state == FortManager.State.MELEE)
+			{
+				// Nothing here
+			}
 			// Try attacking the player, as long as the enemy has moved out of idle 
-			if (state != FortManager.State.IDLE && CanHitTarget() && state != FortManager.State.MELEE)
+			else if (state != FortManager.State.IDLE && CanHitTarget())
 			{
 				// Update the shooting delay
 				if (curShootDelay >= 0 && cooldownTimer == 0)
@@ -126,6 +133,14 @@ public class FortManager : Enemy
 						cooldownTimer = 0; 
 						anim.SetBool("isDefending", false); 
 					}
+				}
+
+				// Update the melee delay
+				if (curMeleeDelay > 0)
+				{
+					curMeleeDelay -= Time.deltaTime; 
+					if (curMeleeDelay < 0)
+						curMeleeDelay = 0; 
 				}
 
 				// Melee is first priority for tests
@@ -146,7 +161,7 @@ public class FortManager : Enemy
 					TryAttackWalk(); 
 				}
 			}
-			else if (tarDistance < aggroDistance && state != FortManager.State.MELEE)
+			else if (tarDistance < aggroDistance)
 			{
 				state = FortManager.State.POSITION;
 			}
@@ -233,16 +248,20 @@ public class FortManager : Enemy
 
 	void TryMelee()
 	{
-		Vector3 targetFlatPosition = new Vector3(target.position.x, transform.position.y, target.position.z); 
-		Vector3 thisFlatPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z); 
-
-		float dot = Vector3.Dot(transform.forward, (targetFlatPosition - thisFlatPosition).normalized);
-
-		if (dot > meleeFrontZone)
+		if (curMeleeDelay == 0)
 		{
-			state = FortManager.State.MELEE;
-			//anim.SetBool("Melee", true); 
-			anim.SetTrigger("Melee"); 
+			Vector3 targetFlatPosition = new Vector3 (target.position.x, transform.position.y, target.position.z); 
+			Vector3 thisFlatPosition = new Vector3 (transform.position.x, transform.position.y, transform.position.z); 
+
+			float dot = Vector3.Dot(transform.forward, (targetFlatPosition - thisFlatPosition).normalized);
+
+			if (dot > meleeFrontZone)
+			{
+				state = FortManager.State.MELEE;
+				//anim.SetBool("Melee", true); 
+				anim.SetTrigger("Melee"); 
+				curMeleeDelay = meleeDelay; 
+			}
 		}
 	}
 

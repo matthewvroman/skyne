@@ -7,13 +7,13 @@ public class SceneLighting : MonoBehaviour
 	[Tooltip ("Drag in the player gameObject")]
 	public GameObject player;
 
-	//public Light dirLight;
+	public Light dirLight;
 
 	[Tooltip ("(Read only) Whether the player is indoors and indoor lighting is being used")]
 	public bool indoorLighting; 
 
 	[Tooltip ("How quickly the ambient light color lerps between indoor/outdoor colors")]
-	public float lightLerpSpeed; 
+	public float lerpSpeed; 
 
 	[Tooltip ("The distance around the player that is raycast tested by shooting a raycast up. All raycasts around the player must have the same result before indoorLighting changes")]
 	public float playerTestRadius; 
@@ -23,14 +23,16 @@ public class SceneLighting : MonoBehaviour
 	public Color indoorAmbientColor; 
 	public Color outdoorAmbientColor; 
 
-	/*
+
 	[Space(5)]
 	[Header("Directional light settings")]
 	public float indoorIntensity; 
 	public float outdoorIntensity; 
 	public Color indoorColor; 
 	public Color outdoorColor; 
-	*/ 
+
+	float lerpTime; 
+	 
 
 
 	// Use this for initialization
@@ -47,7 +49,10 @@ public class SceneLighting : MonoBehaviour
 		{
 			//RenderSettings.ambientLight = indoorAmbientColor; 
 
-			RenderSettings.ambientLight = Color.Lerp(RenderSettings.ambientLight, indoorAmbientColor, lightLerpSpeed);
+			RenderSettings.ambientLight = Color.Lerp(RenderSettings.ambientLight, indoorAmbientColor, lerpSpeed);
+
+			dirLight.color = Color.Lerp(dirLight.color, indoorColor, lerpSpeed); 
+			dirLight.intensity = Mathf.Lerp(dirLight.intensity, indoorIntensity, lerpSpeed); 
 
 			//dirLight.color = indoorColor; 
 			//dirLight.intensity = indoorIntensity; 
@@ -57,7 +62,10 @@ public class SceneLighting : MonoBehaviour
 		{
 			//RenderSettings.ambientLight = outdoorAmbientColor;
 
-			RenderSettings.ambientLight = Color.Lerp(RenderSettings.ambientLight, outdoorAmbientColor, lightLerpSpeed);
+			RenderSettings.ambientLight = Color.Lerp(RenderSettings.ambientLight, outdoorAmbientColor, lerpSpeed);
+
+			dirLight.color = Color.Lerp(dirLight.color, outdoorColor, lerpSpeed); 
+			dirLight.intensity = Mathf.Lerp(dirLight.intensity, outdoorIntensity, lerpSpeed); 
 
 			//dirLight.color = outdoorColor;
 			//dirLight.intensity = outdoorIntensity;

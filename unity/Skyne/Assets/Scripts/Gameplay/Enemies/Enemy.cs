@@ -29,8 +29,9 @@ public class Enemy : MonoBehaviour
 	public Animator anim;
 
 	public Color defaultColor;
-	public Color hitColor; 
 	public Color criticalHitColor; 
+	public Color normalHitColor;
+	public Color lowHitColor; 
 
 	// Smoke Particles
 	[System.Serializable]
@@ -85,7 +86,7 @@ public class Enemy : MonoBehaviour
 	}
 
 		
-	public void OnShot (Collision collision, Bullet bullet, float defenseModifier, bool isWeakPoint)
+	public void OnShot (Collision collision, Bullet bullet, float defenseModifier, EnemyWeakPoint.WeakPointType weakPointType)
 	{
 		Collider col = collision.collider; 
 
@@ -111,19 +112,30 @@ public class Enemy : MonoBehaviour
 			StopCoroutine("DamageFlash");
 
 			// If the bullet has hit an enemy weak point
-			if (!isWeakPoint)
+			if (weakPointType == EnemyWeakPoint.WeakPointType.Critical)
 			{
-				numParticles *= 2; 
+				//numParticles *= 3;
+				numParticles = 0; 
 
 				// Do an extra particle effect to indicate that a weak point has been hit
-				// Do a weak damage flash
-				StartCoroutine ("DamageFlash", hitColor);
+				Quaternion contactRot = Quaternion.FromToRotation(Vector3.up, collision.contacts[0].normal);
+				ExplosionManager.inst.SpawnCriticalHitExplosion(collision.contacts[0].point, contactRot); 
+
+				// Do a critical damage flash
+				StartCoroutine("DamageFlash", criticalHitColor);
 			}
-			// If the bullet has hit a part of the enemy that isn't a weak point but still does damage
-			else
+			// If the bullet has hit a part of the enemy that isn't a weak point but still does normal damage
+			else if (weakPointType == EnemyWeakPoint.WeakPointType.Normal)
 			{
-				// Do a strong damage flash
-				StartCoroutine("DamageFlash", criticalHitColor); 
+				// Do a normal damage flash
+				StartCoroutine("DamageFlash", normalHitColor); 
+			}
+			// If the bullet has hit a section of the enemy with strong armor
+			else if (weakPointType == EnemyWeakPoint.WeakPointType.Low)
+			{
+				// Do a weak damage flash
+				numParticles = 0; 
+				StartCoroutine("DamageFlash", lowHitColor); 
 			}
 
 			//this.GetComponentInChildren<SkinnedMeshRenderer> ().material.color = Color.Lerp (Color.white, Color.red, Mathf.PingPong (Time.time * 4, 0.7f));

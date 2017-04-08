@@ -56,8 +56,8 @@ public class GameState : Singleton<GameState>
 		if (newValue == true)
 		{
 			// Trigger ending sequence
-			escapeSequenceActive = true; 
-			escapeTimer = escapeTimerLength; 
+			//escapeSequenceActive = true; 
+			//escapeTimer = escapeTimerLength; 
 		}
 	}
 
