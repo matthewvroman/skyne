@@ -42,6 +42,8 @@ public class FortManager : Enemy
 	public float meleeDelay; 
 	[SerializeField] float curMeleeDelay; 
 
+	public GameObject meleeCollider; 
+
 	[Tooltip ("How long the enemy must wait after firing a shot")]
 	public float cooldownLength; 
 	float cooldownTimer; 
@@ -83,6 +85,8 @@ public class FortManager : Enemy
 		maxHealth = health; 
 
 		fortAudio = GetComponent<AudioSource> ();
+
+		meleeCollider.SetActive(false); 
 
 		//START State Machine
 		StartCoroutine ("BSM");
@@ -405,14 +409,20 @@ public class FortManager : Enemy
 
 	void MeleeOver()
 	{
-		Debug.Log("Fort MeleeOver"); 
-		state = FortManager.State.POSITION; 
+		//Debug.Log("Fort MeleeOver");
+		meleeCollider.SetActive(false); 
+		state = FortManager.State.POSITION;
 	}
 
 	void ShotOver()
 	{
 		anim.SetBool("isDefending", true); 
 		anim.SetTrigger("Defend"); 
+	}
+
+	void OnAnimMelee()
+	{
+		meleeCollider.SetActive(true); 
 	}
 
 	void OnAnimShoot()
