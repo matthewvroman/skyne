@@ -222,14 +222,25 @@ public class GameState : Singleton<GameState>
 
 	/// <summary>
 	/// Returns the number of keys (0 - 3) found.
+	/// MODIFIED to use the abilities found in place of keys
 	/// </summary>
 	/// <returns>The number keys found.</returns>
 	public int GetNumKeysFound()
 	{
+		/*
 		int result = 0; 
 		for (int i = 0; i < keysFound.Length; i++)
 		{
 			if (keysFound[i])
+				result++; 
+		}
+		return result; 
+		*/
+
+		int result = 0; 
+		for (int i = 0; i < 3; i++)
+		{
+			if (upgradesFound[i])
 				result++; 
 		}
 		return result; 

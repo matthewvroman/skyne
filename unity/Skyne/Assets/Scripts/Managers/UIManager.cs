@@ -66,6 +66,8 @@ public class UIManager : Singleton<UIManager>
 			// If not active, set game menu to active and set it up
 			if (!gameMenuActive)
 			{
+				Debug.Log("Reveal game menu"); 
+
 				GlobalManager.inst.SetGamePaused(true); 
 				GlobalManager.inst.buttonUIIsActive = true; 
 
@@ -83,51 +85,18 @@ public class UIManager : Singleton<UIManager>
 			// If active, close the game menu
 			else
 			{
+				Debug.Log("Hide game menu has temporarily been disabled with Escape key due to bug"); 
+
+				/*
 				GlobalManager.inst.SetGamePaused(false); 
-				GlobalManager.inst.buttonUIIsActive = false; 
-
+				GlobalManager.inst.buttonUIIsActive = false;
 				DisablePanels(); 
-				gameMenuActive = false; 
-				//EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(null);
+				gameMenuActive = false;  
+				*/ 
 			}
 		}
-		/*
-		else if (gameMenuActive)
-		{
-			if (EventSystem.current.GetComponent<EventSystem>().currentSelectedGameObject != sfxSlider && EventSystem.current.GetComponent<EventSystem>().currentSelectedGameObject != musicSlider)
-			{
-				// Shift menu left
-				if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
-				{
-					if (gameMenuState == GameMenuState.Map)
-					{
-						gameMenuState = GameMenuState.Options;
-						EnableOptionsPanel(); 
-					}
-					else if (gameMenuState == GameMenuState.Options)
-					{
-						gameMenuState = GameMenuState.Map; 
-						EnableMapPanel(); 
-					}
-				}
-				// Shift menu right
-				else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
-				{
-					if (gameMenuState == GameMenuState.Map)
-					{
-						gameMenuState = GameMenuState.Options; 
-						EnableOptionsPanel();
-					}
-					else if (gameMenuState == GameMenuState.Options)
-					{
-						gameMenuState = GameMenuState.Map; 
-						EnableMapPanel(); 
-					}
-				}
-			}
-		}
-		*/ 
 
+		/*
 		// Update the map
 		if (gameMenuActive && gameMenuState == GameMenuState.Map)
 		{
@@ -142,8 +111,8 @@ public class UIManager : Singleton<UIManager>
 				UpdateMapPanelToggles(); 
 			}
 		}
+		*/ 
 	}
-
 
 	void EnableOptionsPanel()
 	{
@@ -233,124 +202,4 @@ public class UIManager : Singleton<UIManager>
 			MapDisplay.inst.displayLevel = 3; 
 		}
 	}
-
-	/*
-	public void SetToSelectedButton(string buttonName)
-	{
-		if (buttonName == "ContinueButton")
-		{
-			levelEventSystem.SetSelectedGameObject(continueButton.gameObject); 
-		}
-		else if (buttonName == "QuitButton")
-		{
-			levelEventSystem.SetSelectedGameObject(quitButton.gameObject); 
-		}
-	}
-	*/ 
-
-
-
-	/*
-	/// <summary>
-	/// Pauses the game.
-	/// </summary>
-	void CheckPause ()
-	{
-		if (Input.GetKeyDown (KeyCode.Escape) && !MapDisplay.inst.statusPanel.activeSelf) 
-		{
-			if (!GlobalManager.inst.gamePaused)
-			{
-				GlobalManager.inst.SetGamePaused(true); 
-				menu.SetActive (true);
-				EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(continueButton.gameObject);
-			}
-			else
-			{
-				GlobalManager.inst.SetGamePaused(false); 
-				menu.SetActive (false);
-				EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(null);
-			}
-		}
-	}
-
-	public void OnContinueButton()
-	{
-		if (GlobalManager.inst.gamePaused)
-		{
-			GlobalManager.inst.SetGamePaused(false); 
-			menu.SetActive(false);
-			EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(null);
-		}
-	} 
-
-	void CheckStatusPanelReveal ()
-	{
-		// Use 'Q' key to reveal/hide status panel and map
-		if (Input.GetKeyDown(KeyCode.Q))
-		{
-			if (!GlobalManager.inst.gamePaused)
-			{
-				GlobalManager.inst.SetGamePaused(true); 
-
-				MapDisplay.inst.statusPanel.SetActive(!MapDisplay.inst.statusPanel.activeSelf); 
-
-				// Set the toggle to the current floor
-				level1Toggle.isOn = false;
-				level2Toggle.isOn = false; 
-				level3Toggle.isOn = false; 
-
-				if (LevelData.inst.curLevel == 1)
-				{
-					level1Toggle.isOn = true; 
-					EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(level1Toggle.gameObject);
-				}
-				else if (LevelData.inst.curLevel == 2)
-				{
-					level2Toggle.isOn = true; 
-					EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(level2Toggle.gameObject);
-				}
-				else if (LevelData.inst.curLevel == 3)
-				{
-					level3Toggle.isOn = true; 
-					EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(level3Toggle.gameObject);
-				}
-			}
-			else
-			{
-				GlobalManager.inst.SetGamePaused(false); 
-
-				MapDisplay.inst.statusPanel.SetActive(!MapDisplay.inst.statusPanel.activeSelf); 
-				EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(null);
-			}
-		}
-	}
-
-
-
-	/// <summary>
-	/// Reveals GameOver UI.
-	/// </summary>
-	public void GameOver ()
-	{
-		Time.timeScale = 0;
-		gameOverUI.SetActive (true);
-	}
-
-	/// <summary>
-	/// Exits Game
-	/// </summary>
-	public void ExitGameClicked ()
-	{
-		//Time.timeScale = 1;
-		GlobalManager.inst.LoadTitle (); 
-	}
-
-	/// <summary>
-	/// Triggers the end game timer when the player picks up the artifact.
-	/// </summary>
-	public void EndGameSequence()
-	{
-		endTimerUI.SetActive (true); //Activates the end sequence timer.
-	}
-	*/ 
 }
