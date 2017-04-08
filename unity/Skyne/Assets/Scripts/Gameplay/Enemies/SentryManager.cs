@@ -36,7 +36,7 @@ public class SentryManager : Enemy
 
 	public GameObject target;
 
-	GameObject bulletSpawner;
+	public GameObject bulletSpawner;
 	//GameObject frontObject;
 
 	AudioSource sentryAudio;
@@ -77,7 +77,7 @@ public class SentryManager : Enemy
 
 		sentryAudio = GetComponent<AudioSource> ();
 
-		bulletSpawner = transform.Find ("BulletSpawner").gameObject; 
+		//bulletSpawner = transform.Find ("BulletSpawner").gameObject; 
 		//frontObject = bulletSpawner;
 
 		maxHealth = health; 
