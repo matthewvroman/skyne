@@ -70,6 +70,7 @@ public class AmbushRoom : MonoBehaviour
 		{
 			//isDone = true;
 			GameState.inst.ambushRoomsDone[index] = true;
+			isDone = true;
 		}
 
 		if (isDone == false)
