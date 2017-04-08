@@ -98,6 +98,7 @@ public class HealthPickup : MonoBehaviour
 		if (col.tag == "Player")
 		{
 			PlayerManager.HealCalculator(healthValue); 
+			ExplosionManager.inst.SpawnHealthPickupExplosion(transform.position); 
 			Destroy(this.gameObject);
 		}
 	}

@@ -6,7 +6,8 @@ public class ExplosionManager : Singleton<ExplosionManager>
 {
 	public GameObject enemyExplosionPrefab;
 	public GameObject enemyHitParticlesPrefab; 
-	public GameObject criticalHitExplosionPrefab; 
+	public GameObject criticalHitExplosionPrefab;
+	public GameObject healthPickupExplosionPrefab; 
 
 	public void SpawnEnemyExplosion(Vector3 spawnPos)
 	{
@@ -29,5 +30,15 @@ public class ExplosionManager : Singleton<ExplosionManager>
 	public void SpawnCriticalHitExplosion(Vector3 spawnPos, Quaternion spawnRot)
 	{
 		GameObject newExplosion = GameObject.Instantiate(criticalHitExplosionPrefab, spawnPos, spawnRot, transform); 
+	}
+
+	public void SpawnHealthPickupExplosion(Vector3 spawnPos)
+	{
+		GameObject newPickupExplosion = GameObject.Instantiate(healthPickupExplosionPrefab, spawnPos, Quaternion.identity, transform); 
+
+		if (GameObject.FindObjectOfType<PlayerManager>().gameObject != null)
+		{
+			newPickupExplosion.transform.SetParent(GameObject.FindObjectOfType<PlayerManager>().transform); 
+		}
 	}
 }
