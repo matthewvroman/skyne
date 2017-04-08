@@ -269,6 +269,7 @@ public class PlayerManager : MonoBehaviour
 			if (dashCounter == 2 && GameState.inst.upgradesFound [2])
 			{
 				isDashing = true;
+				anim.SetTrigger ("Dash");
 				startCooldown = true;
 			}
 		}
@@ -375,13 +376,13 @@ public class PlayerManager : MonoBehaviour
 		{
 			//move
 			velocity.x = moveSetting.strafeVel * strafeInput * Time.timeScale;
-			anim.SetFloat ("orientation", velocity.x);
+			anim.SetFloat ("xDir", velocity.x);
 		}
 		else if (strafeInput == 0 && isDashing == false && !isWallJumping && Grounded ())
 		{
 			//zero velocity
 			velocity.x = 0;
-			anim.SetFloat ("orientation", velocity.x);
+			anim.SetFloat ("yDir", velocity.x);
 		}
 	}
 

@@ -6,10 +6,26 @@ ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Floor
+    100004: Floor 1
+    100006: House
+    100008: House 1
+    100010: transform1
+    100012: transform2
     400000: //RootNode
+    400002: Floor
+    400004: Floor 1
+    400006: House
+    400008: House 1
+    400010: transform1
+    400012: transform2
     2300000: //RootNode
+    2300002: Floor
     3300000: //RootNode
+    3300002: Floor
     4300000: House
+    4300002: Floor
+    4300004: FlatHouse
   materials:
     importMaterials: 1
     materialName: 0
