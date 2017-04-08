@@ -40,7 +40,7 @@ public class FortManager : Enemy
 	public float meleeFrontZone; 
 
 	public float meleeDelay; 
-	float curMeleeDelay; 
+	[SerializeField] float curMeleeDelay; 
 
 	[Tooltip ("How long the enemy must wait after firing a shot")]
 	public float cooldownLength; 
@@ -174,7 +174,7 @@ public class FortManager : Enemy
 
 		if (!alive)
 		{
-			if (anim.GetCurrentAnimatorStateInfo(1).IsName("DeathDone"))
+			if (anim.GetCurrentAnimatorStateInfo(2).IsName("DeathDone"))
 			{
 				DestroyEnemy(); 
 			}
@@ -369,18 +369,10 @@ public class FortManager : Enemy
 
 		if (curShootDelay == 0)
 		{
-			Debug.Log("Shoot bullet"); 
+			//Debug.Log("Shoot bullet"); 
 
 			curShootDelay = shootDelay;
 			cooldownTimer = cooldownLength; 
-
-			// Pass ProjectileManager this bolt's bullet spawner and shoot a new bullet
-			//ProjectileManager.inst.Shoot_E_Normal(bulletSpawner, true); 
-			ProjectileManager.inst.EnemyShoot(bulletSpawner, bulletPrefab, true); 
-
-			fortAudio.volume = Random.Range (0.8f, 1);
-			fortAudio.pitch = Random.Range (0.8f, 1);
-			fortAudio.PlayOneShot (shootSound);
 
 			//anim.SetBool("isShooting", true); 
 			anim.SetTrigger("Shoot"); 
@@ -392,6 +384,8 @@ public class FortManager : Enemy
 	{
 		agent.speed = 0; 
 		agent.enabled = false; 
+		//anim.SetBool("isDefending", false); 
+		anim.SetBool("isWalking", false); 
 	}
 
 	protected override void EnemyDestroy()
@@ -419,5 +413,21 @@ public class FortManager : Enemy
 	{
 		anim.SetBool("isDefending", true); 
 		anim.SetTrigger("Defend"); 
+	}
+
+	void OnAnimShoot()
+	{
+		// Pass ProjectileManager this bolt's bullet spawner and shoot a new bullet
+		//ProjectileManager.inst.Shoot_E_Normal(bulletSpawner, true); 
+		ProjectileManager.inst.EnemyShoot(bulletSpawner, bulletPrefab, true); 
+
+		fortAudio.volume = Random.Range (0.8f, 1);
+		fortAudio.pitch = Random.Range (0.8f, 1);
+		fortAudio.PlayOneShot (shootSound);
+	}
+
+	void DefenseDone()
+	{
+		//Empty function
 	}
 }

@@ -33,6 +33,10 @@ public class Enemy : MonoBehaviour
 	public Color normalHitColor;
 	public Color lowHitColor; 
 
+	public float criticalHitDamageModifier; 
+	public float normalHitDamageModifier; 
+	public float lowHitDamageModifier; 
+
 	// Smoke Particles
 	[System.Serializable]
 	public struct SmokeParticles
@@ -86,7 +90,7 @@ public class Enemy : MonoBehaviour
 	}
 
 		
-	public void OnShot (Collision collision, Bullet bullet, float defenseModifier, EnemyWeakPoint.WeakPointType weakPointType)
+	public void OnShot (Collision collision, Bullet bullet, EnemyWeakPoint.WeakPointType weakPointType)
 	{
 		Collider col = collision.collider; 
 
@@ -95,6 +99,16 @@ public class Enemy : MonoBehaviour
 		// Check that the bullet was shot by the player and hasn't already been set to destroy itself
 		if (bullet.playerBullet && !bullet.shouldDestroy)
 		{
+			// Choose which defense modifier to use
+			float defenseModifier = 1; 
+
+			if (weakPointType == EnemyWeakPoint.WeakPointType.Critical)
+				defenseModifier = criticalHitDamageModifier;
+			else if (weakPointType == EnemyWeakPoint.WeakPointType.Normal)
+				defenseModifier = normalHitDamageModifier;
+			else if (weakPointType == EnemyWeakPoint.WeakPointType.Low)
+				defenseModifier = lowHitDamageModifier; 
+
 			// Update the enemy health
 			float actualDamage = bullet.damage * defenseModifier; 
 			health -= actualDamage; 

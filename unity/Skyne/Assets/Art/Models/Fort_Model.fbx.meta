@@ -487,16 +487,16 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 1
-        functionName: ShotOver
+      - time: 0.50403225
+        functionName: OnAnimShoot
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 20d53574c51b64078bdfbace80208494,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0
-        functionName: OnAnimShoot
+      - time: 1
+        functionName: ShotOver
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 20d53574c51b64078bdfbace80208494,
           type: 3}
