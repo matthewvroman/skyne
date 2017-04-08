@@ -318,7 +318,7 @@ public class PlayerManager : MonoBehaviour
 			Jump ();
 		}
 
-		anim.SetFloat ("velocity", Mathf.Abs (forwardInput) + Mathf.Abs (strafeInput));
+		anim.SetFloat ("Velocity", Mathf.Abs (forwardInput) + Mathf.Abs (strafeInput));
 
 		if (GameState.inst.upgradesFound [1])
 		{
@@ -340,14 +340,17 @@ public class PlayerManager : MonoBehaviour
 
 	void Animations ()
 	{
-		anim.SetBool ("isGrounded", Grounded ());
-		anim.SetFloat ("verticalVelocity", velocity.y);
-		anim.SetBool ("isOnWall", backToWall);
-		anim.SetBool ("wallJumped", isWallJumping);
-		anim.SetBool ("canDoubleJump", canDoubleJump);
-		anim.SetBool ("isDashing", isDashing);
-		anim.SetBool ("isHit", isPushed);
 		anim.SetBool ("isDoubleJumping", isDoubleJumping);
+		anim.SetFloat ("verticalVelocity", velocity.y);
+
+		anim.SetBool ("isGrounded", Grounded ());
+		anim.SetBool ("isOnWall", backToWall);
+		anim.SetBool ("canDoubleJump", canDoubleJump);
+
+		anim.SetBool ("wallJumped", isWallJumping);
+
+//		anim.SetBool ("Dash", isDashing);
+//		anim.SetBool ("isHit", isPushed);
 	}
 
 	/// <summary>
@@ -359,11 +362,13 @@ public class PlayerManager : MonoBehaviour
 		{
 			//move
 			velocity.z = moveSetting.forwardVel * forwardInput * Time.timeScale;
+			anim.SetFloat ("zDir", velocity.z);
 		}
 		else if (forwardInput == 0 && isDashing == false && !isWallJumping && Grounded ())
 		{
 			//zero velocity
 			velocity.z = 0;
+			anim.SetFloat ("zDir", velocity.z);
 		}
 	}
 
@@ -382,7 +387,7 @@ public class PlayerManager : MonoBehaviour
 		{
 			//zero velocity
 			velocity.x = 0;
-			anim.SetFloat ("yDir", velocity.x);
+			anim.SetFloat ("xDir", velocity.x);
 		}
 	}
 
@@ -424,6 +429,7 @@ public class PlayerManager : MonoBehaviour
 		{
 			//Jump
 			velocity.y = moveSetting.jumpVel;
+			anim.SetTrigger ("Jump");
 			canDoubleJump = true;
 		}
 		else if (jumpInput == 0 && Grounded ())
@@ -442,6 +448,7 @@ public class PlayerManager : MonoBehaviour
 				if (Input.GetKeyDown (KeyCode.Space) && canDoubleJump)
 				{
 					isDoubleJumping = true;
+//					anim.SetTrigger ("DoubleJump");
 					velocity.y = moveSetting.jumpVel;
 					canDoubleJump = false;
 
@@ -799,7 +806,8 @@ public class PlayerManager : MonoBehaviour
 
 	IEnumerator Knockback ()
 	{
-		isPushed = true;
+//		isPushed = true;
+		anim.SetTrigger ("isHit");
 
 		playerAudio.clip = null;
 		playerAudio.PlayOneShot (ameliaGrunt2);
