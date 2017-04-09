@@ -6,11 +6,21 @@ ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Platform
+    100004: Room
     400000: //RootNode
+    400002: Platform
+    400004: Room
     2300000: //RootNode
+    2300002: Platform
+    2300004: Room
     3300000: //RootNode
+    3300002: Platform
+    3300004: Room
     4300000: pCylinder1
     4300002: BossRoom
+    4300004: Room
+    4300006: Platform
   materials:
     importMaterials: 1
     materialName: 0
