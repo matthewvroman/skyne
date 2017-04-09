@@ -22,6 +22,8 @@ public class Boss1_AI : Enemy
 
 	int phase;
 
+	public float turnSpeed;
+
 	public bool attacking;
 	public bool choosing;
 
@@ -37,7 +39,10 @@ public class Boss1_AI : Enemy
 	public float stompAggroDist;
 
 	float tarHeight;
-	float upperLevelHeight;
+	public float upperLevelHeight;
+
+	public GameObject smallHoming;
+	public GameObject bigHoming;
 
 	public float homingDelay;
 	float curHomingDelay;
@@ -74,7 +79,7 @@ public class Boss1_AI : Enemy
 
 	public Animator anim;
 
-	GameObject bulletSpawner1;
+	public GameObject bulletSpawner1;
 
 	GameObject stompCollider;
 	GameObject stompColliderExpand;
@@ -127,9 +132,9 @@ public class Boss1_AI : Enemy
 
 		//boss1Audio.Play ();
 
-		bulletSpawner1 = boss.transform.Find ("BulletSpawner1").gameObject; 
+		//bulletSpawner1 = boss.transform.Find ("BulletSpawner1").gameObject; 
 
-		upperLevelHeight = bulletSpawner1.transform.position.y;
+		//upperLevelHeight 
 
 		stompCollider = transform.Find ("StompCollision").gameObject;
 		stompColliderExpand = transform.Find ("StompCollisionExpand").gameObject;
@@ -221,6 +226,15 @@ public class Boss1_AI : Enemy
 
 			tarDistance = Vector3.Distance (target.transform.position, transform.position);
 			tarHeight = target.transform.position.y;
+
+			if (canSeeTarget ())
+			{
+				Quaternion q = Quaternion.LookRotation(target.transform.position - bulletSpawner1.transform.position);
+				q.x = 0;
+				q.z = 0;
+				transform.rotation = Quaternion.RotateTowards(bulletSpawner1.transform.rotation, q, turnSpeed * Time.deltaTime);
+				//transform.rotation = Quaternion.RotateTowards(
+			}
 
 			if (curHomingDelay >= 0)
 			{
@@ -388,7 +402,8 @@ public class Boss1_AI : Enemy
 			if (curHomingDelay == 0)
 			{
 				curHomingDelay = homingDelay; 
-				ProjectileManager.inst.Shoot_BossHomingOrb (bulletSpawner1); //.Shoot_E_Normal (bulletSpawner1, true);  
+				//ProjectileManager.inst.Shoot_BossHomingOrb (bulletSpawner1); //.Shoot_E_Normal (bulletSpawner1, true);  
+				ProjectileManager.inst.EnemyShoot(bulletSpawner1, smallHoming, true);
 
 				//boss1Audio.volume = Random.Range (0.8f, 1);
 				//boss1Audio.pitch = Random.Range (0.8f, 1);
@@ -422,7 +437,8 @@ public class Boss1_AI : Enemy
 			if (curBusterDelay == 0)
 			{
 				curBusterDelay = busterDelay; 
-				ProjectileManager.inst.Shoot_BossBigOrb (bulletSpawner1); //Shoot_E_Normal (bulletSpawner3, true);
+				//ProjectileManager.inst.Shoot_BossBigOrb (bulletSpawner1); //Shoot_E_Normal (bulletSpawner3, true);
+				ProjectileManager.inst.EnemyShoot(bulletSpawner1, bigHoming, true);
 
 				//boss1Audio.volume = Random.Range (0.8f, 1);
 				//boss1Audio.pitch = Random.Range (0.8f, 1);
@@ -480,11 +496,12 @@ public class Boss1_AI : Enemy
 
 			if (timer < (spinningLength - spinningDelay))
 			{
-				anim.SetTrigger ("Spin");
+				//anim.SetTrigger ("Spin");
 			}
 
 			if (curSpinningDelay == 0)
 			{
+				anim.SetTrigger ("Spin");
 				curSpinningDelay = spinningDelay; 
 			}
 
