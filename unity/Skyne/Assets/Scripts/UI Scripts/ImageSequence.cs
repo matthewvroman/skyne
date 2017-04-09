@@ -11,6 +11,7 @@ public class ImageSequence : MonoBehaviour
 		public GameObject imageObj; 
 		public Image img;  
 		public Vector3 moveVelocity;
+		public float zoomMultiplier; 
 		public float fadeStartDelay; 
 		public float fadeInSpeed; 
 		public float fadeOutSpeed; 
@@ -67,6 +68,7 @@ public class ImageSequence : MonoBehaviour
 		bool sequenceDone = false; 
 		bool fadeInDone = false; 
 		bool fadeOutImage = false; 
+		Vector3 zoom; 
 
 		while (!sequenceDone)
 		{
@@ -133,7 +135,11 @@ public class ImageSequence : MonoBehaviour
 
 
 			// Make the image pan
-			imageSequences[thisSequence].imageObj.transform.Translate(imageSequences[thisSequence].moveVelocity * Time.unscaledDeltaTime); 
+			imageSequences[thisSequence].imageObj.transform.Translate(imageSequences[thisSequence].moveVelocity);
+
+			// Make the object zoom
+			zoom = imageSequences[thisSequence].imageObj.transform.localScale; 
+			imageSequences[thisSequence].imageObj.transform.localScale = new Vector3 (zoom.x + (imageSequences[thisSequence].zoomMultiplier / 100), zoom.y + (imageSequences[thisSequence].zoomMultiplier / 100), zoom.z); 
 
 			yield return null; 
 		}

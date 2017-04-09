@@ -24,9 +24,9 @@ public class UIManager : Singleton<UIManager>
 	//[SerializeField] private Toggle level2Toggle; 
 	//[SerializeField] private Toggle level3Toggle; 
 
-	[SerializeField] private GameObject topLevelButton; 
-	[SerializeField] private GameObject middleLevelButton; 
-	[SerializeField] private GameObject bottomLevelButton; 
+	[SerializeField] private GameObject topLevelToggle; 
+	[SerializeField] private GameObject middleLevelToggle; 
+	[SerializeField] private GameObject bottomLevelToggle; 
 
 	[SerializeField] private GameObject sfxSlider; 
 	[SerializeField] private GameObject musicSlider; 
@@ -96,7 +96,7 @@ public class UIManager : Singleton<UIManager>
 			}
 		}
 
-		/*
+
 		// Update the map
 		if (gameMenuActive && gameMenuState == GameMenuState.Map)
 		{
@@ -111,7 +111,7 @@ public class UIManager : Singleton<UIManager>
 				UpdateMapPanelToggles(); 
 			}
 		}
-		*/ 
+		 
 	}
 
 	void EnableOptionsPanel()
@@ -127,28 +127,28 @@ public class UIManager : Singleton<UIManager>
 		optionsPanel.SetActive(false); 
 
 		MapDisplay.inst.displayLevel = LevelData.inst.curLevel; 
-		//UpdateMapPanelToggles(); 
+		UpdateMapPanelToggles(); 
 	}
 
 	void UpdateMapPanelToggles()
 	{
 		if (MapDisplay.inst.displayLevel == 1)
 		{
-			bottomLevelButton.GetComponent<Image>().color = new Color (1, 1, 1); 
-			middleLevelButton.GetComponent<Image>().color = new Color (0.8f, 0.8f, 0.8f); 
-			topLevelButton.GetComponent<Image>().color = new Color (0.8f, 0.8f, 0.8f); 
+			bottomLevelToggle.GetComponent<Toggle>().isOn = true; 
+			middleLevelToggle.GetComponent<Toggle>().isOn = false; 
+			topLevelToggle.GetComponent<Toggle>().isOn = false; 
 		}
 		else if (MapDisplay.inst.displayLevel == 2)
 		{
-			bottomLevelButton.GetComponent<Image>().color = new Color (0.8f, 0.8f, 0.8f); 
-			middleLevelButton.GetComponent<Image>().color = new Color (1, 1, 1); 
-			topLevelButton.GetComponent<Image>().color = new Color (0.8f, 0.8f, 0.8f); 
+			bottomLevelToggle.GetComponent<Toggle>().isOn = false; 
+			middleLevelToggle.GetComponent<Toggle>().isOn = true; 
+			topLevelToggle.GetComponent<Toggle>().isOn = false; 
 		}
 		else if (MapDisplay.inst.displayLevel == 3)
 		{
-			bottomLevelButton.GetComponent<Image>().color = new Color (0.8f, 0.8f, 0.8f); 
-			middleLevelButton.GetComponent<Image>().color = new Color (0.8f, 0.8f, 0.8f); 
-			topLevelButton.GetComponent<Image>().color = new Color (1, 1, 1); 
+			bottomLevelToggle.GetComponent<Toggle>().isOn = false; 
+			middleLevelToggle.GetComponent<Toggle>().isOn = false; 
+			topLevelToggle.GetComponent<Toggle>().isOn = true;  
 		}
 	}
 
