@@ -13,10 +13,13 @@ ModelImporter:
     400004: Walls
     2300000: Top
     2300002: Walls
+    2300004: //RootNode
     3300000: Top
     3300002: Walls
+    3300004: //RootNode
     4300000: Walls
     4300002: Top
+    4300004: RuinsTerraceTop
   materials:
     importMaterials: 1
     materialName: 0
