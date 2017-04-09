@@ -13,12 +13,43 @@ public class TitleScreen : MonoBehaviour
 	[SerializeField] private Button backButton; 
 	[SerializeField] private Button quitButton; 
 
+	public ImageSequence imageSequence; 
+
+	bool revealUI = false; 
+	[SerializeField] private Image[] uiImages; 
+	public float uiFadeInSpeed; 
+	public float fastUIFadeInSpeed; 
+
 	public GameObject mainMenu;
 	public GameObject settingsMenu;
 
 	public EventSystem titleEventSystem; 
 
 	public float transitionFadeOutSpeed; 
+
+
+
+
+	void Start()
+	{
+		newGameButton.interactable = false; 
+		continueButton.interactable = false; 
+		settingsButton.interactable = false; 
+		backButton.interactable = false; 
+		quitButton.interactable = false; 
+
+		HideUIAtStart(); 
+
+		if (GlobalManager.inst.skipTitleIntro)
+		{
+			imageSequence.SkipToEnd(); 
+			uiFadeInSpeed = fastUIFadeInSpeed; 
+		}
+		else
+		{
+			imageSequence.StartSequence(); 
+		}
+	}
 		
 	
 	// Update is called once per frame
@@ -38,9 +69,21 @@ public class TitleScreen : MonoBehaviour
 			EventSystem.current = titleEventSystem; 
 		}
 
-		//Cursor.lockState = CursorLockMode.Locked;
+		if (!imageSequence.imageSequencesFinished)
+		{
+			if (Input.anyKeyDown || (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)))
+			{
+				imageSequence.SkipToEnd(); 
+				uiFadeInSpeed = fastUIFadeInSpeed; 
+			}
+		}
 
-		//if (titleEventSystem.
+		if (imageSequence.imageSequencesFinished && !revealUI)
+		{
+			GlobalManager.inst.skipTitleIntro = true; 
+			revealUI = true; 
+			StartCoroutine("RevealUI"); 
+		}
 	}
 
 
@@ -111,6 +154,7 @@ public class TitleScreen : MonoBehaviour
 	/// Then, call this function and pass the buttonName string
 	/// This keeps the last button the mouse hovered over selected 
 	/// </summary>
+	/*
 	public void SetToSelectedButton(string buttonName)
 	{
 		if (buttonName == "NewGameButton")
@@ -129,5 +173,39 @@ public class TitleScreen : MonoBehaviour
 		{
 			titleEventSystem.SetSelectedGameObject(quitButton.gameObject); 
 		}
+	}
+	*/ 
+
+	public void HideUIAtStart()
+	{
+		for (int i = 0; i < uiImages.Length; i++)
+		{
+			uiImages[i].color = new Color (1, 1, 1, 0); 
+		}
+	}
+
+	public IEnumerator RevealUI()
+	{
+		Color curColor = new Color (1, 1, 1, 0); 
+
+		while (curColor.a != 1)
+		{
+			curColor.a += uiFadeInSpeed * Time.unscaledDeltaTime; 
+			if (curColor.a > 1)
+				curColor.a = 1; 
+
+			for (int i = 0; i < uiImages.Length; i++)
+			{
+				uiImages[i].color = curColor; 
+			}
+			yield return null; 
+		}
+
+		// Once the UI buttons have finished fading in, make the buttons interactable
+		newGameButton.interactable = true; 
+		continueButton.interactable = true; 
+		settingsButton.interactable = true; 
+		backButton.interactable = true; 
+		quitButton.interactable = true;
 	}
 }
