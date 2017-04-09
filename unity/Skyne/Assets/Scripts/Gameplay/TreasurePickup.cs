@@ -6,15 +6,19 @@ public class TreasurePickup : MonoBehaviour
 {
 	void Start()
 	{
+		/*
 		if (GameState.inst.treasureFound)
-			Destroy(this.gameObject); 
+			Destroy(this.gameObject);
+			*/ 
 	}
 
 	void OnTriggerEnter(Collider col)
 	{
 		if (col.tag == "Player")
 		{
-			GameState.inst.SetTreasureFound(true); 
+			//GameState.inst.SetTreasureFound(true); 
+			GlobalManager.inst.LoadOutro(); 
+
 			Destroy(this.gameObject);
 		}
 	}

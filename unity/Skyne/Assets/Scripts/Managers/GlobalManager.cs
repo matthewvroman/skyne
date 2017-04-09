@@ -6,7 +6,7 @@ using UnityEngine.Audio;
 
 public class GlobalManager : Singleton<GlobalManager> 
 {
-	public enum GlobalState {Menu, LoadMainGameplayScene, SetupGameplay, Gameplay, GameOver, GameOverUnloadGameplayScenes, TitleUnloadGameplayScenes, EditorOnlyLoadGameplay, TransitionWait, GameplayFadeOut};  
+	public enum GlobalState {Menu, LoadMainGameplayScene, SetupGameplay, Gameplay, GameOver, GameOverUnloadGameplayScenes, TitleUnloadGameplayScenes, OutroUnloadGameplayScenes, EditorOnlyLoadGameplay, TransitionWait, GameplayFadeOut, Outro};  
 
 	[Tooltip("The state machine of the game. Set to Menu when starting from Menu; set to Gameplay when starting in the middle of the game.")]
 	public GlobalState globalState; 
@@ -20,6 +20,8 @@ public class GlobalManager : Singleton<GlobalManager>
 	public float loadScreenFadeSpeed; 
 	public float levelFadeInSpeed; 
 	public float levelFadeOutSpeed; 
+
+	public bool skipTitleIntro; 
 
 	public static System.Action<bool> OnGamePausedUpdated; 
 
@@ -141,6 +143,14 @@ public class GlobalManager : Singleton<GlobalManager>
 				SetGamePaused(false); 
 			}
 		}
+		else if (globalState == GlobalState.OutroUnloadGameplayScenes)
+		{
+			if (SceneLoading.inst.LevelUnloadComplete())
+			{
+				ChangeToOutro(); 
+				SetGamePaused(false); 
+			}
+		}
 		else if (globalState == GlobalState.EditorOnlyLoadGameplay)
 		{
 			if (SceneLoading.inst.LevelUnloadComplete())
@@ -230,6 +240,18 @@ public class GlobalManager : Singleton<GlobalManager>
 		StartCoroutine("GameOverGameplayFadeOut"); 
 	}
 
+	public void LoadOutro()
+	{
+		globalState = GlobalState.GameplayFadeOut; 
+		ScreenTransition.inst.SetFadeOut(levelFadeOutSpeed); 
+		StartCoroutine("OutroGameplayFadeOut"); 
+	}
+
+	public void OutroToTitle()
+	{
+		//globalState//globalState
+	}
+
 	/// <summary>
 	/// Called when unloading tasks started in LoadGameOver are finished
 	/// </summary>
@@ -250,6 +272,14 @@ public class GlobalManager : Singleton<GlobalManager>
 		UnloadSceneIfLoaded("Loading"); 
 		//Cursor.lockState = CursorLockMode.Confined; 
 		buttonUIIsActive = true; 
+	}
+
+	void ChangeToOutro()
+	{
+		globalState = GlobalState.Outro; 
+		ScreenTransition.inst.SetFadeIn(1); 
+		LoadSceneIfUnloaded("Outro"); 
+		UnloadSceneIfLoaded("Loading"); 
 	}
 
 
@@ -308,6 +338,13 @@ public class GlobalManager : Singleton<GlobalManager>
 	public void GameOverToTitleScreen()
 	{
 		UnloadSceneIfLoaded("GameOver");
+		ChangeToTitle(); 
+	}
+
+	public void OutroToTitleScreen()
+	{
+		UnloadSceneIfLoaded("Outro");
+
 		ChangeToTitle(); 
 	}
 
@@ -466,6 +503,23 @@ public class GlobalManager : Singleton<GlobalManager>
 		// Unload all level scenes as well as the MainLevel
 		SceneLoading.inst.UnloadAllLevelScenes(SceneMapping.inst.sceneList); 
 		LoadSceneIfUnloaded("Loading"); 
+		UnloadSceneIfLoaded("MainLevel");
+	}
+
+	// Coroutines for outro (ending sequence) loading
+
+	IEnumerator OutroGameplayFadeOut()
+	{
+		while (ScreenTransition.inst.curState != ScreenTransition.TransitionState.blackScreenRest)
+		{
+			yield return null; 
+		}
+
+		globalState = GlobalState.OutroUnloadGameplayScenes; 
+
+		// Unload all level scenes as well as the MainLevel
+		SceneLoading.inst.UnloadAllLevelScenes(SceneMapping.inst.sceneList); 
+		//LoadSceneIfUnloaded("Loading"); 
 		UnloadSceneIfLoaded("MainLevel");
 	}
 
