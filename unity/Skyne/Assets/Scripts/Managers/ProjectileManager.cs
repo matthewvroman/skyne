@@ -92,7 +92,8 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
 		if (lookAtTarget)
 		{
-			bullet.target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>().position; 
+			bullet.target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>().position;
+			bullet.targetObj = GameObject.FindGameObjectWithTag("Player").gameObject;
 			bullet.hasTarget = true; 
 		}
 	}
