@@ -97,9 +97,10 @@ public class ProjectileManager : Singleton<ProjectileManager>
 		}
 	}
 
-	public void Shoot_BossHomingOrb(GameObject spawner)
+
+	public void Shoot_BossHomingOrb(GameObject spawner, GameObject bulletPrefab)
 	{
-		GameObject newBullet = GameObject.Instantiate(bossHomingBulletPrefab, spawner.transform.position, spawner.transform.rotation, transform); 
+		GameObject newBullet = GameObject.Instantiate(bulletPrefab, spawner.transform.position, spawner.transform.rotation, transform); 
 		Bullet bullet = newBullet.GetComponent<Bullet>(); 
 
 		bullet.targetObj = GameObject.FindGameObjectWithTag("Player").gameObject; 
@@ -107,11 +108,13 @@ public class ProjectileManager : Singleton<ProjectileManager>
 		bullet.hasTarget = true; 
 	}
 
+	/*
 	public void Shoot_BossBigOrb(GameObject spawner)
 	{
 		GameObject newBullet = GameObject.Instantiate(bossBigBulletPrefab, spawner.transform.position, spawner.transform.rotation, transform); 
 		Bullet bullet = newBullet.GetComponent<Bullet>(); 
 	}
+	*/ 
 
 	/*
 	public void Shoot_Fort(GameObject spawner, bool lookAtTarget)
