@@ -7,11 +7,16 @@ ModelImporter:
   fileIDToRecycleName:
     100000: //RootNode
     100002: Trunk
+    100004: Leaves
     400000: //RootNode
     400002: Trunk
+    400004: Leaves
     2300000: Trunk
+    2300002: Leaves
     3300000: Trunk
+    3300002: Leaves
     4300000: Trunk
+    4300002: Leaves
   materials:
     importMaterials: 1
     materialName: 0
