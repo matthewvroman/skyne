@@ -39,6 +39,7 @@ ModelImporter:
     100062: transform9
     100064: Side
     100066: Top
+    100068: Road
     400000: //RootNode
     400002: polySurface1
     400004: polySurface1 1
@@ -73,15 +74,22 @@ ModelImporter:
     400062: transform9
     400064: Side
     400066: Top
+    400068: Road
     2300000: polySurface13
     2300002: Side
     2300004: Top
+    2300006: polySurface5
+    2300008: Road
     3300000: polySurface13
     3300002: Side
     3300004: Top
+    3300006: polySurface5
+    3300008: Road
     4300000: polySurface13
     4300002: Side
     4300004: Top
+    4300006: polySurface5
+    4300008: Road
   materials:
     importMaterials: 1
     materialName: 0
