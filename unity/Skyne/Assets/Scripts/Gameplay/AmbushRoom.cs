@@ -64,165 +64,167 @@ public class AmbushRoom : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		//Debug.Log ("Done = " + isDone);
-
-		if (this.noKeys.Count == 0 || this.oneKey.Count == 0 || this.twoKeys.Count == 0 || this.threeKeys.Count == 0)
+		if (GlobalManager.inst.GameplayIsActive())
 		{
-			//isDone = true;
-			GameState.inst.ambushRoomsDone[index] = true;
-			isDone = true;
-		}
 
-		if (isDone == false)
-		{
+			if (this.noKeys.Count == 0 || this.oneKey.Count == 0 || this.twoKeys.Count == 0 || this.threeKeys.Count == 0)
+			{
+				//isDone = true;
+				GameState.inst.ambushRoomsDone[index] = true;
+				isDone = true;
+			}
+
+			if (isDone == false)
+			{
 			
-			keysHeld = gameState.GetNumKeysFound ();
-			foreach (GameObject enemy in noKeys)
-			{
-				if (enemy == null)
-				{
-					noKeys.Remove (enemy);
-				}
-			}
-
-			if (noKeys.Count <= 0)
-			{
-				//doorCon.setDoorState (true);
-			}
-
-
-			foreach (GameObject enemy in oneKey)
-			{
-				if (enemy == null)
-				{
-					oneKey.Remove (enemy);
-				}
-			}
-
-			if (oneKey.Count <= 0)
-			{
-				//doorCon.setDoorState (true);
-			}
-
-
-			foreach (GameObject enemy in twoKeys)
-			{
-				if (enemy == null)
-				{
-					twoKeys.Remove (enemy);
-				}
-			}
-			if (twoKeys.Count <= 0)
-			{
-				//doorCon.setDoorState (true);
-			}
-
-
-			foreach (GameObject enemy in threeKeys)
-			{
-				if (enemy == null)
-				{
-					threeKeys.Remove (enemy);
-				}
-			}
-			if (threeKeys.Count <= 0)
-			{
-				//doorCon.setDoorState (true);
-			}
-
-			switch (keysHeld)
-			{
-			case 0:
+				keysHeld = gameState.GetNumKeysFound();
 				foreach (GameObject enemy in noKeys)
 				{
-					enemy.SetActive (true);
+					if (enemy == null)
+					{
+						noKeys.Remove(enemy);
+					}
 				}
+
+				if (noKeys.Count <= 0)
+				{
+					//doorCon.setDoorState (true);
+				}
+
+
 				foreach (GameObject enemy in oneKey)
 				{
-					enemy.SetActive (false);
+					if (enemy == null)
+					{
+						oneKey.Remove(enemy);
+					}
 				}
+
+				if (oneKey.Count <= 0)
+				{
+					//doorCon.setDoorState (true);
+				}
+
+
 				foreach (GameObject enemy in twoKeys)
 				{
-					enemy.SetActive (false);
-
+					if (enemy == null)
+					{
+						twoKeys.Remove(enemy);
+					}
 				}
+				if (twoKeys.Count <= 0)
+				{
+					//doorCon.setDoorState (true);
+				}
+
+
 				foreach (GameObject enemy in threeKeys)
 				{
-					enemy.SetActive (false);
+					if (enemy == null)
+					{
+						threeKeys.Remove(enemy);
+					}
 				}
-				break;
+				if (threeKeys.Count <= 0)
+				{
+					//doorCon.setDoorState (true);
+				}
 
-			case 1:
-				foreach (GameObject enemy in noKeys)
+				switch (keysHeld)
 				{
-					enemy.SetActive (false);
-				}
-				foreach (GameObject enemy in oneKey)
-				{
-					enemy.SetActive (true);
-				}
-				foreach (GameObject enemy in twoKeys)
-				{
-					enemy.SetActive (false);
-				}
-				foreach (GameObject enemy in threeKeys)
-				{
-					enemy.SetActive (false);
-				}
-				break;
+				case 0:
+					foreach (GameObject enemy in noKeys)
+					{
+						enemy.SetActive(true);
+					}
+					foreach (GameObject enemy in oneKey)
+					{
+						enemy.SetActive(false);
+					}
+					foreach (GameObject enemy in twoKeys)
+					{
+						enemy.SetActive(false);
 
-			case 2:
-				foreach (GameObject enemy in noKeys)
-				{
-					enemy.SetActive (false);
-				}
-				foreach (GameObject enemy in oneKey)
-				{
-					enemy.SetActive (false);
-				}
-				foreach (GameObject enemy in twoKeys)
-				{
-					enemy.SetActive (true);
-				}
-				foreach (GameObject enemy in threeKeys)
-				{
-					enemy.SetActive (false);
-				}
-				break;
+					}
+					foreach (GameObject enemy in threeKeys)
+					{
+						enemy.SetActive(false);
+					}
+					break;
 
-			case 3:
-				foreach (GameObject enemy in noKeys)
-				{
-					enemy.SetActive (false);
+				case 1:
+					foreach (GameObject enemy in noKeys)
+					{
+						enemy.SetActive(false);
+					}
+					foreach (GameObject enemy in oneKey)
+					{
+						enemy.SetActive(true);
+					}
+					foreach (GameObject enemy in twoKeys)
+					{
+						enemy.SetActive(false);
+					}
+					foreach (GameObject enemy in threeKeys)
+					{
+						enemy.SetActive(false);
+					}
+					break;
+
+				case 2:
+					foreach (GameObject enemy in noKeys)
+					{
+						enemy.SetActive(false);
+					}
+					foreach (GameObject enemy in oneKey)
+					{
+						enemy.SetActive(false);
+					}
+					foreach (GameObject enemy in twoKeys)
+					{
+						enemy.SetActive(true);
+					}
+					foreach (GameObject enemy in threeKeys)
+					{
+						enemy.SetActive(false);
+					}
+					break;
+
+				case 3:
+					foreach (GameObject enemy in noKeys)
+					{
+						enemy.SetActive(false);
+					}
+					foreach (GameObject enemy in oneKey)
+					{
+						enemy.SetActive(false);
+					}
+					foreach (GameObject enemy in twoKeys)
+					{
+						enemy.SetActive(false);
+					}
+					foreach (GameObject enemy in threeKeys)
+					{
+						enemy.SetActive(true);
+					}
+					break;
 				}
-				foreach (GameObject enemy in oneKey)
-				{
-					enemy.SetActive (false);
-				}
-				foreach (GameObject enemy in twoKeys)
-				{
-					enemy.SetActive (false);
-				}
-				foreach (GameObject enemy in threeKeys)
-				{
-					enemy.SetActive (true);
-				}
-				break;
 			}
-		}
-		else
-		{
-			//doorCon.setDoorState (true);
-			foreach (DoorControl door in doorCon)
+			else
 			{
-				door.setDoorState (true);
-			}
+				//doorCon.setDoorState (true);
+				foreach (DoorControl door in doorCon)
+				{
+					door.setDoorState(true);
+				}
 
-			musicController.clip = normalMusic;
+				musicController.clip = normalMusic;
 
-			if (!musicController.isPlaying)
-			{
-				musicController.Play ();
+				if (!musicController.isPlaying)
+				{
+					musicController.Play();
+				}
 			}
 		}
 	}
