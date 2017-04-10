@@ -82,7 +82,7 @@ public class Boss1_AI : Enemy
 
 	GameObject boss;
 
-	public Animator anim;
+	//public Animator anim;
 
 	public GameObject bulletSpawner1;
 
@@ -137,7 +137,7 @@ public class Boss1_AI : Enemy
 
 		oldEulerAngles = transform.rotation.eulerAngles;
 
-		anim = transform.Find ("Boss2TallBoi_Model").GetComponent<Animator> ();
+		//anim = transform.Find ("Boss2TallBoi_Model").GetComponent<Animator> ();
 
 		//boss1Audio.Play ();
 
@@ -242,9 +242,10 @@ public class Boss1_AI : Enemy
 			transform.rotation = Quaternion.RotateTowards (bulletSpawner1.transform.rotation, q, turnSpeed * Time.deltaTime);
 			//transform.rotation = Quaternion.RotateTowards(
 
-			if (Mathf.Abs(oldEulerAngles.y - transform.rotation.eulerAngles.y) < 0.1f)
+			if (Mathf.Abs(oldEulerAngles.y - transform.rotation.eulerAngles.y) <= 0.1f)
 			{
 				Debug.Log ("NO ROTATION");
+				anim.SetFloat ("xDir", 0);
 			} 
 			else
 			{
@@ -252,10 +253,12 @@ public class Boss1_AI : Enemy
 				if (oldEulerAngles.y - transform.rotation.eulerAngles.y < 0)
 				{
 					Debug.Log ("Negative");
+					anim.SetFloat ("xDir", -1);
 				}
-				else if (oldEulerAngles.y - transform.rotation.eulerAngles.y > 0)
+				else if (oldEulerAngles.y - transform.rotation.eulerAngles.y > 0.2)
 				{
 					Debug.Log ("Positive");
+					anim.SetFloat ("xDir", 1);
 				}
 				oldEulerAngles = transform.rotation.eulerAngles;
 			}
@@ -419,6 +422,8 @@ public class Boss1_AI : Enemy
 			boss1Audio.Play ();
 		} */
 
+		anim.SetTrigger ("Homing");
+
 		if (timer > 0.1)
 		{
 			timer -= Time.deltaTime;
@@ -438,6 +443,7 @@ public class Boss1_AI : Enemy
 		}
 		else
 		{
+			anim.SetTrigger ("HomingDone");
 			choosing = true;
 			ChooseAttack ();
 		}
@@ -481,6 +487,8 @@ public class Boss1_AI : Enemy
 		Debug.Log ("Laser..");
 		turnSpeed = laserTurnSpeed;
 
+		anim.SetTrigger ("Laser");
+
 		if (timer < (laserLength - laserDelay))
 		{
 			laserCol.SetActive (true);
@@ -499,6 +507,7 @@ public class Boss1_AI : Enemy
 		}
 		else
 		{
+			anim.SetTrigger ("LaserDone");
 			laserCol.SetActive (false);
 			turnSpeed = normTurnSpeed;
 			choosing = true;
@@ -545,6 +554,8 @@ public class Boss1_AI : Enemy
 		if (timer > 0.1)
 		{
 			timer -= Time.deltaTime;
+
+			anim.SetTrigger ("Stomp");
 
 			if (timer < (stompLength - stompDelay))
 			{
@@ -616,6 +627,8 @@ public class Boss1_AI : Enemy
 		curLaserDelay = laserDelay;
 		curStompDelay = stompDelay;
 		curSpinningDelay = spinningDelay;
+
+		anim.SetTrigger ("LaserDone");
 
 		return chooseAttack;
 	}

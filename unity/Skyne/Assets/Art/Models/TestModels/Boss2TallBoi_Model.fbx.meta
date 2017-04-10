@@ -99,7 +99,7 @@ ModelImporter:
     7400014: Laser
     7400016: StrafingLeft
     7400018: StrafingRIght
-    7400020: LaserHold
+    7400020: LaserDone
     7400022: Stand
     9500000: //RootNode
     13700000: Head
@@ -815,7 +815,7 @@ ModelImporter:
       name: Laser
       takeName: Take 001
       firstFrame: 242
-      lastFrame: 350
+      lastFrame: 294
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1100,10 +1100,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: LaserHold
+      name: LaserDone
       takeName: Take 001
-      firstFrame: 283
-      lastFrame: 284
+      firstFrame: 284
+      lastFrame: 350
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
