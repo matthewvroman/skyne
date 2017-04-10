@@ -95,6 +95,15 @@ public class BoltManager : Enemy
 			}
 			*/ 
 
+			/*if (health <= 0)
+			{
+				boltAudio.loop = false;
+				boltAudio.clip = deathSound;
+				if (!boltAudio.isPlaying)
+				{
+					boltAudio.Play ();
+				}
+			} */
 
 			// State machine changes
 
@@ -143,6 +152,9 @@ public class BoltManager : Enemy
 
 		if (!alive)
 		{
+			//boltAudio.clip = null;
+			//boltAudio.PlayOneShot (deathSound);
+
 			if (anim.GetCurrentAnimatorStateInfo(2).IsName("DeathDone"))
 			{
 				DestroyEnemy(); 
@@ -252,6 +264,11 @@ public class BoltManager : Enemy
 		if (!boltAudio.isPlaying)
 		{
 			boltAudio.Play ();
+		}
+
+		if (CanHitTarget ())
+		{
+			boltAudio.PlayOneShot (detectSound);
 		}
 	}
 

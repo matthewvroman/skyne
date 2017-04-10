@@ -97,11 +97,11 @@ public class Boss1_AI : Enemy
 
 	bool isSpinning = false;
 
-	//AudioSource boss1Audio;
+	AudioSource boss1Audio;
 
-	//public AudioClip moveSound;
-	//public AudioClip busterSound;
-	//public AudioClip homingSound;
+	public AudioClip spinSound;
+	public AudioClip fireSound;
+	public AudioClip moveSound;
 
 	// Use this for initialization
 	void Start ()
@@ -247,6 +247,11 @@ public class Boss1_AI : Enemy
 
 			if (Mathf.Abs(oldEulerAngles.y - transform.rotation.eulerAngles.y) <= 0.1f)
 			{
+				boss1Audio.clip = idleSound;
+				if (!boss1Audio.isPlaying)
+				{
+					boss1Audio.Play ();
+				}
 				Debug.Log ("NO ROTATION");
 				anim.SetFloat ("xDir", 0);
 			} 
@@ -255,11 +260,21 @@ public class Boss1_AI : Enemy
 				//DO WHATEVER YOU WANT
 				if (oldEulerAngles.y - transform.rotation.eulerAngles.y < 0)
 				{
+					boss1Audio.clip = moveSound;
+					if (!boss1Audio.isPlaying)
+					{
+						boss1Audio.Play ();
+					}
 					Debug.Log ("Negative");
 					anim.SetFloat ("xDir", -1);
 				}
 				else if (oldEulerAngles.y - transform.rotation.eulerAngles.y > 0.2)
 				{
+					boss1Audio.clip = moveSound;
+					if (!boss1Audio.isPlaying)
+					{
+						boss1Audio.Play ();
+					}
 					Debug.Log ("Positive");
 					anim.SetFloat ("xDir", 1);
 				}
@@ -443,6 +458,7 @@ public class Boss1_AI : Enemy
 			{
 				curHomingDelay = homingDelay; 
 				//ProjectileManager.inst.Shoot_BossHomingOrb (bulletSpawner1); //.Shoot_E_Normal (bulletSpawner1, true);  
+				boss1Audio.PlayOneShot(fireSound);
 				ProjectileManager.inst.EnemyShoot (bulletSpawner1, smallHoming, true);
 
 				//boss1Audio.volume = Random.Range (0.8f, 1);
@@ -479,6 +495,7 @@ public class Boss1_AI : Enemy
 			{
 				curBusterDelay = busterDelay; 
 				//ProjectileManager.inst.Shoot_BossBigOrb (bulletSpawner1); //Shoot_E_Normal (bulletSpawner3, true);
+				boss1Audio.PlayOneShot(fireSound);
 				ProjectileManager.inst.EnemyShoot (bulletSpawner1, bigHoming, true);
 
 				//boss1Audio.volume = Random.Range (0.8f, 1);
@@ -544,7 +561,9 @@ public class Boss1_AI : Enemy
 
 			if (curSpinningDelay == 0)
 			{
+				
 				anim.SetTrigger ("Spin");
+				boss1Audio.PlayOneShot (spinSound);
 				curSpinningDelay = spinningDelay; 
 			}
 

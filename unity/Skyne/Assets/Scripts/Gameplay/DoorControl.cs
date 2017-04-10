@@ -6,6 +6,10 @@ public class DoorControl : MonoBehaviour
 {
 	GameObject door;
 
+	AudioSource audio;
+
+	public AudioClip doorSound;
+
 	Transform doorClosedPos;
 	Transform doorOpenPos;
 
@@ -23,8 +27,10 @@ public class DoorControl : MonoBehaviour
 		door = this.transform.FindChild ("Door").gameObject;
 		doorClosedPos = gameObject.transform.Find ("DoorClosePos");
 		doorOpenPos = gameObject.transform.Find ("DoorOpenPos");
+
+		audio = GetComponent<AudioSource> ();
 	}
-	
+		
 	// Update is called once per frame
 	void Update ()
 	{

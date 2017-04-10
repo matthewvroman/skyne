@@ -21,6 +21,9 @@ public class AmbushRoom : MonoBehaviour
 
 	public AudioClip battleMusic;
 	public AudioClip normalMusic;
+	public AudioClip doorSound;
+
+	BoxCollider ambushTrigger;
 
 	public int index;
 
@@ -35,6 +38,8 @@ public class AmbushRoom : MonoBehaviour
 		isDone = GameState.inst.ambushRoomsDone [index];
 
 		oneKey = new List<GameObject> ();
+
+		ambushTrigger = GetComponent<BoxCollider> ();
 
 		foreach (Transform enemy in noKeyHold.transform)
 		{
@@ -232,6 +237,8 @@ public class AmbushRoom : MonoBehaviour
 		{
 			if (col.gameObject.tag == "Player")
 			{
+				musicController.PlayOneShot (doorSound);
+
 				foreach (DoorControl door in doorCon)
 				{
 					door.setDoorState (false);
@@ -244,6 +251,8 @@ public class AmbushRoom : MonoBehaviour
 					musicController.Play ();
 				}
 			}
+
+			ambushTrigger.enabled = false;
 		}
 	}
 }

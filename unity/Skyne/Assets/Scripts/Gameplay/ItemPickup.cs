@@ -8,11 +8,16 @@ public class ItemPickup : MonoBehaviour
 	[Header("Weapons: (3 = charge) (4 = wide) (5 = rapid)")]
 	public int itemTypeIndex; 
 
+	AudioSource audio1;
+	public AudioClip equipSound;
+
 	// Use this for initialization
 	void Start () 
 	{
 		// Destroy the upgrade pickup if the player already has it
 		//Debug.Log("upgradesFound length: " + GameState.inst.upgradesFound.Length); 
+
+		audio1 = GetComponent<AudioSource> ();
 
 		if (GameState.inst.upgradesFound[itemTypeIndex])
 		{
@@ -32,6 +37,8 @@ public class ItemPickup : MonoBehaviour
 			if (GameState.inst.upgradesFound[itemTypeIndex] != null)
 			{
 				GameState.inst.upgradesFound[itemTypeIndex] = true; 
+
+				audio1.PlayOneShot (equipSound);
 
 				// If charge found, set current beam to charge
 				if (itemTypeIndex == 3)

@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
 	public AudioClip sparkSound;
 	public AudioClip detectSound;
 	public AudioClip attackSound;
+	public AudioClip deathSound;
 
 	public Animator anim;
 
@@ -101,6 +102,8 @@ public class Enemy : MonoBehaviour
 		Collider col = collision.collider; 
 
 		Debug.Log ("On shot; bullet.playerBullet = " + bullet.playerBullet + "; bullet.shouldDestroy = " + bullet.shouldDestroy); 
+
+		this.GetComponent<AudioSource> ().PlayOneShot (damageSound);
 
 		// Check that the bullet was shot by the player and hasn't already been set to destroy itself
 		if (bullet.playerBullet && !bullet.shouldDestroy)
@@ -175,6 +178,7 @@ public class Enemy : MonoBehaviour
 				}
 				else
 				{
+					this.GetComponent<AudioSource> ().PlayOneShot (deathSound);
 					alive = false; 
 					DestroyEnemy ();
 				}

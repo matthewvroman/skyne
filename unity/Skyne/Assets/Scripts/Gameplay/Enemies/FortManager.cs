@@ -106,6 +106,15 @@ public class FortManager : Enemy
 				SetupEnemy(); 
 			}
 
+		/*	if (health <= 0)
+			{
+				fortAudio.loop = false;
+				fortAudio.clip = deathSound;
+				if (!fortAudio.isPlaying)
+				{
+					fortAudio.Play ();
+				}
+			} */
 
 			// State machine changes
 
@@ -178,6 +187,9 @@ public class FortManager : Enemy
 
 		if (!alive)
 		{
+			//fortAudio.clip = null;
+			//fortAudio.PlayOneShot (deathSound);
+
 			if (anim.GetCurrentAnimatorStateInfo(2).IsName("DeathDone"))
 			{
 				DestroyEnemy(); 
@@ -306,6 +318,11 @@ public class FortManager : Enemy
 		if (!fortAudio.isPlaying)
 		{
 			fortAudio.Play ();
+		}
+
+		if (CanHitTarget ())
+		{
+			fortAudio.PlayOneShot (detectSound);
 		}
 	}
 

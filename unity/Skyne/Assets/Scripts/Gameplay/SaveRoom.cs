@@ -8,6 +8,9 @@ public class SaveRoom : MonoBehaviour
 
 	SaveCollider saveCollider; 
 
+	AudioSource audio1;
+	public AudioClip saveSound;
+
 	// Ensures that you can only save once per time entering the save room
 	public bool readyToSave; 
 
@@ -15,6 +18,8 @@ public class SaveRoom : MonoBehaviour
 	{
 		saveCollider = transform.Find("SaveCollider").GetComponent<SaveCollider>(); 
 		saveSpawnPoint = transform.Find("SaveSpawnPoint").gameObject; 
+
+		audio1 = GetComponent<AudioSource> ();
 	}
 
 	void Update()
@@ -22,7 +27,11 @@ public class SaveRoom : MonoBehaviour
 		if (saveCollider.playerInside)
 		{
 			SaveRoomManager.inst.inSaveRoom = true; 
-			SaveRoomManager.inst.curSaveRoom = this;  
+			SaveRoomManager.inst.curSaveRoom = this;
+			if (Input.GetKeyDown (KeyCode.E))
+			{
+				audio1.PlayOneShot (saveSound);
+			}
 		}
 		else if (SaveRoomManager.inst.curSaveRoom == this)
 		{

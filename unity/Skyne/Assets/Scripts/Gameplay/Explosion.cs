@@ -19,7 +19,7 @@ public class Explosion : MonoBehaviour
 	{
 		if (CheckExplosionDestroy())
 		{
-			Destroy(this.gameObject); 
+			Destroy(this.gameObject, 0.5f); 
 		}
 	}
 

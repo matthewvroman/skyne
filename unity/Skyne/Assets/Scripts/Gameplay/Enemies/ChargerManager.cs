@@ -37,10 +37,6 @@ public class ChargerManager : Enemy
 
 	AudioSource chargerAudio;
 
-	//public AudioClip sawSound;
-	//public AudioClip idleSound;
-
-
 	//Transform target;
 	//GameObject player;
 	GameObject target;
@@ -127,15 +123,28 @@ public class ChargerManager : Enemy
 			SetupEnemy(); 
 		} 
 
+		/*if (health <= 0)
+		{
+			chargerAudio.loop = false;
+			chargerAudio.clip = deathSound;
+			if (!chargerAudio.isPlaying)
+			{
+				chargerAudio.Play ();
+			}
+		} */
+
 		//Debug.Log (agent.autoBraking);
 
 		if (!alive)
 		{
 			agent.speed = 0; 
 
-			if (anim.GetCurrentAnimatorStateInfo(1).IsName("DeathDone"))
+			//chargerAudio.clip = null;
+			//chargerAudio.PlayOneShot (deathSound);
+
+			if (anim.GetCurrentAnimatorStateInfo (1).IsName ("DeathDone"))
 			{
-				DestroyEnemy(); 
+				DestroyEnemy (); 
 			}
 		}
 	}

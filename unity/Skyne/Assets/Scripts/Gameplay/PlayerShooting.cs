@@ -26,6 +26,7 @@ public class PlayerShooting : Singleton<PlayerShooting>
 	public AudioClip wideShotSound;
 	public AudioClip rapidShotSound;
 	public AudioClip chargingSound;
+	public AudioClip chargingHold;
 	public AudioClip chargeShotSound;
 
 	// Gun particles
@@ -166,7 +167,11 @@ public class PlayerShooting : Singleton<PlayerShooting>
 			
 		if (curCharge == fullCharge)
 		{
-			gunAudio.clip = null;
+			gunAudio.clip = chargingHold;
+			if (!gunAudio.isPlaying)
+			{
+				gunAudio.Play ();
+			}
 		}
 	}
 

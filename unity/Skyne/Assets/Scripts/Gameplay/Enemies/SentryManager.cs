@@ -46,7 +46,7 @@ public class SentryManager : Enemy
 
 	//public Animator anim;
 
-	//bool canSeeTarget;
+	//bool CanSeeTarget;
 
 	void Start ()
 	{
@@ -123,6 +123,16 @@ public class SentryManager : Enemy
 				SetupEnemy (); 
 			}
 
+		/*	if (health <= 0)
+			{
+				sentryAudio.loop = false;
+				sentryAudio.clip = deathSound;
+				if (!sentryAudio.isPlaying)
+				{
+					sentryAudio.Play ();
+				}
+			} */
+
 			if (curShotDelay >= 0)
 			{
 				curShotDelay -= Time.deltaTime;
@@ -130,7 +140,7 @@ public class SentryManager : Enemy
 					curShotDelay = 0; 
 			}
 
-			//Debug.Log (canSeeTarget());
+			//Debug.Log (CanSeeTarget());
 		}
 
 		if (GlobalManager.inst.GameplayIsActive () && target != null)
@@ -138,11 +148,11 @@ public class SentryManager : Enemy
 			tarDistance = Vector3.Distance (target.transform.position, transform.position);
 
 			//Switches between states based on the distance from the player to the enemy
-			if (tarDistance < attackDist && canSeeTarget ())
+			if (tarDistance < attackDist && CanSeeTarget ())
 			{
 				state = SentryManager.State.ATTACK;
 			}
-			else if (tarDistance < aggroDist && tarDistance >= agent.stoppingDistance && canSeeTarget ()) //&& !canSeeTarget)
+			else if (tarDistance < aggroDist && tarDistance >= agent.stoppingDistance && CanSeeTarget ()) //&& !CanSeeTarget)
 			{
 				state = SentryManager.State.POSITION;
 			}
@@ -155,6 +165,9 @@ public class SentryManager : Enemy
 		if (!alive)
 		{
 			//agent.speed = 0; 
+
+			//sentryAudio.clip = null;
+			//sentryAudio.PlayOneShot (deathSound);
 
 			if (anim.GetCurrentAnimatorStateInfo(1).IsName("DeathDone"))
 			{
@@ -175,11 +188,16 @@ public class SentryManager : Enemy
 			sentryAudio.Play ();
 		}
 
+		if (CanSeeTarget ())
+		{
+			sentryAudio.PlayOneShot (detectSound);
+		}
+
 		anim.SetBool ("isShooting", false);
 		//Debug.Log ("Idling");
 	}
 
-	bool canSeeTarget ()
+	bool CanSeeTarget ()
 	{
 		Vector3 dir = (target.transform.position - transform.position).normalized; 
 		Vector3 start = transform.position + dir * 0.5f; 
