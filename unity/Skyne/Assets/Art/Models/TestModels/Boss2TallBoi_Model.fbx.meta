@@ -89,7 +89,18 @@ ModelImporter:
     4300026: L_ShoulderJoint
     4300028: R_WristJoint
     4300030: L_Hand
-    7400000: Take 001
+    7400000: Idle
+    7400002: Death
+    7400004: Stomp
+    7400006: SpinAttack
+    7400008: LoadHomingOrb
+    7400010: LoadingPause
+    7400012: LaunchHomingOrb
+    7400014: Laser
+    7400016: StrafingLeft
+    7400018: StrafingRIght
+    7400020: LaserHold
+    7400022: Stand
     9500000: //RootNode
     13700000: Head
     13700002: L_ForeArm
@@ -127,7 +138,1159 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Boss
+        weight: 1
+      - path: Boss/Head
+        weight: 1
+      - path: Boss/L_ForeArm
+        weight: 1
+      - path: Boss/L_Hand
+        weight: 1
+      - path: Boss/L_Leg
+        weight: 1
+      - path: Boss/L_LegTop
+        weight: 1
+      - path: Boss/L_Shoulder
+        weight: 1
+      - path: Boss/L_ShoulderJoint
+        weight: 1
+      - path: Boss/Mask
+        weight: 1
+      - path: Boss/Pelvis
+        weight: 1
+      - path: Boss/R_ForeArm
+        weight: 1
+      - path: Boss/R_Leg
+        weight: 1
+      - path: Boss/R_LegTop
+        weight: 1
+      - path: Boss/R_Shoulder
+        weight: 1
+      - path: Boss/R_UpperArm
+        weight: 1
+      - path: Boss/R_WristJoint
+        weight: 1
+      - path: Boss/Torso
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/L_hip
+        weight: 1
+      - path: root/L_hip/L_Knee
+        weight: 1
+      - path: root/L_hip/L_Knee/L_Foot
+        weight: 1
+      - path: root/R_hip
+        weight: 1
+      - path: root/R_hip/R_Knee
+        weight: 1
+      - path: root/R_hip/R_Knee/R_Foot
+        weight: 1
+      - path: root/torso
+        weight: 1
+      - path: root/torso/head
+        weight: 1
+      - path: root/torso/L_shoulder
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow/L_wrist
+        weight: 1
+      - path: root/torso/mask_joint
+        weight: 1
+      - path: root/torso/R_shoulder
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow/R_wrist
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Death
+      takeName: Take 001
+      firstFrame: 492
+      lastFrame: 690
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Boss
+        weight: 1
+      - path: Boss/Head
+        weight: 1
+      - path: Boss/L_ForeArm
+        weight: 1
+      - path: Boss/L_Hand
+        weight: 1
+      - path: Boss/L_Leg
+        weight: 1
+      - path: Boss/L_LegTop
+        weight: 1
+      - path: Boss/L_Shoulder
+        weight: 1
+      - path: Boss/L_ShoulderJoint
+        weight: 1
+      - path: Boss/Mask
+        weight: 1
+      - path: Boss/Pelvis
+        weight: 1
+      - path: Boss/R_ForeArm
+        weight: 1
+      - path: Boss/R_Leg
+        weight: 1
+      - path: Boss/R_LegTop
+        weight: 1
+      - path: Boss/R_Shoulder
+        weight: 1
+      - path: Boss/R_UpperArm
+        weight: 1
+      - path: Boss/R_WristJoint
+        weight: 1
+      - path: Boss/Torso
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/L_hip
+        weight: 1
+      - path: root/L_hip/L_Knee
+        weight: 1
+      - path: root/L_hip/L_Knee/L_Foot
+        weight: 1
+      - path: root/R_hip
+        weight: 1
+      - path: root/R_hip/R_Knee
+        weight: 1
+      - path: root/R_hip/R_Knee/R_Foot
+        weight: 1
+      - path: root/torso
+        weight: 1
+      - path: root/torso/head
+        weight: 1
+      - path: root/torso/L_shoulder
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow/L_wrist
+        weight: 1
+      - path: root/torso/mask_joint
+        weight: 1
+      - path: root/torso/R_shoulder
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow/R_wrist
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Stomp
+      takeName: Take 001
+      firstFrame: 60
+      lastFrame: 133
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Boss
+        weight: 1
+      - path: Boss/Head
+        weight: 1
+      - path: Boss/L_ForeArm
+        weight: 1
+      - path: Boss/L_Hand
+        weight: 1
+      - path: Boss/L_Leg
+        weight: 1
+      - path: Boss/L_LegTop
+        weight: 1
+      - path: Boss/L_Shoulder
+        weight: 1
+      - path: Boss/L_ShoulderJoint
+        weight: 1
+      - path: Boss/Mask
+        weight: 1
+      - path: Boss/Pelvis
+        weight: 1
+      - path: Boss/R_ForeArm
+        weight: 1
+      - path: Boss/R_Leg
+        weight: 1
+      - path: Boss/R_LegTop
+        weight: 1
+      - path: Boss/R_Shoulder
+        weight: 1
+      - path: Boss/R_UpperArm
+        weight: 1
+      - path: Boss/R_WristJoint
+        weight: 1
+      - path: Boss/Torso
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/L_hip
+        weight: 1
+      - path: root/L_hip/L_Knee
+        weight: 1
+      - path: root/L_hip/L_Knee/L_Foot
+        weight: 1
+      - path: root/R_hip
+        weight: 1
+      - path: root/R_hip/R_Knee
+        weight: 1
+      - path: root/R_hip/R_Knee/R_Foot
+        weight: 1
+      - path: root/torso
+        weight: 1
+      - path: root/torso/head
+        weight: 1
+      - path: root/torso/L_shoulder
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow/L_wrist
+        weight: 1
+      - path: root/torso/mask_joint
+        weight: 1
+      - path: root/torso/R_shoulder
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow/R_wrist
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: SpinAttack
+      takeName: Take 001
+      firstFrame: 351
+      lastFrame: 491
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Boss
+        weight: 1
+      - path: Boss/Head
+        weight: 1
+      - path: Boss/L_ForeArm
+        weight: 1
+      - path: Boss/L_Hand
+        weight: 1
+      - path: Boss/L_Leg
+        weight: 1
+      - path: Boss/L_LegTop
+        weight: 1
+      - path: Boss/L_Shoulder
+        weight: 1
+      - path: Boss/L_ShoulderJoint
+        weight: 1
+      - path: Boss/Mask
+        weight: 1
+      - path: Boss/Pelvis
+        weight: 1
+      - path: Boss/R_ForeArm
+        weight: 1
+      - path: Boss/R_Leg
+        weight: 1
+      - path: Boss/R_LegTop
+        weight: 1
+      - path: Boss/R_Shoulder
+        weight: 1
+      - path: Boss/R_UpperArm
+        weight: 1
+      - path: Boss/R_WristJoint
+        weight: 1
+      - path: Boss/Torso
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/L_hip
+        weight: 1
+      - path: root/L_hip/L_Knee
+        weight: 1
+      - path: root/L_hip/L_Knee/L_Foot
+        weight: 1
+      - path: root/R_hip
+        weight: 1
+      - path: root/R_hip/R_Knee
+        weight: 1
+      - path: root/R_hip/R_Knee/R_Foot
+        weight: 1
+      - path: root/torso
+        weight: 1
+      - path: root/torso/head
+        weight: 1
+      - path: root/torso/L_shoulder
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow/L_wrist
+        weight: 1
+      - path: root/torso/mask_joint
+        weight: 1
+      - path: root/torso/R_shoulder
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow/R_wrist
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: LoadHomingOrb
+      takeName: Take 001
+      firstFrame: 134
+      lastFrame: 169
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Boss
+        weight: 1
+      - path: Boss/Head
+        weight: 1
+      - path: Boss/L_ForeArm
+        weight: 1
+      - path: Boss/L_Hand
+        weight: 1
+      - path: Boss/L_Leg
+        weight: 1
+      - path: Boss/L_LegTop
+        weight: 1
+      - path: Boss/L_Shoulder
+        weight: 1
+      - path: Boss/L_ShoulderJoint
+        weight: 1
+      - path: Boss/Mask
+        weight: 1
+      - path: Boss/Pelvis
+        weight: 1
+      - path: Boss/R_ForeArm
+        weight: 1
+      - path: Boss/R_Leg
+        weight: 1
+      - path: Boss/R_LegTop
+        weight: 1
+      - path: Boss/R_Shoulder
+        weight: 1
+      - path: Boss/R_UpperArm
+        weight: 1
+      - path: Boss/R_WristJoint
+        weight: 1
+      - path: Boss/Torso
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/L_hip
+        weight: 1
+      - path: root/L_hip/L_Knee
+        weight: 1
+      - path: root/L_hip/L_Knee/L_Foot
+        weight: 1
+      - path: root/R_hip
+        weight: 1
+      - path: root/R_hip/R_Knee
+        weight: 1
+      - path: root/R_hip/R_Knee/R_Foot
+        weight: 1
+      - path: root/torso
+        weight: 1
+      - path: root/torso/head
+        weight: 1
+      - path: root/torso/L_shoulder
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow/L_wrist
+        weight: 1
+      - path: root/torso/mask_joint
+        weight: 1
+      - path: root/torso/R_shoulder
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow/R_wrist
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: LoadingPause
+      takeName: Take 001
+      firstFrame: 169
+      lastFrame: 205
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Boss
+        weight: 1
+      - path: Boss/Head
+        weight: 1
+      - path: Boss/L_ForeArm
+        weight: 1
+      - path: Boss/L_Hand
+        weight: 1
+      - path: Boss/L_Leg
+        weight: 1
+      - path: Boss/L_LegTop
+        weight: 1
+      - path: Boss/L_Shoulder
+        weight: 1
+      - path: Boss/L_ShoulderJoint
+        weight: 1
+      - path: Boss/Mask
+        weight: 1
+      - path: Boss/Pelvis
+        weight: 1
+      - path: Boss/R_ForeArm
+        weight: 1
+      - path: Boss/R_Leg
+        weight: 1
+      - path: Boss/R_LegTop
+        weight: 1
+      - path: Boss/R_Shoulder
+        weight: 1
+      - path: Boss/R_UpperArm
+        weight: 1
+      - path: Boss/R_WristJoint
+        weight: 1
+      - path: Boss/Torso
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/L_hip
+        weight: 1
+      - path: root/L_hip/L_Knee
+        weight: 1
+      - path: root/L_hip/L_Knee/L_Foot
+        weight: 1
+      - path: root/R_hip
+        weight: 1
+      - path: root/R_hip/R_Knee
+        weight: 1
+      - path: root/R_hip/R_Knee/R_Foot
+        weight: 1
+      - path: root/torso
+        weight: 1
+      - path: root/torso/head
+        weight: 1
+      - path: root/torso/L_shoulder
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow/L_wrist
+        weight: 1
+      - path: root/torso/mask_joint
+        weight: 1
+      - path: root/torso/R_shoulder
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow/R_wrist
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: LaunchHomingOrb
+      takeName: Take 001
+      firstFrame: 206
+      lastFrame: 241
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Boss
+        weight: 1
+      - path: Boss/Head
+        weight: 1
+      - path: Boss/L_ForeArm
+        weight: 1
+      - path: Boss/L_Hand
+        weight: 1
+      - path: Boss/L_Leg
+        weight: 1
+      - path: Boss/L_LegTop
+        weight: 1
+      - path: Boss/L_Shoulder
+        weight: 1
+      - path: Boss/L_ShoulderJoint
+        weight: 1
+      - path: Boss/Mask
+        weight: 1
+      - path: Boss/Pelvis
+        weight: 1
+      - path: Boss/R_ForeArm
+        weight: 1
+      - path: Boss/R_Leg
+        weight: 1
+      - path: Boss/R_LegTop
+        weight: 1
+      - path: Boss/R_Shoulder
+        weight: 1
+      - path: Boss/R_UpperArm
+        weight: 1
+      - path: Boss/R_WristJoint
+        weight: 1
+      - path: Boss/Torso
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/L_hip
+        weight: 1
+      - path: root/L_hip/L_Knee
+        weight: 1
+      - path: root/L_hip/L_Knee/L_Foot
+        weight: 1
+      - path: root/R_hip
+        weight: 1
+      - path: root/R_hip/R_Knee
+        weight: 1
+      - path: root/R_hip/R_Knee/R_Foot
+        weight: 1
+      - path: root/torso
+        weight: 1
+      - path: root/torso/head
+        weight: 1
+      - path: root/torso/L_shoulder
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow/L_wrist
+        weight: 1
+      - path: root/torso/mask_joint
+        weight: 1
+      - path: root/torso/R_shoulder
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow/R_wrist
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Laser
+      takeName: Take 001
+      firstFrame: 242
+      lastFrame: 350
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Boss
+        weight: 1
+      - path: Boss/Head
+        weight: 1
+      - path: Boss/L_ForeArm
+        weight: 1
+      - path: Boss/L_Hand
+        weight: 1
+      - path: Boss/L_Leg
+        weight: 1
+      - path: Boss/L_LegTop
+        weight: 1
+      - path: Boss/L_Shoulder
+        weight: 1
+      - path: Boss/L_ShoulderJoint
+        weight: 1
+      - path: Boss/Mask
+        weight: 1
+      - path: Boss/Pelvis
+        weight: 1
+      - path: Boss/R_ForeArm
+        weight: 1
+      - path: Boss/R_Leg
+        weight: 1
+      - path: Boss/R_LegTop
+        weight: 1
+      - path: Boss/R_Shoulder
+        weight: 1
+      - path: Boss/R_UpperArm
+        weight: 1
+      - path: Boss/R_WristJoint
+        weight: 1
+      - path: Boss/Torso
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/L_hip
+        weight: 1
+      - path: root/L_hip/L_Knee
+        weight: 1
+      - path: root/L_hip/L_Knee/L_Foot
+        weight: 1
+      - path: root/R_hip
+        weight: 1
+      - path: root/R_hip/R_Knee
+        weight: 1
+      - path: root/R_hip/R_Knee/R_Foot
+        weight: 1
+      - path: root/torso
+        weight: 1
+      - path: root/torso/head
+        weight: 1
+      - path: root/torso/L_shoulder
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow/L_wrist
+        weight: 1
+      - path: root/torso/mask_joint
+        weight: 1
+      - path: root/torso/R_shoulder
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow/R_wrist
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: StrafingLeft
+      takeName: Take 001
+      firstFrame: 691
+      lastFrame: 750
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Boss
+        weight: 1
+      - path: Boss/Head
+        weight: 1
+      - path: Boss/L_ForeArm
+        weight: 1
+      - path: Boss/L_Hand
+        weight: 1
+      - path: Boss/L_Leg
+        weight: 1
+      - path: Boss/L_LegTop
+        weight: 1
+      - path: Boss/L_Shoulder
+        weight: 1
+      - path: Boss/L_ShoulderJoint
+        weight: 1
+      - path: Boss/Mask
+        weight: 1
+      - path: Boss/Pelvis
+        weight: 1
+      - path: Boss/R_ForeArm
+        weight: 1
+      - path: Boss/R_Leg
+        weight: 1
+      - path: Boss/R_LegTop
+        weight: 1
+      - path: Boss/R_Shoulder
+        weight: 1
+      - path: Boss/R_UpperArm
+        weight: 1
+      - path: Boss/R_WristJoint
+        weight: 1
+      - path: Boss/Torso
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/L_hip
+        weight: 1
+      - path: root/L_hip/L_Knee
+        weight: 1
+      - path: root/L_hip/L_Knee/L_Foot
+        weight: 1
+      - path: root/R_hip
+        weight: 1
+      - path: root/R_hip/R_Knee
+        weight: 1
+      - path: root/R_hip/R_Knee/R_Foot
+        weight: 1
+      - path: root/torso
+        weight: 1
+      - path: root/torso/head
+        weight: 1
+      - path: root/torso/L_shoulder
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow/L_wrist
+        weight: 1
+      - path: root/torso/mask_joint
+        weight: 1
+      - path: root/torso/R_shoulder
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow/R_wrist
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: StrafingRIght
+      takeName: Take 001
+      firstFrame: 751
+      lastFrame: 810
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Boss
+        weight: 1
+      - path: Boss/Head
+        weight: 1
+      - path: Boss/L_ForeArm
+        weight: 1
+      - path: Boss/L_Hand
+        weight: 1
+      - path: Boss/L_Leg
+        weight: 1
+      - path: Boss/L_LegTop
+        weight: 1
+      - path: Boss/L_Shoulder
+        weight: 1
+      - path: Boss/L_ShoulderJoint
+        weight: 1
+      - path: Boss/Mask
+        weight: 1
+      - path: Boss/Pelvis
+        weight: 1
+      - path: Boss/R_ForeArm
+        weight: 1
+      - path: Boss/R_Leg
+        weight: 1
+      - path: Boss/R_LegTop
+        weight: 1
+      - path: Boss/R_Shoulder
+        weight: 1
+      - path: Boss/R_UpperArm
+        weight: 1
+      - path: Boss/R_WristJoint
+        weight: 1
+      - path: Boss/Torso
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/L_hip
+        weight: 1
+      - path: root/L_hip/L_Knee
+        weight: 1
+      - path: root/L_hip/L_Knee/L_Foot
+        weight: 1
+      - path: root/R_hip
+        weight: 1
+      - path: root/R_hip/R_Knee
+        weight: 1
+      - path: root/R_hip/R_Knee/R_Foot
+        weight: 1
+      - path: root/torso
+        weight: 1
+      - path: root/torso/head
+        weight: 1
+      - path: root/torso/L_shoulder
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow/L_wrist
+        weight: 1
+      - path: root/torso/mask_joint
+        weight: 1
+      - path: root/torso/R_shoulder
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow/R_wrist
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: LaserHold
+      takeName: Take 001
+      firstFrame: 283
+      lastFrame: 284
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Boss
+        weight: 1
+      - path: Boss/Head
+        weight: 1
+      - path: Boss/L_ForeArm
+        weight: 1
+      - path: Boss/L_Hand
+        weight: 1
+      - path: Boss/L_Leg
+        weight: 1
+      - path: Boss/L_LegTop
+        weight: 1
+      - path: Boss/L_Shoulder
+        weight: 1
+      - path: Boss/L_ShoulderJoint
+        weight: 1
+      - path: Boss/Mask
+        weight: 1
+      - path: Boss/Pelvis
+        weight: 1
+      - path: Boss/R_ForeArm
+        weight: 1
+      - path: Boss/R_Leg
+        weight: 1
+      - path: Boss/R_LegTop
+        weight: 1
+      - path: Boss/R_Shoulder
+        weight: 1
+      - path: Boss/R_UpperArm
+        weight: 1
+      - path: Boss/R_WristJoint
+        weight: 1
+      - path: Boss/Torso
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/L_hip
+        weight: 1
+      - path: root/L_hip/L_Knee
+        weight: 1
+      - path: root/L_hip/L_Knee/L_Foot
+        weight: 1
+      - path: root/R_hip
+        weight: 1
+      - path: root/R_hip/R_Knee
+        weight: 1
+      - path: root/R_hip/R_Knee/R_Foot
+        weight: 1
+      - path: root/torso
+        weight: 1
+      - path: root/torso/head
+        weight: 1
+      - path: root/torso/L_shoulder
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow/L_wrist
+        weight: 1
+      - path: root/torso/mask_joint
+        weight: 1
+      - path: root/torso/R_shoulder
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow/R_wrist
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Stand
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Boss
+        weight: 1
+      - path: Boss/Head
+        weight: 1
+      - path: Boss/L_ForeArm
+        weight: 1
+      - path: Boss/L_Hand
+        weight: 1
+      - path: Boss/L_Leg
+        weight: 1
+      - path: Boss/L_LegTop
+        weight: 1
+      - path: Boss/L_Shoulder
+        weight: 1
+      - path: Boss/L_ShoulderJoint
+        weight: 1
+      - path: Boss/Mask
+        weight: 1
+      - path: Boss/Pelvis
+        weight: 1
+      - path: Boss/R_ForeArm
+        weight: 1
+      - path: Boss/R_Leg
+        weight: 1
+      - path: Boss/R_LegTop
+        weight: 1
+      - path: Boss/R_Shoulder
+        weight: 1
+      - path: Boss/R_UpperArm
+        weight: 1
+      - path: Boss/R_WristJoint
+        weight: 1
+      - path: Boss/Torso
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/L_hip
+        weight: 1
+      - path: root/L_hip/L_Knee
+        weight: 1
+      - path: root/L_hip/L_Knee/L_Foot
+        weight: 1
+      - path: root/R_hip
+        weight: 1
+      - path: root/R_hip/R_Knee
+        weight: 1
+      - path: root/R_hip/R_Knee/R_Foot
+        weight: 1
+      - path: root/torso
+        weight: 1
+      - path: root/torso/head
+        weight: 1
+      - path: root/torso/L_shoulder
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow/L_wrist
+        weight: 1
+      - path: root/torso/mask_joint
+        weight: 1
+      - path: root/torso/R_shoulder
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow/R_wrist
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
