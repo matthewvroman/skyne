@@ -22,7 +22,10 @@ public class Boss1_AI : Enemy
 
 	int phase;
 
-	public float turnSpeed;
+	float turnSpeed;
+
+	public float normTurnSpeed;
+	public float laserTurnSpeed;
 
 	public bool attacking;
 	public bool choosing;
@@ -122,6 +125,8 @@ public class Boss1_AI : Enemy
 
 		attacking = false;
 		choosing = true;
+
+		turnSpeed = normTurnSpeed;
 
 		//boss1Audio = GetComponent<AudioSource> ();
 
@@ -227,14 +232,12 @@ public class Boss1_AI : Enemy
 			tarDistance = Vector3.Distance (target.transform.position, transform.position);
 			tarHeight = target.transform.position.y;
 
-			if (canSeeTarget ())
-			{
-				Quaternion q = Quaternion.LookRotation(target.transform.position - bulletSpawner1.transform.position);
-				q.x = 0;
-				q.z = 0;
-				transform.rotation = Quaternion.RotateTowards(bulletSpawner1.transform.rotation, q, turnSpeed * Time.deltaTime);
-				//transform.rotation = Quaternion.RotateTowards(
-			}
+			Quaternion q = Quaternion.LookRotation (target.transform.position - bulletSpawner1.transform.position);
+			q.x = 0;
+			q.z = 0;
+			transform.rotation = Quaternion.RotateTowards (bulletSpawner1.transform.rotation, q, turnSpeed * Time.deltaTime);
+			//transform.rotation = Quaternion.RotateTowards(
+
 
 			if (curHomingDelay >= 0)
 			{
@@ -403,7 +406,7 @@ public class Boss1_AI : Enemy
 			{
 				curHomingDelay = homingDelay; 
 				//ProjectileManager.inst.Shoot_BossHomingOrb (bulletSpawner1); //.Shoot_E_Normal (bulletSpawner1, true);  
-				ProjectileManager.inst.EnemyShoot(bulletSpawner1, smallHoming, true);
+				ProjectileManager.inst.EnemyShoot (bulletSpawner1, smallHoming, true);
 
 				//boss1Audio.volume = Random.Range (0.8f, 1);
 				//boss1Audio.pitch = Random.Range (0.8f, 1);
@@ -438,7 +441,7 @@ public class Boss1_AI : Enemy
 			{
 				curBusterDelay = busterDelay; 
 				//ProjectileManager.inst.Shoot_BossBigOrb (bulletSpawner1); //Shoot_E_Normal (bulletSpawner3, true);
-				ProjectileManager.inst.EnemyShoot(bulletSpawner1, bigHoming, true);
+				ProjectileManager.inst.EnemyShoot (bulletSpawner1, bigHoming, true);
 
 				//boss1Audio.volume = Random.Range (0.8f, 1);
 				//boss1Audio.pitch = Random.Range (0.8f, 1);
@@ -455,17 +458,13 @@ public class Boss1_AI : Enemy
 	void Laser ()
 	{
 		Debug.Log ("Laser..");
+		turnSpeed = laserTurnSpeed;
 
 		if (timer < (laserLength - laserDelay))
 		{
 			laserCol.SetActive (true);
 
-			laserNav.destination = target.transform.position;
-
-			laserNav.speed = 15;
-			laserNav.acceleration = 15;
 		}
-
 
 		if (timer > 0.1)
 		{
@@ -480,7 +479,7 @@ public class Boss1_AI : Enemy
 		else
 		{
 			laserCol.SetActive (false);
-			laserCol.transform.localPosition = new Vector3 (0, 2, 11);
+			turnSpeed = normTurnSpeed;
 			choosing = true;
 			ChooseAttack ();
 		}
@@ -616,6 +615,6 @@ public class Boss1_AI : Enemy
 		GameState.inst.keysFound [0] = true;
 		//KeyPickupManager.inst.SpawnKeyPickup(transform.position, 0);
 
-		KeyPickupManager.inst.SpawnTreasurePickup(transform.position); 
+		KeyPickupManager.inst.SpawnTreasurePickup (transform.position); 
 	}
 }
