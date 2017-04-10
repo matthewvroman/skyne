@@ -92,6 +92,9 @@ public class Boss1_AI : Enemy
 	GameObject laserCol;
 	NavMeshAgent laserNav;
 
+	public GameObject arm1;
+	public GameObject arm2;
+
 	bool isSpinning = false;
 
 	//AudioSource boss1Audio;
@@ -422,7 +425,7 @@ public class Boss1_AI : Enemy
 			boss1Audio.Play ();
 		} */
 
-		anim.SetTrigger ("Homing");
+		//anim.SetTrigger ("Homing");
 
 		if (timer > 0.1)
 		{
@@ -523,6 +526,9 @@ public class Boss1_AI : Enemy
 		{
 			timer -= Time.deltaTime;
 
+			arm1.SetActive (true);
+			arm2.SetActive (true);
+
 			if (timer < (spinningLength - spinningDelay))
 			{
 				//anim.SetTrigger ("Spin");
@@ -537,6 +543,8 @@ public class Boss1_AI : Enemy
 		}
 		else
 		{
+			arm1.SetActive (false);
+			arm2.SetActive (false);
 			choosing = true;
 			ChooseAttack ();
 		}
