@@ -41,10 +41,8 @@ public class SentryManager : Enemy
 
 	AudioSource sentryAudio;
 
-	public AudioClip idleSound;
-	public AudioClip shootSound;
-	public AudioClip turnSound;
-	public AudioClip detectSound;
+	//public AudioClip idleSound;
+	//public AudioClip shootSound;
 
 	//public Animator anim;
 
@@ -248,7 +246,7 @@ public class SentryManager : Enemy
 
 		if (agent.velocity.magnitude > 0)
 		{
-			sentryAudio.clip = turnSound;
+			sentryAudio.clip = idleSound;
 			sentryAudio.loop = true;
 		}
 		else
@@ -269,7 +267,7 @@ public class SentryManager : Enemy
 
 			sentryAudio.volume = Random.Range (0.8f, 1);
 			sentryAudio.pitch = Random.Range (0.8f, 1);
-			sentryAudio.PlayOneShot (shootSound);
+			sentryAudio.PlayOneShot (attackSound);
 
 			if (shotFireParticles != null)
 				shotFireParticles.Play(); 

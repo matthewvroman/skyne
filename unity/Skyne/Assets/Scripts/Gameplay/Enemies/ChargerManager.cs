@@ -37,8 +37,8 @@ public class ChargerManager : Enemy
 
 	AudioSource chargerAudio;
 
-	public AudioClip sawSound;
-	public AudioClip idleSound;
+	//public AudioClip sawSound;
+	//public AudioClip idleSound;
 
 
 	//Transform target;
@@ -189,6 +189,7 @@ public class ChargerManager : Enemy
 
 		if (tarDistance < aggroDistance && CanSeeTarget())
 		{
+			chargerAudio.PlayOneShot (detectSound);
 			state = ChargerManager.State.POSITION;
 		}
 
@@ -243,7 +244,7 @@ public class ChargerManager : Enemy
 
 		if (!chargerAudio.isPlaying)
 		{
-			chargerAudio.clip = sawSound;
+			chargerAudio.clip = attackSound;
 			chargerAudio.volume = Mathf.Lerp (chargerAudio.volume, 0.8f, 10 * Time.deltaTime);
 			chargerAudio.pitch = Mathf.Lerp (chargerAudio.pitch, 0.8f, 10 * Time.deltaTime);
 
@@ -299,7 +300,7 @@ public class ChargerManager : Enemy
 
 		if (!chargerAudio.isPlaying)
 		{
-			chargerAudio.clip = sawSound;
+			chargerAudio.clip = attackSound;
 			//chargerAudio.volume = 1f;
 			//chargerAudio.pitch = 1.1f;
 

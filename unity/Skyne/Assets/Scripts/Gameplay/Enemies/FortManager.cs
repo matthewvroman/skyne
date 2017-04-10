@@ -57,10 +57,10 @@ public class FortManager : Enemy
 
 	AudioSource fortAudio;
 
-	public AudioClip moveSound;
-	public AudioClip chargeSound;
-	public AudioClip shootSound;
-	public AudioClip idleSound;
+	//public AudioClip moveSound;
+	//public AudioClip chargeSound;
+	//public AudioClip shootSound;
+	//public AudioClip idleSound;
 
 	public GameObject bulletSpawner; 
 	public GameObject frontFacingObj; 
@@ -320,7 +320,7 @@ public class FortManager : Enemy
 		agent.destination = target.position; 
 		agent.speed = moveSpeed; 
 
-		fortAudio.clip = moveSound;
+		fortAudio.clip = idleSound;
 		fortAudio.loop = true;
 
 		if (!fortAudio.isPlaying)
@@ -348,7 +348,7 @@ public class FortManager : Enemy
 		anim.SetBool("isWalking", true); 
 		agent.speed = 0;
 
-		fortAudio.clip = moveSound;
+		fortAudio.clip = idleSound;
 		fortAudio.loop = true;
 
 		if (!fortAudio.isPlaying)
@@ -433,7 +433,7 @@ public class FortManager : Enemy
 
 		fortAudio.volume = Random.Range (0.8f, 1);
 		fortAudio.pitch = Random.Range (0.8f, 1);
-		fortAudio.PlayOneShot (shootSound);
+		fortAudio.PlayOneShot (attackSound);
 
 		if (shotFireParticles != null)
 			shotFireParticles.Play(); 

@@ -42,10 +42,8 @@ public class BoltManager : Enemy
 
 	AudioSource boltAudio;
 
-	public AudioClip moveSound;
-	public AudioClip chargeSound;
-	public AudioClip shootSound;
-	public AudioClip idleSound;
+	//public AudioClip shootSound;
+	//public AudioClip idleSound;
 
 	public GameObject bulletSpawner; 
 	public GameObject frontFacingObj; 
@@ -268,7 +266,7 @@ public class BoltManager : Enemy
 		agent.destination = target.position; 
 		agent.speed = moveSpeed; 
 
-		boltAudio.clip = moveSound;
+		boltAudio.clip = idleSound;
 		boltAudio.loop = true;
 
 		if (!boltAudio.isPlaying)
@@ -295,7 +293,7 @@ public class BoltManager : Enemy
 
 		agent.speed = 0;
 
-		boltAudio.clip = moveSound;
+		boltAudio.clip = idleSound;
 		boltAudio.loop = true;
 
 		if (!boltAudio.isPlaying)
@@ -331,7 +329,7 @@ public class BoltManager : Enemy
 
 		boltAudio.volume = Random.Range (0.8f, 1);
 		boltAudio.pitch = Random.Range (0.8f, 1);
-		boltAudio.PlayOneShot (shootSound);
+		boltAudio.PlayOneShot (attackSound);
 
 		if (shotFireParticles != null)
 			shotFireParticles.Play(); 

@@ -24,7 +24,11 @@ public class Enemy : MonoBehaviour
 	//Determines whether the enemy is alive or not. Is not currently ever changed.
 	public bool alive;
 
+	public AudioClip idleSound;
 	public AudioClip damageSound;
+	public AudioClip sparkSound;
+	public AudioClip detectSound;
+	public AudioClip attackSound;
 
 	public Animator anim;
 
