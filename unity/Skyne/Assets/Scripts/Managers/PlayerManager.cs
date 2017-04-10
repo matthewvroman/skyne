@@ -115,6 +115,8 @@ public class PlayerManager : MonoBehaviour
 
 	bool isAlive = true;
 
+	bool damageFlash = false;
+
 	Quaternion lastRot;
 
 	Vector3 velocity = Vector3.zero;
@@ -659,7 +661,13 @@ public class PlayerManager : MonoBehaviour
 			rend.material.color = color;
 		}
 
-		yield return new WaitForSeconds(0.2f);
+		//playerAudio.clip = ameliaGrunt2;
+		//playerAudio.loop = false;
+		//playerAudio.Play ();
+		playerAudio.clip = null;
+		playerAudio.PlayOneShot (ameliaGrunt2);
+
+		yield return new WaitForSeconds(0.1f);
 
 		float time = 0.0f;
 
@@ -809,9 +817,6 @@ public class PlayerManager : MonoBehaviour
 //		isPushed = true;
 		anim.SetTrigger ("isHit");
 
-		playerAudio.clip = null;
-		playerAudio.PlayOneShot (ameliaGrunt2);
-
 		rBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 
 		velocity.z = moveSetting.forwardVel * -forwardInput;
@@ -829,7 +834,6 @@ public class PlayerManager : MonoBehaviour
 
 	void PlaySounds ()
 	{
-
 		if (Input.GetKeyDown (KeyCode.LeftShift))
 		{
 			if (dashCounter == 2 && GameState.inst.upgradesFound [2])
@@ -891,6 +895,9 @@ public class PlayerManager : MonoBehaviour
 			//If not, then the player will take damage
 			DamageCalculator (10);
 
+			//playerAudio.clip = null;
+			//playerAudio.PlayOneShot (ameliaGrunt2);
+
 			StopCoroutine ("DamageFlash");
 			StartCoroutine ("DamageFlash");
 
@@ -906,6 +913,18 @@ public class PlayerManager : MonoBehaviour
 
 			StopCoroutine ("Knockback");
 			StartCoroutine ("Knockback");
+		}
+
+		if (col.gameObject.tag == "Bullet")
+		{
+			DamageCalculator (10);
+
+			//playerAudio.clip = null;
+			//playerAudio.PlayOneShot (ameliaGrunt2);
+			//Debug.Log ("Ow");
+
+			StopCoroutine ("DamageFlash");
+			StartCoroutine ("DamageFlash");
 		}
 
 		if (col.gameObject.tag == "Wall" && !Grounded ())
@@ -976,7 +995,7 @@ public class PlayerManager : MonoBehaviour
 		} */
 	}
 
-	void OnTriggerEnter (Collider col)
+	/*void OnTriggerEnter (Collider col)
 	{
 		//If the player comes in contact with an enemy, initiate invincibility coroutine
 		if (col.gameObject.tag == "Enemy")
@@ -984,6 +1003,9 @@ public class PlayerManager : MonoBehaviour
 			//When the player collides with an enemy, it checks to see if the player is currently invincible or not. 
 			//If not, then the player will take damage
 			DamageCalculator (10);
+
+			//playerAudio.clip = null;
+			//playerAudio.PlayOneShot (ameliaGrunt2);
 
 			StopCoroutine ("DamageFlash");
 			StartCoroutine ("DamageFlash");
@@ -1001,7 +1023,7 @@ public class PlayerManager : MonoBehaviour
 			StopCoroutine ("DamageFlash");
 			StartCoroutine ("DamageFlash");
 		}
-	}
+	} */
 
 	/// <summary>
 	/// Called from the bullet class when a bullet hits a collider with the Player tag
@@ -1009,12 +1031,12 @@ public class PlayerManager : MonoBehaviour
 	/// <param name="col">Col.</param>
 	public void OnShot (Collision col, Bullet bullet)
 	{ 
-		playerAudio.clip = null;
-		playerAudio.PlayOneShot (ameliaGrunt2);
+		//playerAudio.clip = null;
+		//playerAudio.PlayOneShot (ameliaGrunt2);
 
-		StopCoroutine ("DamageFlash");
-		StartCoroutine ("DamageFlash");
+		//StopCoroutine ("DamageFlash");
+		//StartCoroutine ("DamageFlash");
 
-		DamageCalculator (bullet.damage); 
-	}
+		//DamageCalculator (bullet.damage); 
+	} 
 }
