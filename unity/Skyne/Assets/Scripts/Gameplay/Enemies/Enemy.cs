@@ -240,14 +240,21 @@ public class Enemy : MonoBehaviour
 		// TODO: replace transform.position with a more specific spawn point where the health pickup should be instantiated
 		//HealthPickupManager.inst.TrySpawnHealthPickup(transform.position, hpDropPercChance); 
 
-		//HealthPickupManager.inst.SpawnHealthPickups(transform.position, minHPDrop, maxHPDrop); 
-		HealthPickupManager.inst.SpawnHealthPickups (transform.position, hpDropChoices); 
+		if (this is Boss1_AI)
+		{
 
-		// Call ExplosionManager to create an explosion
-		ExplosionManager.inst.SpawnEnemyExplosion (transform.position); 
+		}
+		else
+		{
+			//HealthPickupManager.inst.SpawnHealthPickups(transform.position, minHPDrop, maxHPDrop); 
+			HealthPickupManager.inst.SpawnHealthPickups(transform.position, hpDropChoices); 
 
-		// Destroy the gameobject
-		Destroy (this.gameObject);
+			// Call ExplosionManager to create an explosion
+			ExplosionManager.inst.SpawnEnemyExplosion(transform.position); 
+
+			// Destroy the gameobject
+			Destroy(this.gameObject);
+		}
 	}
 
 	protected virtual void EnemyDestroy () {

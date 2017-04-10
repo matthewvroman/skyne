@@ -355,6 +355,14 @@ public class Boss1_AI : Enemy
 				break;
 			}
 		}
+
+		if (!alive)
+		{
+			if (anim.GetCurrentAnimatorStateInfo(3).IsName("DeathDone"))
+			{
+				DestroyEnemy(); 
+			}
+		}
 	}
 
 	void Idle ()
@@ -654,9 +662,16 @@ public class Boss1_AI : Enemy
 
 	protected override void EnemyDestroy ()
 	{
+		Debug.Log("Boss death"); 
+
+		GlobalManager.inst.LoadOutro(); 
+
+		/*
 		GameState.inst.keysFound [0] = true;
 		//KeyPickupManager.inst.SpawnKeyPickup(transform.position, 0);
 
-		KeyPickupManager.inst.SpawnTreasurePickup (transform.position); 
+
+		KeyPickupManager.inst.SpawnTreasurePickup (transform.position);
+		*/ 
 	}
 }
