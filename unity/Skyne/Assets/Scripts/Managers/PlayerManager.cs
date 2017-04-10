@@ -239,7 +239,7 @@ public class PlayerManager : MonoBehaviour
 			Stamina ();
 			SlowMo ();
 			PlaySounds ();
-			Footsteps ();
+			//Footsteps ();
 		}
 
 		transform.rotation = Quaternion.Euler (0, transform.rotation.y, 0);
@@ -661,9 +661,6 @@ public class PlayerManager : MonoBehaviour
 			rend.material.color = color;
 		}
 
-		//playerAudio.clip = ameliaGrunt2;
-		//playerAudio.loop = false;
-		//playerAudio.Play ();
 		playerAudio.clip = null;
 		playerAudio.PlayOneShot (ameliaGrunt2);
 
@@ -851,9 +848,9 @@ public class PlayerManager : MonoBehaviour
 		{
 			if (playerAudio.isPlaying == false)
 			{
-				playerAudio.clip = footstep1;
-				playerAudio.loop = true;
-				playerAudio.Play ();
+				//playerAudio.clip = footstep1;
+				//playerAudio.loop = true;
+				//playerAudio.Play ();
 			}
 		}
 		else if (!Input.anyKey && velocity.magnitude == 0)//if (Mathf.Abs(velocity.magnitude) == 0 || !Grounded())
@@ -864,7 +861,7 @@ public class PlayerManager : MonoBehaviour
 
 	void Footsteps ()
 	{
-		if (playerAudio.clip == footstep1)
+		/*if (playerAudio.clip == footstep1)
 		{
 			playerAudio.volume = Random.Range (0.8f, 1);
 			playerAudio.pitch = Random.Range (0.8f, 1.1f); 
@@ -873,7 +870,9 @@ public class PlayerManager : MonoBehaviour
 		{
 			playerAudio.volume = 1;
 			playerAudio.pitch = 1;
-		}
+		} */
+
+		playerAudio.PlayOneShot (footstep1);
 	}
 
 	public float getHealth ()
@@ -918,10 +917,6 @@ public class PlayerManager : MonoBehaviour
 		if (col.gameObject.tag == "Bullet")
 		{
 			DamageCalculator (10);
-
-			//playerAudio.clip = null;
-			//playerAudio.PlayOneShot (ameliaGrunt2);
-			//Debug.Log ("Ow");
 
 			StopCoroutine ("DamageFlash");
 			StartCoroutine ("DamageFlash");
