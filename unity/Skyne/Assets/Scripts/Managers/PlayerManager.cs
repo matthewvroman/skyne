@@ -150,9 +150,9 @@ public class PlayerManager : MonoBehaviour
 
 	public Animator anim;
 
-	AudioSource playerAudio;
+	//AudioSource playerAudio;
 
-	public AudioClip footstep1;
+	/*public AudioClip footstep1;
 	public AudioClip footstep2;
 	public AudioClip footstep3;
 	public AudioClip doubleJumpSound;
@@ -161,7 +161,7 @@ public class PlayerManager : MonoBehaviour
 	public AudioClip WallJumpSound;
 	public AudioClip ameliaGrunt1;
 	public AudioClip ameliaGrunt2;
-	public AudioClip ameliaGrunt3;
+	public AudioClip ameliaGrunt3; */
 
 	/// <summary>
 	/// Shoots a raycast downwards from the player, and checks the distance between the player and the ground. If that distance is greater than the distToGrounded variable, the player will fall down
@@ -209,7 +209,7 @@ public class PlayerManager : MonoBehaviour
 
 		dashCounter = moveSetting.dashCooldown;
 
-		playerAudio = GetComponent<AudioSource> ();
+		//playerAudio = GetComponent<AudioSource> ();
 		//playerAudio.Play ();
 	}
 
@@ -238,7 +238,7 @@ public class PlayerManager : MonoBehaviour
 			Health ();
 			Stamina ();
 			SlowMo ();
-			PlaySounds ();
+			//PlaySounds ();
 			//Footsteps ();
 		}
 
@@ -454,8 +454,8 @@ public class PlayerManager : MonoBehaviour
 					velocity.y = moveSetting.jumpVel;
 					canDoubleJump = false;
 
-					playerAudio.clip = null;
-					playerAudio.PlayOneShot (doubleJumpSound);
+					//playerAudio.clip = null;
+					//playerAudio.PlayOneShot (doubleJumpSound);
 				}
 			}
 		}
@@ -661,8 +661,8 @@ public class PlayerManager : MonoBehaviour
 			rend.material.color = color;
 		}
 
-		playerAudio.clip = null;
-		playerAudio.PlayOneShot (ameliaGrunt2);
+		//playerAudio.clip = null;
+		//playerAudio.PlayOneShot (ameliaGrunt2);
 
 		yield return new WaitForSeconds(0.1f);
 
@@ -829,20 +829,20 @@ public class PlayerManager : MonoBehaviour
 		rBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
 	}
 
-	void PlaySounds ()
+/*	void PlaySounds ()
 	{
 		if (Input.GetKeyDown (KeyCode.LeftShift))
 		{
 			if (dashCounter == 2 && GameState.inst.upgradesFound [2])
 			{
-				playerAudio.clip = null;
-				playerAudio.PlayOneShot (airDashSound);
+				//playerAudio.clip = null;
+				//playerAudio.PlayOneShot (airDashSound);
 			}
 		}
 		else if (Input.GetKeyDown (KeyCode.Space) && Grounded ())
 		{
-			playerAudio.clip = null;
-			playerAudio.PlayOneShot (jumpSound);
+			//playerAudio.clip = null;
+			//playerAudio.PlayOneShot (jumpSound);
 		}
 		else if (Grounded () && Mathf.Abs (velocity.magnitude) > 1) //&& playerAudio.isPlaying == false)
 		{
@@ -857,11 +857,11 @@ public class PlayerManager : MonoBehaviour
 		{
 			playerAudio.Stop ();
 		}
-	}
+	} 
 
 	void Footsteps ()
 	{
-		/*if (playerAudio.clip == footstep1)
+		if (playerAudio.clip == footstep1)
 		{
 			playerAudio.volume = Random.Range (0.8f, 1);
 			playerAudio.pitch = Random.Range (0.8f, 1.1f); 
@@ -870,10 +870,10 @@ public class PlayerManager : MonoBehaviour
 		{
 			playerAudio.volume = 1;
 			playerAudio.pitch = 1;
-		} */
+		} 
 
 		playerAudio.PlayOneShot (footstep1);
-	}
+	} */
 
 	public float getHealth ()
 	{
