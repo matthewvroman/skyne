@@ -38,6 +38,8 @@ public class Boss1_AI : Enemy
 
 	public float timer;
 
+	Vector3 oldEulerAngles;
+
 	public float tarDistance;
 	public float stompAggroDist;
 
@@ -132,6 +134,8 @@ public class Boss1_AI : Enemy
 
 		//boss = transform.Find ("Boss").gameObject;
 		boss = GameObject.Find ("Boss");
+
+		oldEulerAngles = transform.rotation.eulerAngles;
 
 		anim = transform.Find ("Boss2TallBoi_Model").GetComponent<Animator> ();
 
@@ -238,6 +242,23 @@ public class Boss1_AI : Enemy
 			transform.rotation = Quaternion.RotateTowards (bulletSpawner1.transform.rotation, q, turnSpeed * Time.deltaTime);
 			//transform.rotation = Quaternion.RotateTowards(
 
+			if (Mathf.Abs(oldEulerAngles.y - transform.rotation.eulerAngles.y) < 0.1f)
+			{
+				Debug.Log ("NO ROTATION");
+			} 
+			else
+			{
+				//DO WHATEVER YOU WANT
+				if (oldEulerAngles.y - transform.rotation.eulerAngles.y < 0)
+				{
+					Debug.Log ("Negative");
+				}
+				else if (oldEulerAngles.y - transform.rotation.eulerAngles.y > 0)
+				{
+					Debug.Log ("Positive");
+				}
+				oldEulerAngles = transform.rotation.eulerAngles;
+			}
 
 			if (curHomingDelay >= 0)
 			{
