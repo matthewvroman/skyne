@@ -87,12 +87,12 @@ public class UIManager : Singleton<UIManager>
 			{
 				Debug.Log("Hide game menu has temporarily been disabled with Escape key due to bug"); 
 
-				/*
+
 				GlobalManager.inst.SetGamePaused(false); 
 				GlobalManager.inst.buttonUIIsActive = false;
 				DisablePanels(); 
 				gameMenuActive = false;  
-				*/ 
+
 			}
 		}
 
