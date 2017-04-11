@@ -130,11 +130,13 @@ public class LevelData : Singleton<LevelData>
 
 		// Permanently save to PlayerPrefs whenever the map has changed
 		// Map data is preserved even if the player dies and reloads
-
+		// This constant map updating functionality has been depcrecated
+		/*
 		if (shouldSaveMap)
 		{
 			PlayerPrefsManager.inst.SaveRoomStates();
 		}
+		*/ 
 
 
 

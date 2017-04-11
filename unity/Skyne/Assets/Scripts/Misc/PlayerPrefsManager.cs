@@ -84,6 +84,8 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 			SetBool("upgrade" + i, GameState.inst.upgradesFound[i]); 
 		}
 
+		SaveRoomStates();
+
 		PlayerManager player = GameObject.FindObjectOfType<PlayerManager>(); 
 
 		// Save the player health
