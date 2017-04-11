@@ -400,6 +400,14 @@ public class FortManager : Enemy
 		}
 	}
 
+	protected override void EnemyShot()
+	{
+		if (state == FortManager.State.IDLE)
+		{
+			state = FortManager.State.POSITION; 
+		}
+	}
+
 	// Called if the enemy has a destroy animation, right as the destroy animation starts
 	protected override void PreEnemyDestroy()
 	{

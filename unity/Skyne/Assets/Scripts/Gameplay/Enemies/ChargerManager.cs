@@ -335,6 +335,14 @@ public class ChargerManager : Enemy
 		}
 	} */
 
+	protected override void EnemyShot()
+	{
+		if (state == ChargerManager.State.IDLE)
+		{
+			state = ChargerManager.State.POSITION; 
+		}
+	}
+
 	protected override void EnemyDestroy()
 	{
 

@@ -265,6 +265,10 @@ public class Enemy : MonoBehaviour
 		}
 	}
 
+	protected virtual void EnemyShot () {
+
+	}
+
 	protected virtual void EnemyDestroy () {
 
 	}

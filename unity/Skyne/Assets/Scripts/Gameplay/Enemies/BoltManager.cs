@@ -361,6 +361,14 @@ public class BoltManager : Enemy
 		return Vector3.Dot(frontFacingObj.transform.forward, (targetFlatPosition - thisFlatPosition).normalized);
 	}
 
+	protected override void EnemyShot()
+	{
+		if (state == BoltManager.State.IDLE)
+		{
+			state = BoltManager.State.POSITION; 
+		}
+	}
+
 	// Called if the enemy has a destroy animation, right as the destroy animation starts
 	protected override void PreEnemyDestroy()
 	{

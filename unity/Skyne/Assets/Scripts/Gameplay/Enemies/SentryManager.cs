@@ -305,6 +305,14 @@ public class SentryManager : Enemy
 		}
 	} */
 
+	protected override void EnemyShot()
+	{
+		if (state == SentryManager.State.IDLE)
+		{
+			state = SentryManager.State.POSITION; 
+		}
+	}
+
 	protected override void EnemyDestroy()
 	{
 
