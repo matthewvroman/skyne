@@ -22,6 +22,7 @@ public class TitleScreen : MonoBehaviour
 
 	public GameObject mainMenu;
 	public GameObject settingsMenu;
+	public GameObject creditsMenu; 
 
 	public EventSystem titleEventSystem; 
 
@@ -135,9 +136,17 @@ public class TitleScreen : MonoBehaviour
 	public void OnBackButton()
 	{
 		settingsMenu.SetActive (false);
+		creditsMenu.SetActive(false); 
 		mainMenu.SetActive (true);
 
 		//EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(settingsButton.gameObject);
+	}
+
+	// Credits button
+	public void OnCreditsButton()
+	{
+		mainMenu.SetActive(false); 
+		creditsMenu.SetActive(true); 
 	}
 
 	public IEnumerator StartGameFadeOut()
