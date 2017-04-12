@@ -37,6 +37,8 @@ public class HealthPickup : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody>(); 
 		triggerCollider.enabled = false; 
+
+		durationTimer = duration; 
 	}
 	
 	// Update is called once per frame
@@ -54,7 +56,7 @@ public class HealthPickup : MonoBehaviour
 		{
 			durationTimer -= Time.deltaTime; 
 
-			if (durationTimer < 0)
+			if (durationTimer <= 0)
 			{
 				Destroy(this.gameObject); 
 			}
