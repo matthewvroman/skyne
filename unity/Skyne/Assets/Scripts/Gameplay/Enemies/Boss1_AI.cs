@@ -89,7 +89,7 @@ public class Boss1_AI : Enemy
 	GameObject stompCollider;
 	GameObject stompColliderExpand;
 
-	GameObject laserCol;
+	public GameObject laserObj;
 	NavMeshAgent laserNav;
 
 	public GameObject arm1;
@@ -133,7 +133,7 @@ public class Boss1_AI : Enemy
 
 		turnSpeed = normTurnSpeed;
 
-		//boss1Audio = GetComponent<AudioSource> ();
+		boss1Audio = GetComponent<AudioSource> ();
 
 		//boss = transform.Find ("Boss").gameObject;
 		boss = GameObject.Find ("Boss");
@@ -151,8 +151,8 @@ public class Boss1_AI : Enemy
 		stompCollider = transform.Find ("StompCollision").gameObject;
 		stompColliderExpand = transform.Find ("StompCollisionExpand").gameObject;
 
-		laserCol = transform.Find ("LaserCol").gameObject;
-		laserNav = laserCol.GetComponent<NavMeshAgent> ();
+		//laserObj = transform.Find ("LaserCol").gameObject;
+		//laserNav = laserObj.GetComponent<NavMeshAgent> ();
 
 		//START State Machine
 		StartCoroutine ("B1SM");
@@ -519,7 +519,7 @@ public class Boss1_AI : Enemy
 
 		if (timer < (laserLength - laserDelay))
 		{
-			laserCol.SetActive (true);
+			laserObj.SetActive (true);
 
 		}
 
@@ -536,7 +536,7 @@ public class Boss1_AI : Enemy
 		else
 		{
 			anim.SetTrigger ("LaserDone");
-			laserCol.SetActive (false);
+			laserObj.SetActive (false);
 			turnSpeed = normTurnSpeed;
 			choosing = true;
 			ChooseAttack ();
