@@ -23,7 +23,7 @@ public class AmbushRoom : MonoBehaviour
 	public AudioClip normalMusic;
 	public AudioClip doorSound;
 
-	BoxCollider ambushTrigger;
+	public BoxCollider ambushTrigger;
 
 	public int index;
 
@@ -39,7 +39,7 @@ public class AmbushRoom : MonoBehaviour
 
 		oneKey = new List<GameObject> ();
 
-		ambushTrigger = GetComponent<BoxCollider> ();
+		ambushTrigger = this.GetComponent<BoxCollider> ();
 
 		foreach (Transform enemy in noKeyHold.transform)
 		{
@@ -74,7 +74,7 @@ public class AmbushRoom : MonoBehaviour
 		if (this.noKeys.Count == 0 || this.oneKey.Count == 0 || this.twoKeys.Count == 0 || this.threeKeys.Count == 0)
 		{
 			//isDone = true;
-			GameState.inst.ambushRoomsDone[index] = true;
+			GameState.inst.ambushRoomsDone [index] = true;
 			isDone = true;
 		}
 
@@ -223,6 +223,28 @@ public class AmbushRoom : MonoBehaviour
 				door.setDoorState (true);
 			}
 
+			ambushTrigger.enabled = false;
+
+			foreach (GameObject enemy in noKeys)
+			{
+				enemy.SetActive (false);
+			}
+
+			foreach (GameObject enemy in oneKey)
+			{
+				enemy.SetActive (false);
+			}
+
+			foreach (GameObject enemy in twoKeys)
+			{
+				enemy.SetActive (false);
+			}
+
+			foreach (GameObject enemy in threeKeys)
+			{
+				enemy.SetActive (false);
+			}
+
 			musicController.clip = normalMusic;
 
 			if (!musicController.isPlaying)
@@ -232,7 +254,8 @@ public class AmbushRoom : MonoBehaviour
 		}
 	}
 
-	void OnTriggerEnter(Collider col) {
+	void OnTriggerEnter (Collider col)
+	{
 		if (isDone == false)
 		{
 			if (col.gameObject.tag == "Player")
@@ -250,9 +273,9 @@ public class AmbushRoom : MonoBehaviour
 				{
 					musicController.Play ();
 				}
-			}
 
-			ambushTrigger.enabled = false;
+				ambushTrigger.enabled = false;
+			}
 		}
 	}
 }
