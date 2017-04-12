@@ -7,8 +7,10 @@ public class ProjectileManager : Singleton<ProjectileManager>
 { 
 	public Vector3 testHitPoint; 
 
-	public GameObject bossHomingBulletPrefab; 
-	public GameObject bossBigBulletPrefab; 
+	//public GameObject bossHomingBulletPrefab; 
+	//public GameObject bossBigBulletPrefab; 
+
+	public LayerMask pShootingLayers; 
 
 	// Player normal shot
 	public void Shoot_P_Normal(GameObject spawner)
@@ -153,7 +155,8 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
 		RaycastHit hitInfo;
 
-		if (Physics.Raycast(ray.origin, ray.direction, out hitInfo, 200)) 
+		//if (Physics.Raycast(ray.origin, ray.direction, out hitInfo, 200)) 
+		if (Physics.Raycast(ray, out hitInfo, 200, pShootingLayers.value))
 		{
 			/*
 			if(hitInfo.collider.gameObject.tag=="targetObject")
