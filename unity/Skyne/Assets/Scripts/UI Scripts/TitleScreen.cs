@@ -23,6 +23,7 @@ public class TitleScreen : MonoBehaviour
 	public GameObject mainMenu;
 	public GameObject settingsMenu;
 	public GameObject creditsMenu; 
+	public GameObject confirmNewGamePanel; 
 
 	public EventSystem titleEventSystem; 
 
@@ -105,6 +106,19 @@ public class TitleScreen : MonoBehaviour
 		}
 	}
 
+	public void OnTryNewGameButton()
+	{
+		if (PlayerPrefsManager.inst.SaveExists())
+		{
+			//mainMenu.SetActive(false); 
+			confirmNewGamePanel.SetActive(true); 
+		}
+		else
+		{
+			OnNewGameButton(); 
+		}
+	}
+
 	// LoadGameButton
 	public void OnContinueButton()
 	{
@@ -138,6 +152,7 @@ public class TitleScreen : MonoBehaviour
 		settingsMenu.SetActive (false);
 		creditsMenu.SetActive(false); 
 		mainMenu.SetActive (true);
+		confirmNewGamePanel.SetActive(false); 
 
 		//EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(settingsButton.gameObject);
 	}
