@@ -18,23 +18,27 @@ public class AmbientController : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update () {
-		player = GameObject.FindGameObjectWithTag ("Player");
+	void Update () 
+	{
+		if (GlobalManager.inst.GameplayIsActive())
+		{
+			player = GameObject.FindGameObjectWithTag("Player");
 
-		if (player.transform.position.y < 50)
-		{
-			audio1.clip = underworldSound;
-			if (!audio1.isPlaying)
+			if (player.transform.position.y < 50)
 			{
-				audio1.Play ();
+				audio1.clip = underworldSound;
+				if (!audio1.isPlaying)
+				{
+					audio1.Play();
+				}
 			}
-		}
-		else
-		{
-			audio1.clip = overworldSound;
-			if (!audio1.isPlaying)
+			else
 			{
-				audio1.Play ();
+				audio1.clip = overworldSound;
+				if (!audio1.isPlaying)
+				{
+					audio1.Play();
+				}
 			}
 		}
 	}
