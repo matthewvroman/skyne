@@ -13,6 +13,7 @@ public class UIManager : Singleton<UIManager>
 
 	public GameObject optionsPanel; 
 	public GameObject mapPanel; 
+	public GameObject confirmQuitPanel; 
 
 	//public bool isPaused = false; //determines whether the game is paused or not.
 
@@ -85,13 +86,17 @@ public class UIManager : Singleton<UIManager>
 			// If active, close the game menu
 			else
 			{
-				Debug.Log("Hide game menu has temporarily been disabled with Escape key due to bug"); 
-
-
-				GlobalManager.inst.SetGamePaused(false); 
-				GlobalManager.inst.buttonUIIsActive = false;
-				DisablePanels(); 
-				gameMenuActive = false;  
+				if (confirmQuitPanel.activeSelf)
+				{
+					confirmQuitPanel.SetActive(false); 
+				}
+				else
+				{
+					GlobalManager.inst.SetGamePaused(false); 
+					GlobalManager.inst.buttonUIIsActive = false;
+					DisablePanels(); 
+					gameMenuActive = false; 
+				}
 
 			}
 		}
@@ -156,6 +161,7 @@ public class UIManager : Singleton<UIManager>
 	{ 
 		mapPanel.SetActive(false);
 		optionsPanel.SetActive(false);
+		confirmQuitPanel.SetActive(false); 
 	}
 		
 	public void OnContinueButton()
@@ -171,6 +177,16 @@ public class UIManager : Singleton<UIManager>
 	{
 		GlobalManager.inst.buttonUIIsActive = false;
 		GlobalManager.inst.GameplayToTitleScreen(); 
+	}
+
+	public void OnTryQuitButton()
+	{
+		confirmQuitPanel.SetActive(true); 
+	}
+
+	public void OnCancelQuitButton()
+	{
+		confirmQuitPanel.SetActive(false); 
 	}
 
 	public void OnTabButton()
