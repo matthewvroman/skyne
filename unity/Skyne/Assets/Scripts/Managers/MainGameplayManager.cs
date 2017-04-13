@@ -57,6 +57,7 @@ public class MainGameplayManager : Singleton<MainGameplayManager>
 		mainCam.gameObject.SetActive(true);
 
 		PlayerShooting.inst.ChangeWeaponTypeModels(); 
+		PlayerShooting.inst.ChangeWeaponCrosshair(); 
 
 		// Fade in here
 	}

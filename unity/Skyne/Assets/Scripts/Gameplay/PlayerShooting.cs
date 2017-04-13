@@ -72,13 +72,20 @@ public class PlayerShooting : Singleton<PlayerShooting>
 	public Image weaponIcon;
 	public Sprite[] iconSprites;
 
+	// Crosshairs
+	[SerializeField] private GameObject normalCrosshair; 
+	[SerializeField] private GameObject chargeCrosshair; 
+	[SerializeField] private GameObject wideCrosshair; 
+	[SerializeField] private GameObject rapidCrosshair; 
+
 	// Player weapon models
 	public GameObject normalGunModel; 
 	public GameObject chargeGunModel; 
 	public GameObject wideGunModel;
 	public GameObject rapidGunModel; 
 
-	void Start() {
+	void Start() 
+	{
 		gunAudio = GetComponent<AudioSource> ();
 	}
 
@@ -430,6 +437,7 @@ public class PlayerShooting : Singleton<PlayerShooting>
 			changeShootHeld = true; 
 
 			ChangeWeaponTypeModels(); 
+			ChangeWeaponCrosshair(); 
 		}
 	}
 
@@ -455,6 +463,31 @@ public class PlayerShooting : Singleton<PlayerShooting>
 		else if (GameState.inst.pShootMode == PlayerShootMode.Rapid)
 		{
 			rapidGunModel.SetActive(true); 
+		}
+	}
+
+	public void ChangeWeaponCrosshair()
+	{
+		normalCrosshair.SetActive(false); 
+		chargeCrosshair.SetActive(false); 
+		wideCrosshair.SetActive(false); 
+		rapidCrosshair.SetActive(false); 
+
+		if (GameState.inst.pShootMode == PlayerShootMode.Normal)
+		{
+			normalCrosshair.SetActive(true); 
+		}
+		else if (GameState.inst.pShootMode == PlayerShootMode.Charge)
+		{
+			chargeCrosshair.SetActive(true); 
+		}
+		else if (GameState.inst.pShootMode == PlayerShootMode.Wide)
+		{
+			wideCrosshair.SetActive(true); 
+		}
+		else if (GameState.inst.pShootMode == PlayerShootMode.Rapid)
+		{
+			rapidCrosshair.SetActive(true); 
 		}
 	}
 }
