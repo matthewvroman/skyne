@@ -94,7 +94,7 @@ public class GlobalManager : Singleton<GlobalManager>
 
 		// Set default audio levels
 		SetMusicVolume(PlayerPrefsManager.inst.GetSavedMusicVolume(0)); 
-		SetSFXVolume(PlayerPrefsManager.inst.GetSavedSFXVolume(0)); 
+		SetSFXVolume(PlayerPrefsManager.inst.GetSavedSFXVolume(0));
 	}
 	
 	// Update is called once per frame
@@ -194,7 +194,14 @@ public class GlobalManager : Singleton<GlobalManager>
 
 	public void SetSFXVolume(float newVolume)
 	{
-		mixer.SetFloat("SFXVolume", newVolume); 
+		if (newVolume == -30)
+		{
+			mixer.SetFloat("SFXVolume", -80);
+		}
+		else
+		{
+			mixer.SetFloat("SFXVolume", newVolume); 
+		}
 	}
 
 	public float GetMusicVolume()
@@ -206,7 +213,14 @@ public class GlobalManager : Singleton<GlobalManager>
 
 	public void SetMusicVolume(float newVolume)
 	{
-		mixer.SetFloat("MusicVolume", newVolume); 
+		if (newVolume == -30)
+		{
+			mixer.SetFloat("MusicVolume", -80);
+		}
+		else
+		{
+			mixer.SetFloat("MusicVolume", newVolume); 
+		}
 	}
 
 	public void LoadTitleAtStart()
