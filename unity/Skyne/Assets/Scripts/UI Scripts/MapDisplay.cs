@@ -25,7 +25,32 @@ public class MapDisplay : Singleton<MapDisplay>
 	public GameObject blinkingTile; 
 	public bool useBlinkingTile;
 	public float blinkAlpha; 
-	public float blinkSpeed; 
+	public float blinkSpeed;
+
+	public GameObject dirArrow; 
+
+	// See http://answers.unity3d.com/questions/976184/ui-recttransform-position-screen-resolution.html
+	public CanvasScaler canvasScaler;
+	private Vector2 screenScale
+	{
+		get
+		{
+			if (canvasScaler == null)
+			{
+				canvasScaler = GetComponentInParent<CanvasScaler>();
+			}
+
+			if (canvasScaler)
+			{
+				return new Vector2(canvasScaler.referenceResolution.x / Screen.width, canvasScaler.referenceResolution.y / Screen.height);
+			}
+			else
+			{
+				return Vector2.one;
+			}
+		}
+	}
+
 
 
 	/// <summary>
@@ -178,6 +203,37 @@ public class MapDisplay : Singleton<MapDisplay>
 				blinkingTile.GetComponent<Image>().color = new Color (curColor.r, curColor.g, curColor.b, 0);
 			}
 		}
+
+		// Update directional arrow
+		// Update the arrow's direction based on which direction the player is facing
+		dirArrow.transform.eulerAngles = new Vector3(0, 0, -LevelData.inst.player.transform.rotation.eulerAngles.y + 90); 
+
+		// Then update the arrow's position
+		if (mapTileSize != 0)
+		{
+			//dirArrow.GetComponent<RectTransform>().localPosition = new Vector3 (LevelData.inst.player.transform.position.x / mapTileSize, LevelData.inst.player.transform.position.z / mapTileSize, 0);
+			//dirArrow.GetComponent<RectTransform>().localPosition = new Vector3 (LevelData.inst.player.transform.position.x, LevelData.inst.player.transform.position.z, 0);
+
+			//Debug.Log("ArrowX: " + LevelData.inst.player.transform.position.x / mapTileSize); 
+
+			//float posX = (LevelData.inst.player.transform.position.x / LevelData.inst.gridEdgeSize) * mapTileSize * screenScale.x; 
+			//float posY = (LevelData.inst.player.transform.position.z / LevelData.inst.gridEdgeSize) * mapTileSize * screenScale.y;
+			//float posX = (LevelData.inst.player.transform.position.x / (LevelData.inst.gridEdgeSize)) * mapTileSize * screenScale.x;  
+			//float posY = (LevelData.inst.player.transform.position.z / (LevelData.inst.gridEdgeSize)) * mapTileSize * screenScale.y; 
+
+			// First, calculate, based on the player's position in the world, where they should fall based on the map tile layout
+			// For example, if the player is at an x position of 48 in Unity units, that translates to 1.5 in terms of map tiles
+			float tileX = LevelData.inst.player.transform.position.x / LevelData.inst.gridEdgeSize; 
+			float tileY = LevelData.inst.player.transform.position.z / LevelData.inst.gridEdgeSize; 
+
+			// With the map tile position, figure out how to multiply the arrow to the right position 
+			// TODO: Figure out how to get the right position, especially with canvas scaling messing it up
+			float posX = tileX * 58.5833f;
+			float posY = tileY * 58.5833f; 
+
+			dirArrow.GetComponent<RectTransform>().anchoredPosition = new Vector3 (posX, posY, 0);
+		}
+
 	}
 
 	IEnumerator BlinkTile()
