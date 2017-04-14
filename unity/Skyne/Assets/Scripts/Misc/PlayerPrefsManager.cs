@@ -30,7 +30,19 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 
 	public void ResetPlayerPrefs ()
 	{
-		PlayerPrefs.DeleteAll();  
+		// Back up some values from player prefs
+		float musicVol = GetSavedMusicVolume(0); 
+		float sfxVol = GetSavedSFXVolume(0); 
+		float mSensitivity = GetSavedMouseSensitivity(GlobalManager.inst.defaultSensitivity); 
+
+		// Clear all player prefs
+		PlayerPrefs.DeleteAll(); 
+
+		// Reassign the saved values
+		SaveMusicVolume(musicVol); 
+		SaveSFXVolume(sfxVol); 
+		SaveMouseSensitivity(mSensitivity); 
+
 		PlayerPrefs.Save(); 
 	}
 
@@ -190,47 +202,35 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 		}
 	}
 
-	/*
-	/// <summary>
-	/// Saves roomStateData (from GameState) to PlayerPrefs using the room name + "-propertyName"
-	/// </summary>
-	public void SaveRoomStates()
+	public void SaveSFXVolume(float value)
 	{
-		// Save a key to indicate that PlayerPrefs exist
-		SetBool("saveExists", true);
-
-		for (int i = 0; i < GameState.inst.roomStateData.Length; i++)
-		{
-			// Save the "revealed" property of each room using the key (Room name)(-revealed)
-			string key = GameState.inst.roomStateData[i].roomName + "-revealed";
-			SetBool(key, GameState.inst.roomStateData[i].revealed); 
-
-			// Save any other room properties here, like stuff relating to enemies
-			// TODO
-		}
-		PlayerPrefs.Save(); 
+		PlayerPrefs.SetFloat("sfxVolume", value); 
 	}
-	*/
 
-	/*
-	/// <summary>
-	/// Loads saved room data into GameState's roomStateData array. 
-	/// </summary>
-	public void LoadRoomStates()
+	public float GetSavedSFXVolume(float defaultValue)
 	{
-		//Debug.Log("LoadRoomStates()"); 
-
-		for (int i = 0; i < GameState.inst.roomStateData.Length; i++)
-		{
-			// Load the "revealed" property for each room
-			string key = GameState.inst.roomStateData[i].roomName + "-revealed";
-			GameState.inst.roomStateData[i].revealed = GetBool(key, false);  
-
-			// Load any other room properties here
-			// TODO
-		}
+		return GetFloat("sfxVolume", defaultValue); 
 	}
-	*/ 
+
+	public void SaveMusicVolume(float value)
+	{
+		PlayerPrefs.SetFloat("musicVolume", value); 
+	}
+
+	public float GetSavedMusicVolume(float defaultValue)
+	{
+		return GetFloat("musicVolume", defaultValue);
+	}
+
+	public void SaveMouseSensitivity(float value)
+	{
+		PlayerPrefs.SetFloat("mouseSensitivity", value); 
+	}
+
+	public float GetSavedMouseSensitivity(float defaultValue)
+	{
+		return GetFloat("mouseSensitivity", defaultValue); 
+	}
 
 
 

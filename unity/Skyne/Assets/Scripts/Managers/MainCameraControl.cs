@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainCameraControl : MonoBehaviour 
+public class MainCameraControl : Singleton<MainCameraControl> 
 {
 	public Transform player;                                           // Player's reference.
 	public Vector3 pivotOffset = new Vector3(0.0f, 1.0f,  0.0f);       // Offset to repoint the camera.
@@ -195,5 +195,24 @@ public class MainCameraControl : MonoBehaviour
 	public float GetVerticalAngle()
 	{
 		return VerticalAngle; 
+	}
+
+	public float GetMouseSensitivity()
+	{
+		if (horizontalAimingSpeed != verticalAimingSpeed)
+		{
+			Debug.LogWarning("Horizontal and vertical aiming speed are different. Horizontal sensitivity is returned by default");  
+		}
+		return horizontalAimingSpeed; 
+	}
+
+	public void SetMouseSensitivity(float newSensitivity)
+	{
+		if (newSensitivity == 0)
+		{
+			Debug.LogWarning("Mouse sensitivity has been set to 0. The camera cannot be moved in this state"); 
+		}
+		verticalAimingSpeed = newSensitivity;
+		horizontalAimingSpeed = newSensitivity; 
 	}
 }

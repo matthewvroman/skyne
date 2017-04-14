@@ -32,6 +32,9 @@ public class GlobalManager : Singleton<GlobalManager>
 
 	public AudioMixer mixer; 
 
+	// Default settings
+	public float defaultSensitivity; 
+
 	public bool gamePaused
 	{
 		get {
@@ -90,8 +93,8 @@ public class GlobalManager : Singleton<GlobalManager>
 		}
 
 		// Set default audio levels
-		SetMusicVolume(0); 
-		SetSFXVolume(0); 
+		SetMusicVolume(PlayerPrefsManager.inst.GetSavedMusicVolume(0)); 
+		SetSFXVolume(PlayerPrefsManager.inst.GetSavedSFXVolume(0)); 
 	}
 	
 	// Update is called once per frame

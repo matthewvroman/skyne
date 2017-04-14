@@ -96,8 +96,8 @@ public class TitleScreen : MonoBehaviour
 	{
 		if (!ScreenTransition.inst.transitionActive)
 		{
-			// For now, clear PlayerPrefs when a new gameplay screen is loaded
-			PlayerPrefs.DeleteAll();
+			// Reset player prefs, but keep settings-related data
+			PlayerPrefsManager.inst.ResetPlayerPrefs(); 
 
 			GlobalManager.inst.buttonUIIsActive = false; 
 

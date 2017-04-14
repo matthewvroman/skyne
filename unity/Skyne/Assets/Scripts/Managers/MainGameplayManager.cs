@@ -59,6 +59,9 @@ public class MainGameplayManager : Singleton<MainGameplayManager>
 		PlayerShooting.inst.ChangeWeaponTypeModels(); 
 		PlayerShooting.inst.ChangeWeaponCrosshair(); 
 
+		// Set the starting sensitivity
+		MainCameraControl.inst.SetMouseSensitivity(PlayerPrefsManager.inst.GetSavedMouseSensitivity(GlobalManager.inst.defaultSensitivity)); 
+
 		// Fade in here
 	}
 
