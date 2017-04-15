@@ -79,15 +79,13 @@ public class PlayerManager : MonoBehaviour
 	public MainCameraControl camCon;
 
 	MeshRenderer playerMesh;
-	Color playerColor;
+	//Color playerColor;
 
 	float curDownAccel;
 
 	bool isOriented = true;
 
 	bool isFalling = false;
-
-	bool isFocused = false;
 
 	bool jump = false;
 	bool canDoubleJump = false;
@@ -109,18 +107,16 @@ public class PlayerManager : MonoBehaviour
 
 	bool isWallJumping = false;
 
-	bool isPushed = false;
-
 	bool isDoubleJumping = false;
 
 	bool isAlive = true;
 
-	bool damageFlash = false;
+	//bool damageFlash = false;
 
 	Quaternion lastRot;
 
 	Vector3 velocity = Vector3.zero;
-	Quaternion targetRotation;
+	//Quaternion targetRotation;
 	Rigidbody rBody;
 	float forwardInput;
 	float strafeInput;
@@ -150,7 +146,6 @@ public class PlayerManager : MonoBehaviour
 
 	public Animator anim;
 
-	//AudioSource playerAudio;
 
 	/*public AudioClip footstep1;
 	public AudioClip footstep2;
@@ -173,11 +168,11 @@ public class PlayerManager : MonoBehaviour
 
 	void Start ()
 	{
-		targetRotation = transform.rotation;
+		//targetRotation = transform.rotation;
 		rBody = GetComponent<Rigidbody> ();
 
 		playerMesh = GetComponent<MeshRenderer> ();
-		playerColor = playerMesh.material.color;
+		//playerColor = playerMesh.material.color;
 
 		forwardInput = 0;
 		strafeInput = 0;
@@ -234,12 +229,9 @@ public class PlayerManager : MonoBehaviour
 		if (isAlive)
 		{
 			GetInput ();
-			//Focus ();
 			Health ();
 			Stamina ();
 			SlowMo ();
-			//PlaySounds ();
-			//Footsteps ();
 		}
 
 		transform.rotation = Quaternion.Euler (0, transform.rotation.y, 0);
@@ -303,12 +295,11 @@ public class PlayerManager : MonoBehaviour
 		{
 			anim.SetBool ("isDead", true);
 			StartCoroutine ("Death");
-			//GlobalManager.inst.Lo ();
 		}
 
-		//Debug.Log ("Knockback:" + isPushed);
-
 		Animations ();
+
+		Debug.Log (canDoubleJump);
 	}
 
 	void FixedUpdate ()
@@ -332,11 +323,6 @@ public class PlayerManager : MonoBehaviour
 			StartCoroutine (AirDash ());
 		}
 
-		/*if (startSliding)
-		{
-			velocity.y -= physSetting.downAccel * 2;
-		} */
-
 		rBody.velocity = transform.TransformDirection (velocity);
 	}
 
@@ -350,9 +336,6 @@ public class PlayerManager : MonoBehaviour
 		anim.SetBool ("canDoubleJump", canDoubleJump);
 
 		anim.SetBool ("wallJumped", isWallJumping);
-
-//		anim.SetBool ("Dash", isDashing);
-//		anim.SetBool ("isHit", isPushed);
 	}
 
 	/// <summary>
@@ -360,7 +343,7 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Run ()
 	{
-		if (Mathf.Abs (forwardInput) > inputSetting.inputDelay && !isWallJumping && isPushed == false)
+		if (Mathf.Abs (forwardInput) > inputSetting.inputDelay && !isWallJumping)
 		{
 			//move
 			velocity.z = moveSetting.forwardVel * forwardInput * Time.timeScale;
@@ -379,7 +362,7 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Strafe ()
 	{
-		if (Mathf.Abs (strafeInput) > inputSetting.inputDelay && !isWallJumping && isPushed == false)
+		if (Mathf.Abs (strafeInput) > inputSetting.inputDelay && !isWallJumping)
 		{
 			//move
 			velocity.x = moveSetting.strafeVel * strafeInput * Time.timeScale;
@@ -447,15 +430,14 @@ public class PlayerManager : MonoBehaviour
 
 			if (GameState.inst.upgradesFound [0])
 			{
-				if (Input.GetKeyDown (KeyCode.Space) && canDoubleJump)
+				if (canDoubleJump == true)
 				{
-					isDoubleJumping = true;
-//					anim.SetTrigger ("DoubleJump");
-					velocity.y = moveSetting.jumpVel;
-					canDoubleJump = false;
-
-					//playerAudio.clip = null;
-					//playerAudio.PlayOneShot (doubleJumpSound);
+					if (Input.GetKeyDown (KeyCode.Space))
+					{
+						isDoubleJumping = true;
+						velocity.y = moveSetting.jumpVel;
+						canDoubleJump = false;
+					}
 				}
 			}
 		}
@@ -560,41 +542,6 @@ public class PlayerManager : MonoBehaviour
 			curDownAccel = physSetting.normDownAccel;
 			isOriented = true;
 		}
-			
-		/*if (isHuggingWall)
-		{
-			if (Input.GetKeyDown(KeyCode.Space)) 
-			{
-				if (backToWall)
-				{
-					playerAudio.clip = null;
-					playerAudio.PlayOneShot (jumpSound);
-				}
-			}
-
-			if (jumpInput > 0 && forwardInput != 0)
-			{
-				if (backToWall)
-				{
-					velocity.y = moveSetting.jumpVel;
-					velocity.z = moveSetting.forwardVel * forwardInput;
-					isWallJumping = true;
-				}
-			}
-			else if (jumpInput > 0 && forwardInput == 0)
-			{
-				isHuggingWall = false;
-			}
-			else
-			{
-				if (!Grounded ())
-				{
-					velocity.x = 0;
-					velocity.z = 0;
-					velocity.y = 0;
-				}
-			}
-		}*/
 	}
 
 	/// <summary>
@@ -611,32 +558,6 @@ public class PlayerManager : MonoBehaviour
 		else
 		{
 			transform.rotation = lastRot;
-		}
-
-		/*if (Input.GetKey (KeyCode.Q))
-		{
-			isOriented = false;
-		}
-		else
-		{
-			isOriented = true;
-		} */
-	}
-
-	/// <summary>
-	/// Moves the player camera into focus position when a button is held
-	/// </summary>
-	void Focus ()
-	{
-		if (Input.GetMouseButton (1))
-		{
-			camCon.SetTargetOffsets (camCon.pivotOffset, moveSetting.focusOffset);
-			isFocused = true;
-		}
-		else
-		{
-			camCon.ResetTargetOffsets ();
-			isFocused = false;
 		}
 	}
 
@@ -660,9 +581,6 @@ public class PlayerManager : MonoBehaviour
 		{
 			rend.material.color = color;
 		}
-
-		//playerAudio.clip = null;
-		//playerAudio.PlayOneShot (ameliaGrunt2);
 
 		yield return new WaitForSeconds(0.1f);
 
@@ -707,7 +625,6 @@ public class PlayerManager : MonoBehaviour
 		playerSetting.healthPercentage.GetComponent<Text> ().text = ((int)currentHealth).ToString () + "%";
 
 		// Updates the health bars fill.
-//		playerSetting.healthbarFill.transform.localScale = new Vector3 (currentHealth / 100, playerSetting.healthbarFill.transform.localScale.y, playerSetting.healthbarFill.transform.localScale.z); 
 		playerSetting.healthbarFill.GetComponent<Image>().fillAmount = currentHealth / 100;
 
 		// Smooths the current player health value based on the target health variable.
@@ -776,7 +693,6 @@ public class PlayerManager : MonoBehaviour
 			}
 		}
 
-//		playerSetting.staminaBarFill.transform.localScale = new Vector3 (currentStamina / 100, playerSetting.staminaBarFill.transform.localScale.y, playerSetting.staminaBarFill.transform.localScale.z);
 		playerSetting.staminaBarFill.GetComponent<Image>().fillAmount = currentStamina / 100;
 	}
 
@@ -811,72 +727,6 @@ public class PlayerManager : MonoBehaviour
 		}
 	}
 
-	IEnumerator Knockback ()
-	{
-//		isPushed = true;
-		anim.SetTrigger ("isHit");
-
-		rBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-
-		velocity.z = moveSetting.forwardVel * -forwardInput;
-		velocity.x = moveSetting.strafeVel * -strafeInput;
-
-		//velocity.z = 0;
-		//velocity.x = 0;
-		//velocity.y = 0;
-
-		yield return new WaitForSeconds ((moveSetting.knockbackForce / 2) * 0.01f);
-
-		isPushed = false;
-		rBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
-	}
-
-/*	void PlaySounds ()
-	{
-		if (Input.GetKeyDown (KeyCode.LeftShift))
-		{
-			if (dashCounter == 2 && GameState.inst.upgradesFound [2])
-			{
-				//playerAudio.clip = null;
-				//playerAudio.PlayOneShot (airDashSound);
-			}
-		}
-		else if (Input.GetKeyDown (KeyCode.Space) && Grounded ())
-		{
-			//playerAudio.clip = null;
-			//playerAudio.PlayOneShot (jumpSound);
-		}
-		else if (Grounded () && Mathf.Abs (velocity.magnitude) > 1) //&& playerAudio.isPlaying == false)
-		{
-			if (playerAudio.isPlaying == false)
-			{
-				//playerAudio.clip = footstep1;
-				//playerAudio.loop = true;
-				//playerAudio.Play ();
-			}
-		}
-		else if (!Input.anyKey && velocity.magnitude == 0)//if (Mathf.Abs(velocity.magnitude) == 0 || !Grounded())
-		{
-			playerAudio.Stop ();
-		}
-	} 
-
-	void Footsteps ()
-	{
-		if (playerAudio.clip == footstep1)
-		{
-			playerAudio.volume = Random.Range (0.8f, 1);
-			playerAudio.pitch = Random.Range (0.8f, 1.1f); 
-		}
-		else
-		{
-			playerAudio.volume = 1;
-			playerAudio.pitch = 1;
-		} 
-
-		playerAudio.PlayOneShot (footstep1);
-	} */
-
 	public float getHealth ()
 	{
 		return currentHealth;
@@ -896,9 +746,6 @@ public class PlayerManager : MonoBehaviour
 			//If not, then the player will take damage
 			DamageCalculator (3);
 
-			//playerAudio.clip = null;
-			//playerAudio.PlayOneShot (ameliaGrunt2);
-
 			StopCoroutine ("DamageFlash");
 			StartCoroutine ("DamageFlash");
 		}
@@ -908,9 +755,6 @@ public class PlayerManager : MonoBehaviour
 			//When the player collides with an enemy, it checks to see if the player is currently invincible or not. 
 			//If not, then the player will take damage
 			DamageCalculator (10);
-
-			//playerAudio.clip = null;
-			//playerAudio.PlayOneShot (ameliaGrunt2);
 
 			StopCoroutine ("DamageFlash");
 			StartCoroutine ("DamageFlash");
@@ -926,32 +770,14 @@ public class PlayerManager : MonoBehaviour
 
 		if (col.gameObject.tag == "Wall" && !Grounded ())
 		{
-			/*if (isHuggingWall == false)
-			{
-				playerAudio.clip = null;
-				playerAudio.PlayOneShot (WallJumpSound);
-			} */
 
 			isHuggingWall = true;
 			isWallJumping = true;
-			//counter = moveSetting.startSlidingTimer;
 		}
 		else
 		{
 			isHuggingWall = false;
 		}
-		/*else if (col.gameObject.tag == "Wall" && !Grounded () && isWallJumping)
-		{
-			if (isHuggingWall == false)
-			{
-				playerAudio.clip = null;
-				playerAudio.PlayOneShot (WallJumpSound);
-			}
-
-			isHuggingWall = true;
-			isWallJumping = true;
-			counter = moveSetting.startSlidingTimer;
-		} */
 
 		if (col.gameObject.tag == "Spikes")
 		{
@@ -964,7 +790,6 @@ public class PlayerManager : MonoBehaviour
 		if (col.gameObject.tag == "Wall")
 		{
 			isHuggingWall = false;
-			//counter = moveSetting.startSlidingTimer;
 		}
 	}
 
@@ -974,8 +799,6 @@ public class PlayerManager : MonoBehaviour
 		if (col.gameObject.tag == "Enemy")
 		{
 			DamageCalculator (3);
-			//StartCoroutine (DamageCalculator (10));
-
 		}
 
 		if (col.gameObject.tag == "Charger")
@@ -984,25 +807,9 @@ public class PlayerManager : MonoBehaviour
 			//If not, then the player will take damage
 			DamageCalculator (10);
 
-			//playerAudio.clip = null;
-			//playerAudio.PlayOneShot (ameliaGrunt2);
-
 			StopCoroutine ("DamageFlash");
 			StartCoroutine ("DamageFlash");
 		}
-
-		/*if (col.gameObject.tag == "Wall" && isHuggingWall)
-		{
-			if (counter > 0)
-			{
-				startSliding = false;
-				counter -= Time.fixedDeltaTime;
-			}
-			else
-			{
-				startSliding = true;
-			}
-		} */
 	}
 
 	void OnTriggerEnter (Collider col)
@@ -1013,9 +820,6 @@ public class PlayerManager : MonoBehaviour
 			//When the player collides with an enemy, it checks to see if the player is currently invincible or not. 
 			//If not, then the player will take damage
 			DamageCalculator (10);
-
-			//playerAudio.clip = null;
-			//playerAudio.PlayOneShot (ameliaGrunt2);
 
 			StopCoroutine ("DamageFlash");
 			StartCoroutine ("DamageFlash");
@@ -1028,7 +832,6 @@ public class PlayerManager : MonoBehaviour
 		if (col.gameObject.tag == "Enemy")
 		{
 			DamageCalculator (10);
-			//StartCoroutine (DamageCalculator (10));
 
 			StopCoroutine ("DamageFlash");
 			StartCoroutine ("DamageFlash");
@@ -1041,12 +844,9 @@ public class PlayerManager : MonoBehaviour
 	/// <param name="col">Col.</param>
 	public void OnShot (Collision col, Bullet bullet)
 	{ 
-		//playerAudio.clip = null;
-		//playerAudio.PlayOneShot (ameliaGrunt2);
+		StopCoroutine ("DamageFlash");
+		StartCoroutine ("DamageFlash");
 
-		//StopCoroutine ("DamageFlash");
-		//StartCoroutine ("DamageFlash");
-
-		//DamageCalculator (bullet.damage); 
+		DamageCalculator (bullet.damage); 
 	} 
 }
