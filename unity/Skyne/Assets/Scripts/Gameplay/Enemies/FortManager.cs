@@ -413,7 +413,7 @@ public class FortManager : Enemy
 	{
 		agent.speed = 0; 
 		agent.enabled = false; 
-		//anim.SetBool("isDefending", false); 
+		anim.SetBool("isDefending", false); 
 		anim.SetBool("isWalking", false); 
 	}
 
