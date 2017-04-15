@@ -707,7 +707,8 @@ public class PlayerManager : MonoBehaviour
 		playerSetting.healthPercentage.GetComponent<Text> ().text = ((int)currentHealth).ToString () + "%";
 
 		// Updates the health bars fill.
-		playerSetting.healthbarFill.transform.localScale = new Vector3 (currentHealth / 100, playerSetting.healthbarFill.transform.localScale.y, playerSetting.healthbarFill.transform.localScale.z); 
+//		playerSetting.healthbarFill.transform.localScale = new Vector3 (currentHealth / 100, playerSetting.healthbarFill.transform.localScale.y, playerSetting.healthbarFill.transform.localScale.z); 
+		playerSetting.healthbarFill.GetComponent<Image>().fillAmount = currentHealth / 100;
 
 		// Smooths the current player health value based on the target health variable.
 		currentHealth = Mathf.SmoothDamp (currentHealth, targetHealth, ref healthSmoothing, 0.3f);
@@ -775,7 +776,8 @@ public class PlayerManager : MonoBehaviour
 			}
 		}
 
-		playerSetting.staminaBarFill.transform.localScale = new Vector3 (currentStamina / 100, playerSetting.staminaBarFill.transform.localScale.y, playerSetting.staminaBarFill.transform.localScale.z);
+//		playerSetting.staminaBarFill.transform.localScale = new Vector3 (currentStamina / 100, playerSetting.staminaBarFill.transform.localScale.y, playerSetting.staminaBarFill.transform.localScale.z);
+		playerSetting.staminaBarFill.GetComponent<Image>().fillAmount = currentStamina / 100;
 	}
 
 	/// <summary>
