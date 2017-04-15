@@ -51,8 +51,8 @@ public class SceneLighting : MonoBehaviour
 
 			RenderSettings.ambientLight = Color.Lerp(RenderSettings.ambientLight, indoorAmbientColor, lerpSpeed);
 
-			dirLight.color = Color.Lerp(dirLight.color, indoorColor, lerpSpeed); 
-			dirLight.intensity = Mathf.Lerp(dirLight.intensity, indoorIntensity, lerpSpeed); 
+//			dirLight.color = Color.Lerp(dirLight.color, indoorColor, lerpSpeed); 
+//			dirLight.intensity = Mathf.Lerp(dirLight.intensity, indoorIntensity, lerpSpeed); 
 
 			//dirLight.color = indoorColor; 
 			//dirLight.intensity = indoorIntensity; 
@@ -64,8 +64,8 @@ public class SceneLighting : MonoBehaviour
 
 			RenderSettings.ambientLight = Color.Lerp(RenderSettings.ambientLight, outdoorAmbientColor, lerpSpeed);
 
-			dirLight.color = Color.Lerp(dirLight.color, outdoorColor, lerpSpeed); 
-			dirLight.intensity = Mathf.Lerp(dirLight.intensity, outdoorIntensity, lerpSpeed); 
+//			dirLight.color = Color.Lerp(dirLight.color, outdoorColor, lerpSpeed); 
+//			dirLight.intensity = Mathf.Lerp(dirLight.intensity, outdoorIntensity, lerpSpeed); 
 
 			//dirLight.color = outdoorColor;
 			//dirLight.intensity = outdoorIntensity;
