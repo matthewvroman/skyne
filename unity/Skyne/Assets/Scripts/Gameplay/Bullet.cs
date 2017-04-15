@@ -167,28 +167,28 @@ public class Bullet : MonoBehaviour
 		if (playerBullet)
 		{
 			// If the player bullet hits an enemy bullet
-			if (col.tag == "Bullet" && col.GetComponent<Bullet>().playerBullet == false)
+			if (col.tag == "Bullet" && col.GetComponent<Bullet> ().playerBullet == false)
 			{
 				// Destroy the player bullet
 				shouldDestroy = true; 
 
 				// Take away health from the enemy bullet
-				col.GetComponent<Bullet>().health -= damage; 
+				col.GetComponent<Bullet> ().health -= damage; 
 			}
 			// If the player bullet hits an enemy
-			else if (col.tag == "Enemy")
+			else if (col.tag == "Enemy" || col.tag == "Charger")
 			{
 				// If the enemy collider has an EnemyWeakPoint, call its OnShot function
-				if (col.GetComponent<EnemyWeakPoint>() != null)
+				if (col.GetComponent<EnemyWeakPoint> () != null)
 				{
-					col.GetComponent<EnemyWeakPoint>().OnShot(collision, this); 
+					col.GetComponent<EnemyWeakPoint> ().OnShot (collision, this); 
 				}
 
 				// Destroy the player bullet
 				shouldDestroy = true; 
 			}
 			// Player bullet has hit a solid surface and should be destroyed
-			else if (col.tag != "Player" && col.tag != "Enemy")
+			else if (col.tag != "Player" && col.tag != "Enemy" && col.tag != "Charger")
 			{ 
 				// Destroy the player bullet
 				shouldDestroy = true;  
@@ -199,12 +199,12 @@ public class Bullet : MonoBehaviour
 		{
 			if (col.tag == "Player")
 			{
-				col.GetComponent<PlayerManager>().OnShot(collision, this); 
+				col.GetComponent<PlayerManager> ().OnShot (collision, this); 
 
 				// Destroy the player bullet
 				shouldDestroy = true; 
 			}
-			else if (col.tag != "Enemy")
+			else if (col.tag != "Enemy" || col.tag != "Charger")
 			{
 				shouldDestroy = true; 
 			}

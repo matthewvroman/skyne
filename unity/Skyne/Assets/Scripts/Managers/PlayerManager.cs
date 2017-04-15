@@ -892,6 +892,19 @@ public class PlayerManager : MonoBehaviour
 		{
 			//When the player collides with an enemy, it checks to see if the player is currently invincible or not. 
 			//If not, then the player will take damage
+			DamageCalculator (3);
+
+			//playerAudio.clip = null;
+			//playerAudio.PlayOneShot (ameliaGrunt2);
+
+			StopCoroutine ("DamageFlash");
+			StartCoroutine ("DamageFlash");
+		}
+
+		if (col.gameObject.tag == "Charger")
+		{
+			//When the player collides with an enemy, it checks to see if the player is currently invincible or not. 
+			//If not, then the player will take damage
 			DamageCalculator (10);
 
 			//playerAudio.clip = null;
@@ -899,28 +912,15 @@ public class PlayerManager : MonoBehaviour
 
 			StopCoroutine ("DamageFlash");
 			StartCoroutine ("DamageFlash");
-
-			// Calculate Angle Between the collision point and the player
-			Vector3 dir = -(col.contacts [0].point - transform.position).normalized;
-			// We then get the opposite (-Vector3) and normalize it
-			//dir = -dir.normalized;
-			dir.y = 1;
-
-			// And finally we add force in the direction of dir and multiply it by force. 
-			// This will push back the player
-			rBody.AddForce (dir * moveSetting.knockbackForce, ForceMode.VelocityChange);
-
-			StopCoroutine ("Knockback");
-			StartCoroutine ("Knockback");
 		}
 
-		if (col.gameObject.tag == "Bullet")
+		/*if (col.gameObject.tag == "Bullet")
 		{
 			DamageCalculator (10);
 
 			StopCoroutine ("DamageFlash");
 			StartCoroutine ("DamageFlash");
-		}
+		} */
 
 		if (col.gameObject.tag == "Wall" && !Grounded ())
 		{
@@ -971,9 +971,22 @@ public class PlayerManager : MonoBehaviour
 		//If the player is still touching the enemy when invuln wears off, ininitate invincibility coroutine again
 		if (col.gameObject.tag == "Enemy")
 		{
-			DamageCalculator (10);
+			DamageCalculator (3);
 			//StartCoroutine (DamageCalculator (10));
 
+		}
+
+		if (col.gameObject.tag == "Charger")
+		{
+			//When the player collides with an enemy, it checks to see if the player is currently invincible or not. 
+			//If not, then the player will take damage
+			DamageCalculator (10);
+
+			//playerAudio.clip = null;
+			//playerAudio.PlayOneShot (ameliaGrunt2);
+
+			StopCoroutine ("DamageFlash");
+			StartCoroutine ("DamageFlash");
 		}
 
 		/*if (col.gameObject.tag == "Wall" && isHuggingWall)
@@ -990,7 +1003,7 @@ public class PlayerManager : MonoBehaviour
 		} */
 	}
 
-	/*void OnTriggerEnter (Collider col)
+	void OnTriggerEnter (Collider col)
 	{
 		//If the player comes in contact with an enemy, initiate invincibility coroutine
 		if (col.gameObject.tag == "Enemy")
@@ -1018,7 +1031,7 @@ public class PlayerManager : MonoBehaviour
 			StopCoroutine ("DamageFlash");
 			StartCoroutine ("DamageFlash");
 		}
-	} */
+	}
 
 	/// <summary>
 	/// Called from the bullet class when a bullet hits a collider with the Player tag

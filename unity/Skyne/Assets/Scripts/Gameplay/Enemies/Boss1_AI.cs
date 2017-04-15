@@ -554,16 +554,17 @@ public class Boss1_AI : Enemy
 			arm1.SetActive (true);
 			arm2.SetActive (true);
 
-			if (timer < (spinningLength - spinningDelay))
+			if (timer < 0.5f)
 			{
 				//anim.SetTrigger ("Spin");
+				boss1Audio.PlayOneShot (spinSound);
 			}
 
 			if (curSpinningDelay == 0)
 			{
 				
 				anim.SetTrigger ("Spin");
-				boss1Audio.PlayOneShot (spinSound);
+				//boss1Audio.PlayOneShot (spinSound);
 				curSpinningDelay = spinningDelay; 
 			}
 

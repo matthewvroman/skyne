@@ -41,6 +41,11 @@ public class SentryManager : Enemy
 
 	AudioSource sentryAudio;
 
+	public float atkTimer;
+	float curAtkTimer;
+
+	public LayerMask seePlayer;
+
 	//public AudioClip idleSound;
 	//public AudioClip shootSound;
 
@@ -77,6 +82,8 @@ public class SentryManager : Enemy
 
 		//bulletSpawner = transform.Find ("BulletSpawner").gameObject; 
 		//frontObject = bulletSpawner;
+
+		curAtkTimer = atkTimer;
 
 		maxHealth = health; 
 
@@ -183,6 +190,8 @@ public class SentryManager : Enemy
 
 		sentryAudio.clip = idleSound;
 
+		curAtkTimer = atkTimer;
+
 		if (!sentryAudio.isPlaying)
 		{
 			sentryAudio.Play ();
@@ -203,7 +212,7 @@ public class SentryManager : Enemy
 		Vector3 start = transform.position + dir * 0.5f; 
 		Vector3 end = target.transform.position - dir * 1; 
 
-		if (Physics.Linecast (start, end))
+		if (Physics.Linecast (start, end, seePlayer))
 		{
 			Debug.DrawLine (start, end, Color.yellow); 
 			//Debug.LogError("Obstacle Found"); 
@@ -262,6 +271,15 @@ public class SentryManager : Enemy
 		Quaternion q = Quaternion.LookRotation(target.transform.position - bulletSpawner.transform.position);
 		transform.rotation = Quaternion.RotateTowards(bulletSpawner.transform.rotation, q, turnSpeed * Time.deltaTime);
 
+		if (curAtkTimer > 0)
+		{
+			curAtkTimer -= Time.deltaTime;
+		}
+		else
+		{
+			curAtkTimer = 0;
+		}
+
 		if (agent.velocity.magnitude > 0)
 		{
 			sentryAudio.clip = idleSound;
@@ -277,18 +295,21 @@ public class SentryManager : Enemy
 			sentryAudio.Play ();
 		}
 
-		if (curShotDelay == 0)
+		if (curAtkTimer == 0)
 		{
-			curShotDelay = shotDelay; 
-			//ProjectileManager.inst.Shoot_E_Normal (bulletSpawner, false);
-			ProjectileManager.inst.EnemyShoot(bulletSpawner, bulletPrefab, false); 
+			if (curShotDelay == 0)
+			{
+				curShotDelay = shotDelay; 
+				//ProjectileManager.inst.Shoot_E_Normal (bulletSpawner, false);
+				ProjectileManager.inst.EnemyShoot (bulletSpawner, bulletPrefab, false); 
 
-			sentryAudio.volume = Random.Range (0.8f, 1);
-			sentryAudio.pitch = Random.Range (0.8f, 1);
-			sentryAudio.PlayOneShot (attackSound);
+				sentryAudio.volume = Random.Range (0.8f, 1);
+				sentryAudio.pitch = Random.Range (0.8f, 1);
+				sentryAudio.PlayOneShot (attackSound);
 
-			if (shotFireParticles != null)
-				shotFireParticles.Play(); 
+				if (shotFireParticles != null)
+					shotFireParticles.Play (); 
+			}
 		}
 
 		anim.SetBool ("isShooting", true);
