@@ -224,6 +224,7 @@ public class PlayerManager : MonoBehaviour
 		if (currentHealth <= 0)
 		{
 			isAlive = false;
+			velocity = velocity = Vector3.zero;
 		}
 
 		if (isAlive)
