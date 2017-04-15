@@ -29,6 +29,8 @@ public class AmbushRoom : MonoBehaviour
 
 	bool isDone;
 
+	public bool checkMusic;
+
 	GameState gameState;
 	int keysHeld;
 
@@ -74,13 +76,23 @@ public class AmbushRoom : MonoBehaviour
 		if (this.noKeys.Count == 0 || this.oneKey.Count == 0 || this.twoKeys.Count == 0 || this.threeKeys.Count == 0)
 		{
 			//isDone = true;
+			if (checkMusic == true)
+			{
+				musicController.clip = normalMusic;
+
+				if (!musicController.isPlaying)
+				{
+					musicController.Play ();
+				}
+			}
+
 			GameState.inst.ambushRoomsDone [index] = true;
 			isDone = true;
 		}
 
 		if (isDone == false)
 		{
-			
+			checkMusic = true;
 			keysHeld = gameState.GetNumKeysFound ();
 			foreach (GameObject enemy in noKeys)
 			{
@@ -217,6 +229,8 @@ public class AmbushRoom : MonoBehaviour
 		}
 		else
 		{
+			checkMusic = false;
+
 			//doorCon.setDoorState (true);
 			foreach (DoorControl door in doorCon)
 			{
@@ -243,13 +257,6 @@ public class AmbushRoom : MonoBehaviour
 			foreach (GameObject enemy in threeKeys)
 			{
 				enemy.SetActive (false);
-			}
-
-			musicController.clip = normalMusic;
-
-			if (!musicController.isPlaying)
-			{
-				musicController.Play ();
 			}
 		}
 	}
