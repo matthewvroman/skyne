@@ -1,0 +1,177 @@
+fileFormatVersion: 2
+guid: 7ec56289349ef40399205c0d2fb24590
+timeCreated: 1492317851
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: BallLeg1_Mesh
+    100002: BallLeg2_Mesh
+    100004: BallLeg3_Mesh
+    100006: Barrels
+    100008: Body
+    100010: Head
+    100012: Joint_Barrels
+    100014: Joint_Head
+    100016: JointLegBase
+    100018: L_Leg
+    100020: M_Leg
+    100022: R_Leg
+    100024: Root
+    100026: Sentry
+    100028: //RootNode
+    400000: BallLeg1_Mesh
+    400002: BallLeg2_Mesh
+    400004: BallLeg3_Mesh
+    400006: Barrels
+    400008: Body
+    400010: Head
+    400012: Joint_Barrels
+    400014: Joint_Head
+    400016: JointLegBase
+    400018: L_Leg
+    400020: M_Leg
+    400022: R_Leg
+    400024: Root
+    400026: Sentry
+    400028: //RootNode
+    4300000: Barrels
+    4300002: Head
+    4300004: Body
+    4300006: BallLeg1_Mesh
+    4300008: BallLeg2_Mesh
+    4300010: BallLeg3_Mesh
+    7400000: Dead
+    9500000: //RootNode
+    13700000: BallLeg1_Mesh
+    13700002: BallLeg2_Mesh
+    13700004: BallLeg3_Mesh
+    13700006: Barrels
+    13700008: Body
+    13700010: Head
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Dead
+      takeName: Take 001
+      firstFrame: 135
+      lastFrame: 139
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Joint_Head
+        weight: 1
+      - path: Root/Joint_Head/Joint_Barrels
+        weight: 1
+      - path: Root/JointLegBase
+        weight: 1
+      - path: Root/JointLegBase/L_Leg
+        weight: 1
+      - path: Root/JointLegBase/M_Leg
+        weight: 1
+      - path: Root/JointLegBase/R_Leg
+        weight: 1
+      - path: Sentry
+        weight: 1
+      - path: Sentry/BallLeg1_Mesh
+        weight: 1
+      - path: Sentry/BallLeg2_Mesh
+        weight: 1
+      - path: Sentry/BallLeg3_Mesh
+        weight: 1
+      - path: Sentry/Barrels
+        weight: 1
+      - path: Sentry/Body
+        weight: 1
+      - path: Sentry/Head
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
