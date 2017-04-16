@@ -582,7 +582,7 @@ public class Boss1_AI : Enemy
 	{
 		Debug.Log ("Stomping");
 
-		if (isStomping = true)
+		if (isStomping == true)
 		{
 			//stompCollider.transform.localScale = Vector3.Lerp (stompCollider.transform.localScale, stompColliderExpand.transform.localScale, Time.deltaTime * 0.999f);
 		}
