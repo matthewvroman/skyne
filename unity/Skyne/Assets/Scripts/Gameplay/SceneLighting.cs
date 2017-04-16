@@ -6,6 +6,7 @@ public class SceneLighting : MonoBehaviour
 {
 	[Tooltip ("Drag in the player gameObject")]
 	public GameObject player;
+	public GameObject playerModel;
 
 	public Light dirLight;
 
@@ -49,6 +50,11 @@ public class SceneLighting : MonoBehaviour
 		{
 			//RenderSettings.ambientLight = indoorAmbientColor; 
 
+			foreach (Transform child in transform)
+			{
+				gameObject.layer = 15;
+			}
+
 			RenderSettings.ambientLight = Color.Lerp(RenderSettings.ambientLight, indoorAmbientColor, lerpSpeed);
 
 //			dirLight.color = Color.Lerp(dirLight.color, indoorColor, lerpSpeed); 
@@ -61,6 +67,11 @@ public class SceneLighting : MonoBehaviour
 		else
 		{
 			//RenderSettings.ambientLight = outdoorAmbientColor;
+
+			foreach (Transform child in transform)
+			{
+				gameObject.layer = 15;
+			}
 
 			RenderSettings.ambientLight = Color.Lerp(RenderSettings.ambientLight, outdoorAmbientColor, lerpSpeed);
 
@@ -89,6 +100,9 @@ public class SceneLighting : MonoBehaviour
 					if (hit.collider.tag == "Ceiling")
 					{
 						indoorLighting = true; 
+					} else
+					{
+						indoorLighting = false;
 					}
 				}
 			}

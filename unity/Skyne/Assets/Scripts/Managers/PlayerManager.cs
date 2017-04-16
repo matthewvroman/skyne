@@ -333,10 +333,18 @@ public class PlayerManager : MonoBehaviour
 		anim.SetFloat ("verticalVelocity", velocity.y);
 
 		anim.SetBool ("isGrounded", Grounded ());
-		anim.SetBool ("isOnWall", backToWall);
+
+		anim.SetBool ("backToWall", backToWall);
+		anim.SetBool ("faceToWall", faceToWall);
+		anim.SetBool ("rSideToWall", rSideToWall);
+		anim.SetBool ("lSideToWall", lSideToWall);
+
 		anim.SetBool ("canDoubleJump", canDoubleJump);
 
 		anim.SetBool ("wallJumped", isWallJumping);
+
+		//		anim.SetBool ("Dash", isDashing);
+		//		anim.SetBool ("isHit", isPushed);
 	}
 
 	/// <summary>
