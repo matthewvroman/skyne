@@ -6,7 +6,6 @@ public class SceneLighting : MonoBehaviour
 {
 	[Tooltip ("Drag in the player gameObject")]
 	public GameObject player;
-	public GameObject playerModel;
 
 	public Light dirLight;
 
@@ -34,12 +33,13 @@ public class SceneLighting : MonoBehaviour
 
 	float lerpTime; 
 	 
-
+	public GameObject[] playerModel;
 
 	// Use this for initialization
 	void Start () 
 	{
 		StartCoroutine("CheckForCeiling");
+//		playerModel = player.GetComponentInChildren<GameObject> ();
 	}
 	
 	// Update is called once per frame
@@ -50,10 +50,6 @@ public class SceneLighting : MonoBehaviour
 		{
 			//RenderSettings.ambientLight = indoorAmbientColor; 
 
-			foreach (Transform child in transform)
-			{
-				gameObject.layer = 15;
-			}
 
 			RenderSettings.ambientLight = Color.Lerp(RenderSettings.ambientLight, indoorAmbientColor, lerpSpeed);
 
@@ -68,10 +64,6 @@ public class SceneLighting : MonoBehaviour
 		{
 			//RenderSettings.ambientLight = outdoorAmbientColor;
 
-			foreach (Transform child in transform)
-			{
-				gameObject.layer = 15;
-			}
 
 			RenderSettings.ambientLight = Color.Lerp(RenderSettings.ambientLight, outdoorAmbientColor, lerpSpeed);
 
