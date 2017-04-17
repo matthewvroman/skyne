@@ -84,6 +84,8 @@ public class PlayerShooting : Singleton<PlayerShooting>
 	public GameObject wideGunModel;
 	public GameObject rapidGunModel; 
 
+	PlayerManager playerManager; 
+
 	void Start() 
 	{
 		gunAudio = GetComponent<AudioSource> ();
@@ -187,8 +189,13 @@ public class PlayerShooting : Singleton<PlayerShooting>
 	{
 		if (GlobalManager.inst.GameplayIsActive())
 		{
+			if (playerManager == null)
+			{
+				playerManager = GameObject.FindObjectOfType<PlayerManager>(); 
+			}
+
 			// When shoot is pressed, check normal and wide shooting
-			if (Input.GetKeyDown(KeyCode.Mouse0))
+			if (Input.GetKeyDown(KeyCode.Mouse0) && playerManager.GetIsAlive())
 			{
 				if (GameState.inst.pShootMode == PlayerShootMode.Normal)
 				{

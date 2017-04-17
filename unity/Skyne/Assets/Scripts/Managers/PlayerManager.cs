@@ -750,6 +750,11 @@ public class PlayerManager : MonoBehaviour
 		currentHealth = h;
 	}
 
+	public bool GetIsAlive()
+	{
+		return isAlive; 
+	}
+
 	void OnCollisionEnter (Collision col)
 	{
 		//If the player comes in contact with an enemy, initiate invincibility coroutine
