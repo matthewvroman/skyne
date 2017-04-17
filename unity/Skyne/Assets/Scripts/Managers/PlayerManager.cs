@@ -644,12 +644,16 @@ public class PlayerManager : MonoBehaviour
 	/// Heals the player by the specified amount
 	/// </summary>
 	/// <param name="healthRecieved">Health recieved.</param>
-	public static void HealCalculator (float healthRecieved)
+	public static void HealCalculator (float healthReceived)
 	{
 		// Only heals the player if player health is below the max. 
 		if (currentHealth < maxHealth)
 		{
-			targetHealth = currentHealth + healthRecieved;
+			//targetHealth = currentHealth + healthRecieved;
+			targetHealth += healthReceived; 
+
+			if (targetHealth > maxHealth)
+				targetHealth = maxHealth; 
 		}
 	}
 
