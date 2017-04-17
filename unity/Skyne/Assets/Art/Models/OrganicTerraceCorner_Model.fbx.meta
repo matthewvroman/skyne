@@ -9,19 +9,24 @@ ModelImporter:
     100002: Top
     100004: Walls
     100006: Wall
+    100008: Corner
     400000: //RootNode
     400002: Top
     400004: Walls
     400006: Wall
+    400008: Corner
     2300000: Top
     2300002: Walls
     2300004: Wall
+    2300006: Corner
     3300000: Top
     3300002: Walls
     3300004: Wall
+    3300006: Corner
     4300000: Walls
     4300002: Top
     4300004: Wall
+    4300006: Corner
   materials:
     importMaterials: 1
     materialName: 0
