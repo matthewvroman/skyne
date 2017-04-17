@@ -35,6 +35,8 @@ public class SceneLighting : MonoBehaviour
 	 
 	public GameObject[] playerModel;
 
+	public LayerMask ceilingLayerMask; 
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -75,7 +77,7 @@ public class SceneLighting : MonoBehaviour
 		}
 	}
 
-	public IEnumerator CheckForCeilingOld()
+	public IEnumerator CheckForCeilingOldOld()
 	{
 		while (true)
 		{
@@ -104,7 +106,7 @@ public class SceneLighting : MonoBehaviour
 	}
 
 
-	public IEnumerator CheckForCeiling()
+	public IEnumerator CheckForCeilingOld()
 	{
 		RaycastHit hit;
 		Vector3[] testPositions = new Vector3[5]; 
@@ -167,6 +169,38 @@ public class SceneLighting : MonoBehaviour
 					indoorLighting = isIndoor; 
 				}
 
+			}
+
+			yield return new WaitForSecondsRealtime(0.1f); 
+		}
+	}
+
+	public IEnumerator CheckForCeiling()
+	{
+		RaycastHit hit;
+		Ray ray = new Ray(); 
+		ray.direction = transform.up; 
+
+		while (true)
+		{
+			if (GlobalManager.inst.GameplayIsActive())
+			{
+				indoorLighting = false; 
+
+				// Send a raycast up
+				Debug.DrawRay(player.transform.position, transform.up * 100); 
+		
+				//if (Physics.Raycast(player.transform.position, transform.up, out hit, 100))
+				ray.origin = player.transform.position; 
+
+				if (Physics.Raycast(ray, out hit, 200, ceilingLayerMask))
+				{
+					// Only set indoor lighting if the raycast hits a collider on the "Ceiling" layer with the tag "Ceiling"
+					if (hit.collider.tag == "Ceiling")
+					{
+						indoorLighting = true; 
+					} 
+				}
 			}
 
 			yield return new WaitForSecondsRealtime(0.1f); 
