@@ -48,7 +48,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
 			Debug.Log("Shoot wide " + i);
 
 			float vertRot = Camera.main.GetComponent<MainCameraControl>().GetVerticalAngle(); 
-			Vector3 rotOffset = new Vector3 (-vertRot, 0, 0); 
+			Vector3 rotOffset = new Vector3 (-vertRot + 2.5f, 0, 0); 
 			Vector3 bulletRot = spawner.transform.rotation.eulerAngles + rotOffset; 
 
 			bulletRot += new Vector3 (0, i * PlayerShooting.inst.pWideHorizSpread, 0); 
