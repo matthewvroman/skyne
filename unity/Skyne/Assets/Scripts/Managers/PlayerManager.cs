@@ -300,7 +300,7 @@ public class PlayerManager : MonoBehaviour
 
 		Animations ();
 
-		Debug.Log (canDoubleJump);
+		Debug.Log ("Jump: " + canDoubleJump);
 	}
 
 	void FixedUpdate ()
@@ -445,11 +445,21 @@ public class PlayerManager : MonoBehaviour
 					{
 						isDoubleJumping = true;
 						velocity.y = moveSetting.jumpVel;
-						canDoubleJump = false;
+						if (velocity.magnitude > 0)
+						{
+							velocity = velocity * 0.7f;
+						}
+						//canDoubleJump = false;
+						StartCoroutine("StopDoubleJump");
 					}
 				}
 			}
 		}
+	}
+
+	IEnumerator StopDoubleJump() {
+		yield return new WaitForSeconds (0.1f);
+		canDoubleJump = false;
 	}
 
 	void WallJump ()
