@@ -32,8 +32,6 @@ public class SceneLighting : MonoBehaviour
 	public Color outdoorColor; 
 
 	float lerpTime; 
-	 
-	public GameObject[] playerModel;
 
 	public LayerMask ceilingLayerMask; 
 
