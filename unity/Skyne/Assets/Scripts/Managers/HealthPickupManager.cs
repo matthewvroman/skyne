@@ -96,4 +96,32 @@ public class HealthPickupManager : Singleton<HealthPickupManager>
 
 		}
 	}
+
+	public void SpawnHealthPickups(Vector3 spawnPos, int numSpawn)
+	{
+		if (numSpawn <= 0)
+		{
+			return; 
+		}
+
+		float angleStep = 360 / numSpawn; 
+
+		for (int i = 0; i < numSpawn; i++)
+		{
+			GameObject newHealthPickup = GameObject.Instantiate(healthPickupPrefab, spawnPos, Quaternion.identity, transform); 
+
+			// Calculate rotation angle
+			float rotAngle = i * angleStep; 
+
+			newHealthPickup.transform.Rotate(new Vector3 (0, rotAngle, 0)); 
+
+			Rigidbody rb = newHealthPickup.GetComponent<Rigidbody>(); 
+
+			float outMultiplier = Random.Range(minOutMultiplier, maxOutMultiplier); 
+
+			//rb.AddRelativeForce(new Vector3(0, 4, 0) + (transform.forward * 1.5f), ForceMode.Impulse); 
+			rb.AddRelativeForce(new Vector3(0, upwardSpawnForce, 0) + (transform.forward * outMultiplier), ForceMode.Impulse); 
+
+		}
+	}
 }

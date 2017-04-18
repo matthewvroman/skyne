@@ -18,12 +18,16 @@ public class Boss1_AI : Enemy
 		DO_NOTHING
 	}
 
+	[Space(5)]
+	[Header("Boss: State Machine")]
 	public State state;
 
 	int phase;
 
 	float turnSpeed;
 
+	[Space(5)]
+	[Header("Boss: Behavior variables")]
 	public float normTurnSpeed;
 	public float laserTurnSpeed;
 
@@ -45,9 +49,6 @@ public class Boss1_AI : Enemy
 
 	float tarHeight;
 	public float upperLevelHeight;
-
-	public GameObject smallHoming;
-	public GameObject bigHoming;
 
 	public float homingDelay;
 	float curHomingDelay;
@@ -84,6 +85,13 @@ public class Boss1_AI : Enemy
 
 	//public Animator anim;
 
+	[Space(5)]
+	[Header("Boss: Bullet prefabs")]
+	public GameObject smallHoming;
+	public GameObject bigHoming;
+
+	[Space(5)]
+	[Header("Boss: Game objects")]
 	public GameObject bulletSpawner1;
 
 	GameObject stompCollider;
@@ -99,6 +107,8 @@ public class Boss1_AI : Enemy
 
 	AudioSource boss1Audio;
 
+	[Space(5)]
+	[Header("Boss: Audio")]
 	public AudioClip spinSound;
 	public AudioClip fireSound;
 	public AudioClip moveSound;
@@ -185,9 +195,11 @@ public class Boss1_AI : Enemy
 	{
 		while (alive)
 		{
-			if (!GlobalManager.inst.GameplayIsActive ())
+			// If the game is paused or still loading, don't continue with the coroutine and reset the while loop
+			if (!GlobalManager.inst.GameplayIsActive())
 			{
 				yield return null; 
+				continue; 
 			}
 
 			switch (state)
@@ -227,13 +239,15 @@ public class Boss1_AI : Enemy
 	// Update is called once per frame
 	void Update ()
 	{
-		if (GlobalManager.inst.GameplayIsActive ())
+		// If the enemy hasn't been set up yet, call it's setup
+		// This isn't called until the game has been fully loaded to avoid any incomplete load null references
+		if (!started && GlobalManager.inst.GameplayIsActive())
 		{
-			if (!started)
-			{
-				SetupEnemy (); 
-			}
+			SetupEnemy (); 
+		}
 
+		if (GlobalManager.inst.GameplayIsActive() && alive && target != null)
+		{
 			Phases ();
 
 			healthPer = ((health / maxHealth) * 100);

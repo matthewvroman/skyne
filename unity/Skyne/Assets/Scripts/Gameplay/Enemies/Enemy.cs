@@ -4,29 +4,30 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+	[Space(5)]
+	[Header("Parent: State")]
 	[Tooltip ("The current health of the enemy")]
 	public float health;
-	public float maxHealth;
-
-	[Tooltip ("The percent chance from 0 - 100 that the enemy will drop a health pickup.")]
-	public float hpDropPercChance;
-	public int minHPDrop;
-	public int maxHPDrop;
-
-	[Tooltip ("The array of possible health pickup spawn counts. One index is randomly choosen to spawn x number of pickups")]
-	public int[] hpDropChoices;
-
-	[Tooltip ("Set to true once the enemy state machine has been started (cannot happen before level load finished).")]
-	[HideInInspector] public bool started;
-
-	public bool hasDeathAnimation;
+	[HideInInspector] public float maxHealth;
 
 	//Determines whether the enemy is alive or not. Is not currently ever changed.
 	public bool alive;
 
-	// TODO- migrate target from child to parent
-	public GameObject target; 
+	[Tooltip ("Set to true once the enemy state machine has been started (cannot happen before level load finished).")]
+	[HideInInspector] public bool started;
 
+
+	[Tooltip ("The array of possible health pickup spawn counts. One index is randomly choosen to spawn x number of pickups. The highest drop should be in the last index.")]
+	public int[] hpDropChoices;
+
+	// If set to true in OnShot, the last index in hpDropChoices will be picked, which should be the highest number of drops
+	bool useMaxHPDrop = false; 
+
+
+	[HideInInspector] public GameObject target; 
+
+	[Space(5)]
+	[Header("Parent: Sounds")]
 	public AudioClip idleSound;
 	public AudioClip damageSound;
 	public AudioClip sparkSound;
@@ -34,13 +35,21 @@ public class Enemy : MonoBehaviour
 	public AudioClip attackSound;
 	public AudioClip deathSound;
 
+	[Space(5)]
+	[Header("Parent: Animation")]
 	public Animator anim;
 
+	public bool hasDeathAnimation;
+
+	[Space(5)]
+	[Header("Parent: Hit Colors")]
 	public Color defaultColor;
 	public Color criticalHitColor; 
 	public Color normalHitColor;
 	public Color lowHitColor; 
 
+	[Space(5)]
+	[Header("Parent: Damage Modifiers")]
 	public float criticalHitDamageModifier; 
 	public float normalHitDamageModifier; 
 	public float lowHitDamageModifier; 
@@ -58,6 +67,9 @@ public class Enemy : MonoBehaviour
 		public float nearDeathHealth;
 		public float nearDeathMultiplier;
 	}
+
+	[Space(5)]
+	[Header("Parent: Particles")]
 
 	public SmokeParticles[] smokeParticles;
 
@@ -93,6 +105,12 @@ public class Enemy : MonoBehaviour
 	protected void ParentSetupEnemy()
 	{
 		target = GameObject.FindGameObjectWithTag ("Player");
+
+		if (target == null)
+		{
+			Debug.LogError("Failed to find target for " + name); 
+		}
+
 		alive = true;
 		maxHealth = health; 
 		started = true;
@@ -133,10 +151,11 @@ public class Enemy : MonoBehaviour
 	/// </summary>
 	protected bool CanHitTarget()
 	{
-		float startDistMultiplier = 0.5f; 
+		//float startDistMultiplier = 0.5f; 
+		//Vector3 start = transform.position + dir * startDistMultiplier; 
 
 		Vector3 dir = (target.transform.position - transform.position).normalized; 
-		Vector3 start = transform.position + dir * startDistMultiplier; 
+		Vector3 start = transform.position; 
 		Vector3 end = target.transform.position - dir * 1; 
 
 		// First, check to make sure the start point is not overlapping the current collider
@@ -173,6 +192,12 @@ public class Enemy : MonoBehaviour
 		
 	public void OnShot (Collision collision, Bullet bullet, EnemyWeakPoint.WeakPointType weakPointType)
 	{
+		// Enemy can't be hit anymore if it is already dead
+		if (!alive)
+		{
+			return; 
+		}
+
 		Collider col = collision.collider; 
 
 		Debug.Log ("On shot; bullet.playerBullet = " + bullet.playerBullet + "; bullet.shouldDestroy = " + bullet.shouldDestroy); 
@@ -243,6 +268,12 @@ public class Enemy : MonoBehaviour
 			// Check for the enemy's death
 			if (health <= 0 && alive)
 			{
+				// If the last collider hit to kill the enemy is critical, ensure the max amount of health is dropped
+				if (weakPointType == EnemyWeakPoint.WeakPointType.Critical)
+				{
+					useMaxHPDrop = true; 
+				}
+
 				if (hasDeathAnimation)
 				{
 					// Call death animation
@@ -328,8 +359,14 @@ public class Enemy : MonoBehaviour
 		}
 		else
 		{
-			//HealthPickupManager.inst.SpawnHealthPickups(transform.position, minHPDrop, maxHPDrop); 
-			HealthPickupManager.inst.SpawnHealthPickups(transform.position, hpDropChoices); 
+			if (useMaxHPDrop)
+			{
+				HealthPickupManager.inst.SpawnHealthPickups(transform.position, hpDropChoices[hpDropChoices.Length - 1]); 
+			}
+			else
+			{
+				HealthPickupManager.inst.SpawnHealthPickups(transform.position, hpDropChoices);
+			}
 
 			// Call ExplosionManager to create an explosion
 			ExplosionManager.inst.SpawnEnemyExplosion(transform.position); 

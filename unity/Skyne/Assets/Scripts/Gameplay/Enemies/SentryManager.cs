@@ -13,6 +13,8 @@ public class SentryManager : Enemy
 		ATTACK
 	}
 
+	[Space(5)]
+	[Header("Sentry: State Machine")]
 	public State state;
 
 	[Tooltip ("Drag in the bullet prefab for the sentry")]
@@ -21,6 +23,8 @@ public class SentryManager : Enemy
 	//Var holding the distance from the enemy to the player
 	float tarDistance;
 
+	[Space(5)]
+	[Header("Sentry: Behavior variables")]
 	public NavMeshAgent agent;
 
 	public float attackDist;
@@ -36,7 +40,6 @@ public class SentryManager : Enemy
 
 	//public GameObject target;
 
-	public GameObject bulletSpawner;
 	//GameObject frontObject;
 
 	AudioSource sentryAudio;
@@ -52,6 +55,10 @@ public class SentryManager : Enemy
 	//public Animator anim;
 
 	//bool CanSeeTarget;
+
+	[Space(5)]
+	[Header("Sentry: Extra game object functionality")]
+	public GameObject bulletSpawner;
 
 	void Start ()
 	{
@@ -99,9 +106,11 @@ public class SentryManager : Enemy
 	{
 		while (alive)
 		{
-			if (!GlobalManager.inst.GameplayIsActive ())
+			// If the game is paused or still loading, don't continue with the coroutine and reset the while loop
+			if (!GlobalManager.inst.GameplayIsActive())
 			{
 				yield return null; 
+				continue; 
 			}
 
 			switch (state)
@@ -124,14 +133,15 @@ public class SentryManager : Enemy
 
 	void Update ()
 	{
-		if (GlobalManager.inst.GameplayIsActive ())
+		// If the enemy hasn't been set up yet, call it's setup
+		// This isn't called until the game has been fully loaded to avoid any incomplete load null references
+		if (!started && GlobalManager.inst.GameplayIsActive())
 		{
-			// TODO- this is a temporary fix to solve issues with level loading
-			if (!started && GameObject.FindGameObjectWithTag ("Player") != null)
-			{
-				SetupEnemy (); 
-			}
+			SetupEnemy (); 
+		}
 
+		if (GlobalManager.inst.GameplayIsActive() && alive && target != null)
+		{
 		/*	if (health <= 0)
 			{
 				sentryAudio.loop = false;

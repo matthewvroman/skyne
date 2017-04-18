@@ -13,6 +13,8 @@ public class ChargerManager : Enemy
 		ATTACK
 	}
 
+	[Space(5)]
+	[Header("Charger: State Machine")]
 	public State state;
 
 	//Var holding the distance from the enemy to the player
@@ -22,6 +24,8 @@ public class ChargerManager : Enemy
 
 	Rigidbody rBody;
 
+	[Space(5)]
+	[Header("Charger: Behavior variables")]
 	[Tooltip ("The distance at which the enemy will start attacking")]
 	public float attackDistance;
 	[Tooltip ("Distance at which enemy starts moving towards player")]
@@ -39,34 +43,18 @@ public class ChargerManager : Enemy
 
 	//Transform target;
 	//GameObject player;
-	GameObject target;
+	//GameObject target;
 
 	//public Animator anim;
 
 	//Rigidbody rBody;
-
-	void Start ()
-	{
-		/*player = GameObject.FindGameObjectWithTag ("Player");//.GetComponent<Transform> ();
-		target = GameObject.FindGameObjectWithTag("Target");
-
-		rBody = GetComponent<Rigidbody> ();
-		state = ChargerManager.State.IDLE;
-		alive = true;
-
-		agent = gameObject.GetComponent<NavMeshAgent> ();
-
-		//START State Machine
-		StartCoroutine ("CSM");
-
-		started = true; */
-	}
 
 	void SetupEnemy()
 	{
 		ParentSetupEnemy();
 
 		//player = GameObject.FindGameObjectWithTag ("Player");//.GetComponent<Transform> ();
+
 		//target = GameObject.FindGameObjectWithTag("Player");
 
 		//rBody = GetComponent<Rigidbody> ();
@@ -92,10 +80,17 @@ public class ChargerManager : Enemy
 	{
 		while (alive)
 		{
-			/*if (!GlobalManager.inst.GameplayIsActive())
+			// If the game is paused or still loading, don't continue with the coroutine and reset the while loop
+			if (!GlobalManager.inst.GameplayIsActive())
 			{
 				yield return null; 
-			} */
+				continue; 
+			}
+
+			if (target == null)
+			{
+				Debug.LogError("Target is null"); 
+			}
 
 			switch (state)
 			{
@@ -117,15 +112,21 @@ public class ChargerManager : Enemy
 
 	protected override void Update ()
 	{
-		base.Update ();
-
-		// TODO- fix global level loading bug here
-		if (!started && GlobalManager.inst.GameplayIsActive() && GameObject.FindGameObjectWithTag ("Player") != null)
+		// If the enemy hasn't been set up yet, call it's setup
+		// This isn't called until the game has been fully loaded to avoid any incomplete load null references
+		if (!started && GlobalManager.inst.GameplayIsActive())
 		{
-			SetupEnemy(); 
-		} 
+			SetupEnemy (); 
+		}
 
-		/*if (health <= 0)
+		// Don't update if the game is paused or still loading
+		if (GlobalManager.inst.GameplayIsActive() && alive && target != null)
+		{
+			base.Update();
+
+			tarDistance = Vector3.Distance (target.transform.position, transform.position);
+
+			/*if (health <= 0)
 		{
 			chargerAudio.loop = false;
 			chargerAudio.clip = deathSound;
@@ -135,18 +136,19 @@ public class ChargerManager : Enemy
 			}
 		} */
 
-		//Debug.Log (agent.autoBraking);
+			//Debug.Log (agent.autoBraking);
 
-		if (!alive)
-		{
-			agent.speed = 0; 
-
-			//chargerAudio.clip = null;
-			//chargerAudio.PlayOneShot (deathSound);
-
-			if (anim.GetCurrentAnimatorStateInfo (1).IsName ("DeathDone"))
+			if (!alive)
 			{
-				DestroyEnemy (); 
+				agent.speed = 0; 
+
+				//chargerAudio.clip = null;
+				//chargerAudio.PlayOneShot (deathSound);
+
+				if (anim.GetCurrentAnimatorStateInfo(1).IsName("DeathDone"))
+				{
+					DestroyEnemy(); 
+				}
 			}
 		}
 	}
@@ -156,7 +158,7 @@ public class ChargerManager : Enemy
 		if (GlobalManager.inst.GameplayIsActive () && target != null)
 		{
 			//Determines the distance from the enemy to the player
-			tarDistance = Vector3.Distance (target.transform.position, transform.position);
+			//tarDistance = Vector3.Distance (target.transform.position, transform.position);
 
 			//Switches between states based on the distance from the player to the enemy
 			/*if (tarDistance < attackDistance)

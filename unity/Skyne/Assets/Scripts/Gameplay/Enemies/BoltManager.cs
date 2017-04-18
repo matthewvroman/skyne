@@ -13,14 +13,15 @@ public class BoltManager : Enemy
 		TURN_TOWARDS_TARGET
 	}
 
+	[Space(5)]
+	[Header("Bolt: State Machine")]
 	public State state;
-
-	[Tooltip ("Drag in the bullet prefab for the bolt")]
-	public GameObject bulletPrefab; 
 
 	//Var holding the distance from the enemy to the player
 	float tarDistance;
 
+	[Space(5)]
+	[Header("Bolt: Behavior variables")]
 	[Tooltip ("The distance at which the enemy will start attacking")]
 	public float attackDistance; 
 	[Tooltip ("The closest distance the bolt will approach the player")]
@@ -45,10 +46,16 @@ public class BoltManager : Enemy
 	//public AudioClip shootSound;
 	//public AudioClip idleSound;
 
+	[Space(5)]
+	[Header("Bolt: Extra game object functionality")]
 	public GameObject bulletSpawner; 
 	public GameObject frontFacingObj; 
 
+	[Space(5)]
+	[Header("Bolt: Shooting behavior")]
 	// Shooting
+	[Tooltip ("Drag in the bullet prefab for the bolt")]
+	public GameObject bulletPrefab; 
 	public float shootDelay; 
 	float curShootDelay;  
 
@@ -77,16 +84,16 @@ public class BoltManager : Enemy
 
 	void Update () 
 	{
-		// Don't update if the game is paused or still loading
-		if (GlobalManager.inst.GameplayIsActive())
+		// If the enemy hasn't been set up yet, call it's setup
+		// This isn't called until the game has been fully loaded to avoid any incomplete load null references
+		if (!started && GlobalManager.inst.GameplayIsActive())
 		{
-			// If the enemy hasn't been set up yet, call it's setup
-			// This isn't called until the game has been fully loaded to avoid any incomplete load null references
-			if (!started)
-			{
-				SetupEnemy(); 
-			}
+			SetupEnemy (); 
+		}
 
+		// Don't update if the game is paused or still loading
+		if (GlobalManager.inst.GameplayIsActive() && alive && target != null)
+		{
 			// TODO Redo this condition to use the new animation layer for shooting
 			// Potentially change shooting to a trigger
 			/*
@@ -171,10 +178,11 @@ public class BoltManager : Enemy
 	{
 		while (alive)
 		{
-			// If the game is paused or still loading, don't continue with the coroutine
+			// If the game is paused or still loading, don't continue with the coroutine and reset the while loop
 			if (!GlobalManager.inst.GameplayIsActive())
 			{
 				yield return null; 
+				continue; 
 			}
 
 			switch (state)
