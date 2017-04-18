@@ -189,6 +189,19 @@ public class UIManager : Singleton<UIManager>
 		confirmQuitPanel.SetActive(false); 
 	}
 
+	public void OnSettingsButton()
+	{
+		gameMenuState = GameMenuState.Options; 
+		EnableOptionsPanel(); 
+	}
+
+	public void OnBackToMapButton()
+	{
+		gameMenuState = GameMenuState.Map; 
+		EnableMapPanel(); 
+	}
+
+	// Deprecated
 	public void OnTabButton()
 	{
 		if (gameMenuState == GameMenuState.Map)
