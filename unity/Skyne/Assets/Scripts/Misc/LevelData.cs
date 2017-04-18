@@ -152,7 +152,7 @@ public class LevelData : Singleton<LevelData>
 	/// When the player transitions to a new section of the grid, clear and repopulate the array of active grid positions
 	/// Currently, active grid positions include the player's grid position and a square of adjacent spaces (max total of 9 active spaces)
 	/// </summary>
-	void UpdateActiveGridPositions ()
+	void UpdateActiveGridPositionsOld ()
 	{
 		activeGridPositions.Clear(); 
 
@@ -221,6 +221,48 @@ public class LevelData : Singleton<LevelData>
 			AddToActiveGridPositions(curLevel, curColumn - roomLoadRadius - s, curRow);
 		}
 		*/ 
+
+
+	}
+
+	void UpdateActiveGridPositions()
+	{
+		activeGridPositions.Clear(); 
+
+		// On the player's current level, reveal a radius of rooms around the player
+		for (int x = -roomLoadRadius; x <= roomLoadRadius; x++)
+		{
+			for (int y = -roomLoadRadius; y <= roomLoadRadius; y++)
+			{
+				float circleDist = Vector2.Distance(new Vector2(0, 0), new Vector2(x, y)); 
+
+				if (circleDist <= roomLoadRadius)
+				{
+					AddToActiveGridPositions(curLevel, curColumn + x, curRow + y); 
+				}
+			}
+		}
+
+		// On the player's currnent level, do sightlines
+		// Add extra rooms based on the sightlineRoomLoad (only on player's current level)
+		for (int s = 1; s <= sightlineRoomLoad; s++)
+		{
+			// Front
+			AddToActiveGridPositions(curLevel, curColumn, curRow + roomLoadRadius + s);
+			// Back
+			AddToActiveGridPositions(curLevel, curColumn, curRow - roomLoadRadius - s);
+			// Right
+			AddToActiveGridPositions(curLevel, curColumn + roomLoadRadius + s, curRow);
+			// Left
+			AddToActiveGridPositions(curLevel, curColumn - roomLoadRadius - s, curRow);
+		}
+
+		// Reveal rooms directly above and below the player
+		AddToActiveGridPositions(1, curColumn, curRow); 
+		AddToActiveGridPositions(2, curColumn, curRow); 
+		AddToActiveGridPositions(3, curColumn, curRow); 
+
+
 	}
 
 	void UpdateActiveScenes ()
