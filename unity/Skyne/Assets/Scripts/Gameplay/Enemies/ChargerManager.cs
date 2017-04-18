@@ -64,16 +64,18 @@ public class ChargerManager : Enemy
 
 	void SetupEnemy()
 	{
+		ParentSetupEnemy();
+
 		//player = GameObject.FindGameObjectWithTag ("Player");//.GetComponent<Transform> ();
-		target = GameObject.FindGameObjectWithTag("Player");
+		//target = GameObject.FindGameObjectWithTag("Player");
 
 		//rBody = GetComponent<Rigidbody> ();
 		state = ChargerManager.State.IDLE;
-		alive = true;
+		//alive = true;
 
 		agent = gameObject.GetComponent<NavMeshAgent> ();
 
-		maxHealth = health; 
+		//maxHealth = health; 
 
 		rBody = GetComponent<Rigidbody> ();
 
@@ -82,7 +84,7 @@ public class ChargerManager : Enemy
 		//START State Machine
 		StartCoroutine ("CSM");
 
-		started = true; 
+		//started = true; 
 	}
 
 	// Charger State Machine
@@ -172,6 +174,7 @@ public class ChargerManager : Enemy
 		}
 	}
 
+	/*
 	bool CanSeeTarget ()
 	{
 		Vector3 dir = (target.transform.position - transform.position).normalized; 
@@ -190,13 +193,14 @@ public class ChargerManager : Enemy
 			return true; 
 		}
 	}
+	*/ 
 
 	//The Idling state, what the enemy does when the player is not close.
 	void Idle ()
 	{
 		agent.Resume ();
 
-		if (tarDistance < aggroDistance && CanSeeTarget())
+		if (tarDistance < aggroDistance && CanHitTarget())
 		{
 			chargerAudio.PlayOneShot (detectSound);
 			state = ChargerManager.State.POSITION;

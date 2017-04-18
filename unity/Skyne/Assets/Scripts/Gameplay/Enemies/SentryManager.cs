@@ -34,7 +34,7 @@ public class SentryManager : Enemy
 	public float shotDelay;
 	float curShotDelay;
 
-	public GameObject target;
+	//public GameObject target;
 
 	public GameObject bulletSpawner;
 	//GameObject frontObject;
@@ -70,11 +70,13 @@ public class SentryManager : Enemy
 
 	void SetupEnemy ()
 	{
-		Debug.Log("Sentry SetupEnemy()"); 
-		target = GameObject.FindGameObjectWithTag ("Player");
+		ParentSetupEnemy();
+
+		//Debug.Log("Sentry SetupEnemy()"); 
+		//target = GameObject.FindGameObjectWithTag ("Player");
 
 		state = SentryManager.State.IDLE;
-		alive = true;
+		//alive = true;
 
 		agent = gameObject.GetComponent<NavMeshAgent> ();
 
@@ -85,12 +87,12 @@ public class SentryManager : Enemy
 
 		curAtkTimer = atkTimer;
 
-		maxHealth = health; 
+		//maxHealth = health; 
 
 		//START State Machine
 		StartCoroutine ("SSM");
 
-		started = true;
+		//started = true;
 	}
 
 	IEnumerator SSM ()

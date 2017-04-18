@@ -48,8 +48,8 @@ public class FortManager : Enemy
 	public float cooldownLength; 
 	float cooldownTimer; 
 
-	[Tooltip ("The player gameobject")]
-	Transform target;
+	//[Tooltip ("The player gameobject")]
+	//Transform target;
 	[Tooltip ("This enemy's rigidbody")]
 	Rigidbody rBody;
 
@@ -77,12 +77,14 @@ public class FortManager : Enemy
 	/// </summary>
 	void SetupEnemy ()
 	{
-		target = GameObject.FindGameObjectWithTag ("Player").GetComponent<Transform> ();
+		ParentSetupEnemy();
+
+		//target = GameObject.FindGameObjectWithTag ("Player").GetComponent<Transform> ();
 		rBody = GetComponent<Rigidbody> ();
 		agent = GetComponent<NavMeshAgent>();
-		alive = true;
+		//alive = true;
 		state = FortManager.State.IDLE;
-		maxHealth = health; 
+		//maxHealth = health; 
 
 		fortAudio = GetComponent<AudioSource> ();
 
@@ -91,7 +93,7 @@ public class FortManager : Enemy
 		//START State Machine
 		StartCoroutine ("BSM");
 
-		started = true; 
+		//started = true; 
 	}
 
 	void Update () 
@@ -119,7 +121,7 @@ public class FortManager : Enemy
 			// State machine changes
 
 			//Determines the distance from the enemy to the player
-			tarDistance = Vector3.Distance(target.position, transform.position);
+			tarDistance = Vector3.Distance(target.transform.position, transform.position);
 
 
 			//Switches between states based on the distance from the player to the enemy
@@ -241,7 +243,7 @@ public class FortManager : Enemy
 
 		// Also test dot for vertical level
 		Vector3 targetVertical = new Vector3(0, 0, 0);
-		Vector3 thisVertical = new Vector3(0, target.position.y, 0); 
+		Vector3 thisVertical = new Vector3(0, target.transform.position.y, 0); 
 		float verticalDot = Vector3.Dot(frontFacingObj.transform.forward, (targetVertical - thisVertical).normalized);
 
 		if (dot > 0.999f)
@@ -266,7 +268,7 @@ public class FortManager : Enemy
 	{
 		if (curMeleeDelay == 0)
 		{
-			Vector3 targetFlatPosition = new Vector3 (target.position.x, transform.position.y, target.position.z); 
+			Vector3 targetFlatPosition = new Vector3 (target.transform.position.x, transform.position.y, target.transform.position.z); 
 			Vector3 thisFlatPosition = new Vector3 (transform.position.x, transform.position.y, transform.position.z); 
 
 			float dot = Vector3.Dot(transform.forward, (targetFlatPosition - thisFlatPosition).normalized);
@@ -286,6 +288,7 @@ public class FortManager : Enemy
 	/// Does a linecast between the fort and its target. Returns false if there are any obstacles in the way.
 	/// Note that the linecast can't intersect the colliders of the fort or the target, or this will always return false
 	/// </summary>
+	/*
 	bool CanHitTarget()
 	{
 		Vector3 dir = (target.position - transform.position).normalized; 
@@ -304,6 +307,7 @@ public class FortManager : Enemy
 			return true; 
 		}
 	}
+	*/ 
 
 
 	//The Idling state, what the enemy does when the player is not close.
@@ -332,9 +336,9 @@ public class FortManager : Enemy
 	{
 		anim.SetBool("isWalking", true); 
 
-		Vector3 targetPosition = new Vector3 (target.position.x, this.transform.position.y, target.position.z);
+		Vector3 targetPosition = new Vector3 (target.transform.position.x, this.transform.position.y, target.transform.position.z);
 
-		agent.destination = target.position; 
+		agent.destination = target.transform.position; 
 		agent.speed = moveSpeed; 
 
 		fortAudio.clip = idleSound;
@@ -373,7 +377,7 @@ public class FortManager : Enemy
 			fortAudio.Play ();
 		}
 
-		Quaternion q = Quaternion.LookRotation(target.position - frontFacingObj.transform.position);
+		Quaternion q = Quaternion.LookRotation(target.transform.position - frontFacingObj.transform.position);
 		transform.rotation = Quaternion.RotateTowards(frontFacingObj.transform.rotation, q, attackTurnSpeed * Time.deltaTime);
 	}
 
@@ -386,7 +390,7 @@ public class FortManager : Enemy
 
 	void Attack()
 	{
-		Vector3 targetPosition = new Vector3 (target.position.x, this.transform.position.y, target.position.z);
+		Vector3 targetPosition = new Vector3 (target.transform.position.x, this.transform.position.y, target.transform.position.z);
 
 		if (curShootDelay == 0)
 		{
@@ -426,7 +430,7 @@ public class FortManager : Enemy
 	float GetDot()
 	{
 		// Uses flattened height by giving this position and the target the same y value
-		Vector3 targetFlatPosition = new Vector3(target.position.x, frontFacingObj.transform.position.y, target.position.z); 
+		Vector3 targetFlatPosition = new Vector3(target.transform.position.x, frontFacingObj.transform.position.y, target.transform.position.z); 
 		Vector3 thisFlatPosition = new Vector3(frontFacingObj.transform.position.x, frontFacingObj.transform.position.y, frontFacingObj.transform.position.z); 
 
 		return Vector3.Dot(frontFacingObj.transform.forward, (targetFlatPosition - thisFlatPosition).normalized);

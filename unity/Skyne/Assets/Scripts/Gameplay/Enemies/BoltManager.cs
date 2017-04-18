@@ -33,8 +33,8 @@ public class BoltManager : Enemy
 	public float attackTurnSpeed;
 
 
-	[Tooltip ("The player gameobject")]
-	Transform target;
+	//[Tooltip ("The player gameobject")]
+	//Transform target;
 	[Tooltip ("This enemy's rigidbody")]
 	Rigidbody rBody;
 
@@ -58,20 +58,21 @@ public class BoltManager : Enemy
 	/// </summary>
 	void SetupEnemy ()
 	{
-		target = GameObject.FindGameObjectWithTag ("Player").GetComponent<Transform>();
+		ParentSetupEnemy(); 
+		//target = GameObject.FindGameObjectWithTag ("Player").GetComponent<Transform>();
 
 		rBody = GetComponent<Rigidbody> ();
 		agent = GetComponent<NavMeshAgent>();
-		alive = true;
+		//alive = true;
 		state = BoltManager.State.IDLE;
-		maxHealth = health; 
+		//maxHealth = health; 
 
 		boltAudio = GetComponent<AudioSource> ();
 
 		//START State Machine
 		StartCoroutine ("BSM");
 
-		started = true; 
+		//started = true; 
 	}
 
 	void Update () 
@@ -108,7 +109,7 @@ public class BoltManager : Enemy
 			// State machine changes
 
 			//Determines the distance from the enemy to the player
-			tarDistance = Vector3.Distance(target.position, transform.position);
+			tarDistance = Vector3.Distance(target.transform.position, transform.position);
 
 			//Switches between states based on the distance from the player to the enemy
 
@@ -145,6 +146,8 @@ public class BoltManager : Enemy
 				if (tarDistance < aggroDistance && CanHitTarget())
 				{
 					state = BoltManager.State.POSITION; 
+
+					// Play detect sound here
 				}
 			}
 
@@ -203,7 +206,7 @@ public class BoltManager : Enemy
 
 		// Also test dot for vertical level
 		Vector3 targetVertical = new Vector3(0, 0, 0);
-		Vector3 thisVertical = new Vector3(0, target.position.y, 0); 
+		Vector3 thisVertical = new Vector3(0, target.transform.position.y, 0); 
 		float verticalDot = Vector3.Dot(frontFacingObj.transform.forward, (targetVertical - thisVertical).normalized);
 
 		if (dot > 0.999f)
@@ -232,6 +235,7 @@ public class BoltManager : Enemy
 	/// Does a linecast between the bolt and its target. Returns false if there are any obstacles in the way.
 	/// Note that the linecast can't intersect the colliders of the bolt or the target, or this will always return false
 	/// </summary>
+	/*
 	bool CanHitTarget()
 	{
 		Vector3 dir = (target.position - transform.position).normalized; 
@@ -250,6 +254,7 @@ public class BoltManager : Enemy
 			return true; 
 		}
 	}
+	*/ 
 
 
 	//The Idling state, what the enemy does when the player is not close.
@@ -278,9 +283,9 @@ public class BoltManager : Enemy
 	{
 		anim.SetBool("isWalking", true); 
 
-		Vector3 targetPosition = new Vector3 (target.position.x, this.transform.position.y, target.position.z);
+		Vector3 targetPosition = new Vector3 (target.transform.position.x, this.transform.position.y, target.transform.position.z);
 
-		agent.destination = target.position; 
+		agent.destination = target.transform.position; 
 		agent.speed = moveSpeed; 
 
 		boltAudio.clip = idleSound;
@@ -318,13 +323,13 @@ public class BoltManager : Enemy
 			boltAudio.Play ();
 		}
 
-		Quaternion q = Quaternion.LookRotation(target.position - frontFacingObj.transform.position);
+		Quaternion q = Quaternion.LookRotation(target.transform.position - frontFacingObj.transform.position);
 		transform.rotation = Quaternion.RotateTowards(frontFacingObj.transform.rotation, q, attackTurnSpeed * Time.deltaTime);
 	}
 
 	void Attack()
 	{
-		Vector3 targetPosition = new Vector3 (target.position.x, this.transform.position.y, target.position.z);
+		Vector3 targetPosition = new Vector3 (target.transform.position.x, this.transform.position.y, target.transform.position.z);
 
 		if (curShootDelay == 0)
 		{
@@ -355,7 +360,7 @@ public class BoltManager : Enemy
 	float GetDot()
 	{
 		// Uses flattened height by giving this position and the target the same y value
-		Vector3 targetFlatPosition = new Vector3(target.position.x, frontFacingObj.transform.position.y, target.position.z); 
+		Vector3 targetFlatPosition = new Vector3(target.transform.position.x, frontFacingObj.transform.position.y, target.transform.position.z); 
 		Vector3 thisFlatPosition = new Vector3(frontFacingObj.transform.position.x, frontFacingObj.transform.position.y, frontFacingObj.transform.position.z); 
 
 		return Vector3.Dot(frontFacingObj.transform.forward, (targetFlatPosition - thisFlatPosition).normalized);

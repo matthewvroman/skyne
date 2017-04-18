@@ -24,6 +24,9 @@ public class Enemy : MonoBehaviour
 	//Determines whether the enemy is alive or not. Is not currently ever changed.
 	public bool alive;
 
+	// TODO- migrate target from child to parent
+	public GameObject target; 
+
 	public AudioClip idleSound;
 	public AudioClip damageSound;
 	public AudioClip sparkSound;
@@ -41,6 +44,8 @@ public class Enemy : MonoBehaviour
 	public float criticalHitDamageModifier; 
 	public float normalHitDamageModifier; 
 	public float lowHitDamageModifier; 
+
+	List<GameObject> enemyColliders; 
 
 	// Smoke Particles
 	[System.Serializable]
@@ -85,6 +90,32 @@ public class Enemy : MonoBehaviour
 		GlobalManager.OnGamePausedUpdated -= HandleGamePausedUpdated;
 	}
 
+	protected void ParentSetupEnemy()
+	{
+		target = GameObject.FindGameObjectWithTag ("Player");
+		alive = true;
+		maxHealth = health; 
+		started = true;
+
+		SetupColliderArray(); 
+	}
+
+	void SetupColliderArray()
+	{
+		enemyColliders = new List<GameObject> (); 
+
+		EnemyWeakPoint[] wp = GetComponentsInChildren<EnemyWeakPoint>(); 
+
+		foreach (EnemyWeakPoint cur in wp)
+		{
+			// If the collider is on the Enemy layer, add it to the list
+			if (cur.gameObject.layer == 12)
+			{
+				enemyColliders.Add(cur.gameObject); 
+			}
+		}
+	}
+
 	/// <summary>
 	/// Called when the pause state of the game has changed
 	/// The Enemy class should respond in this function and make sure its AI and physics pause
@@ -94,6 +125,49 @@ public class Enemy : MonoBehaviour
 	void HandleGamePausedUpdated (bool newState)
 	{
 
+	}
+
+	/// <summary>
+	/// Does a linecast between the bolt and its target. Returns false if there are any obstacles in the way.
+	/// Note that the linecast can't intersect the colliders of the bolt or the target, or this will always return false
+	/// </summary>
+	protected bool CanHitTarget()
+	{
+		float startDistMultiplier = 0.5f; 
+
+		Vector3 dir = (target.transform.position - transform.position).normalized; 
+		Vector3 start = transform.position + dir * startDistMultiplier; 
+		Vector3 end = target.transform.position - dir * 1; 
+
+		// First, check to make sure the start point is not overlapping the current collider
+		RaycastHit startDistCheck; 
+		bool validStart = false; 
+		int loopSafetyCheck = 0; 
+
+		// Temporarily Set the layers of each enemyCollider to IgnoreRaycast
+		foreach (GameObject cur in enemyColliders)
+		{
+			cur.layer = 2; 
+		}
+
+		if (Physics.Linecast(start, end))
+		{
+			Debug.DrawLine(start, end, Color.yellow); 
+			//Debug.LogError("Obstacle Found"); 
+			return false; 
+		}
+		else
+		{
+			Debug.DrawLine(start, end, Color.white); 
+			return true; 
+		}
+
+		// Reset the enemy collider layers
+		// This uses a hard coded enemy layer integer
+		foreach (GameObject cur in enemyColliders)
+		{
+			cur.layer = 12; 
+		}
 	}
 
 		

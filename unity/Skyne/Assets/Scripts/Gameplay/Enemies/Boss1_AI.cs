@@ -78,7 +78,7 @@ public class Boss1_AI : Enemy
 
 	float healthPer;
 
-	GameObject target;
+	//GameObject target;
 
 	GameObject boss;
 
@@ -119,12 +119,14 @@ public class Boss1_AI : Enemy
 		StartCoroutine ("B1SM"); */
 	}
 
-	void SetupBoss ()
+	void SetupEnemy ()
 	{
-		target = GameObject.FindGameObjectWithTag ("Player");
+		ParentSetupEnemy();
+
+		//target = GameObject.FindGameObjectWithTag ("Player");
 
 		state = Boss1_AI.State.IDLE;
-		alive = true;
+		//alive = true;
 
 		phase = 1;
 
@@ -157,7 +159,7 @@ public class Boss1_AI : Enemy
 		//START State Machine
 		StartCoroutine ("B1SM");
 
-		started = true;
+		//started = true;
 	}
 
 	bool canSeeTarget ()
@@ -229,7 +231,7 @@ public class Boss1_AI : Enemy
 		{
 			if (!started)
 			{
-				SetupBoss (); 
+				SetupEnemy (); 
 			}
 
 			Phases ();
