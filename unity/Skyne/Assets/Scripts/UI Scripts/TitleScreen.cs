@@ -61,10 +61,12 @@ public class TitleScreen : MonoBehaviour
 		if (PlayerPrefsManager.inst.SaveExists())
 		{
 			continueButton.interactable = true; 
+			continueButton.gameObject.SetActive(true);
 		}
 		else if (GlobalManager.inst.buttonUIIsActive)
 		{
 			continueButton.interactable = false; 
+			continueButton.gameObject.SetActive(false); 
 		}
 
 		if (EventSystem.current == null)
