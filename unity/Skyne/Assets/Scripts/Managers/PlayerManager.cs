@@ -447,7 +447,7 @@ public class PlayerManager : MonoBehaviour
 						velocity.y = moveSetting.jumpVel;
 						if (velocity.magnitude > 0)
 						{
-							velocity = velocity * 0.7f;
+							velocity = velocity * 0.8f;
 						}
 						//canDoubleJump = false;
 						StartCoroutine("StopDoubleJump");
@@ -796,15 +796,30 @@ public class PlayerManager : MonoBehaviour
 			StartCoroutine ("DamageFlash");
 		} */
 
-		if (col.gameObject.tag == "Wall" && !Grounded ())
+		if (GameState.inst.upgradesFound [1])
 		{
+			if (col.gameObject.tag == "Wall" && !Grounded ())
+			{
 
-			isHuggingWall = true;
-			isWallJumping = true;
+				isHuggingWall = true;
+				isWallJumping = true;
+			}
+			else
+			{
+				isHuggingWall = false;
+			}
 		}
-		else
+		else 
 		{
-			isHuggingWall = false;
+			if (col.gameObject.tag == "Wall")
+			{
+				velocity = Vector3.zero;
+			}
+		}
+
+		if (col.gameObject.tag == "OrganicWall" && !Grounded())
+		{
+			velocity = Vector3.zero;
 		}
 
 		if (col.gameObject.tag == "Spikes")
@@ -827,6 +842,14 @@ public class PlayerManager : MonoBehaviour
 		if (col.gameObject.tag == "Enemy")
 		{
 			DamageCalculator (3);
+		}
+
+		if (col.gameObject.tag == "OrganicWall" && !Grounded())
+		{
+			velocity.x = 0;
+			velocity.z = 0;
+
+			velocity.y -= (physSetting.normDownAccel / 4);
 		}
 
 		if (col.gameObject.tag == "Charger")
