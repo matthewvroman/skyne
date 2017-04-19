@@ -165,6 +165,7 @@ public class SceneLoading : Singleton<SceneLoading>
 	void SetAsynchLevelLoad()
 	{
 		// Error case- trying to load a duplicate level scene
+		// TODO- ensure that this code is stable. This could have potential for bugs. 
 		if (SceneManager.GetSceneByName(sceneQ.Peek()).isLoaded)
 		{
 			Debug.LogWarning("Tried to load a scene that's already loaded. Trying the next scene, if available"); 
