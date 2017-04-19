@@ -164,6 +164,20 @@ public class SceneLoading : Singleton<SceneLoading>
 
 	void SetAsynchLevelLoad()
 	{
+		// Error case- trying to load a duplicate level scene
+		if (SceneManager.GetSceneByName(sceneQ.Peek()).isLoaded)
+		{
+			Debug.LogWarning("Tried to load a scene that's already loaded. Trying the next scene, if available"); 
+			sceneQ.Dequeue(); 
+
+			if (sceneQ.Count > 0)
+			{
+				SetAsynchLevelLoad(); 
+			}
+
+			return; 
+		}
+
 		sceneOp = SceneManager.LoadSceneAsync(sceneQ.Peek(), LoadSceneMode.Additive);
 	}
 }
