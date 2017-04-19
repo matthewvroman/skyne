@@ -10,22 +10,40 @@ public class SaveRoomManager : Singleton<SaveRoomManager>
 	public bool justSaved; 
 
 	// Stop save UI from appearing when a save is loaded
-	[HideInInspector] public bool saveReady; 
+	public bool saveReady; 
 
 	// Temporary saving UI
 	public GameObject pressToSaveText;
 	public GameObject gameSavedText; 
-	
+
+	PlayerManager pManager; 
+
+	void Start()
+	{
+		saveReady = false; 
+		pressToSaveText.SetActive(false); 
+	}
+
 	// Update is called once per frame
 	void Update () 
 	{
 		pressToSaveText.SetActive(false); 
 		gameSavedText.SetActive(false);
 
+		if (!GlobalManager.inst.GameplayIsActive())
+		{
+			return; 
+		}
+
+		if (pManager == null)
+		{
+			pManager = LevelData.inst.player.GetComponent<PlayerManager>(); 
+		}
+
 		// Check save room usage
 		if (inSaveRoom && curSaveRoom != null && saveReady)
 		{
-			if (curSaveRoom.readyToSave && !justSaved)
+			if (curSaveRoom.readyToSave && !justSaved && pManager.GetIsAlive())
 			{
 				pressToSaveText.SetActive(true); 
 
@@ -34,6 +52,8 @@ public class SaveRoomManager : Singleton<SaveRoomManager>
 				{
 					justSaved = true; 
 					curSaveRoom.readyToSave = false; 
+
+					curSaveRoom.TriggerSaveParticles(); 
 
 					// Call PlayerPrefsManager to create the save
 					PlayerPrefsManager.inst.SavePlayerPrefs(); 
@@ -44,10 +64,25 @@ public class SaveRoomManager : Singleton<SaveRoomManager>
 				gameSavedText.SetActive(true); 
 			}
 		}
+	}
 
-		if (GlobalManager.inst.GameplayIsActive() && !inSaveRoom)
+	void FixedUpdate()
+	{
+		if (!GlobalManager.inst.GameplayIsActive())
+		{
+			return; 
+		}
+
+		if (curSaveRoom == null)
 		{
 			saveReady = true; 
+		}
+		else if (!inSaveRoom)
+		{ 
+			if (Vector3.Distance(LevelData.inst.player.transform.position, curSaveRoom.saveSpawnPoint.transform.position) > 1)
+			{
+				saveReady = true; 
+			}
 		}
 	}
 

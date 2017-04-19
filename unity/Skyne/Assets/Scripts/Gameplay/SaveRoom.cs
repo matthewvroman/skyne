@@ -8,6 +8,9 @@ public class SaveRoom : MonoBehaviour
 
 	SaveCollider saveCollider; 
 
+	public ParticleSystem saveParticles1;
+	public ParticleSystem saveParticles2;
+
 	AudioSource audio1;
 	public AudioClip saveSound;
 
@@ -43,5 +46,13 @@ public class SaveRoom : MonoBehaviour
 		{
 			readyToSave = true;
 		}
+	}
+
+	public void TriggerSaveParticles()
+	{
+		saveParticles1.Stop(); 
+		saveParticles1.Play();
+		saveParticles2.Stop(); 
+		saveParticles2.Play();
 	}
 }

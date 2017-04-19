@@ -21,6 +21,11 @@ public class SaveCollider : MonoBehaviour
 
 	void OnTriggerExit (Collider col)
 	{
+		if (!GlobalManager.inst.GameplayIsActive())
+		{
+			return; 
+		}
+
 		if (col.tag == "Player")
 		{
 			playerInside = false; 
