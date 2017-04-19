@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+	Vector3 spawnPos; 
+
 	[Space(5)]
 	[Header("Parent: State")]
 	[Tooltip ("The current health of the enemy")]
@@ -85,6 +87,11 @@ public class Enemy : MonoBehaviour
 
 		[Tooltip ("The bullet damage is modified by this value to calculate the final damage value. 0.5 means half damage.")]
 		public float defenseModifier;
+	}
+
+	protected virtual void Start ()
+	{
+		spawnPos = transform.position; 
 	}
 
 	protected virtual void Update ()
@@ -197,6 +204,8 @@ public class Enemy : MonoBehaviour
 		{
 			return; 
 		}
+
+		EnemyShot(); 
 
 		Collider col = collision.collider; 
 

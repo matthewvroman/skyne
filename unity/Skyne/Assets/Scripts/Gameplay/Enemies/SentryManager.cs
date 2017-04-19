@@ -133,14 +133,19 @@ public class SentryManager : Enemy
 
 	void Update ()
 	{
+		if (!GlobalManager.inst.GameplayIsActive())
+		{
+			return; 
+		}
+
 		// If the enemy hasn't been set up yet, call it's setup
 		// This isn't called until the game has been fully loaded to avoid any incomplete load null references
-		if (!started && GlobalManager.inst.GameplayIsActive())
+		if (!started)
 		{
 			SetupEnemy (); 
 		}
 
-		if (GlobalManager.inst.GameplayIsActive() && alive && target != null)
+		if (alive && target != null)
 		{
 		/*	if (health <= 0)
 			{
@@ -162,7 +167,7 @@ public class SentryManager : Enemy
 			//Debug.Log (CanSeeTarget());
 		}
 
-		if (GlobalManager.inst.GameplayIsActive () && target != null)
+		if (target != null)
 		{
 			tarDistance = Vector3.Distance (target.transform.position, transform.position);
 
@@ -192,7 +197,8 @@ public class SentryManager : Enemy
 			{
 				DestroyEnemy(); 
 			}
-		}}
+		}
+	}
 
 	void Idle ()
 	{

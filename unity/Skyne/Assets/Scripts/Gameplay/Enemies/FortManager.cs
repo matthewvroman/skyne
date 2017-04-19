@@ -106,15 +106,20 @@ public class FortManager : Enemy
 
 	void Update () 
 	{
+		if (!GlobalManager.inst.GameplayIsActive())
+		{
+			return; 
+		}
+
 		// If the enemy hasn't been set up yet, call it's setup
 		// This isn't called until the game has been fully loaded to avoid any incomplete load null references
-		if (!started && GlobalManager.inst.GameplayIsActive())
+		if (!started)
 		{
 			SetupEnemy (); 
 		}
 
 		// Don't update if the game is paused or still loading
-		if (GlobalManager.inst.GameplayIsActive() && alive && target != null)
+		if (alive && target != null)
 		{
 
 		/*	if (health <= 0)

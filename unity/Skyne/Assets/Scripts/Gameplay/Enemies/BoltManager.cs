@@ -59,6 +59,9 @@ public class BoltManager : Enemy
 	public float shootDelay; 
 	float curShootDelay;  
 
+	float onShotTimer; 
+	public float onShotTimerLength; 
+
 	/// <summary>
 	/// Custom Start() method invoked in Update() only once the game is fully loaded
 	/// Only called once based on the started variable, located in the Enemy parent class
@@ -84,34 +87,27 @@ public class BoltManager : Enemy
 
 	void Update () 
 	{
+		if (!GlobalManager.inst.GameplayIsActive())
+		{
+			return; 
+		}
+
 		// If the enemy hasn't been set up yet, call it's setup
 		// This isn't called until the game has been fully loaded to avoid any incomplete load null references
-		if (!started && GlobalManager.inst.GameplayIsActive())
+		if (!started)
 		{
 			SetupEnemy (); 
 		}
 
 		// Don't update if the game is paused or still loading
-		if (GlobalManager.inst.GameplayIsActive() && alive && target != null)
+		if (alive && target != null)
 		{
-			// TODO Redo this condition to use the new animation layer for shooting
-			// Potentially change shooting to a trigger
-			/*
-			if (anim.GetBool("isShooting") == true && anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+			if (onShotTimer > 0)
 			{
-				anim.SetBool("isShooting", false); 
+				onShotTimer -= Time.deltaTime; 
+				if (onShotTimer <= 0)
+					onShotTimer = 0; 
 			}
-			*/ 
-
-			/*if (health <= 0)
-			{
-				boltAudio.loop = false;
-				boltAudio.clip = deathSound;
-				if (!boltAudio.isPlaying)
-				{
-					boltAudio.Play ();
-				}
-			} */
 
 			// State machine changes
 
@@ -148,13 +144,15 @@ public class BoltManager : Enemy
 			}
 			else
 			{
-				state = BoltManager.State.IDLE;
-
 				if (tarDistance < aggroDistance && CanHitTarget())
 				{
 					state = BoltManager.State.POSITION; 
 
 					// Play detect sound here
+				}
+				else if (onShotTimer == 0)
+				{
+					state = BoltManager.State.IDLE;
 				}
 			}
 
@@ -376,6 +374,8 @@ public class BoltManager : Enemy
 
 	protected override void EnemyShot()
 	{
+		onShotTimer = onShotTimerLength; 
+
 		if (state == BoltManager.State.IDLE)
 		{
 			state = BoltManager.State.POSITION; 

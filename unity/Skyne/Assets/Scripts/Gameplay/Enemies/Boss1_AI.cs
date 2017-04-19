@@ -239,14 +239,19 @@ public class Boss1_AI : Enemy
 	// Update is called once per frame
 	void Update ()
 	{
+		if (!GlobalManager.inst.GameplayIsActive())
+		{
+			return; 
+		}
+
 		// If the enemy hasn't been set up yet, call it's setup
 		// This isn't called until the game has been fully loaded to avoid any incomplete load null references
-		if (!started && GlobalManager.inst.GameplayIsActive())
+		if (!started)
 		{
 			SetupEnemy (); 
 		}
 
-		if (GlobalManager.inst.GameplayIsActive() && alive && target != null)
+		if (alive && target != null)
 		{
 			Phases ();
 
@@ -333,7 +338,7 @@ public class Boss1_AI : Enemy
 			}
 		} 
 
-		if (GlobalManager.inst.GameplayIsActive () && target != null)
+		if (target != null)
 		{
 			switch (chooseAttack)
 			{

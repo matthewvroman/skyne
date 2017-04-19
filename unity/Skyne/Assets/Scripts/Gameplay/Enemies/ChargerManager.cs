@@ -112,15 +112,20 @@ public class ChargerManager : Enemy
 
 	protected override void Update ()
 	{
+		if (!GlobalManager.inst.GameplayIsActive())
+		{
+			return; 
+		}
+
 		// If the enemy hasn't been set up yet, call it's setup
 		// This isn't called until the game has been fully loaded to avoid any incomplete load null references
-		if (!started && GlobalManager.inst.GameplayIsActive())
+		if (!started)
 		{
 			SetupEnemy (); 
 		}
 
 		// Don't update if the game is paused or still loading
-		if (GlobalManager.inst.GameplayIsActive() && alive && target != null)
+		if (alive && target != null)
 		{
 			base.Update();
 
@@ -137,18 +142,18 @@ public class ChargerManager : Enemy
 		} */
 
 			//Debug.Log (agent.autoBraking);
+		}
 
-			if (!alive)
+		if (!alive)
+		{
+			agent.speed = 0; 
+
+			//chargerAudio.clip = null;
+			//chargerAudio.PlayOneShot (deathSound);
+
+			if (anim.GetCurrentAnimatorStateInfo(1).IsName("DeathDone"))
 			{
-				agent.speed = 0; 
-
-				//chargerAudio.clip = null;
-				//chargerAudio.PlayOneShot (deathSound);
-
-				if (anim.GetCurrentAnimatorStateInfo(1).IsName("DeathDone"))
-				{
-					DestroyEnemy(); 
-				}
+				DestroyEnemy(); 
 			}
 		}
 	}
