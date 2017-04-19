@@ -23,6 +23,8 @@ public class GameOverScreen : MonoBehaviour
 	{
 		if (!ScreenTransition.inst.transitionActive)
 		{
+			GlobalAudio.inst.PlayUIClick(); 
+
 			GlobalManager.inst.buttonUIIsActive = false; 
 			ScreenTransition.inst.SetFadeOut(transitionFadeOutSpeed); 
 			StartCoroutine("StartGameFadeOut"); 
@@ -33,6 +35,8 @@ public class GameOverScreen : MonoBehaviour
 	{
 		if (!ScreenTransition.inst.transitionActive)
 		{ 
+			GlobalAudio.inst.PlayUIClick(); 
+
 			GlobalManager.inst.buttonUIIsActive = false; 
 			ScreenTransition.inst.SetFadeOut(transitionFadeOutSpeed); 
 			StartCoroutine("LoadTitleFadeOut"); 

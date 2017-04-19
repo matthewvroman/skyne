@@ -101,6 +101,8 @@ public class TitleScreen : MonoBehaviour
 			// Reset player prefs, but keep settings-related data
 			PlayerPrefsManager.inst.ResetPlayerPrefs(); 
 
+			GlobalAudio.inst.PlayUIClick(); 
+
 			GlobalManager.inst.buttonUIIsActive = false; 
 
 			ScreenTransition.inst.SetFadeOut(transitionFadeOutSpeed); 
@@ -114,6 +116,7 @@ public class TitleScreen : MonoBehaviour
 		{
 			//mainMenu.SetActive(false); 
 			confirmNewGamePanel.SetActive(true); 
+			GlobalAudio.inst.PlayUIClick(); 
 		}
 		else
 		{
@@ -128,6 +131,8 @@ public class TitleScreen : MonoBehaviour
 		{
 			GlobalManager.inst.buttonUIIsActive = false; 
 
+			GlobalAudio.inst.PlayUIClick(); 
+
 			ScreenTransition.inst.SetFadeOut(transitionFadeOutSpeed); 
 			StartCoroutine("StartGameFadeOut"); 
 		}
@@ -138,6 +143,7 @@ public class TitleScreen : MonoBehaviour
 	{
 		mainMenu.SetActive (false);
 		settingsMenu.SetActive (true);
+		GlobalAudio.inst.PlayUIClick(); 
 
 		//EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(backButton.gameObject); 
 	}
@@ -145,6 +151,7 @@ public class TitleScreen : MonoBehaviour
 	// QuitGameButton
 	public void OnQuitButton()
 	{
+		GlobalAudio.inst.PlayUIClick(); 
 		Application.Quit();
 	}
 
@@ -156,6 +163,8 @@ public class TitleScreen : MonoBehaviour
 		mainMenu.SetActive (true);
 		confirmNewGamePanel.SetActive(false); 
 
+		GlobalAudio.inst.PlayUIClick(); 
+
 		//EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(settingsButton.gameObject);
 	}
 
@@ -163,7 +172,8 @@ public class TitleScreen : MonoBehaviour
 	public void OnCreditsButton()
 	{
 		mainMenu.SetActive(false); 
-		creditsMenu.SetActive(true); 
+		creditsMenu.SetActive(true);
+		GlobalAudio.inst.PlayUIClick(); 
 	}
 
 	public IEnumerator StartGameFadeOut()

@@ -171,34 +171,41 @@ public class UIManager : Singleton<UIManager>
 		DisablePanels(); 
 		gameMenuActive = false; 
 		//EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject(null);
+
+		GlobalAudio.inst.PlayUIClick(); 
 	}
 
 	public void OnQuitButton()
 	{
 		GlobalManager.inst.buttonUIIsActive = false;
 		GlobalManager.inst.GameplayToTitleScreen(); 
+		GlobalAudio.inst.PlayUIClick(); 
 	}
 
 	public void OnTryQuitButton()
 	{
 		confirmQuitPanel.SetActive(true); 
+		GlobalAudio.inst.PlayUIClick(); 
 	}
 
 	public void OnCancelQuitButton()
 	{
-		confirmQuitPanel.SetActive(false); 
+		confirmQuitPanel.SetActive(false);
+		GlobalAudio.inst.PlayUIClick(); 
 	}
 
 	public void OnSettingsButton()
 	{
 		gameMenuState = GameMenuState.Options; 
 		EnableOptionsPanel(); 
+		GlobalAudio.inst.PlayUIClick(); 
 	}
 
 	public void OnBackToMapButton()
 	{
 		gameMenuState = GameMenuState.Map; 
 		EnableMapPanel(); 
+		GlobalAudio.inst.PlayUIClick(); 
 	}
 
 	// Deprecated
@@ -230,5 +237,6 @@ public class UIManager : Singleton<UIManager>
 		{
 			MapDisplay.inst.displayLevel = 3; 
 		}
+		GlobalAudio.inst.PlayUIClick(); 
 	}
 }
