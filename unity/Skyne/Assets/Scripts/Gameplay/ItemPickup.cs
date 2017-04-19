@@ -40,6 +40,12 @@ public class ItemPickup : MonoBehaviour
 
 				audio1.PlayOneShot (equipSound);
 
+				MessageTrigger messageTrigger = GetComponent<MessageTrigger>(); 
+				if (messageTrigger != null)
+				{
+					messageTrigger.TriggerMessage(); 
+				}
+
 				// If charge found, set current beam to charge
 				if (itemTypeIndex == 3)
 				{
