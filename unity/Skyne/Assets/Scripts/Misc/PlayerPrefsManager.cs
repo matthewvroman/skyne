@@ -153,10 +153,9 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 		// Load the player health
 		//GameState.inst.playerHealth = GetInt("playerHealth", 100);
 
-		//PlayerManager player = GameObject.FindObjectOfType<PlayerManager>(); 
+		PlayerManager player = GameObject.FindObjectOfType<PlayerManager>(); 
 
-		//player.setHealth(GetFloat("playerHealth", 100));
-
+		// Player health is set in the PlayerManager's Start() via GetStoredPlayerHealth()
 	}
 
 	public float GetStoredPlayerHealth()
@@ -232,6 +231,10 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 		return GetFloat("mouseSensitivity", defaultValue); 
 	}
 
+	public float GetSavedHealth()
+	{
+		return GetFloat("playerHealth", 100); 
+	}
 
 
 	/*
