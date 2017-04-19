@@ -180,8 +180,11 @@ public class PlayerManager : MonoBehaviour
 
 		curDownAccel = physSetting.normDownAccel;
 
-		currentHealth = maxHealth;
-		targetHealth = maxHealth;
+		//currentHealth = maxHealth;
+		//targetHealth = maxHealth;
+
+		currentHealth = PlayerPrefsManager.inst.GetSavedHealth(); 
+		targetHealth = currentHealth; 
 
 		currentStamina = maxStamina;
 
