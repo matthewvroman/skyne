@@ -48,6 +48,9 @@ public class FortManager : Enemy
 
 	public GameObject meleeCollider; 
 
+	public ParticleSystem meleeParticles; 
+	public float meleeParticlesEmission; 
+
 	[Tooltip ("How long the enemy must wait after firing a shot")]
 	public float cooldownLength; 
 	float cooldownTimer; 
@@ -76,7 +79,6 @@ public class FortManager : Enemy
 	// Shooting
 	public float shootDelay; 
 	float curShootDelay;  
-
 
 
 	/// <summary>
@@ -456,6 +458,8 @@ public class FortManager : Enemy
 		//Debug.Log("Fort MeleeOver");
 		meleeCollider.SetActive(false); 
 		state = FortManager.State.POSITION;
+
+		meleeParticles.emissionRate = 0; 
 	}
 
 	void ShotOver()
@@ -467,6 +471,7 @@ public class FortManager : Enemy
 	void OnAnimMelee()
 	{
 		meleeCollider.SetActive(true); 
+		meleeParticles.emissionRate = meleeParticlesEmission; 
 	}
 
 	void OnAnimShoot()
