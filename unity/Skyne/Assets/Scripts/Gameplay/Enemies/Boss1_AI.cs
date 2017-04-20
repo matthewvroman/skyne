@@ -584,4 +584,29 @@ public class Boss1_AI : Enemy
 		KeyPickupManager.inst.SpawnTreasurePickup (transform.position);
 		*/ 
 	}
+
+	void FireLaser ()
+	{
+		// Spawn/Enable laser
+	}
+
+	void LaserDone ()
+	{
+		// Go back to idle
+	}
+
+	void SpinDone ()
+	{
+		// Spin attack completed
+	}
+		
+	void StompDone ()
+	{
+		// Stomp attack completed
+	}
+
+	void AttackDone ()
+	{
+
+	}
 }
