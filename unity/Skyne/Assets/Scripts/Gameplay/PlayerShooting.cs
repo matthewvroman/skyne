@@ -320,7 +320,7 @@ public class PlayerShooting : Singleton<PlayerShooting>
 		if (GlobalManager.inst.GameplayIsActive())
 		{
 			// 'E' = Cycle through weapon type
-			if (Input.GetKeyDown(KeyCode.E))
+			if (Input.GetKeyDown(KeyCode.Q))
 			{
 				ChangeWeaponType(GetNextWeaponInCycle(GameState.inst.pShootMode)); 
 			}
