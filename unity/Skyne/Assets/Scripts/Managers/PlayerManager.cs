@@ -146,6 +146,8 @@ public class PlayerManager : MonoBehaviour
 
 	public Animator anim;
 
+	AudioSource playerAudio;
+	public AudioClip slowMoSound;
 
 	/*public AudioClip footstep1;
 	public AudioClip footstep2;
@@ -207,7 +209,7 @@ public class PlayerManager : MonoBehaviour
 
 		dashCounter = moveSetting.dashCooldown;
 
-		//playerAudio = GetComponent<AudioSource> ();
+		playerAudio = GetComponent<AudioSource> ();
 		//playerAudio.Play ();
 	}
 
@@ -743,6 +745,11 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void SlowMo ()
 	{
+		if (Input.GetMouseButtonDown (1) && isFalling && currentStamina > 0)
+		{
+			playerAudio.PlayOneShot (slowMoSound);
+		}
+
 		if (Input.GetMouseButton (1) && isFalling && currentStamina > 0)
 		{
 			Timescaler.inst.timeSlowed = true;
@@ -750,6 +757,7 @@ public class PlayerManager : MonoBehaviour
 		else
 		{
 			Timescaler.inst.timeSlowed = false;
+			//playerAudio.Stop ();
 		}
 	}
 

@@ -62,7 +62,11 @@ public class FortManager : Enemy
 
 	NavMeshAgent agent; 
 
+	AudioSource[] audios;
+
 	AudioSource fortAudio;
+	AudioSource detectAudio;
+
 
 	//public AudioClip moveSound;
 	//public AudioClip chargeSound;
@@ -96,7 +100,10 @@ public class FortManager : Enemy
 		state = FortManager.State.IDLE;
 		//maxHealth = health; 
 
-		fortAudio = GetComponent<AudioSource> ();
+		audios = GetComponents<AudioSource> ();
+
+		fortAudio = audios [0];
+		detectAudio = audios [1];
 
 		meleeCollider.SetActive(false); 
 

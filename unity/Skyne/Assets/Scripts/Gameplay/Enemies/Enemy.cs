@@ -286,13 +286,13 @@ public class Enemy : MonoBehaviour
 				if (hasDeathAnimation)
 				{
 					// Call death animation
-					anim.SetBool ("isDead", true); 
+					anim.SetBool ("isDead", true);
+					this.GetComponent<AudioSource> ().PlayOneShot (deathSound);
 					alive = false; 
 					PreEnemyDestroy(); 
 				}
 				else
 				{
-					this.GetComponent<AudioSource> ().PlayOneShot (deathSound);
 					alive = false; 
 					DestroyEnemy ();
 				}

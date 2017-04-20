@@ -39,7 +39,13 @@ public class ChargerManager : Enemy
 	public float chargeCooldown;
 	public float chargeCounter = 0;
 
+	float timer = 0.4f;
+	float curTimer;
+
+	AudioSource[] audios;
+
 	AudioSource chargerAudio;
+	AudioSource detectAudio;
 
 	//Transform target;
 	//GameObject player;
@@ -61,13 +67,18 @@ public class ChargerManager : Enemy
 		state = ChargerManager.State.IDLE;
 		//alive = true;
 
+		curTimer = timer;
+
 		agent = gameObject.GetComponent<NavMeshAgent> ();
 
 		//maxHealth = health; 
 
 		rBody = GetComponent<Rigidbody> ();
 
-		chargerAudio = GetComponent<AudioSource> ();
+		audios = GetComponents<AudioSource> ();
+
+		chargerAudio = audios [0];
+		detectAudio = audios [1];
 
 		//START State Machine
 		StartCoroutine ("CSM");
@@ -141,6 +152,11 @@ public class ChargerManager : Enemy
 			}
 		} */
 
+			if (state == ChargerManager.State.IDLE && CanHitTarget ())
+			{
+				detectAudio.PlayOneShot (detectSound);
+			}
+
 			//Debug.Log (agent.autoBraking);
 		}
 
@@ -209,7 +225,6 @@ public class ChargerManager : Enemy
 
 		if (tarDistance < aggroDistance && CanHitTarget())
 		{
-			chargerAudio.PlayOneShot (detectSound);
 			state = ChargerManager.State.POSITION;
 		}
 
@@ -262,12 +277,12 @@ public class ChargerManager : Enemy
 		agent.destination = target.transform.position;
 		agent.autoBraking = true;
 
+		chargerAudio.clip = attackSound;
+		chargerAudio.volume = Mathf.Lerp (chargerAudio.volume, 0.8f, 10 * Time.deltaTime);
+		chargerAudio.pitch = Mathf.Lerp (chargerAudio.pitch, 0.8f, 10 * Time.deltaTime);
+
 		if (!chargerAudio.isPlaying)
 		{
-			chargerAudio.clip = attackSound;
-			chargerAudio.volume = Mathf.Lerp (chargerAudio.volume, 0.8f, 10 * Time.deltaTime);
-			chargerAudio.pitch = Mathf.Lerp (chargerAudio.pitch, 0.8f, 10 * Time.deltaTime);
-
 			//chargerAudio.volume = 0.8f;
 			//chargerAudio.pitch = 0.8f;
 
@@ -318,15 +333,15 @@ public class ChargerManager : Enemy
 			StartCoroutine ("Charge");
 		}
 
+		chargerAudio.clip = attackSound;
+		//chargerAudio.volume = 1f;
+		//chargerAudio.pitch = 1.1f;
+
+		chargerAudio.volume = Mathf.Lerp (chargerAudio.volume, 1, 10 * Time.deltaTime);
+		chargerAudio.pitch = Mathf.Lerp (chargerAudio.pitch, 1.1f, 10 * Time.deltaTime);
+
 		if (!chargerAudio.isPlaying)
 		{
-			chargerAudio.clip = attackSound;
-			//chargerAudio.volume = 1f;
-			//chargerAudio.pitch = 1.1f;
-
-			chargerAudio.volume = Mathf.Lerp (chargerAudio.volume, 1, 10 * Time.deltaTime);
-			chargerAudio.pitch = Mathf.Lerp (chargerAudio.pitch, 1.1f, 10 * Time.deltaTime);
-
 			chargerAudio.Play ();
 		}
 

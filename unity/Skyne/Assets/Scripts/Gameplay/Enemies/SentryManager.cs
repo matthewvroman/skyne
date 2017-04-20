@@ -42,7 +42,10 @@ public class SentryManager : Enemy
 
 	//GameObject frontObject;
 
+	AudioSource[] audios;
+
 	AudioSource sentryAudio;
+	AudioSource detectAudio;
 
 	public float atkTimer;
 	float curAtkTimer;
@@ -87,7 +90,10 @@ public class SentryManager : Enemy
 
 		agent = gameObject.GetComponent<NavMeshAgent> ();
 
-		sentryAudio = GetComponent<AudioSource> ();
+		audios = GetComponents<AudioSource> ();
+
+		sentryAudio = audios [0];
+		detectAudio = audios [1];
 
 		//bulletSpawner = transform.Find ("BulletSpawner").gameObject; 
 		//frontObject = bulletSpawner;
@@ -170,6 +176,11 @@ public class SentryManager : Enemy
 		if (target != null)
 		{
 			tarDistance = Vector3.Distance (target.transform.position, transform.position);
+
+			if (state == SentryManager.State.IDLE && CanHitTarget())
+			{
+				detectAudio.PlayOneShot (detectSound);
+			}
 
 			//Switches between states based on the distance from the player to the enemy
 			if (tarDistance < attackDist && CanHitTarget ())

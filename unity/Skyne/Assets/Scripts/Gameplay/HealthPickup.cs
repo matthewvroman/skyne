@@ -14,6 +14,9 @@ public class HealthPickup : MonoBehaviour
 
 	Rigidbody rb; 
 
+	AudioSource audio1;
+	public AudioClip heathPickup;
+
 	public bool hitGround; 
 	public bool startedHoming; 
 
@@ -39,6 +42,8 @@ public class HealthPickup : MonoBehaviour
 		triggerCollider.enabled = false; 
 
 		durationTimer = duration; 
+
+		audio1 = this.GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -100,8 +105,9 @@ public class HealthPickup : MonoBehaviour
 		if (col.tag == "Player")
 		{
 			PlayerManager.HealCalculator(healthValue); 
+			audio1.PlayOneShot (heathPickup);
 			ExplosionManager.inst.SpawnHealthPickupExplosion(transform.position); 
-			Destroy(this.gameObject);
+			Destroy(this.gameObject, 0.1f);
 		}
 	}
 

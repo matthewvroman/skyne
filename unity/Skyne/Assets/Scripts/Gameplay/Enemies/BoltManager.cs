@@ -41,7 +41,10 @@ public class BoltManager : Enemy
 
 	NavMeshAgent agent; 
 
+	AudioSource[] audios;
+
 	AudioSource boltAudio;
+	AudioSource detectAudio;
 
 	//public AudioClip shootSound;
 	//public AudioClip idleSound;
@@ -77,7 +80,10 @@ public class BoltManager : Enemy
 		state = BoltManager.State.IDLE;
 		//maxHealth = health; 
 
-		boltAudio = GetComponent<AudioSource> ();
+		audios = GetComponents<AudioSource> ();
+
+		boltAudio = audios [0];
+		detectAudio = audios [1];
 
 		//START State Machine
 		StartCoroutine ("BSM");
@@ -148,7 +154,7 @@ public class BoltManager : Enemy
 				{
 					state = BoltManager.State.POSITION; 
 
-					// Play detect sound here
+					detectAudio.PlayOneShot (detectSound);
 				}
 				else if (onShotTimer == 0)
 				{
@@ -277,10 +283,10 @@ public class BoltManager : Enemy
 			boltAudio.Play ();
 		}
 
-		if (CanHitTarget ())
+		/*if (CanHitTarget ())
 		{
 			boltAudio.PlayOneShot (detectSound);
-		}
+		} */
 	}
 
 
