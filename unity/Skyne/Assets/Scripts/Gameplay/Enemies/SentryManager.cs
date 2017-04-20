@@ -172,11 +172,11 @@ public class SentryManager : Enemy
 			tarDistance = Vector3.Distance (target.transform.position, transform.position);
 
 			//Switches between states based on the distance from the player to the enemy
-			if (tarDistance < attackDist && CanSeeTarget ())
+			if (tarDistance < attackDist && CanHitTarget ())
 			{
 				state = SentryManager.State.ATTACK;
 			}
-			else if (tarDistance < aggroDist && tarDistance >= agent.stoppingDistance && CanSeeTarget ()) //&& !CanSeeTarget)
+			else if (tarDistance < aggroDist && tarDistance >= agent.stoppingDistance && CanHitTarget ()) //&& !CanSeeTarget)
 			{
 				state = SentryManager.State.POSITION;
 			}
@@ -215,7 +215,7 @@ public class SentryManager : Enemy
 			sentryAudio.Play ();
 		}
 
-		if (CanSeeTarget ())
+		if (CanHitTarget ())
 		{
 			sentryAudio.PlayOneShot (detectSound);
 		}
@@ -224,6 +224,7 @@ public class SentryManager : Enemy
 		//Debug.Log ("Idling");
 	}
 
+	/*
 	bool CanSeeTarget ()
 	{
 		Vector3 dir = (target.transform.position - transform.position).normalized; 
@@ -243,6 +244,7 @@ public class SentryManager : Enemy
 			return true; 
 		}
 	}
+	*/ 
 
 	void Position ()
 	{
