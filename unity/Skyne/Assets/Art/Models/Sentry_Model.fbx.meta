@@ -57,7 +57,11 @@ ModelImporter:
     4300010: Barrels
     4300012: Head
     4300014: Body
-    7400000: Take 001
+    7400000: Idle
+    7400002: Shoot
+    7400004: Move
+    7400006: Death
+    7400008: DeathDone
     9500000: //RootNode
     13700000: BallLeg1_Mesh
     13700002: BallLeg2_Mesh
@@ -85,7 +89,297 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Joint_Head
+        weight: 1
+      - path: Root/Joint_Head/Joint_Barrels
+        weight: 1
+      - path: Root/JointLegBase
+        weight: 1
+      - path: Root/JointLegBase/L_Leg
+        weight: 1
+      - path: Root/JointLegBase/M_Leg
+        weight: 1
+      - path: Root/JointLegBase/R_Leg
+        weight: 1
+      - path: Sentry
+        weight: 1
+      - path: Sentry/BallLeg1_Mesh
+        weight: 1
+      - path: Sentry/BallLeg2_Mesh
+        weight: 1
+      - path: Sentry/BallLeg3_Mesh
+        weight: 1
+      - path: Sentry/Barrels
+        weight: 1
+      - path: Sentry/Body
+        weight: 1
+      - path: Sentry/Head
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Shoot
+      takeName: Take 001
+      firstFrame: 61
+      lastFrame: 76
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Joint_Head
+        weight: 1
+      - path: Root/Joint_Head/Joint_Barrels
+        weight: 1
+      - path: Root/JointLegBase
+        weight: 1
+      - path: Root/JointLegBase/L_Leg
+        weight: 1
+      - path: Root/JointLegBase/M_Leg
+        weight: 1
+      - path: Root/JointLegBase/R_Leg
+        weight: 1
+      - path: Sentry
+        weight: 1
+      - path: Sentry/BallLeg1_Mesh
+        weight: 1
+      - path: Sentry/BallLeg2_Mesh
+        weight: 1
+      - path: Sentry/BallLeg3_Mesh
+        weight: 1
+      - path: Sentry/Barrels
+        weight: 1
+      - path: Sentry/Body
+        weight: 1
+      - path: Sentry/Head
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Move
+      takeName: Take 001
+      firstFrame: 77
+      lastFrame: 108
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Joint_Head
+        weight: 1
+      - path: Root/Joint_Head/Joint_Barrels
+        weight: 1
+      - path: Root/JointLegBase
+        weight: 1
+      - path: Root/JointLegBase/L_Leg
+        weight: 1
+      - path: Root/JointLegBase/M_Leg
+        weight: 1
+      - path: Root/JointLegBase/R_Leg
+        weight: 1
+      - path: Sentry
+        weight: 1
+      - path: Sentry/BallLeg1_Mesh
+        weight: 1
+      - path: Sentry/BallLeg2_Mesh
+        weight: 1
+      - path: Sentry/BallLeg3_Mesh
+        weight: 1
+      - path: Sentry/Barrels
+        weight: 1
+      - path: Sentry/Body
+        weight: 1
+      - path: Sentry/Head
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Death
+      takeName: Take 001
+      firstFrame: 109
+      lastFrame: 139
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Joint_Head
+        weight: 1
+      - path: Root/Joint_Head/Joint_Barrels
+        weight: 1
+      - path: Root/JointLegBase
+        weight: 1
+      - path: Root/JointLegBase/L_Leg
+        weight: 1
+      - path: Root/JointLegBase/M_Leg
+        weight: 1
+      - path: Root/JointLegBase/R_Leg
+        weight: 1
+      - path: Sentry
+        weight: 1
+      - path: Sentry/BallLeg1_Mesh
+        weight: 1
+      - path: Sentry/BallLeg2_Mesh
+        weight: 1
+      - path: Sentry/BallLeg3_Mesh
+        weight: 1
+      - path: Sentry/Barrels
+        weight: 1
+      - path: Sentry/Body
+        weight: 1
+      - path: Sentry/Head
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: DeathDone
+      takeName: Take 001
+      firstFrame: 138
+      lastFrame: 139
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Joint_Head
+        weight: 1
+      - path: Root/Joint_Head/Joint_Barrels
+        weight: 1
+      - path: Root/JointLegBase
+        weight: 1
+      - path: Root/JointLegBase/L_Leg
+        weight: 1
+      - path: Root/JointLegBase/M_Leg
+        weight: 1
+      - path: Root/JointLegBase/R_Leg
+        weight: 1
+      - path: Sentry
+        weight: 1
+      - path: Sentry/BallLeg1_Mesh
+        weight: 1
+      - path: Sentry/BallLeg2_Mesh
+        weight: 1
+      - path: Sentry/BallLeg3_Mesh
+        weight: 1
+      - path: Sentry/Barrels
+        weight: 1
+      - path: Sentry/Body
+        weight: 1
+      - path: Sentry/Head
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []

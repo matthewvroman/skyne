@@ -71,7 +71,8 @@ ModelImporter:
     7400000: Idle
     7400002: Walk
     7400004: Shoot
-    7400006: Death
+    7400006: DeathDone
+    7400008: Death
     9500000: //RootNode
     13700000: Body
     13700002: GunBody_Mesh
@@ -286,6 +287,64 @@ ModelImporter:
       name: Death
       takeName: Take 001
       firstFrame: 83
+      lastFrame: 113
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bolt
+        weight: 1
+      - path: Bolt/Body
+        weight: 1
+      - path: Bolt/GunBody_Mesh
+        weight: 1
+      - path: Bolt/L_Joint_Mesh
+        weight: 1
+      - path: Bolt/L_Stub_Mesh
+        weight: 1
+      - path: Bolt/R_Joint_Mesh
+        weight: 1
+      - path: Bolt/R_Stub_Mesh
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/joint2
+        weight: 1
+      - path: Root/joint2/Canon
+        weight: 1
+      - path: Root/L_Joint
+        weight: 1
+      - path: Root/L_Joint/L_BaseTop
+        weight: 1
+      - path: Root/R_Joint
+        weight: 1
+      - path: Root/R_Joint/R_BaseTop
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: DeathDone
+      takeName: Take 001
+      firstFrame: 112
       lastFrame: 113
       wrapMode: 0
       orientationOffsetY: 0

@@ -1279,7 +1279,7 @@ ModelImporter:
     - serializedVersion: 16
       name: DeathDone
       takeName: Take 001
-      firstFrame: 146
+      firstFrame: 145
       lastFrame: 146
       wrapMode: 0
       orientationOffsetY: 0
