@@ -84,6 +84,9 @@ public class FortManager : Enemy
 	public float shootDelay; 
 	float curShootDelay;  
 
+	float onShotTimer; 
+	public float onShotTimerLength; 
+
 
 	/// <summary>
 	/// Custom Start() method invoked in Update() only once the game is fully loaded
@@ -130,16 +133,12 @@ public class FortManager : Enemy
 		// Don't update if the game is paused or still loading
 		if (alive && target != null)
 		{
-
-		/*	if (health <= 0)
+			if (onShotTimer > 0)
 			{
-				fortAudio.loop = false;
-				fortAudio.clip = deathSound;
-				if (!fortAudio.isPlaying)
-				{
-					fortAudio.Play ();
-				}
-			} */
+				onShotTimer -= Time.deltaTime; 
+				if (onShotTimer <= 0)
+					onShotTimer = 0; 
+			}
 
 			// State machine changes
 
@@ -199,6 +198,7 @@ public class FortManager : Enemy
 					TryAttackWalk(); 
 				}
 			}
+			/*
 			else if (tarDistance < aggroDistance)
 			{
 				state = FortManager.State.POSITION;
@@ -207,6 +207,25 @@ public class FortManager : Enemy
 			{
 				state = FortManager.State.IDLE;
 			}
+			*/ 
+			else if (state != FortManager.State.IDLE && tarDistance < aggroDistance)
+			{
+				state = FortManager.State.POSITION;
+			}
+			else
+			{
+				if (tarDistance < aggroDistance && CanHitTarget())
+				{
+					state = FortManager.State.POSITION; 
+
+					detectAudio.PlayOneShot (detectSound);
+				}
+				else if (onShotTimer == 0)
+				{
+					state = FortManager.State.IDLE;
+				}
+			}
+
 
 		}
 
@@ -430,6 +449,8 @@ public class FortManager : Enemy
 
 	protected override void EnemyShot()
 	{
+		onShotTimer = onShotTimerLength; 
+
 		if (state == FortManager.State.IDLE)
 		{
 			state = FortManager.State.POSITION; 
