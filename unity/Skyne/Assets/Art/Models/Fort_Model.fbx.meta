@@ -911,7 +911,7 @@ ModelImporter:
       name: IdleToSwing
       takeName: Take 001
       firstFrame: 176
-      lastFrame: 186
+      lastFrame: 187
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
