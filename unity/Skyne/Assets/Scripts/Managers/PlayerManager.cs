@@ -164,6 +164,8 @@ public class PlayerManager : MonoBehaviour
 	[Space(5)]
 	[Header("Particle Effects")]
 	public ParticleSystem doubleJumpParticles; 
+	public ParticleSystem dashRingParticles;
+	public ParticleSystem dashBootParticles; 
 
 	/// <summary>
 	/// Shoots a raycast downwards from the player, and checks the distance between the player and the ground. If that distance is greater than the distToGrounded variable, the player will fall down
@@ -275,6 +277,8 @@ public class PlayerManager : MonoBehaviour
 			{
 				isDashing = true;
 				anim.SetTrigger ("Dash");
+				//dashBootParticles.Stop(); 
+				//dashBootParticles.Play(); 
 				startCooldown = true;
 			}
 		}
@@ -309,6 +313,19 @@ public class PlayerManager : MonoBehaviour
 		}
 
 		Animations ();
+
+		// Dash particles
+		if (isDashing)
+		{
+			dashRingParticles.enableEmission = true; 
+			dashBootParticles.enableEmission = true; 
+		}
+		else
+		{
+			dashRingParticles.enableEmission = false; 
+			dashBootParticles.enableEmission = false; 
+		}
+
 
 		Debug.Log ("Jump: " + canDoubleJump);
 	}
