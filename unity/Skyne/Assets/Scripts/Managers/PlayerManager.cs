@@ -160,6 +160,11 @@ public class PlayerManager : MonoBehaviour
 	public AudioClip ameliaGrunt2;
 	public AudioClip ameliaGrunt3; */
 
+	// Particle effects
+	[Space(5)]
+	[Header("Particle Effects")]
+	public ParticleSystem doubleJumpParticles; 
+
 	/// <summary>
 	/// Shoots a raycast downwards from the player, and checks the distance between the player and the ground. If that distance is greater than the distToGrounded variable, the player will fall down
 	/// </summary>
@@ -456,6 +461,11 @@ public class PlayerManager : MonoBehaviour
 						}
 						//canDoubleJump = false;
 						StartCoroutine("StopDoubleJump");
+						anim.SetTrigger("DoubleJump");
+
+						// Trigger double jump particles
+						doubleJumpParticles.Stop(); 
+						doubleJumpParticles.Play(); 
 					}
 				}
 			}
