@@ -17,17 +17,21 @@ public class ItemPickup : MonoBehaviour
 		// Destroy the upgrade pickup if the player already has it
 		//Debug.Log("upgradesFound length: " + GameState.inst.upgradesFound.Length); 
 
-		audio1 = GetComponent<AudioSource> ();
+		audio1 = GetComponent<AudioSource>(); 
+	}
+	
+	// Update is called once per frame
+	void Update () 
+	{
+		if (!GlobalManager.inst.GameplayIsActive())
+		{
+			return; 
+		}
 
 		if (GameState.inst.upgradesFound[itemTypeIndex])
 		{
 			Destroy(this.gameObject); 
 		}
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
 	void OnTriggerEnter(Collider col)

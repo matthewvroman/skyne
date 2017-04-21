@@ -40,6 +40,11 @@ public class GameState : Singleton<GameState>
 	[Tooltip("(Read only before game start) Stores which keys have been collected.")]
 	public bool[] keysFound; 
 
+	[Space(5)]
+	[Header("Other data")]
+	[Tooltip("Each index is associated with a specific stamina pickup in the world, which references this index")]
+	public bool[] staminaPickupsFound; 
+
 	bool m_treasureFound; 
 
 	public bool treasureFound
@@ -241,6 +246,17 @@ public class GameState : Singleton<GameState>
 		for (int i = 0; i < 3; i++)
 		{
 			if (upgradesFound[i])
+				result++; 
+		}
+		return result; 
+	}
+
+	public int GetNumStaminaPickupsFound()
+	{
+		int result = 0; 
+		for (int i = 0; i < staminaPickupsFound.Length; i++)
+		{
+			if (staminaPickupsFound[i])
 				result++; 
 		}
 		return result; 

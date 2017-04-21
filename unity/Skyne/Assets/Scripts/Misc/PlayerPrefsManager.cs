@@ -96,6 +96,30 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 			SetBool("upgrade" + i, GameState.inst.upgradesFound[i]); 
 		}
 
+		// Save the stamina pickups found
+		for (int i = 0; i < GameState.inst.staminaPickupsFound.Length; i++)
+		{
+			SetBool("stamina" + i, GameState.inst.staminaPickupsFound[i]); 
+		}
+
+		// Save Player Shooting mode
+		if (GameState.inst.pShootMode == PlayerShooting.PlayerShootMode.Normal)
+		{
+			PlayerPrefs.SetString("pShootMode", "normal"); 
+		}
+		else if (GameState.inst.pShootMode == PlayerShooting.PlayerShootMode.Charge)
+		{
+			PlayerPrefs.SetString("pShootMode", "charge"); 
+		}
+		else if (GameState.inst.pShootMode == PlayerShooting.PlayerShootMode.Wide)
+		{
+			PlayerPrefs.SetString("pShootMode", "wide"); 
+		}
+		else if (GameState.inst.pShootMode == PlayerShooting.PlayerShootMode.Rapid)
+		{
+			PlayerPrefs.SetString("pShootMode", "rapid"); 
+		}
+
 		SaveRoomStates();
 
 		PlayerManager player = GameObject.FindObjectOfType<PlayerManager>(); 
@@ -148,6 +172,32 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 		for (int i = 0; i < GameState.inst.upgradesFound.Length; i++)
 		{
 			GameState.inst.upgradesFound[i] = GetBool("upgrade" + i, false); 
+		}
+
+		// Load the stamina upgrades found
+		for (int i = 0; i < GameState.inst.staminaPickupsFound.Length; i++)
+		{
+			GameState.inst.staminaPickupsFound[i] = GetBool("stamina" + i, false); 
+		}
+
+		string loadedShootMode = GetString("pShootMode", "normal"); 
+
+		// Load the current player shooting mode
+		if (loadedShootMode == "normal")
+		{
+			PlayerShooting.inst.ChangeWeaponType(PlayerShooting.PlayerShootMode.Normal); 
+		}
+		else if (loadedShootMode == "charge")
+		{
+			PlayerShooting.inst.ChangeWeaponType(PlayerShooting.PlayerShootMode.Charge); 
+		}
+		else if (loadedShootMode == "wide")
+		{
+			PlayerShooting.inst.ChangeWeaponType(PlayerShooting.PlayerShootMode.Wide); 
+		}
+		else if (loadedShootMode == "rapid")
+		{
+			PlayerShooting.inst.ChangeWeaponType(PlayerShooting.PlayerShootMode.Rapid); 
 		}
 
 		// Load the player health
