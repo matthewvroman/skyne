@@ -677,6 +677,7 @@ public class PlayerManager : MonoBehaviour
 
 		// Updates the health bars fill.
 		playerSetting.healthbarFill.GetComponent<Image>().fillAmount = currentHealth / 100;
+//		playerSetting.healthbarFill.GetComponent<RectTransform>().sizeDelta = new Vector2 (currentHealth, 32);
 
 		// Smooths the current player health value based on the target health variable.
 		currentHealth = Mathf.SmoothDamp (currentHealth, targetHealth, ref healthSmoothing, 0.3f);
@@ -749,6 +750,9 @@ public class PlayerManager : MonoBehaviour
 		}
 
 		playerSetting.staminaBarFill.GetComponent<Image>().fillAmount = currentStamina / 100;
+
+//		playerSetting.staminaBarFill.GetComponent<RectTransform>().sizeDelta = new Vector2 (parameter, 32);
+
 	}
 
 	/// <summary>
