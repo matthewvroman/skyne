@@ -8,6 +8,7 @@ public class MessageTrigger : MonoBehaviour
 	[Tooltip ("Set to true if this GameObject should use OnTriggerEnter() to trigger a message")]
 	public bool useCollider; 
 
+	[TextArea(3,10)]
 	public string message; 
 	public KeyCode disableKey; 
 	public Sprite sprite; 
