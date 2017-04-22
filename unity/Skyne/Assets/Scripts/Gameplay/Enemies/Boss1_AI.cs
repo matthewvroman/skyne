@@ -18,14 +18,14 @@ public class Boss1_AI : Enemy
 		DO_NOTHING
 	}
 
-	[Space(5)]
-	[Header("Boss: State Machine")]
+	[Space (5)]
+	[Header ("Boss: State Machine")]
 	public State state;
 
 	float turnSpeed;
 
-	[Space(5)]
-	[Header("Boss: Behavior variables")]
+	[Space (5)]
+	[Header ("Boss: Behavior variables")]
 	public float normTurnSpeed;
 	public float laserTurnSpeed;
 
@@ -53,6 +53,7 @@ public class Boss1_AI : Enemy
 	public float laserDelay;
 	float curLaserDelay;
 	public float laserLength;
+	bool fireLaser;
 
 	public float stompDelay;
 	float curStompDelay;
@@ -73,15 +74,15 @@ public class Boss1_AI : Enemy
 
 	//public Animator anim;
 
-	[Space(5)]
-	[Header("Boss: Bullet prefabs")]
+	[Space (5)]
+	[Header ("Boss: Bullet prefabs")]
 	public GameObject smallHoming;
 	public GameObject bigHoming;
 
-	[Space(5)]
-	[Header("Boss: Game objects")]
+	[Space (5)]
+	[Header ("Boss: Game objects")]
 	public GameObject bulletSpawner1;
-	public GameObject frontFacingObj; 
+	public GameObject frontFacingObj;
 
 	GameObject stompCollider;
 	GameObject stompColliderExpand;
@@ -96,8 +97,8 @@ public class Boss1_AI : Enemy
 
 	AudioSource boss1Audio;
 
-	[Space(5)]
-	[Header("Boss: Audio")]
+	[Space (5)]
+	[Header ("Boss: Audio")]
 	public AudioClip spinSound;
 	public AudioClip fireSound;
 	public AudioClip moveSound;
@@ -105,7 +106,7 @@ public class Boss1_AI : Enemy
 
 	void SetupEnemy ()
 	{
-		ParentSetupEnemy();
+		ParentSetupEnemy ();
 
 
 		state = Boss1_AI.State.IDLE;
@@ -125,14 +126,14 @@ public class Boss1_AI : Enemy
 		//START State Machine
 		StartCoroutine ("B1SM");
 	}
-		
+
 
 	IEnumerator B1SM ()
 	{
 		while (alive)
 		{
 			// If the game is paused or still loading, don't continue with the coroutine and reset the while loop
-			if (!GlobalManager.inst.GameplayIsActive())
+			if (!GlobalManager.inst.GameplayIsActive ())
 			{
 				yield return null; 
 				continue; 
@@ -172,19 +173,19 @@ public class Boss1_AI : Enemy
 		}
 	}
 
-	float GetDot()
+	float GetDot ()
 	{
 		// Uses flattened height by giving this position and the target the same y value
-		Vector3 targetFlatPosition = new Vector3(target.transform.position.x, frontFacingObj.transform.position.y, target.transform.position.z); 
-		Vector3 thisFlatPosition = new Vector3(frontFacingObj.transform.position.x, frontFacingObj.transform.position.y, frontFacingObj.transform.position.z); 
+		Vector3 targetFlatPosition = new Vector3 (target.transform.position.x, frontFacingObj.transform.position.y, target.transform.position.z); 
+		Vector3 thisFlatPosition = new Vector3 (frontFacingObj.transform.position.x, frontFacingObj.transform.position.y, frontFacingObj.transform.position.z); 
 
-		return Vector3.Dot(frontFacingObj.transform.forward, (targetFlatPosition - thisFlatPosition).normalized);
+		return Vector3.Dot (frontFacingObj.transform.forward, (targetFlatPosition - thisFlatPosition).normalized);
 	}
 
 	// Update is called once per frame
 	void Update ()
 	{
-		if (!GlobalManager.inst.GameplayIsActive())
+		if (!GlobalManager.inst.GameplayIsActive ())
 		{
 			return; 
 		}
@@ -212,7 +213,7 @@ public class Boss1_AI : Enemy
 			transform.rotation = Quaternion.RotateTowards (frontFacingObj.transform.rotation, q, turnSpeed * Time.deltaTime);
 
 			// Update sound and animation 
-			float dot = GetDot(); 
+			float dot = GetDot (); 
 
 			if (dot < 0.95f)
 			{
@@ -222,10 +223,10 @@ public class Boss1_AI : Enemy
 			{
 				
 			}
-
+				
 
 			// Update the sound and animation based on the boss rotation
-			if (Mathf.Abs(oldEulerAngles.y - transform.rotation.eulerAngles.y) <= 0.1f)
+			if ((oldEulerAngles.y - transform.rotation.eulerAngles.y) < 0.2f && (oldEulerAngles.y - transform.rotation.eulerAngles.y) > -0.2f)
 			{
 				boss1Audio.clip = idleSound;
 				if (!boss1Audio.isPlaying)
@@ -234,11 +235,11 @@ public class Boss1_AI : Enemy
 				}
 				Debug.Log ("NO ROTATION");
 				anim.SetFloat ("xDir", 0);
-			} 
+			}
 			else
 			{
 				//DO WHATEVER YOU WANT
-				if (oldEulerAngles.y - transform.rotation.eulerAngles.y < 0)
+				if(oldEulerAngles.y - transform.rotation.eulerAngles.y <= -0.3)
 				{
 					boss1Audio.clip = moveSound;
 					if (!boss1Audio.isPlaying)
@@ -248,7 +249,7 @@ public class Boss1_AI : Enemy
 					Debug.Log ("Negative");
 					anim.SetFloat ("xDir", -1);
 				}
-				else if (oldEulerAngles.y - transform.rotation.eulerAngles.y > 0.2)
+				else if (oldEulerAngles.y - transform.rotation.eulerAngles.y >= 0.3)
 				{
 					boss1Audio.clip = moveSound;
 					if (!boss1Audio.isPlaying)
@@ -355,9 +356,9 @@ public class Boss1_AI : Enemy
 
 		if (!alive)
 		{
-			if (anim.GetCurrentAnimatorStateInfo(3).IsName("DeathDone"))
+			if (anim.GetCurrentAnimatorStateInfo (3).IsName ("DeathDone"))
 			{
-				DestroyEnemy(); 
+				DestroyEnemy (); 
 			}
 		}
 	}
@@ -382,7 +383,7 @@ public class Boss1_AI : Enemy
 			if (curHomingDelay == 0)
 			{
 				curHomingDelay = homingDelay; 
-				boss1Audio.PlayOneShot(fireSound);
+				boss1Audio.PlayOneShot (fireSound);
 				ProjectileManager.inst.EnemyShoot (bulletSpawner1, smallHoming, true);
 			}
 
@@ -406,7 +407,7 @@ public class Boss1_AI : Enemy
 			if (curBusterDelay == 0)
 			{
 				curBusterDelay = busterDelay; 
-				boss1Audio.PlayOneShot(fireSound);
+				boss1Audio.PlayOneShot (fireSound);
 				ProjectileManager.inst.EnemyShoot (bulletSpawner1, bigHoming, true);
 			}
 		}
@@ -422,12 +423,13 @@ public class Boss1_AI : Enemy
 		Debug.Log ("Laser..");
 		turnSpeed = laserTurnSpeed;
 
-		anim.SetTrigger ("Laser");
+		//anim.SetTrigger ("Laser");
 
 		if (timer < (laserLength - laserDelay))
 		{
-			laserObj.SetActive (true);
-
+			//laserObj.SetActive (true);
+			anim.SetTrigger ("Laser");
+			fireLaser = true;
 		}
 
 		if (timer > 0.1)
@@ -442,11 +444,12 @@ public class Boss1_AI : Enemy
 		}
 		else
 		{
-			anim.SetTrigger ("LaserDone");
-			laserObj.SetActive (false);
+			anim.SetTrigger ("StopLaser");
+			//laserObj.SetActive (false);
+			fireLaser = false;
 			turnSpeed = normTurnSpeed;
-			choosing = true;
-			ChooseAttack ();
+			//choosing = true;
+			//ChooseAttack ();
 		}
 	}
 
@@ -568,13 +571,13 @@ public class Boss1_AI : Enemy
 
 		return chooseAttack;
 	}
-		
+
 
 	protected override void EnemyDestroy ()
 	{
-		Debug.Log("Boss death"); 
+		Debug.Log ("Boss death"); 
 
-		GlobalManager.inst.LoadOutro(); 
+		GlobalManager.inst.LoadOutro (); 
 
 		/*
 		GameState.inst.keysFound [0] = true;
@@ -588,25 +591,32 @@ public class Boss1_AI : Enemy
 	void FireLaser ()
 	{
 		// Spawn/Enable laser
+		if (fireLaser == true)
+		{
+			laserObj.SetActive (true);
+		}
 	}
 
 	void LaserDone ()
 	{
 		// Go back to idle
+		laserObj.SetActive (false);
+		choosing = true;
+		ChooseAttack ();
 	}
 
 	void SpinDone ()
 	{
 		// Spin attack completed
 	}
-		
+
 	void StompDone ()
 	{
 		// Stomp attack completed
 	}
 
-//	void AttackDone ()
-//	{
-//
-//	}
+	//	void AttackDone ()
+	//	{
+	//
+	//	}
 }
