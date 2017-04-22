@@ -12,6 +12,9 @@ ModelImporter:
     100008: pCylinder8
     100010: polySurface3
     100012: polySurface4
+    100014: bossRoom
+    100016: bossRoomFloor
+    100018: bossRoomCeiling
     400000: //RootNode
     400002: pCylinder6
     400004: polySurface1
@@ -19,24 +22,36 @@ ModelImporter:
     400008: pCylinder8
     400010: polySurface3
     400012: polySurface4
+    400014: bossRoom
+    400016: bossRoomFloor
+    400018: bossRoomCeiling
     2300000: pCylinder6
     2300002: polySurface1
     2300004: polySurface2
     2300006: pCylinder8
     2300008: polySurface3
     2300010: polySurface4
+    2300012: bossRoom
+    2300014: bossRoomFloor
+    2300016: bossRoomCeiling
     3300000: pCylinder6
     3300002: polySurface1
     3300004: polySurface2
     3300006: pCylinder8
     3300008: polySurface3
     3300010: polySurface4
+    3300012: bossRoom
+    3300014: bossRoomFloor
+    3300016: bossRoomCeiling
     4300000: polySurface1
     4300002: polySurface2
     4300004: pCylinder6
     4300006: pCylinder8
     4300008: polySurface3
     4300010: polySurface4
+    4300012: bossRoomFloor
+    4300014: bossRoom
+    4300016: bossRoomCeiling
   materials:
     importMaterials: 1
     materialName: 0

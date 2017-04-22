@@ -605,8 +605,9 @@ public class Boss1_AI : Enemy
 		}
 		else
 		{
-			choosing = true;
-			ChooseAttack ();
+			AttackDone ();
+//			choosing = true;
+//			ChooseAttack ();
 		}
 	}
 
