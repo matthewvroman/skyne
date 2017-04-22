@@ -83,6 +83,11 @@ public class PlayerManager : MonoBehaviour
 
 	float curDownAccel;
 
+	float lastZVel = 0;
+	float lastXVel = 0;
+
+	bool isSlowed = false;
+
 	bool isOriented = true;
 
 	bool isFalling = false;
@@ -161,11 +166,11 @@ public class PlayerManager : MonoBehaviour
 	public AudioClip ameliaGrunt3; */
 
 	// Particle effects
-	[Space(5)]
-	[Header("Particle Effects")]
-	public ParticleSystem doubleJumpParticles; 
+	[Space (5)]
+	[Header ("Particle Effects")]
+	public ParticleSystem doubleJumpParticles;
 	public ParticleSystem dashRingParticles;
-	public ParticleSystem dashBootParticles; 
+	public ParticleSystem dashBootParticles;
 
 	/// <summary>
 	/// Shoots a raycast downwards from the player, and checks the distance between the player and the ground. If that distance is greater than the distToGrounded variable, the player will fall down
@@ -192,7 +197,7 @@ public class PlayerManager : MonoBehaviour
 		//currentHealth = maxHealth;
 		//targetHealth = maxHealth;
 
-		currentHealth = PlayerPrefsManager.inst.GetSavedHealth(); 
+		currentHealth = PlayerPrefsManager.inst.GetSavedHealth (); 
 		targetHealth = currentHealth; 
 
 		currentStamina = maxStamina;
@@ -379,16 +384,18 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Run ()
 	{
-		if (Mathf.Abs (forwardInput) > inputSetting.inputDelay && !isWallJumping)
+		if (Mathf.Abs (forwardInput) > inputSetting.inputDelay && !isWallJumping && !isSlowed)
 		{
 			//move
 			velocity.z = moveSetting.forwardVel * forwardInput * Time.timeScale;
+			lastZVel = velocity.z;
 			anim.SetFloat ("zDir", velocity.z);
 		}
 		else if (forwardInput == 0 && isDashing == false && !isWallJumping && Grounded ())
 		{
 			//zero velocity
 			velocity.z = 0;
+			lastZVel = 0;
 			anim.SetFloat ("zDir", velocity.z);
 		}
 	}
@@ -398,16 +405,18 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Strafe ()
 	{
-		if (Mathf.Abs (strafeInput) > inputSetting.inputDelay && !isWallJumping)
+		if (Mathf.Abs (strafeInput) > inputSetting.inputDelay && !isWallJumping && !isSlowed)
 		{
 			//move
 			velocity.x = moveSetting.strafeVel * strafeInput * Time.timeScale;
+			lastXVel = velocity.x;
 			anim.SetFloat ("xDir", velocity.x);
 		}
 		else if (strafeInput == 0 && isDashing == false && !isWallJumping && Grounded ())
 		{
 			//zero velocity
 			velocity.x = 0;
+			lastXVel = 0;
 			anim.SetFloat ("xDir", velocity.x);
 		}
 	}
@@ -477,19 +486,20 @@ public class PlayerManager : MonoBehaviour
 							velocity = velocity * 0.8f;
 						}
 						//canDoubleJump = false;
-						StartCoroutine("StopDoubleJump");
-						anim.SetTrigger("DoubleJump");
+						StartCoroutine ("StopDoubleJump");
+						anim.SetTrigger ("DoubleJump");
 
 						// Trigger double jump particles
-						doubleJumpParticles.Stop(); 
-						doubleJumpParticles.Play(); 
+						doubleJumpParticles.Stop (); 
+						doubleJumpParticles.Play (); 
 					}
 				}
 			}
 		}
 	}
 
-	IEnumerator StopDoubleJump() {
+	IEnumerator StopDoubleJump ()
+	{
 		yield return new WaitForSeconds (0.1f);
 		canDoubleJump = false;
 	}
@@ -620,11 +630,11 @@ public class PlayerManager : MonoBehaviour
 			GlobalManager.inst.LoadGameOver ();
 		}
 	}
-		
+
 	IEnumerator DamageFlash ()
 	{
-		Renderer[] renderer = this.GetComponentsInChildren<Renderer>();
-		Color color = renderer[0].material.color;
+		Renderer[] renderer = this.GetComponentsInChildren<Renderer> ();
+		Color color = renderer [0].material.color;
 
 		color = Color.red;
 
@@ -633,11 +643,11 @@ public class PlayerManager : MonoBehaviour
 			rend.material.color = color;
 		}
 
-		yield return new WaitForSeconds(0.1f);
+		yield return new WaitForSeconds (0.1f);
 
 		float time = 0.0f;
 
-		while(color != Color.white)
+		while (color != Color.white)
 		{
 			
 			color = Color.Lerp (Color.red, Color.white, time * 2);
@@ -647,7 +657,7 @@ public class PlayerManager : MonoBehaviour
 				rend.material.color = color;
 			}
 			//renderer.material.color = color;
-			yield return new WaitForEndOfFrame();
+			yield return new WaitForEndOfFrame ();
 		} 
 	}
 
@@ -676,7 +686,7 @@ public class PlayerManager : MonoBehaviour
 		playerSetting.healthPercentage.GetComponent<Text> ().text = ((int)currentHealth).ToString () + "%";
 
 		// Updates the health bars fill.
-		playerSetting.healthbarFill.GetComponent<Image>().fillAmount = currentHealth / 100;
+		playerSetting.healthbarFill.GetComponent<Image> ().fillAmount = currentHealth / 100;
 //		playerSetting.healthbarFill.GetComponent<RectTransform>().sizeDelta = new Vector2 (currentHealth, 32);
 
 		// Smooths the current player health value based on the target health variable.
@@ -749,7 +759,7 @@ public class PlayerManager : MonoBehaviour
 			}
 		}
 
-		playerSetting.staminaBarFill.GetComponent<Image>().fillAmount = currentStamina / 100;
+		playerSetting.staminaBarFill.GetComponent<Image> ().fillAmount = currentStamina / 100;
 
 //		playerSetting.staminaBarFill.GetComponent<RectTransform>().sizeDelta = new Vector2 (parameter, 32);
 
@@ -784,10 +794,14 @@ public class PlayerManager : MonoBehaviour
 		if (Input.GetMouseButton (1) && isFalling && currentStamina > 0)
 		{
 			Timescaler.inst.timeSlowed = true;
+			isSlowed = true;
+			velocity.z = lastZVel;
+			velocity.x = lastXVel;
 		}
 		else
 		{
 			Timescaler.inst.timeSlowed = false;
+			isSlowed = false;
 			//playerAudio.Stop ();
 		}
 	}
@@ -802,7 +816,7 @@ public class PlayerManager : MonoBehaviour
 		currentHealth = h;
 	}
 
-	public bool GetIsAlive()
+	public bool GetIsAlive ()
 	{
 		return isAlive; 
 	}
@@ -851,7 +865,7 @@ public class PlayerManager : MonoBehaviour
 				isHuggingWall = false;
 			}
 		}
-		else 
+		else
 		{
 			if (col.gameObject.tag == "Wall")
 			{
@@ -859,7 +873,7 @@ public class PlayerManager : MonoBehaviour
 			}
 		}
 
-		if (col.gameObject.tag == "OrganicWall" && !Grounded())
+		if (col.gameObject.tag == "OrganicWall" && !Grounded ())
 		{
 			velocity = Vector3.zero;
 		}
@@ -886,7 +900,7 @@ public class PlayerManager : MonoBehaviour
 			DamageCalculator (3);
 		}
 
-		if (col.gameObject.tag == "OrganicWall" && !Grounded())
+		if (col.gameObject.tag == "OrganicWall" && !Grounded ())
 		{
 			velocity.x = 0;
 			velocity.z = 0;
@@ -941,5 +955,5 @@ public class PlayerManager : MonoBehaviour
 		StartCoroutine ("DamageFlash");
 
 		DamageCalculator (bullet.damage); 
-	} 
+	}
 }
