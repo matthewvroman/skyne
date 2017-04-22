@@ -605,8 +605,8 @@ public class Boss1_AI : Enemy
 		// Stomp attack completed
 	}
 
-	void AttackDone ()
-	{
-
-	}
+//	void AttackDone ()
+//	{
+//
+//	}
 }
