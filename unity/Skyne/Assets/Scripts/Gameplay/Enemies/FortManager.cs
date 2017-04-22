@@ -16,7 +16,7 @@ public class FortManager : Enemy
 
 	[Space(5)]
 	[Header("Fort: State Machine")]
-	public State state;
+	public State state = FortManager.State.IDLE;
 
 	[Tooltip ("Drag in the bullet prefab for the fort")]
 	public GameObject bulletPrefab; 
@@ -138,6 +138,15 @@ public class FortManager : Enemy
 				onShotTimer -= Time.deltaTime; 
 				if (onShotTimer <= 0)
 					onShotTimer = 0; 
+			}
+
+			if (state != FortManager.State.IDLE)
+			{
+				isIdling = false;
+			}
+			else
+			{
+				isIdling = true;
 			}
 
 			// State machine changes

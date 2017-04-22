@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour
 	// If set to true in OnShot, the last index in hpDropChoices will be picked, which should be the highest number of drops
 	bool useMaxHPDrop = false; 
 
+	public bool isIdling;
 
 	[HideInInspector] public GameObject target; 
 
@@ -36,6 +37,11 @@ public class Enemy : MonoBehaviour
 	public AudioClip detectSound;
 	public AudioClip attackSound;
 	public AudioClip deathSound;
+
+	[Space(5)]
+	[Header ("Parent: Music")]
+	public AudioClip fightMusic;
+	public AudioClip normMusic;
 
 	[Space(5)]
 	[Header("Parent: Animation")]
@@ -395,5 +401,9 @@ public class Enemy : MonoBehaviour
 
 	protected virtual void PreEnemyDestroy () {
 
+	}
+
+	public bool GetIsIdling() {
+		return this.isIdling;
 	}
 }

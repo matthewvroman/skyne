@@ -15,7 +15,7 @@ public class BoltManager : Enemy
 
 	[Space(5)]
 	[Header("Bolt: State Machine")]
-	public State state;
+	public State state = BoltManager.State.IDLE;
 
 	//Var holding the distance from the enemy to the player
 	float tarDistance;
@@ -45,6 +45,7 @@ public class BoltManager : Enemy
 
 	AudioSource boltAudio;
 	AudioSource detectAudio;
+	AudioSource musicCon;
 
 	//public AudioClip shootSound;
 	//public AudioClip idleSound;
@@ -80,6 +81,7 @@ public class BoltManager : Enemy
 		state = BoltManager.State.IDLE;
 		//maxHealth = health; 
 
+		musicCon = GameObject.Find ("MusicController").GetComponent<AudioSource> ();;
 		audios = GetComponents<AudioSource> ();
 
 		boltAudio = audios [0];
@@ -113,6 +115,15 @@ public class BoltManager : Enemy
 				onShotTimer -= Time.deltaTime; 
 				if (onShotTimer <= 0)
 					onShotTimer = 0; 
+			}
+
+			if (state != BoltManager.State.IDLE)
+			{
+				isIdling = false;
+			}
+			else
+			{
+				isIdling = true;
 			}
 
 			// State machine changes
@@ -153,7 +164,6 @@ public class BoltManager : Enemy
 				if (tarDistance < aggroDistance && CanHitTarget())
 				{
 					state = BoltManager.State.POSITION; 
-
 					detectAudio.PlayOneShot (detectSound);
 				}
 				else if (onShotTimer == 0)

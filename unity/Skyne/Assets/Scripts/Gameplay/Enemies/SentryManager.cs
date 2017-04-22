@@ -15,7 +15,7 @@ public class SentryManager : Enemy
 
 	[Space(5)]
 	[Header("Sentry: State Machine")]
-	public State state;
+	public State state = SentryManager.State.IDLE;
 
 	[Tooltip ("Drag in the bullet prefab for the sentry")]
 	public GameObject bulletPrefab; 
@@ -176,6 +176,15 @@ public class SentryManager : Enemy
 		if (target != null)
 		{
 			tarDistance = Vector3.Distance (target.transform.position, transform.position);
+
+			if (state != SentryManager.State.IDLE)
+			{
+				isIdling = false;
+			}
+			else
+			{
+				isIdling = true;
+			}
 
 			if (state == SentryManager.State.IDLE && CanHitTarget())
 			{

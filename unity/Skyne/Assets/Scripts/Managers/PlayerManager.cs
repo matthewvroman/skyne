@@ -116,6 +116,9 @@ public class PlayerManager : MonoBehaviour
 
 	bool isAlive = true;
 
+	public Enemy[] enemies;
+	bool isSeen;
+
 	//bool damageFlash = false;
 
 	Quaternion lastRot;
@@ -153,6 +156,12 @@ public class PlayerManager : MonoBehaviour
 
 	AudioSource playerAudio;
 	public AudioClip slowMoSound;
+
+	AudioSource musicCon;
+	public AudioClip fightMusic;
+	public AudioClip normMusic;
+
+	float musTimer = 1;
 
 	/*public AudioClip footstep1;
 	public AudioClip footstep2;
@@ -222,6 +231,8 @@ public class PlayerManager : MonoBehaviour
 		dashCounter = moveSetting.dashCooldown;
 
 		playerAudio = GetComponent<AudioSource> ();
+
+		musicCon = GameObject.Find ("MusicController").GetComponent<AudioSource> ();
 		//playerAudio.Play ();
 	}
 
@@ -250,6 +261,7 @@ public class PlayerManager : MonoBehaviour
 			Health ();
 			Stamina ();
 			SlowMo ();
+			DynamicMusic ();
 		}
 
 		transform.rotation = Quaternion.Euler (0, transform.rotation.y, 0);
@@ -330,9 +342,6 @@ public class PlayerManager : MonoBehaviour
 			dashRingParticles.enableEmission = false; 
 			dashBootParticles.enableEmission = false; 
 		}
-
-
-		Debug.Log ("Jump: " + canDoubleJump);
 	}
 
 	void FixedUpdate ()
@@ -803,6 +812,63 @@ public class PlayerManager : MonoBehaviour
 			Timescaler.inst.timeSlowed = false;
 			isSlowed = false;
 			//playerAudio.Stop ();
+		}
+	}
+
+	void DynamicMusic ()
+	{
+		//enemies = GameObject.FindGameObjectsWithTag ("robot");
+		enemies = Object.FindObjectsOfType<Enemy> ();
+
+		bool fightingFound;
+
+		if (!musicCon.isPlaying)
+		{
+			musicCon.Play ();
+		}
+
+		/*foreach (Enemy enemy in enemies)
+		{
+			if (enemy.GetIsIdling () == false)
+			{
+				musicCon.clip = fightMusic;
+				Debug.Log("Play FIGHT");
+			}
+		} */
+
+		fightingFound = false;
+		for (int i = 0; i < enemies.Length; i++)
+		{
+			if (enemies [i].GetIsIdling () == false)
+			{
+				//musicCon.clip = fightMusic;
+				fightingFound = true;
+				//Debug.Log ("Play FIGHT");
+				break;
+			}
+		}
+
+		if (fightingFound == true)
+		{
+			Debug.Log ("Play FIGHT");
+
+			if (musTimer > 0)
+			{
+				musTimer -= Time.deltaTime;
+			}
+			else if (musTimer <= 0)
+			{
+				musTimer = 0;
+				musicCon.clip = fightMusic;
+			}
+
+			//musicCon.clip = fightMusic;
+		}
+		else if (fightingFound == false)
+		{
+			musTimer = 1;
+			Debug.Log ("Play NORM");
+			musicCon.clip = normMusic;
 		}
 	}
 

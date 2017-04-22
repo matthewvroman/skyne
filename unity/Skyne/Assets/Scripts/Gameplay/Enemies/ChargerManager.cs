@@ -15,7 +15,7 @@ public class ChargerManager : Enemy
 
 	[Space(5)]
 	[Header("Charger: State Machine")]
-	public State state;
+	public State state = ChargerManager.State.IDLE;
 
 	//Var holding the distance from the enemy to the player
 	float tarDistance;
@@ -222,6 +222,7 @@ public class ChargerManager : Enemy
 	void Idle ()
 	{
 		agent.Resume ();
+		isIdling = true;
 
 		if (tarDistance < aggroDistance && CanHitTarget())
 		{
@@ -250,6 +251,8 @@ public class ChargerManager : Enemy
 		//this.transform.LookAt (targetPosition);
 
 		//rBody.AddForce (transform.forward * moveSpeed);
+
+		isIdling = false;
 
 		agent.Resume ();
 
@@ -311,6 +314,8 @@ public class ChargerManager : Enemy
 		this.transform.LookAt (targetPosition);
 
 		rBody.AddForce (transform.forward * chargeSpeed); */
+
+		isIdling = false;
 
 		if (tarDistance > aggroDistance)
 		{
