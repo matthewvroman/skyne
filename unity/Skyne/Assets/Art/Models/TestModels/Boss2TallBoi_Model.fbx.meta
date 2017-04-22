@@ -101,6 +101,7 @@ ModelImporter:
     7400018: StrafingRIght
     7400020: LaserDone
     7400022: Stand
+    7400024: DeathDone
     9500000: //RootNode
     13700000: Head
     13700002: L_ForeArm
@@ -355,6 +356,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0.6053333
+        functionName: StompedGround
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: a5ba2d5e08294464e978cabb6b1c0b04,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 1
         functionName: StompDone
         data: 
@@ -543,7 +552,7 @@ ModelImporter:
       name: LoadHomingOrb
       takeName: Take 001
       firstFrame: 134
-      lastFrame: 169
+      lastFrame: 180
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -638,8 +647,8 @@ ModelImporter:
     - serializedVersion: 16
       name: LoadingPause
       takeName: Take 001
-      firstFrame: 169
-      lastFrame: 205
+      firstFrame: 198
+      lastFrame: 218
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -658,7 +667,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 1
+        functionName: LaunchHoming
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: a5ba2d5e08294464e978cabb6b1c0b04,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -734,7 +751,7 @@ ModelImporter:
     - serializedVersion: 16
       name: LaunchHomingOrb
       takeName: Take 001
-      firstFrame: 206
+      firstFrame: 219
       lastFrame: 241
       wrapMode: 0
       orientationOffsetY: 0
@@ -754,7 +771,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 1
+        functionName: HomingDone
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: a5ba2d5e08294464e978cabb6b1c0b04,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -1148,7 +1173,15 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: LaserDone
+        functionName: LaserFinish
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: a5ba2d5e08294464e978cabb6b1c0b04,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: AttackDone
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: a5ba2d5e08294464e978cabb6b1c0b04,
           type: 3}
@@ -1232,6 +1265,102 @@ ModelImporter:
       takeName: Take 001
       firstFrame: 0
       lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Boss
+        weight: 1
+      - path: Boss/Head
+        weight: 1
+      - path: Boss/L_ForeArm
+        weight: 1
+      - path: Boss/L_Hand
+        weight: 1
+      - path: Boss/L_Leg
+        weight: 1
+      - path: Boss/L_LegTop
+        weight: 1
+      - path: Boss/L_Shoulder
+        weight: 1
+      - path: Boss/L_ShoulderJoint
+        weight: 1
+      - path: Boss/Mask
+        weight: 1
+      - path: Boss/Pelvis
+        weight: 1
+      - path: Boss/R_ForeArm
+        weight: 1
+      - path: Boss/R_Leg
+        weight: 1
+      - path: Boss/R_LegTop
+        weight: 1
+      - path: Boss/R_Shoulder
+        weight: 1
+      - path: Boss/R_UpperArm
+        weight: 1
+      - path: Boss/R_WristJoint
+        weight: 1
+      - path: Boss/Torso
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/L_hip
+        weight: 1
+      - path: root/L_hip/L_Knee
+        weight: 1
+      - path: root/L_hip/L_Knee/L_Foot
+        weight: 1
+      - path: root/R_hip
+        weight: 1
+      - path: root/R_hip/R_Knee
+        weight: 1
+      - path: root/R_hip/R_Knee/R_Foot
+        weight: 1
+      - path: root/torso
+        weight: 1
+      - path: root/torso/head
+        weight: 1
+      - path: root/torso/L_shoulder
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow
+        weight: 1
+      - path: root/torso/L_shoulder/L_elbow/L_wrist
+        weight: 1
+      - path: root/torso/mask_joint
+        weight: 1
+      - path: root/torso/R_shoulder
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow
+        weight: 1
+      - path: root/torso/R_shoulder/R_elbow/R_wrist
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: DeathDone
+      takeName: Take 001
+      firstFrame: 689
+      lastFrame: 690
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

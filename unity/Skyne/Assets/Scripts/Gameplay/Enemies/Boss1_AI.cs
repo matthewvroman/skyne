@@ -72,6 +72,12 @@ public class Boss1_AI : Enemy
 
 	float healthPer;
 
+	bool stompedGround = false;
+
+	bool laserPoseReady = false;
+
+	bool shootHomingBullets = false;
+
 	//public Animator anim;
 
 	[Space (5)]
@@ -226,7 +232,7 @@ public class Boss1_AI : Enemy
 				
 
 			// Update the sound and animation based on the boss rotation
-			if ((oldEulerAngles.y - transform.rotation.eulerAngles.y) < 0.2f && (oldEulerAngles.y - transform.rotation.eulerAngles.y) > -0.2f)
+			if ((oldEulerAngles.y - transform.rotation.eulerAngles.y) < 1 && (oldEulerAngles.y - transform.rotation.eulerAngles.y) > -1)
 			{
 				boss1Audio.clip = idleSound;
 				if (!boss1Audio.isPlaying)
@@ -234,12 +240,12 @@ public class Boss1_AI : Enemy
 					boss1Audio.Play ();
 				}
 				Debug.Log ("NO ROTATION");
-				anim.SetFloat ("xDir", 0);
+//				anim.SetFloat ("xDir", 0);
 			}
 			else
 			{
 				//DO WHATEVER YOU WANT
-				if(oldEulerAngles.y - transform.rotation.eulerAngles.y <= -0.3)
+				if(oldEulerAngles.y - transform.rotation.eulerAngles.y < -1)
 				{
 					boss1Audio.clip = moveSound;
 					if (!boss1Audio.isPlaying)
@@ -247,9 +253,9 @@ public class Boss1_AI : Enemy
 						boss1Audio.Play ();
 					}
 					Debug.Log ("Negative");
-					anim.SetFloat ("xDir", -1);
+//					anim.SetFloat ("xDir", -1);
 				}
-				else if (oldEulerAngles.y - transform.rotation.eulerAngles.y >= 0.3)
+				else if (oldEulerAngles.y - transform.rotation.eulerAngles.y > 1)
 				{
 					boss1Audio.clip = moveSound;
 					if (!boss1Audio.isPlaying)
@@ -257,8 +263,10 @@ public class Boss1_AI : Enemy
 						boss1Audio.Play ();
 					}
 					Debug.Log ("Positive");
-					anim.SetFloat ("xDir", 1);
+//					anim.SetFloat ("xDir", 1);
 				}
+
+				anim.SetFloat ("xDir", oldEulerAngles.y - transform.rotation.eulerAngles.y);
 				oldEulerAngles = transform.rotation.eulerAngles;
 			}
 
@@ -374,26 +382,52 @@ public class Boss1_AI : Enemy
 
 	void HomingShoot ()
 	{
-		Debug.Log ("Homing...");
+		anim.SetBool ("Homing", true);
 
-		if (timer > 0.1)
+		if (shootHomingBullets == true)
 		{
-			timer -= Time.deltaTime;
-
-			if (curHomingDelay == 0)
+//			ProjectileManager.inst.EnemyShoot (bulletSpawner1, smallHoming, true);
+			if (timer > 0.1)
 			{
-				curHomingDelay = homingDelay; 
-				boss1Audio.PlayOneShot (fireSound);
-				ProjectileManager.inst.EnemyShoot (bulletSpawner1, smallHoming, true);
-			}
+				timer -= Time.deltaTime;
 
+				if (curHomingDelay == 0)
+				{
+					curHomingDelay = homingDelay; 
+					ProjectileManager.inst.EnemyShoot (bulletSpawner1, smallHoming, true);
+				}
+
+			}
+			else
+			{
+				anim.SetBool ("HomingDone", true);
+			}
 		}
-		else
-		{
-			anim.SetTrigger ("HomingDone");
-			choosing = true;
-			ChooseAttack ();
-		}
+
+
+		
+
+//		Debug.Log ("Homing...");
+//
+//		if (timer > 0.1)
+//		{
+//			timer -= Time.deltaTime;
+//
+//			if (curHomingDelay == 0)
+//			{
+//				curHomingDelay = homingDelay; 
+//				boss1Audio.PlayOneShot (fireSound);
+//				ProjectileManager.inst.EnemyShoot (bulletSpawner1, smallHoming, true);
+//			}
+//
+//		}
+//		else
+//		{
+//			anim.SetTrigger ("HomingDone");
+//			choosing = true;
+//			ChooseAttack ();
+//		}
+
 	}
 
 	void BusterShoot ()
@@ -423,75 +457,92 @@ public class Boss1_AI : Enemy
 		Debug.Log ("Laser..");
 		turnSpeed = laserTurnSpeed;
 
-		//anim.SetTrigger ("Laser");
+		anim.SetBool ("Laser", true);
 
 		if (timer < (laserLength - laserDelay))
 		{
-			//laserObj.SetActive (true);
-			anim.SetTrigger ("Laser");
-			fireLaser = true;
+			laserObj.SetActive (true);
 		}
 
-		if (timer > 0.1)
+		if (laserPoseReady)
 		{
-			timer -= Time.deltaTime;
-
-			if (curLaserDelay == 0)
+			if (timer > 0.1)
 			{
-				curLaserDelay = laserDelay; 
+				timer -= Time.deltaTime;
+			} else
+			{
+				laserObj.SetActive (false);
+				anim.SetBool ("LaserDone", true);
+				turnSpeed = normTurnSpeed;
 			}
+		}
 
-		}
-		else
-		{
-			anim.SetTrigger ("StopLaser");
-			//laserObj.SetActive (false);
-			fireLaser = false;
-			turnSpeed = normTurnSpeed;
-			//choosing = true;
-			//ChooseAttack ();
-		}
+//		if (timer > 0.1)
+//		{
+//			timer -= Time.deltaTime;
+//
+//			if (curLaserDelay == 0)
+//			{
+//				curLaserDelay = laserDelay; 
+//			}
+//
+//		}
+//		else
+//		{
+//			anim.SetTrigger ("StopLaser");
+//			//laserObj.SetActive (false);
+//			fireLaser = false;
+//			turnSpeed = normTurnSpeed;
+//			//choosing = true;
+//			//ChooseAttack ();
+//		}
 	}
 
 	void Spinning ()
 	{
 		Debug.Log ("Spinning..");
 
-		if (timer > 0.1)
-		{
-			timer -= Time.deltaTime;
+		anim.SetBool ("Spin", true);
 
-			arm1.SetActive (true);
-			arm2.SetActive (true);
+		arm1.SetActive (true);
+		arm2.SetActive (true);
 
-			if (timer < 0.5f)
-			{
-				//anim.SetTrigger ("Spin");
-				boss1Audio.PlayOneShot (spinSound);
-			}
-
-			if (curSpinningDelay == 0)
-			{
-				
-				anim.SetTrigger ("Spin");
-				//boss1Audio.PlayOneShot (spinSound);
-				curSpinningDelay = spinningDelay; 
-			}
-
-		}
-		else
-		{
-			arm1.SetActive (false);
-			arm2.SetActive (false);
-			choosing = true;
-			ChooseAttack ();
-		}
+//		if (timer > 0.1)
+//		{
+//			timer -= Time.deltaTime;
+//
+//			arm1.SetActive (true);
+//			arm2.SetActive (true);
+//
+//			if (timer < 0.5f)
+//			{
+//				//anim.SetTrigger ("Spin");
+//				boss1Audio.PlayOneShot (spinSound);
+//			}
+//
+//			if (curSpinningDelay == 0)
+//			{
+//				
+//				anim.SetTrigger ("Spin");
+//				//boss1Audio.PlayOneShot (spinSound);
+//				curSpinningDelay = spinningDelay; 
+//			}
+//
+//		}
+//		else
+//		{
+//			arm1.SetActive (false);
+//			arm2.SetActive (false);
+//			choosing = true;
+//			ChooseAttack ();
+//		}
 	}
 
 	void Stomp ()
 	{
 		Debug.Log ("Stomping");
 
+		/*
 		if (isStomping == true)
 		{
 			//stompCollider.transform.localScale = Vector3.Lerp (stompCollider.transform.localScale, stompColliderExpand.transform.localScale, Time.deltaTime * 0.999f);
@@ -523,7 +574,25 @@ public class Boss1_AI : Enemy
 			stompCollider.transform.localScale = new Vector3 (0, stompCollider.transform.localScale.y, 0);
 			choosing = true;
 			ChooseAttack ();
+		}*/
+
+		anim.SetBool ("Stomp", true);
+
+		if (stompedGround == true)
+		{
+			stompCollider.transform.localScale = Vector3.Lerp (stompCollider.transform.localScale, stompColliderExpand.transform.localScale, Time.deltaTime * 0.999f);
 		}
+
+
+			
+//		else
+//		{
+//			//stompCollider.SetActive (false);
+//			//isStomping = false;
+//			stompCollider.transform.localScale = new Vector3 (0, stompCollider.transform.localScale.y, 0);
+//			choosing = true;
+//			ChooseAttack ();
+//		}
 	}
 
 	void DoNothing ()
@@ -567,8 +636,6 @@ public class Boss1_AI : Enemy
 		curStompDelay = stompDelay;
 		curSpinningDelay = spinningDelay;
 
-		anim.SetTrigger ("LaserDone");
-
 		return chooseAttack;
 	}
 
@@ -576,6 +643,7 @@ public class Boss1_AI : Enemy
 	protected override void EnemyDestroy ()
 	{
 		Debug.Log ("Boss death"); 
+		anim.SetFloat ("xDir", 0);
 
 		GlobalManager.inst.LoadOutro (); 
 
@@ -590,33 +658,54 @@ public class Boss1_AI : Enemy
 
 	void FireLaser ()
 	{
-		// Spawn/Enable laser
-		if (fireLaser == true)
-		{
-			laserObj.SetActive (true);
-		}
+		laserPoseReady = true;
 	}
 
-	void LaserDone ()
+	void LaserFinish ()
 	{
-		// Go back to idle
 		laserObj.SetActive (false);
-		choosing = true;
-		ChooseAttack ();
+	}
+
+	void LaunchHoming ()
+	{
+		shootHomingBullets = true;
+	}
+
+	void HomingDone ()
+	{
+		shootHomingBullets = false;
+		AttackDone ();
 	}
 
 	void SpinDone ()
 	{
-		// Spin attack completed
+		arm1.SetActive (false);
+		arm2.SetActive (false);
+		AttackDone ();
 	}
 
 	void StompDone ()
 	{
-		// Stomp attack completed
+		stompedGround = false;
+		stompCollider.transform.localScale = new Vector3 (0, stompCollider.transform.localScale.y, 0);
+		AttackDone ();
 	}
 
-	//	void AttackDone ()
-	//	{
-	//
-	//	}
+	void StompedGround ()
+	{
+		stompedGround = true;
+	}
+
+	void AttackDone ()
+	{
+		laserPoseReady = false;
+		anim.SetBool ("LaserDone", false);
+		anim.SetBool ("HomingDone", false);
+		anim.SetBool ("Homing", false);
+		anim.SetBool ("Laser", false);
+		anim.SetBool ("Spin", false);
+		anim.SetBool ("Stomp", false);
+		choosing = true;
+		ChooseAttack ();
+	}
 }
