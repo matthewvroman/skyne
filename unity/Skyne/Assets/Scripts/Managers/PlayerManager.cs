@@ -494,7 +494,7 @@ public class PlayerManager : MonoBehaviour
 						velocity.y = moveSetting.jumpVel;
 						if (velocity.magnitude > 0)
 						{
-							velocity = velocity * 0.8f;
+							velocity = velocity * 1.2f;
 						}
 						//canDoubleJump = false;
 						StartCoroutine ("StopDoubleJump");
@@ -570,7 +570,7 @@ public class PlayerManager : MonoBehaviour
 				{
 					isOriented = true;
 					curDownAccel = physSetting.normDownAccel;
-					velocity.y = moveSetting.jumpVel;
+					velocity.y = moveSetting.jumpVel * 1.2f;
 					velocity.z = moveSetting.forwardVel * -1;
 					isHuggingWall = false;
 				}
