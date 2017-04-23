@@ -203,10 +203,20 @@ public class MapDisplay : Singleton<MapDisplay>
 				blinkingTile.GetComponent<Image>().color = new Color (curColor.r, curColor.g, curColor.b, 0);
 			}
 		}
-
+			
 		// Update directional arrow
 		// Update the arrow's direction based on which direction the player is facing
-		dirArrow.transform.eulerAngles = new Vector3(0, 0, -LevelData.inst.player.transform.rotation.eulerAngles.y + 90); 
+		dirArrow.transform.eulerAngles = new Vector3(0, 0, -LevelData.inst.player.transform.rotation.eulerAngles.y + 90);
+
+		// Turn off the directional arrow on other levels
+		if (LevelData.inst.curLevel != displayLevel)
+		{
+			dirArrow.SetActive(false); 
+		}
+		else
+		{
+			dirArrow.SetActive(true); 
+		}
 
 		// Then update the arrow's position
 		if (mapTileSize != 0)
