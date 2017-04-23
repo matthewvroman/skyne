@@ -16,7 +16,12 @@ public class ImageSequence : MonoBehaviour
 		public float fadeStartDelay; 
 		public float fadeInSpeed; 
 		public float fadeOutSpeed; 
-		public float stayTime; 
+		public float stayTime;
+
+		[TextArea(3,10)]
+		public string panelText;  
+
+		public Text sequenceText; 
 	}
 
 	public Sequence[] imageSequences;  
@@ -24,6 +29,8 @@ public class ImageSequence : MonoBehaviour
 	public bool imageSequencesFinished; 
 
 	public int curSequence;  
+
+	public Text textObj; 
 
 	public void StartSequence()
 	{
@@ -71,6 +78,14 @@ public class ImageSequence : MonoBehaviour
 		bool fadeOutImage = false; 
 		Vector3 zoom; 
 
+		//textObj.text = imageSequences[thisSequence].panelText;
+		Color textColor = new Color(1, 1, 1, 0);
+		if (imageSequences[thisSequence].sequenceText != null)
+		{
+			textColor = imageSequences[thisSequence].sequenceText.color; 
+			imageSequences[thisSequence].sequenceText.color = new Color (textColor.r, textColor.g, textColor.b, a); 
+		}
+
 		while (!sequenceDone)
 		{
 			if (startDelayTimer > 0)
@@ -93,7 +108,13 @@ public class ImageSequence : MonoBehaviour
 				}
 
 				// Set the image fade
-				imageSequences[thisSequence].img.color = new Color (1, 1, 1, a);	 
+				imageSequences[thisSequence].img.color = new Color (1, 1, 1, a);
+
+				// Set the text fade
+				if (imageSequences[thisSequence].sequenceText != null)
+				{
+					imageSequences[thisSequence].sequenceText.color = new Color (textColor.r, textColor.g, textColor.b, a); 
+				}
 			}
 			else if (!fadeOutImage)
 			{
@@ -131,7 +152,13 @@ public class ImageSequence : MonoBehaviour
 				}
 
 				// Set the image fade
-				imageSequences[thisSequence].img.color = new Color (1, 1, 1, a);	 
+				imageSequences[thisSequence].img.color = new Color (1, 1, 1, a);
+
+				// Set the text color
+				if (imageSequences[thisSequence].sequenceText != null)
+				{
+					imageSequences[thisSequence].sequenceText.color = new Color (textColor.r, textColor.g, textColor.b, a); 
+				}
 			}
 
 
