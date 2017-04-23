@@ -145,6 +145,15 @@ public class Boss1_AI : Enemy
 				continue; 
 			}
 
+			if (state != Boss1_AI.State.IDLE)
+			{
+				isIdling = false;
+			}
+			else
+			{
+				isIdling = true;
+			}
+
 			switch (state)
 			{
 			case State.IDLE:

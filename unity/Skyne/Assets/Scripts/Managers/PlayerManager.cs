@@ -78,7 +78,7 @@ public class PlayerManager : MonoBehaviour
 	[Tooltip ("Reference to the Camera controller script")]
 	public MainCameraControl camCon;
 
-	MeshRenderer playerMesh;
+	//MeshRenderer playerMesh;
 	//Color playerColor;
 
 	float curDownAccel;
@@ -92,13 +92,13 @@ public class PlayerManager : MonoBehaviour
 
 	bool isFalling = false;
 
-	bool jump = false;
+	//bool jump = false;
 	bool canDoubleJump = false;
 
 	bool isDashing = false;
 
 	bool isHuggingWall = false;
-	bool startSliding = false;
+	//bool startSliding = false;
 	float counter;
 	RaycastHit wallHit;
 
@@ -161,6 +161,8 @@ public class PlayerManager : MonoBehaviour
 	public AudioClip fightMusic;
 	public AudioClip normMusic;
 
+	bool isInAR = false;
+
 	float musTimer = 1;
 
 	/*public AudioClip footstep1;
@@ -194,7 +196,7 @@ public class PlayerManager : MonoBehaviour
 		//targetRotation = transform.rotation;
 		rBody = GetComponent<Rigidbody> ();
 
-		playerMesh = GetComponent<MeshRenderer> ();
+		//playerMesh = GetComponent<MeshRenderer> ();
 		//playerColor = playerMesh.material.color;
 
 		forwardInput = 0;
@@ -252,7 +254,7 @@ public class PlayerManager : MonoBehaviour
 		if (currentHealth <= 0)
 		{
 			isAlive = false;
-			velocity = velocity = Vector3.zero;
+			velocity = Vector3.zero;
 		}
 
 		if (isAlive)
@@ -284,7 +286,7 @@ public class PlayerManager : MonoBehaviour
 		if (Grounded ())
 		{
 			canDoubleJump = false;
-			startSliding = false;
+			//startSliding = false;
 			isWallJumping = false;
 		}
 
@@ -315,7 +317,7 @@ public class PlayerManager : MonoBehaviour
 
 		if (counter > 0)
 		{
-			startSliding = false;
+			//startSliding = false;
 		}
 
 		if (currentHealth < 0)
@@ -820,21 +822,13 @@ public class PlayerManager : MonoBehaviour
 		//enemies = GameObject.FindGameObjectsWithTag ("robot");
 		enemies = Object.FindObjectsOfType<Enemy> ();
 
+
 		bool fightingFound;
 
 		if (!musicCon.isPlaying)
 		{
 			musicCon.Play ();
 		}
-
-		/*foreach (Enemy enemy in enemies)
-		{
-			if (enemy.GetIsIdling () == false)
-			{
-				musicCon.clip = fightMusic;
-				Debug.Log("Play FIGHT");
-			}
-		} */
 
 		fightingFound = false;
 		for (int i = 0; i < enemies.Length; i++)
@@ -848,27 +842,30 @@ public class PlayerManager : MonoBehaviour
 			}
 		}
 
-		if (fightingFound == true)
+		if (isInAR == false)
 		{
-			Debug.Log ("Play FIGHT");
-
-			if (musTimer > 0)
+			if (fightingFound == true)
 			{
-				musTimer -= Time.deltaTime;
-			}
-			else if (musTimer <= 0)
-			{
-				musTimer = 0;
-				musicCon.clip = fightMusic;
-			}
+				Debug.Log ("Play FIGHT");
 
-			//musicCon.clip = fightMusic;
-		}
-		else if (fightingFound == false)
-		{
-			musTimer = 1;
-			Debug.Log ("Play NORM");
-			musicCon.clip = normMusic;
+				if (musTimer > 0)
+				{
+					musTimer -= Time.deltaTime;
+				}
+				else if (musTimer <= 0)
+				{
+					musTimer = 0;
+					musicCon.clip = fightMusic;
+				}
+
+				//musicCon.clip = fightMusic;
+			}
+			else if (fightingFound == false)
+			{
+				musTimer = 1;
+				Debug.Log ("Play NORM");
+				musicCon.clip = normMusic;
+			}
 		}
 	}
 
@@ -885,6 +882,10 @@ public class PlayerManager : MonoBehaviour
 	public bool GetIsAlive ()
 	{
 		return isAlive; 
+	}
+
+	public void setIsInAR(bool b) {
+		isInAR = b;
 	}
 
 	void OnCollisionEnter (Collision col)

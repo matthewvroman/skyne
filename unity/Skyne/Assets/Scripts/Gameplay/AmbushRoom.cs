@@ -17,6 +17,8 @@ public class AmbushRoom : MonoBehaviour
 
 	public DoorControl[] doorCon;
 
+	GameObject player;
+
 	public AudioSource musicController;
 
 	public AudioClip battleMusic;
@@ -42,6 +44,8 @@ public class AmbushRoom : MonoBehaviour
 		oneKey = new List<GameObject> ();
 
 		ambushTrigger = this.GetComponent<BoxCollider> ();
+
+		player = GameObject.Find ("Player");
 
 		foreach (Transform enemy in noKeyHold.transform)
 		{
@@ -79,6 +83,8 @@ public class AmbushRoom : MonoBehaviour
 			if (checkMusic == true)
 			{
 				musicController.clip = normalMusic;
+
+				player.GetComponent<PlayerManager> ().setIsInAR (false);
 
 				if (!musicController.isPlaying)
 				{
@@ -273,6 +279,8 @@ public class AmbushRoom : MonoBehaviour
 				{
 					door.setDoorState (false);
 				}
+					
+				player.GetComponent<PlayerManager> ().setIsInAR (true);
 
 				musicController.clip = battleMusic;
 
