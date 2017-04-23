@@ -108,9 +108,7 @@ public class Boss1_AI : Enemy
 	public AudioClip spinSound;
 	public AudioClip fireSound;
 	public AudioClip moveSound;
-
-	public ParticleSystem stompRingParticles; 
-	public ParticleSystem stompDustParticles; 
+	public AudioClip laserSound;
 
 
 	void SetupEnemy ()
@@ -246,11 +244,11 @@ public class Boss1_AI : Enemy
 			// Update the sound and animation based on the boss rotation
 			if ((oldEulerAngles.y - transform.rotation.eulerAngles.y) < 1 && (oldEulerAngles.y - transform.rotation.eulerAngles.y) > -1)
 			{
-				boss1Audio.clip = idleSound;
-				if (!boss1Audio.isPlaying)
-				{
-					boss1Audio.Play ();
-				}
+//				boss1Audio.clip = idleSound;
+//				if (!boss1Audio.isPlaying)
+//				{
+//					boss1Audio.Play ();
+//				}
 				Debug.Log ("NO ROTATION");
 //				anim.SetFloat ("xDir", 0);
 			}
@@ -259,21 +257,21 @@ public class Boss1_AI : Enemy
 				//DO WHATEVER YOU WANT
 				if(oldEulerAngles.y - transform.rotation.eulerAngles.y < -1)
 				{
-					boss1Audio.clip = moveSound;
-					if (!boss1Audio.isPlaying)
-					{
-						boss1Audio.Play ();
-					}
+//					boss1Audio.clip = moveSound;
+//					if (!boss1Audio.isPlaying)
+//					{
+//						boss1Audio.Play ();
+//					}
 					Debug.Log ("Negative");
 //					anim.SetFloat ("xDir", -1);
 				}
 				else if (oldEulerAngles.y - transform.rotation.eulerAngles.y > 1)
 				{
-					boss1Audio.clip = moveSound;
-					if (!boss1Audio.isPlaying)
-					{
-						boss1Audio.Play ();
-					}
+//					boss1Audio.clip = moveSound;
+//					if (!boss1Audio.isPlaying)
+//					{
+//						boss1Audio.Play ();
+//					}
 					Debug.Log ("Positive");
 //					anim.SetFloat ("xDir", 1);
 				}
@@ -405,8 +403,8 @@ public class Boss1_AI : Enemy
 
 				if (curHomingDelay == 0)
 				{
+					boss1Audio.PlayOneShot (fireSound);
 					curHomingDelay = homingDelay; 
-					shotFireParticles.Play(); 
 					ProjectileManager.inst.EnemyShoot (bulletSpawner1, smallHoming, true);
 				}
 
@@ -475,6 +473,12 @@ public class Boss1_AI : Enemy
 		if (timer < (laserLength - laserDelay))
 		{
 			laserObj.SetActive (true);
+
+			boss1Audio.clip = laserSound;
+			if (!boss1Audio.isPlaying)
+			{
+				boss1Audio.Play ();
+			}
 		}
 
 		if (laserPoseReady)
@@ -484,6 +488,12 @@ public class Boss1_AI : Enemy
 				timer -= Time.deltaTime;
 			} else
 			{
+//				boss1Audio.Stop ();
+				boss1Audio.clip = null;
+				if (!boss1Audio.isPlaying)
+				{
+					boss1Audio.Play ();
+				}
 				laserObj.SetActive (false);
 				anim.SetBool ("LaserDone", true);
 				turnSpeed = normTurnSpeed;
@@ -527,7 +537,7 @@ public class Boss1_AI : Enemy
 //			if (timer < 0.5f)
 //			{
 //				//anim.SetTrigger ("Spin");
-//				boss1Audio.PlayOneShot (spinSound);
+//				
 //			}
 //
 //			if (curSpinningDelay == 0)
@@ -587,8 +597,6 @@ public class Boss1_AI : Enemy
 		}*/
 
 		anim.SetBool ("Stomp", true);
-
-
 
 		if (stompedGround == true)
 		{
@@ -676,6 +684,7 @@ public class Boss1_AI : Enemy
 
 	void LaserFinish ()
 	{
+		boss1Audio.Stop ();
 		laserObj.SetActive (false);
 	}
 
@@ -711,8 +720,6 @@ public class Boss1_AI : Enemy
 
 	void StompedGround ()
 	{
-		stompRingParticles.Play(); 
-		stompDustParticles.Play();
 		stompedGround = true;
 	}
 
@@ -727,5 +734,29 @@ public class Boss1_AI : Enemy
 		anim.SetBool ("Stomp", false);
 		choosing = true;
 		ChooseAttack ();
+	}
+
+	void MoveSFX ()
+	{
+		boss1Audio.PlayOneShot (moveSound);
+	}
+
+	void SpinSFX ()
+	{
+		boss1Audio.PlayOneShot (spinSound);
+	}
+
+	void laserSFX ()
+	{
+		boss1Audio.clip = laserSound;
+		if (!boss1Audio.isPlaying)
+		{
+			boss1Audio.Play ();
+		}
+	}
+
+	void StompSFX ()
+	{
+
 	}
 }
