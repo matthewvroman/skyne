@@ -454,7 +454,7 @@ public class Boss1_AI : Enemy
 
 		if (!alive)
 		{
-			if (anim.GetCurrentAnimatorStateInfo (3).IsName ("DeathDone"))
+			if (anim.GetCurrentAnimatorStateInfo (4).IsName ("DeathDone"))
 			{
 				DestroyEnemy (); 
 			}
