@@ -143,6 +143,9 @@ public class Boss1_AI : Enemy
 	public AudioClip moveSound;
 	public AudioClip laserSound;
 
+	public ParticleSystem stompRingParticles; 
+	public ParticleSystem stompDustParticles; 
+
 
 	void SetupEnemy ()
 	{
@@ -672,6 +675,7 @@ public class Boss1_AI : Enemy
 				{
 					boss1Audio.PlayOneShot (fireSound);
 					curHomingDelay = homingDelay; 
+					shotFireParticles.Play();
 					ProjectileManager.inst.EnemyShoot (bulletSpawner1, smallHoming, true);
 				}
 
@@ -990,7 +994,7 @@ public class Boss1_AI : Enemy
 	}
 
 	void LaunchHoming ()
-	{
+	{ 
 		shootHomingBullets = true;
 	}
 
@@ -1021,6 +1025,8 @@ public class Boss1_AI : Enemy
 
 	void StompedGround ()
 	{
+		stompRingParticles.Play(); 
+		stompDustParticles.Play(); 
 		stompedGround = true;
 	}
 
