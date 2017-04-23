@@ -743,7 +743,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.50734
+        functionName: playFootstep
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -953,7 +961,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.755369
+        functionName: playFootstep
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -1163,7 +1179,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.5555556
+        functionName: playFootstep
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -1373,7 +1397,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.7477478
+        functionName: playFootstep
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -1583,7 +1615,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.50150144
+        functionName: playFootstep
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -1793,7 +1833,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.5
+        functionName: playFootstep
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -2003,7 +2051,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.56606615
+        functionName: playFootstep
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -2213,7 +2269,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.7447451
+        functionName: playFootstep
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

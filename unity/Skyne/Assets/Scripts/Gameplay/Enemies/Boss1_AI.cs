@@ -744,14 +744,14 @@ public class Boss1_AI : Enemy
 		Debug.Log ("Laser..");
 		turnSpeed = laserTurnSpeed;
 
-		if (laserPoseReady)
-		{
-			laserChargeParticles.enableEmission = false; 
-		}
-		else
-		{
-			laserChargeParticles.enableEmission = true; 
-		}
+//		if (laserPoseReady)
+//		{
+//			laserChargeParticles.enableEmission = false; 
+//		}
+//		else
+//		{
+//			laserChargeParticles.enableEmission = true; 
+//		}
 
 		anim.SetBool ("Laser", true);
 	
@@ -759,6 +759,7 @@ public class Boss1_AI : Enemy
 		if (timer < (laserLength - laserDelay))
 		{
 			laserObj.SetActive(true);
+			laserChargeParticles.enableEmission = false;
 
 			boss1Audio.clip = laserSound;
 			if (!boss1Audio.isPlaying)
@@ -1004,6 +1005,7 @@ public class Boss1_AI : Enemy
 	void FireLaser ()
 	{
 		laserPoseReady = true;
+		laserChargeParticles.enableEmission = true;
 	}
 
 	void LaserFinish ()
