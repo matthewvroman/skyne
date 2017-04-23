@@ -21,7 +21,8 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 		if (resetPlayerPrefs)
 		{
 			resetPlayerPrefs = false; 
-			ResetPlayerPrefs(); 
+			//ResetPlayerPrefs(); 
+			PlayerPrefs.DeleteAll(); 
 			Debug.Log("The player prefs have been reset"); 
 		}
 			
