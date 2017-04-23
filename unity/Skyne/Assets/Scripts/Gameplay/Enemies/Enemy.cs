@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-	Vector3 spawnPos; 
+	protected Vector3 spawnPos; 
 
 	[Space(5)]
 	[Header("Parent: State")]

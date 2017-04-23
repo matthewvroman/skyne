@@ -148,6 +148,12 @@ public class Boss1_AI : Enemy
 	public ParticleSystem laserChargeParticles; 
 	public ParticleSystem spinRingParticles; 
 
+	protected override void Start()
+	{
+		spawnPos = transform.position; 
+		laserChargeParticles.enableEmission = false;
+		spinRingParticles.enableEmission = false; 
+	}
 
 	void SetupEnemy ()
 	{
@@ -172,9 +178,6 @@ public class Boss1_AI : Enemy
 		stompCollider = transform.Find ("StompCollision").gameObject;
 		stompColliderExpand = transform.Find ("StompCollisionExpand").gameObject;
 
-		laserChargeParticles.enableEmission = false;
-		spinRingParticles.enableEmission = false; 
-
 		//START State Machine
 		StartCoroutine ("B1SM");
 	}
@@ -185,7 +188,7 @@ public class Boss1_AI : Enemy
 		while (alive)
 		{
 			// If the game is paused or still loading, don't continue with the coroutine and reset the while loop
-			if (!GlobalManager.inst.GameplayIsActive ())
+			if (!GlobalManager.inst.GameplayIsActive () || !GameState.inst.inBossRoom)
 			{
 				yield return null; 
 				continue; 
@@ -246,7 +249,7 @@ public class Boss1_AI : Enemy
 	// Update is called once per frame
 	void Update ()
 	{
-		if (!GlobalManager.inst.GameplayIsActive ())
+		if (!GlobalManager.inst.GameplayIsActive () || !GameState.inst.inBossRoom)
 		{
 			return; 
 		}

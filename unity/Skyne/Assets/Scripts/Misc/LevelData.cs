@@ -58,7 +58,6 @@ public class LevelData : Singleton<LevelData>
 
 	[Tooltip("The player object (DRAG IN)")]
 	public GameObject player; 
-	 
 
 	/// <summary>
 	/// Updates the player's current level, column, and row
@@ -227,40 +226,58 @@ public class LevelData : Singleton<LevelData>
 
 	void UpdateActiveGridPositions()
 	{
+		bool overrideNormalLoading = false; 
+
 		activeGridPositions.Clear(); 
 
-		// On the player's current level, reveal a radius of rooms around the player
-		for (int x = -roomLoadRadius; x <= roomLoadRadius; x++)
-		{
-			for (int y = -roomLoadRadius; y <= roomLoadRadius; y++)
-			{
-				float circleDist = Vector2.Distance(new Vector2(0, 0), new Vector2(x, y)); 
+		// If the player is in the boss room, override the loading behavior
+		//int[] levelString = {curLevel}; 
+		//curGridPos = LevelDataFunctions.GetGridPositionString(curLevel, curColumn, curRow); 
 
-				if (circleDist <= roomLoadRadius)
+		//if (SceneMapping.inst.GetSceneAt(curLevel, curRow - 1, curColumn - 1) == bossSceneName)
+		if (GameState.inst.inBossRoom)
+		{
+			Debug.Log("In boss room"); 
+			overrideNormalLoading = true; 
+			AddToActiveGridPositions(curLevel, curColumn, curRow); 
+			//AddToActiveGridPositions(beforeBossRoomLevel, beforeBossRoomColumn, beforeBossRoomRow); 
+		}
+
+		if (!overrideNormalLoading)
+		{
+			// On the player's current level, reveal a radius of rooms around the player
+			for (int x = -roomLoadRadius; x <= roomLoadRadius; x++)
+			{
+				for (int y = -roomLoadRadius; y <= roomLoadRadius; y++)
 				{
-					AddToActiveGridPositions(curLevel, curColumn + x, curRow + y); 
+					float circleDist = Vector2.Distance(new Vector2 (0, 0), new Vector2 (x, y)); 
+
+					if (circleDist <= roomLoadRadius)
+					{
+						AddToActiveGridPositions(curLevel, curColumn + x, curRow + y); 
+					}
 				}
 			}
-		}
 
-		// On the player's currnent level, do sightlines
-		// Add extra rooms based on the sightlineRoomLoad (only on player's current level)
-		for (int s = 1; s <= sightlineRoomLoad; s++)
-		{
-			// Front
-			AddToActiveGridPositions(curLevel, curColumn, curRow + roomLoadRadius + s);
-			// Back
-			AddToActiveGridPositions(curLevel, curColumn, curRow - roomLoadRadius - s);
-			// Right
-			AddToActiveGridPositions(curLevel, curColumn + roomLoadRadius + s, curRow);
-			// Left
-			AddToActiveGridPositions(curLevel, curColumn - roomLoadRadius - s, curRow);
-		}
+			// On the player's currnent level, do sightlines
+			// Add extra rooms based on the sightlineRoomLoad (only on player's current level)
+			for (int s = 1; s <= sightlineRoomLoad; s++)
+			{
+				// Front
+				AddToActiveGridPositions(curLevel, curColumn, curRow + roomLoadRadius + s);
+				// Back
+				AddToActiveGridPositions(curLevel, curColumn, curRow - roomLoadRadius - s);
+				// Right
+				AddToActiveGridPositions(curLevel, curColumn + roomLoadRadius + s, curRow);
+				// Left
+				AddToActiveGridPositions(curLevel, curColumn - roomLoadRadius - s, curRow);
+			}
 
-		// Reveal rooms directly above and below the player
-		AddToActiveGridPositions(1, curColumn, curRow); 
-		AddToActiveGridPositions(2, curColumn, curRow); 
-		AddToActiveGridPositions(3, curColumn, curRow); 
+			// Reveal rooms directly above and below the player
+			AddToActiveGridPositions(1, curColumn, curRow); 
+			AddToActiveGridPositions(2, curColumn, curRow); 
+			AddToActiveGridPositions(3, curColumn, curRow);
+		}
 
 
 	}
