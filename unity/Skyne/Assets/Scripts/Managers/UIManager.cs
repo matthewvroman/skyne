@@ -34,7 +34,12 @@ public class UIManager : Singleton<UIManager>
 
 	public EventSystem levelEventSystem; 
 
-	public Text endTimerUI; 
+	[HideInInspector] public Text endTimerUI; 
+
+	public Image radialGradient; 
+	public float maxRadialAlpha; 
+	public float radialChangeRate; 
+	public ParticleSystem focusParticles; 
 
 	void Start()
 	{
@@ -116,6 +121,27 @@ public class UIManager : Singleton<UIManager>
 				UpdateMapPanelToggles(); 
 			}
 		}
+
+		// Update the radial gradient
+		if (!GlobalManager.inst.gamePaused)
+		{
+			//float curAlpha = Mathf.Lerp(radialGradient.color.a, Timescaler.inst.percentSlowed * maxRadialAlpha, 0.1f); 
+
+			radialGradient.color = new Color (radialGradient.color.r, radialGradient.color.g, radialGradient.color.b, Mathf.Lerp(radialGradient.color.a, Timescaler.inst.percentSlowed * maxRadialAlpha, radialChangeRate));
+			//radialGradient.color = new Color (radialGradient.color.r, radialGradient.color.g, radialGradient.color.b, Timescaler.inst.percentSlowed * maxRadialAlpha);
+		}
+
+		// Update the focus particles
+		if (!GlobalManager.inst.gamePaused && Time.timeScale < 1)
+		{
+			focusParticles.enableEmission = true; 
+		}
+		else
+		{
+			focusParticles.enableEmission = false; 
+		}
+
+
 		 
 	}
 

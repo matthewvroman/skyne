@@ -26,6 +26,9 @@ public class Timescaler : Singleton<Timescaler>
 	public float pausedTimescale; 
 	[SerializeField] private float curTimescale; 
 
+	// Calculated in update; between 0 and 1
+	public float percentSlowed; 
+
 	void OnEnable()
 	{
 		GlobalManager.OnGamePausedUpdated += HandleGamePausedUpdated; 
@@ -50,6 +53,9 @@ public class Timescaler : Singleton<Timescaler>
 		}
 	}
 
+	float totalTimeRange; 
+	float curTimeRange; 
+
 	void Update()
 	{
 		// Update the inspector display of the current timescale
@@ -57,6 +63,11 @@ public class Timescaler : Singleton<Timescaler>
 
 		// Change Time.fixedDeltaTime to make Physics smooth (removing this line makes choppy framerate)
 		Time.fixedDeltaTime = 0.02F * Time.timeScale;
+
+		// Calculate percent
+		totalTimeRange = 1 - minTimescale; // 0.2, totaltTimeRange = 0.8
+		curTimeRange = 1 - curTimescale; // 0.8, curTimeRange = 0.4
+		percentSlowed = curTimeRange / totalTimeRange; 
 	}
 
 
