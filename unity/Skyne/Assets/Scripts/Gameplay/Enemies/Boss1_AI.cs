@@ -10,7 +10,7 @@ public class Boss1_AI : Enemy
 	{
 		IDLE,
 		HOMING_BULLET,
-		BUSTER_SHOT,
+		//BUSTER_SHOT,
 		SPINNING,
 		LASER,
 		STOMP,
@@ -164,9 +164,9 @@ public class Boss1_AI : Enemy
 				HomingShoot ();
 				break;
 
-			case State.BUSTER_SHOT:
+			/*case State.BUSTER_SHOT:
 				BusterShoot ();
-				break;
+				break; */
 
 			case State.LASER:
 				Laser ();
@@ -337,15 +337,15 @@ public class Boss1_AI : Enemy
 				state = Boss1_AI.State.HOMING_BULLET;
 				break;
 
-			case 3:
+			/*case 3:
 				if (timer <= 0)
 				{
 					timer = busterLength;
 				}
 				state = Boss1_AI.State.BUSTER_SHOT;
-				break;
+				break; */
 
-			case 4:
+			case 3:
 				if (timer <= 0)
 				{
 					timer = nothingLength;
@@ -353,7 +353,7 @@ public class Boss1_AI : Enemy
 				state = Boss1_AI.State.DO_NOTHING;
 				break;
 
-			case 5:
+			case 4:
 				if (timer <= 0)
 				{
 					timer = spinningLength;
@@ -361,7 +361,7 @@ public class Boss1_AI : Enemy
 				state = Boss1_AI.State.SPINNING;
 				break;
 
-			case 6:
+			case 5:
 				if (timer <= 0)
 				{
 					timer = laserLength;
@@ -439,7 +439,7 @@ public class Boss1_AI : Enemy
 
 	}
 
-	void BusterShoot ()
+	/*void BusterShoot ()
 	{
 		Debug.Log ("Buster...");
 
@@ -459,7 +459,7 @@ public class Boss1_AI : Enemy
 			choosing = true;
 			ChooseAttack ();
 		}
-	}
+	} */
 
 	void Laser ()
 	{
@@ -626,15 +626,15 @@ public class Boss1_AI : Enemy
 		{
 			if (tarDistance > stompAggroDist && tarHeight < upperLevelHeight)
 			{
-				chooseAttack = Random.Range (2, 5);
+				chooseAttack = Random.Range (2, 4);
 			}
 			else if (tarDistance < stompAggroDist && tarHeight < upperLevelHeight)
 			{
-				chooseAttack = Random.Range (1, 5);
+				chooseAttack = Random.Range (1, 4);
 			}
 			else if (tarHeight > upperLevelHeight)
 			{
-				chooseAttack = Random.Range (2, 7);
+				chooseAttack = Random.Range (2, 6);
 			}
 			choosing = false;
 		}
