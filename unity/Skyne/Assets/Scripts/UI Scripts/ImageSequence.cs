@@ -18,8 +18,8 @@ public class ImageSequence : MonoBehaviour
 		public float fadeOutSpeed; 
 		public float stayTime;
 
-		[TextArea(3,10)]
-		public string panelText;  
+		//[TextArea(3,10)]
+		//public string panelText;  
 
 		public Text sequenceText; 
 	}
