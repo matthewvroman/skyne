@@ -145,6 +145,8 @@ public class Boss1_AI : Enemy
 
 	public ParticleSystem stompRingParticles; 
 	public ParticleSystem stompDustParticles; 
+	public ParticleSystem laserChargeParticles; 
+	public ParticleSystem spinRingParticles; 
 
 
 	void SetupEnemy ()
@@ -169,6 +171,9 @@ public class Boss1_AI : Enemy
 
 		stompCollider = transform.Find ("StompCollision").gameObject;
 		stompColliderExpand = transform.Find ("StompCollisionExpand").gameObject;
+
+		laserChargeParticles.enableEmission = false;
+		spinRingParticles.enableEmission = false; 
 
 		//START State Machine
 		StartCoroutine ("B1SM");
@@ -739,16 +744,26 @@ public class Boss1_AI : Enemy
 		Debug.Log ("Laser..");
 		turnSpeed = laserTurnSpeed;
 
+		if (laserPoseReady)
+		{
+			laserChargeParticles.enableEmission = false; 
+		}
+		else
+		{
+			laserChargeParticles.enableEmission = true; 
+		}
+
 		anim.SetBool ("Laser", true);
+	
 
 		if (timer < (laserLength - laserDelay))
 		{
-			laserObj.SetActive (true);
+			laserObj.SetActive(true);
 
 			boss1Audio.clip = laserSound;
 			if (!boss1Audio.isPlaying)
 			{
-				boss1Audio.Play ();
+				boss1Audio.Play();
 			}
 		}
 
@@ -757,7 +772,8 @@ public class Boss1_AI : Enemy
 			if (timer > 0.1)
 			{
 				timer -= Time.deltaTime;
-			} else
+			} 
+			else
 			{
 //				boss1Audio.Stop ();
 				boss1Audio.clip = null;
@@ -797,6 +813,9 @@ public class Boss1_AI : Enemy
 		Debug.Log ("Spinning..");
 
 		anim.SetBool ("Spin", true);
+
+		// Rotate
+		spinRingParticles.transform.Rotate(0, 1.5f * Time.deltaTime, 0, Space.World);
 
 //		if (timer > 0.1)
 //		{
@@ -1008,12 +1027,14 @@ public class Boss1_AI : Enemy
 	{
 		arm1.SetActive (true);
 		arm2.SetActive (true);
+		spinRingParticles.enableEmission = true; 
 	}
 
 	void SpinDone ()
 	{
 		arm1.SetActive (false);
 		arm2.SetActive (false);
+		spinRingParticles.enableEmission = false; 
 	}
 
 	void StompDone ()
