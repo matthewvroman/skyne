@@ -68,16 +68,22 @@ public class MainCameraControl : Singleton<MainCameraControl>
 		// Mouse movement uses Timerscaler's CalculateDeltaTime function to return a custom deltaTime value based on slow motion
 		// The percentChange argument (1) specifies that the camera moves at the same speed in both slow motion and normal speed
 		// When Time.timeScale == 0, CalculateDeltaTime will return a 0, preventing the angle from changing
-		HorizontalAngle += Mathf.Clamp(Input.GetAxis("Mouse X"), -1, 1) * horizontalAimingSpeed * Timescaler.inst.CalculateDeltaTime(1);
-		VerticalAngle += Mathf.Clamp(Input.GetAxis("Mouse Y"), -1, 1) * verticalAimingSpeed * Timescaler.inst.CalculateDeltaTime(1);
+		//HorizontalAngle += Mathf.Clamp(Input.GetAxis("Mouse X"), -2, 2) * horizontalAimingSpeed * Timescaler.inst.CalculateDeltaTime(1);
+		//VerticalAngle += Mathf.Clamp(Input.GetAxis("Mouse Y"), -1, 1) * verticalAimingSpeed * Timescaler.inst.CalculateDeltaTime(1);
+
+		HorizontalAngle += Input.GetAxis ("Mouse X") * horizontalAimingSpeed * Timescaler.inst.CalculateDeltaTime(1);
+		//transform.Rotate (0, rotLeftRight, 0); 
+		VerticalAngle += Input.GetAxis ("Mouse Y") * verticalAimingSpeed * Timescaler.inst.CalculateDeltaTime(1); 
 
 		// Set vertical movement limit.
 		VerticalAngle = Mathf.Clamp(VerticalAngle, minVerticalAngle, verticalAngleClamp);
 
 		// Set camera orientation..
 		Quaternion camYRotation = Quaternion.Euler(0, HorizontalAngle, 0);
-		Quaternion aimRotation = Quaternion.Euler(-VerticalAngle, HorizontalAngle, 0);
-		camera.rotation = aimRotation;
+		//Quaternion aimRotation = Quaternion.Euler(-VerticalAngle, HorizontalAngle, 0);
+		//camera.rotation = aimRotation;
+		Quaternion aimRotation = Quaternion.Euler (-VerticalAngle, HorizontalAngle, 0);
+		camera.localRotation = aimRotation;
 
 		// Set FOV.
 		camera.GetComponent<Camera>().fieldOfView = Mathf.Lerp (camera.GetComponent<Camera>().fieldOfView, targetFieldOfView,  Time.unscaledDeltaTime);
