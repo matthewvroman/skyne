@@ -153,7 +153,11 @@ public class PlayerPrefsManager : Singleton<PlayerPrefsManager>
 				// Set the player position based on the data stored in the SaveRoom
 				// TODO- this is an awkward way to get a reference to the player. Might want a better solution
 				LevelData.inst.player.transform.position = curSaveRoom.saveSpawnPoint.transform.position; 
-				LevelData.inst.player.transform.rotation = curSaveRoom.saveSpawnPoint.transform.rotation; 
+				//LevelData.inst.player.transform.rotation = curSaveRoom.saveSpawnPoint.transform.rotation; 
+
+				MainCameraControl.inst.HorizontalAngle = curSaveRoom.saveSpawnPoint.transform.rotation.y; 
+
+				Debug.Log("Setup: set player rotation"); 
 			}
 		}
 

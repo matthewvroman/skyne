@@ -13,7 +13,7 @@ public class MainCameraControl : Singleton<MainCameraControl>
 	public float maxVerticalAngle = 30f;                               // Camera max clamp angle. 
 	public float minVerticalAngle = -60f;                              // Camera min clamp angle.
 
-	private float HorizontalAngle = 0;                                 // Float to store camera horizontal angle related to mouse movement.
+	public float HorizontalAngle = -90;                                 // Float to store camera horizontal angle related to mouse movement.
 	private float VerticalAngle = 0;                                   // Float to store camera vertical angle related to mouse movement.
 	private Transform camera;                                          // This transform.
 	private Vector3 relativePositionToPlayer;                          // Current camera position relative to the player.
@@ -33,7 +33,9 @@ public class MainCameraControl : Singleton<MainCameraControl>
 
 		// Set camera default position.
 		camera.position = player.position + Quaternion.identity * pivotOffset + Quaternion.identity * cameraOffset; 
-		camera.rotation = Quaternion.identity;
+		//camera.rotation = Quaternion.identity;
+
+		//HorizontalAngle = camera.transform.rotation.y; 
 
 		// Get camera position relative to the player, used for collision test.
 		relativePositionToPlayer = transform.position - player.position;
