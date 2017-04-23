@@ -476,6 +476,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.33333325
+        functionName: EnableSpinDamage
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: a5ba2d5e08294464e978cabb6b1c0b04,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

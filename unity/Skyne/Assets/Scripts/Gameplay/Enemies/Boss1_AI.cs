@@ -513,9 +513,6 @@ public class Boss1_AI : Enemy
 
 		anim.SetBool ("Spin", true);
 
-		arm1.SetActive (true);
-		arm2.SetActive (true);
-
 //		if (timer > 0.1)
 //		{
 //			timer -= Time.deltaTime;
@@ -685,6 +682,12 @@ public class Boss1_AI : Enemy
 	{
 		shootHomingBullets = false;
 		AttackDone ();
+	}
+
+	void EnableSpinDamage ()
+	{
+		arm1.SetActive (true);
+		arm2.SetActive (true);
 	}
 
 	void SpinDone ()
