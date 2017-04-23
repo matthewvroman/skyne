@@ -694,7 +694,6 @@ public class Boss1_AI : Enemy
 	{
 		arm1.SetActive (false);
 		arm2.SetActive (false);
-		AttackDone ();
 	}
 
 	void StompDone ()

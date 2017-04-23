@@ -468,7 +468,15 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 1
+      - time: 0.3772522
+        functionName: EnableSpinDamage
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: a5ba2d5e08294464e978cabb6b1c0b04,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.61148643
         functionName: SpinDone
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: a5ba2d5e08294464e978cabb6b1c0b04,
@@ -476,8 +484,8 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.33333325
-        functionName: EnableSpinDamage
+      - time: 1
+        functionName: AttackDone
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: a5ba2d5e08294464e978cabb6b1c0b04,
           type: 3}
