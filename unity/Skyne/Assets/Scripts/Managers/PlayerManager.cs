@@ -40,9 +40,11 @@ public class PlayerManager : MonoBehaviour
 
 		[Tooltip ("The UI object representing the image for stamina")]
 		public GameObject staminaBarFill;
+		public GameObject staminaBarBackground;
 		// The stamina UI bar.
 
 		public float staminaDrain;
+		public float staminaRecover;
 	}
 
 	[System.Serializable]
@@ -149,7 +151,7 @@ public class PlayerManager : MonoBehaviour
 	// The highest the players stamina can go. 1 represents 100%.
 	float cooldownTimer = 0;
 	// Timer that keeps track of cooldown delay.
-	public float cooldownTime = 3;
+	public float cooldownTime = 1;
 	// Time until the stamina bar regenerates.
 
 	public Animator anim;
@@ -748,12 +750,16 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Stamina ()
 	{
+		maxStamina = 100 + (GameState.inst.GetNumStaminaPickupsFound () * 25);
+
+		playerSetting.staminaBarBackground.GetComponent<RectTransform> ().sizeDelta = new Vector2 (154.5f + (GameState.inst.GetNumStaminaPickupsFound () * 25.75f), 40);
+
 		if (isFalling)
 		{
 			if (Input.GetMouseButton (1) && currentStamina > 0)
 			{
 				cooldownTimer = 0;
-				DecreaseStamina ();
+				currentStamina -= playerSetting.staminaDrain * Time.unscaledDeltaTime;
 			}
 		}
 
@@ -766,30 +772,14 @@ public class PlayerManager : MonoBehaviour
 
 			if (cooldownTimer >= cooldownTime && currentStamina < maxStamina)
 			{
-				IncreaseStamina ();
+				currentStamina += playerSetting.staminaRecover * Time.unscaledDeltaTime;
 			}
 		}
 
-		playerSetting.staminaBarFill.GetComponent<Image> ().fillAmount = currentStamina / 100;
+		playerSetting.staminaBarFill.GetComponent<Image> ().fillAmount = currentStamina / (100 + (GameState.inst.GetNumStaminaPickupsFound () * 25));
 
 //		playerSetting.staminaBarFill.GetComponent<RectTransform>().sizeDelta = new Vector2 (parameter, 32);
 
-	}
-
-	/// <summary>
-	/// Decreases player stamina.
-	/// </summary>
-	void DecreaseStamina ()
-	{
-		currentStamina -= playerSetting.staminaDrain * Time.unscaledDeltaTime;
-	}
-
-	/// <summary>
-	/// Increases player stamina.
-	/// </summary>
-	void IncreaseStamina ()
-	{
-		currentStamina += playerSetting.staminaDrain * Time.unscaledDeltaTime;
 	}
 
 	/// <summary>
