@@ -77,6 +77,8 @@ public class AmbushRoom : MonoBehaviour
 	{
 		//Debug.Log ("Done = " + isDone);
 
+		player = GameObject.Find ("Player");
+
 		if (this.noKeys.Count == 0 || this.oneKey.Count == 0 || this.twoKeys.Count == 0 || this.threeKeys.Count == 0)
 		{
 			//isDone = true;
