@@ -38,11 +38,11 @@ public class ItemPickup : MonoBehaviour
 	{
 		if (col.tag == "Player")
 		{
+			//audio1.PlayOneShot (equipSound);
+
 			if (GameState.inst.upgradesFound[itemTypeIndex] != null)
 			{
 				GameState.inst.upgradesFound[itemTypeIndex] = true; 
-
-				audio1.PlayOneShot (equipSound);
 
 				MessageTrigger messageTrigger = GetComponent<MessageTrigger>(); 
 				if (messageTrigger != null)

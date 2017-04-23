@@ -158,6 +158,7 @@ public class PlayerManager : MonoBehaviour
 
 	AudioSource playerAudio;
 	public AudioClip slowMoSound;
+	public AudioClip itemEquip;
 
 	AudioSource musicCon;
 	public AudioClip fightMusic;
@@ -836,8 +837,6 @@ public class PlayerManager : MonoBehaviour
 		{
 			if (fightingFound == true)
 			{
-				Debug.Log ("Play FIGHT");
-
 				if (musTimer > 0)
 				{
 					musTimer -= Time.deltaTime;
@@ -853,7 +852,6 @@ public class PlayerManager : MonoBehaviour
 			else if (fightingFound == false)
 			{
 				musTimer = 1;
-				Debug.Log ("Play NORM");
 				musicCon.clip = normMusic;
 			}
 		}
@@ -987,6 +985,11 @@ public class PlayerManager : MonoBehaviour
 
 			StopCoroutine ("DamageFlash");
 			StartCoroutine ("DamageFlash");
+		}
+
+		if (col.gameObject.tag == "ItemPickup")
+		{
+			playerAudio.PlayOneShot (itemEquip);
 		}
 	}
 
