@@ -34,6 +34,7 @@ ModelImporter:
     2300012: bossRoom
     2300014: bossRoomFloor
     2300016: bossRoomCeiling
+    2300018: //RootNode
     3300000: pCylinder6
     3300002: polySurface1
     3300004: polySurface2
@@ -43,6 +44,7 @@ ModelImporter:
     3300012: bossRoom
     3300014: bossRoomFloor
     3300016: bossRoomCeiling
+    3300018: //RootNode
     4300000: polySurface1
     4300002: polySurface2
     4300004: pCylinder6
@@ -52,6 +54,7 @@ ModelImporter:
     4300012: bossRoomFloor
     4300014: bossRoom
     4300016: bossRoomCeiling
+    4300018: overland
   materials:
     importMaterials: 1
     materialName: 0
