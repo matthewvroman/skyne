@@ -109,6 +109,9 @@ public class Boss1_AI : Enemy
 	public AudioClip fireSound;
 	public AudioClip moveSound;
 
+	public ParticleSystem stompRingParticles; 
+	public ParticleSystem stompDustParticles; 
+
 
 	void SetupEnemy ()
 	{
@@ -403,6 +406,7 @@ public class Boss1_AI : Enemy
 				if (curHomingDelay == 0)
 				{
 					curHomingDelay = homingDelay; 
+					shotFireParticles.Play(); 
 					ProjectileManager.inst.EnemyShoot (bulletSpawner1, smallHoming, true);
 				}
 
@@ -584,6 +588,8 @@ public class Boss1_AI : Enemy
 
 		anim.SetBool ("Stomp", true);
 
+
+
 		if (stompedGround == true)
 		{
 			stompCollider.transform.localScale = Vector3.Lerp (stompCollider.transform.localScale, stompColliderExpand.transform.localScale, Time.deltaTime * 0.999f);
@@ -705,6 +711,8 @@ public class Boss1_AI : Enemy
 
 	void StompedGround ()
 	{
+		stompRingParticles.Play(); 
+		stompDustParticles.Play();
 		stompedGround = true;
 	}
 
