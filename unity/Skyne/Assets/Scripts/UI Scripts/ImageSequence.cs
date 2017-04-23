@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; 
 
+//[ExecuteInEditMode]
 public class ImageSequence : MonoBehaviour 
 {
 	[System.Serializable]
@@ -22,7 +23,7 @@ public class ImageSequence : MonoBehaviour
 
 	public bool imageSequencesFinished; 
 
-	public int curSequence; 
+	public int curSequence;  
 
 	public void StartSequence()
 	{
@@ -144,4 +145,70 @@ public class ImageSequence : MonoBehaviour
 			yield return null; 
 		}
 	}
+
+	/*
+	public bool addIndexToStart;
+	public bool removeIndexFromStart; 
+
+	void Update()
+	{
+		if (addIndexToStart)
+		{
+			addIndexToStart = false; 
+			AddIndexToStart(); 
+		}
+		if (removeIndexFromStart)
+		{
+			removeIndexFromStart = false; 
+			RemoveIndexFromStart(); 
+		}
+	}
+
+
+	void AddIndexToStart()
+	{
+		Sequence[] backup = new Sequence[imageSequences.Length]; 
+
+		for (int i = 0; i < imageSequences.Length; i++)
+		{
+			backup[i] = imageSequences[i]; 
+		}
+
+		imageSequences = new Sequence[backup.Length + 1]; 
+
+		imageSequences[0] = new Sequence (); 
+
+		for (int i = 0; i < backup.Length; i++)
+		{
+			imageSequences[i + 1] = backup[i]; 
+		}
+	}
+
+	void RemoveIndexFromStart()
+	{
+		if (imageSequences.Length == 0)
+		{
+			return; 
+		}
+		if (imageSequences.Length == 1)
+		{
+			imageSequences = new Sequence[0]; 
+			return; 
+		}
+
+		Sequence[] backup = new Sequence[imageSequences.Length]; 
+
+		for (int i = 0; i < imageSequences.Length; i++)
+		{
+			backup[i] = imageSequences[i]; 
+		}
+
+		imageSequences = new Sequence[backup.Length - 1]; 
+
+		for (int i = 1; i < backup.Length; i++)
+		{
+			imageSequences[i - 1] = backup[i]; 
+		}
+	}
+	*/ 
 }
