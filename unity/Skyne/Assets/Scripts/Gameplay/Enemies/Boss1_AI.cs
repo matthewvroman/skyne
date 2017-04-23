@@ -29,6 +29,38 @@ public class Boss1_AI : Enemy
 	public float normTurnSpeed;
 	public float laserTurnSpeed;
 
+	[Space (5)]
+	[Header ("Boss: Spawn Enemies")]
+	public GameObject Spawner1;
+	public GameObject Spawner2;
+	public GameObject Spawner3;
+	public GameObject Spawner4;
+
+	public GameObject[] enemyArray1;
+	public GameObject[] enemyArray2;
+	public GameObject[] enemyArray3;
+	public GameObject[] enemyArray4;
+
+	float spawnTimer1;
+	float curSpawnTimer1;
+
+	float spawnTimer2;
+	float curSpawnTimer2;
+
+	float spawnTimer3;
+	float curSpawnTimer3;
+
+	float spawnTimer4;
+	float curSpawnTimer4;
+
+	int chooseEnemy;
+
+	public GameObject charger;
+	public GameObject bolt;
+	public GameObject sentry;
+
+
+	[Space (5)]
 	public bool attacking;
 	public bool choosing;
 
@@ -70,13 +102,14 @@ public class Boss1_AI : Enemy
 	public int chooseAttack;
 	int lastAttack;
 
-	float healthPer;
-
 	bool stompedGround = false;
 
 	bool laserPoseReady = false;
 
 	bool shootHomingBullets = false;
+
+	public int phases;
+	float healthPercent;
 
 	//public Animator anim;
 
@@ -115,7 +148,6 @@ public class Boss1_AI : Enemy
 	{
 		ParentSetupEnemy ();
 
-
 		state = Boss1_AI.State.IDLE;
 
 		attacking = false;
@@ -124,6 +156,11 @@ public class Boss1_AI : Enemy
 		turnSpeed = normTurnSpeed;
 
 		boss1Audio = GetComponent<AudioSource> ();
+
+		enemyArray1 = new GameObject[1];
+		enemyArray2 = new GameObject[1];
+		enemyArray3 = new GameObject[1];
+		enemyArray4 = new GameObject[1];
 
 		oldEulerAngles = transform.rotation.eulerAngles;
 
@@ -216,7 +253,10 @@ public class Boss1_AI : Enemy
 		if (alive && target != null)
 		{
 			// Calculate the health percentage
-			healthPer = ((health / maxHealth) * 100);
+			healthPercent = ((health / maxHealth) * 100);
+
+			Phases ();
+			SpawnEnemies ();
 
 			// Update the stored distance from the player and the player height
 			tarDistance = Vector3.Distance (target.transform.position, transform.position);
@@ -322,6 +362,22 @@ public class Boss1_AI : Enemy
 		{
 			switch (chooseAttack)
 			{
+			case -1:
+				if (timer <= 0)
+				{
+					timer = stompLength;
+				}
+				state = Boss1_AI.State.STOMP;
+				break;
+
+			case 0:
+				if (timer <= 0)
+				{
+					timer = stompLength;
+				}
+				state = Boss1_AI.State.STOMP;
+				break;
+
 			case 1:
 				if (timer <= 0)
 				{
@@ -337,14 +393,6 @@ public class Boss1_AI : Enemy
 				}
 				state = Boss1_AI.State.HOMING_BULLET;
 				break;
-
-			/*case 3:
-				if (timer <= 0)
-				{
-					timer = busterLength;
-				}
-				state = Boss1_AI.State.BUSTER_SHOT;
-				break; */
 
 			case 3:
 				if (timer <= 0)
@@ -365,9 +413,33 @@ public class Boss1_AI : Enemy
 			case 5:
 				if (timer <= 0)
 				{
+					timer = spinningLength;
+				}
+				state = Boss1_AI.State.SPINNING;
+				break;
+
+			case 6:
+				if (timer <= 0)
+				{
 					timer = laserLength;
 				}
 				state = Boss1_AI.State.LASER;
+				break;
+
+			case 7:
+				if (timer <= 0)
+				{
+					timer = laserLength;
+				}
+				state = Boss1_AI.State.LASER;
+				break;
+
+			case 8:
+				if (timer <= 0)
+				{
+					timer = spinningLength;
+				}
+				state = Boss1_AI.State.SPINNING;
 				break;
 			}
 		}
@@ -378,6 +450,201 @@ public class Boss1_AI : Enemy
 			{
 				DestroyEnemy (); 
 			}
+		}
+	}
+
+	void Phases() {
+		if (healthPercent <= 30)
+		{
+			phases = 3;
+		}
+		else if (healthPercent <= 60)
+		{
+			phases = 2;
+		}
+		else
+		{
+			phases = 1;
+		}
+
+		switch (phases)
+		{
+		case 1:
+			spawnTimer1 = 30;
+			spawnTimer2 = 30;
+			spawnTimer3 = 30;
+			spawnTimer4 = 30;
+			break;
+
+		case 2:
+			homingDelay = 0.5f;
+			laserDelay = 4;
+			laserLength = 12;
+
+			spawnTimer1 = 20;
+			spawnTimer2 = 20;
+			spawnTimer3 = 20;
+			spawnTimer4 = 20;
+			break;
+
+		case 3:
+			homingDelay = 0.3f;
+			homingLength = 10;
+			laserDelay = 3;
+			laserLength = 13;
+
+			spawnTimer1 = 10;
+			spawnTimer2 = 10;
+			spawnTimer3 = 10;
+			spawnTimer4 = 10;
+			break;
+		}
+	}
+
+	void SpawnEnemies() {
+		if (curSpawnTimer1 > 0 && enemyArray1 [0] == null)
+		{
+			curSpawnTimer1 -= Time.deltaTime;
+		}
+		else if (curSpawnTimer1 <= 0 && enemyArray1 [0] == null)
+		{
+			curSpawnTimer1 = 0;
+		}
+		else if (enemyArray1 [0] != null)
+		{
+			curSpawnTimer1 = spawnTimer1;
+		}
+
+		if (curSpawnTimer1 == 0)
+		{
+			chooseEnemy = Random.Range (1, 4);
+
+			switch (chooseEnemy)
+			{
+			case 1:
+				GameObject bossEnemy1 = GameObject.Instantiate (charger, Spawner1.transform.position, Quaternion.Euler(0, 0, 0));
+				enemyArray1 [0] = bossEnemy1;
+				break;
+
+			case 2:
+				GameObject bossEnemy2 = GameObject.Instantiate (bolt, Spawner1.transform.position, Quaternion.Euler(0, 0, 0));
+				enemyArray1 [0] = bossEnemy2;
+				break;
+
+			case 3:
+				GameObject bossEnemy3 = GameObject.Instantiate (sentry, Spawner1.transform.position, Quaternion.Euler(0, 0, 0));
+				enemyArray1 [0] = bossEnemy3;
+				break;
+			}
+		}
+
+		if (curSpawnTimer2 > 0 && enemyArray2 [0] == null)
+		{
+			curSpawnTimer2 -= Time.deltaTime;
+		}
+		else if (curSpawnTimer2 <= 0 && enemyArray2 [0] == null)
+		{
+			curSpawnTimer2 = 0;
+		}
+		else if (enemyArray2 [0] != null)
+		{
+			curSpawnTimer2 = spawnTimer2;
+		}
+
+		if (curSpawnTimer2 == 0)
+		{
+			chooseEnemy = Random.Range (1, 4);
+
+			switch (chooseEnemy)
+			{
+			case 1:
+				GameObject bossEnemy1 = GameObject.Instantiate (charger, Spawner2.transform.position, Quaternion.Euler(0, 0, 0));
+				enemyArray2 [0] = bossEnemy1;
+				break;
+
+			case 2:
+				GameObject bossEnemy2 = GameObject.Instantiate (bolt, Spawner2.transform.position, Quaternion.Euler(0, 0, 0));
+				enemyArray2 [0] = bossEnemy2;
+				break;
+
+			case 3:
+				GameObject bossEnemy3 = GameObject.Instantiate (sentry, Spawner2.transform.position, Quaternion.Euler(0, 0, 0));
+				enemyArray2 [0] = bossEnemy3;
+				break;
+			}
+		}
+
+		if (curSpawnTimer3 > 0 && enemyArray3 [0] == null)
+		{
+			curSpawnTimer3 -= Time.deltaTime;
+		}
+		else if (curSpawnTimer3 <= 0 && enemyArray3 [0] == null)
+		{
+			curSpawnTimer3 = 0;
+		}
+		else if (enemyArray3 [0] != null)
+		{
+			curSpawnTimer3 = spawnTimer3;
+		}
+
+		if (curSpawnTimer3 == 0)
+		{
+			chooseEnemy = Random.Range (1, 4);
+
+			switch (chooseEnemy)
+			{
+			case 1:
+				GameObject bossEnemy1 = GameObject.Instantiate (charger, Spawner3.transform.position, Quaternion.Euler(0, 0, 0));
+				enemyArray3 [0] = bossEnemy1;
+				break;
+
+			case 2:
+				GameObject bossEnemy2 = GameObject.Instantiate (bolt, Spawner3.transform.position, Quaternion.Euler(0, 0, 0));
+				enemyArray3 [0] = bossEnemy2;
+				break;
+
+			case 3:
+				GameObject bossEnemy3 = GameObject.Instantiate (sentry, Spawner3.transform.position, Quaternion.Euler(0, 0, 0));
+				enemyArray3 [0] = bossEnemy3;
+				break;
+			}
+		}
+
+		if (curSpawnTimer4 > 0 && enemyArray4 [0] == null)
+		{
+			curSpawnTimer4 -= Time.deltaTime;
+		}
+		else if (curSpawnTimer4 <= 0 && enemyArray1 [0] == null)
+		{
+			curSpawnTimer4 = 0;
+		}
+		else if (enemyArray4 [0] != null)
+		{
+			curSpawnTimer4 = spawnTimer1;
+		}
+
+		if (curSpawnTimer4 == 0)
+		{
+			chooseEnemy = Random.Range (1, 4);
+
+			switch (chooseEnemy)
+			{
+			case 1:
+				GameObject bossEnemy1 = GameObject.Instantiate (charger, Spawner4.transform.position, Quaternion.Euler(0, 0, 0));
+				enemyArray4 [0] = bossEnemy1;
+				break;
+
+			case 2:
+				GameObject bossEnemy2 = GameObject.Instantiate (bolt, Spawner4.transform.position, Quaternion.Euler(0, 0, 0));
+				enemyArray4 [0] = bossEnemy2;
+				break;
+
+			case 3:
+				GameObject bossEnemy3 = GameObject.Instantiate (sentry, Spawner4.transform.position, Quaternion.Euler(0, 0, 0));
+				enemyArray4 [0] = bossEnemy3;
+				break;
+			}
+
 		}
 	}
 
@@ -635,18 +902,52 @@ public class Boss1_AI : Enemy
 	{
 		if (choosing)
 		{
-			if (tarDistance > stompAggroDist && tarHeight < upperLevelHeight)
+			if (phases == 1)
 			{
-				chooseAttack = Random.Range (2, 4);
+				if (tarDistance > stompAggroDist && tarHeight < upperLevelHeight)
+				{
+					chooseAttack = Random.Range (2, 4);
+				}
+				else if (tarDistance < stompAggroDist && tarHeight < upperLevelHeight)
+				{
+					chooseAttack = Random.Range (1, 4);
+				}
+				else if (tarHeight > upperLevelHeight)
+				{
+					chooseAttack = Random.Range (2, 7);
+				}
 			}
-			else if (tarDistance < stompAggroDist && tarHeight < upperLevelHeight)
+			else if (phases == 2)
 			{
-				chooseAttack = Random.Range (1, 4);
+				if (tarDistance > stompAggroDist && tarHeight < upperLevelHeight)
+				{
+					chooseAttack = Random.Range (2, 4);
+				}
+				else if (tarDistance < stompAggroDist && tarHeight < upperLevelHeight)
+				{
+					chooseAttack = Random.Range (0, 4);
+				}
+				else if (tarHeight > upperLevelHeight)
+				{
+					chooseAttack = Random.Range (1, 7);
+				}
 			}
-			else if (tarHeight > upperLevelHeight)
+			else if (phases == 3)
 			{
-				chooseAttack = Random.Range (2, 6);
-			}
+				if (tarDistance > stompAggroDist && tarHeight < upperLevelHeight)
+				{
+					chooseAttack = Random.Range (2, 4);
+				}
+				else if (tarDistance < stompAggroDist && tarHeight < upperLevelHeight)
+				{
+					chooseAttack = Random.Range (-1, 4);
+				}
+				else if (tarHeight > upperLevelHeight)
+				{
+					chooseAttack = Random.Range (0, 9);
+				}
+			}	
+
 			choosing = false;
 		}
 
