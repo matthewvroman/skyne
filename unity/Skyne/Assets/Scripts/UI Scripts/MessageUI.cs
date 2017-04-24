@@ -122,23 +122,29 @@ public class MessageUI : Singleton<MessageUI>
 
 	public void SetMessage(string newMessage, KeyCode newDisableKey, Sprite newImg)
 	{
-		if (curState == TransitionState.transparent)
+		if (curState != TransitionState.transparent)
 		{
-			message = newMessage; 
-			disableKey = newDisableKey;
+			curState = TransitionState.transparent; 
+			canvasGroup.alpha = 0; 
 
-			if (newImg != null)
-			{
-				sprite = newImg; 
-				messageImg.enabled = true; 
-			}
-			else
-			{
-				messageImg.enabled = false; 
-			}
-
-			SetFadeIn(); 
 		}
+
+
+		message = newMessage; 
+		disableKey = newDisableKey;
+
+		if (newImg != null)
+		{
+			sprite = newImg; 
+			messageImg.enabled = true; 
+		}
+		else
+		{
+			messageImg.enabled = false; 
+		}
+
+		SetFadeIn(); 
+
 	}
 		
 
