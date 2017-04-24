@@ -573,7 +573,7 @@ public class PlayerManager : MonoBehaviour
 				{
 					isOriented = true;
 					curDownAccel = physSetting.normDownAccel;
-					velocity.y = moveSetting.jumpVel * 1.2f;
+					velocity.y = moveSetting.jumpVel * 1.5f;
 					velocity.z = moveSetting.forwardVel * -1;
 					isHuggingWall = false;
 				}
@@ -585,7 +585,7 @@ public class PlayerManager : MonoBehaviour
 					isOriented = true;
 					curDownAccel = physSetting.normDownAccel;
 					velocity.y = moveSetting.jumpVel;
-					velocity.z = moveSetting.forwardVel * 1;
+					velocity.z = moveSetting.forwardVel * 1.5f;
 					isHuggingWall = false;
 				}
 			}
@@ -596,7 +596,7 @@ public class PlayerManager : MonoBehaviour
 					isOriented = true;
 					curDownAccel = physSetting.normDownAccel;
 					velocity.y = moveSetting.jumpVel;
-					velocity.x = moveSetting.strafeVel * -1;
+					velocity.x = moveSetting.strafeVel * -1.5f;
 					isHuggingWall = false;
 				}
 			}
@@ -607,7 +607,7 @@ public class PlayerManager : MonoBehaviour
 					isOriented = true;
 					curDownAccel = physSetting.normDownAccel;
 					velocity.y = moveSetting.jumpVel;
-					velocity.x = moveSetting.strafeVel * 1;
+					velocity.x = moveSetting.strafeVel * 1.5f;
 					isHuggingWall = false;
 				}
 			}
