@@ -105,7 +105,7 @@ public class GlobalManager : Singleton<GlobalManager>
 		// Use a black canvas to hide a gap showing the skybox when the game is in Global and loading Title at the start
 		if (globalState == GlobalState.Menu)
 		{
-			if (!SceneManager.GetSceneByName("Title").isLoaded)
+			if (!SceneManager.GetSceneByName("Title").isLoaded && ScreenTransition.inst.curState == ScreenTransition.TransitionState.transparentScreenRest)
 			{
 				blackCanvas.SetActive(true); 
 			}
@@ -113,6 +113,10 @@ public class GlobalManager : Singleton<GlobalManager>
 			{
 				blackCanvas.SetActive(false); 
 			}
+		}
+		else if (blackCanvas.activeSelf)
+		{
+			blackCanvas.SetActive(false); 
 		}
 
 		if (globalState == GlobalState.LoadMainGameplayScene)
