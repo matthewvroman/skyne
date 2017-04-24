@@ -40,6 +40,10 @@ public class HealthPickup : MonoBehaviour
 	public SphereCollider physicsCollider; 
 	public SphereCollider triggerCollider; 
 
+	public ParticleSystem[] particleSystems; 
+	public Light light; 
+	public bool waitForDestroy; 
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -70,6 +74,37 @@ public class HealthPickup : MonoBehaviour
 
 			if (durationTimer <= 0)
 			{
+
+				triggerCollider.enabled = false; 
+				//Destroy(this.gameObject); 
+				waitForDestroy = true; 
+
+				for (int i = 0; i < particleSystems.Length; i++)
+				{
+					particleSystems[i].enableEmission = false; 
+				}
+				if (light != null)
+				{
+					light.intensity = 0; 
+				}
+			}
+		}
+
+		if (waitForDestroy)
+		{
+			bool shouldDestroy = true; 
+			rb.velocity = Vector3.zero; 
+
+			for (int i = 0; i < particleSystems.Length; i++)
+			{
+				if (particleSystems[i].isPlaying)
+				{
+					shouldDestroy = false; 
+				}
+			}
+
+			if (shouldDestroy)
+			{
 				Destroy(this.gameObject); 
 			}
 		}
@@ -77,12 +112,12 @@ public class HealthPickup : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		if (!startedHoming)
+		if (!startedHoming && !waitForDestroy)
 		{
 			rb.AddForce(-Vector3.up * gravityMultiplier); 
 		}
 
-		if (targetObj != null && canHome && hitGround)
+		if (targetObj != null && canHome && hitGround && !waitForDestroy)
 		{
 			Vector3 targetDir = targetObj.transform.position - transform.position;
 			float step = turnSpeed * Timescaler.inst.CalculateDeltaTime(deltaTimePerc);
@@ -109,7 +144,7 @@ public class HealthPickup : MonoBehaviour
 
 	void OnTriggerEnter(Collider col)
 	{
-		if (col.tag == "Player")
+		if (col.tag == "Player" && !waitForDestroy)
 		{
 			PlayerManager.HealCalculator(healthValue); 
 			int randNum;
