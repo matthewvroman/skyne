@@ -176,6 +176,8 @@ public class Boss1_AI : Enemy
 
 		oldEulerAngles = transform.rotation.eulerAngles;
 
+		isIdling = true;
+
 		stompCollider = transform.Find ("StompCollision").gameObject;
 		stompColliderExpand = transform.Find ("StompCollisionExpand").gameObject;
 
@@ -193,15 +195,6 @@ public class Boss1_AI : Enemy
 			{
 				yield return null; 
 				continue; 
-			}
-
-			if (state != Boss1_AI.State.IDLE)
-			{
-				isIdling = false;
-			}
-			else
-			{
-				isIdling = true;
 			}
 
 			switch (state)
@@ -255,6 +248,8 @@ public class Boss1_AI : Enemy
 			return; 
 		}
 
+		isIdling = true;
+
 		// If the enemy hasn't been set up yet, call it's setup
 		// This isn't called until the game has been fully loaded to avoid any incomplete load null references
 		if (!started)
@@ -267,8 +262,15 @@ public class Boss1_AI : Enemy
 			// Calculate the health percentage
 			healthPercent = ((health / maxHealth) * 100);
 
+			isIdling = true;
+
 			Phases ();
-			SpawnEnemies ();
+			if (GameState.inst.inBossRoom == true)
+			{
+				SpawnEnemies ();
+			}
+
+			//Debug.Log (isIdling);
 
 			// Update the stored distance from the player and the player height
 			tarDistance = Vector3.Distance (target.transform.position, transform.position);
@@ -307,6 +309,8 @@ public class Boss1_AI : Enemy
 			else
 			{
 				//DO WHATEVER YOU WANT
+				isIdling = true;
+
 				if (oldEulerAngles.y - transform.rotation.eulerAngles.y < -1)
 				{
 					//					boss1Audio.clip = moveSound;
@@ -664,11 +668,11 @@ public class Boss1_AI : Enemy
 
 	void Idle ()
 	{
-		if (attacking == false && CanHitTarget ())
+		if (GameState.inst.inBossRoom == true)
 		{
 			ChooseAttack ();
 			attacking = true;
-		} 
+		}
 	}
 
 	void HomingShoot ()

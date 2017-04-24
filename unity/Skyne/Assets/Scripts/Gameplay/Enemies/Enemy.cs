@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
 	// If set to true in OnShot, the last index in hpDropChoices will be picked, which should be the highest number of drops
 	bool useMaxHPDrop = false; 
 
-	public bool isIdling;
+	public bool isIdling = true;
 
 	[HideInInspector] public GameObject target; 
 

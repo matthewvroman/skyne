@@ -824,7 +824,7 @@ public class PlayerManager : MonoBehaviour
 		fightingFound = false;
 		for (int i = 0; i < enemies.Length; i++)
 		{
-			if (enemies [i].GetIsIdling () == false)
+			if (enemies [i].GetIsIdling () == false && enemies[i].tag != "Boss")
 			{
 				//musicCon.clip = fightMusic;
 				fightingFound = true;
