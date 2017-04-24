@@ -25,7 +25,7 @@ public class MessageTrigger : MonoBehaviour
 
 	void OnTriggerEnter(Collider col)
 	{
-		if (!useCollider)
+		if (!useCollider || col.tag != "Player")
 		{
 			return; 
 		}
