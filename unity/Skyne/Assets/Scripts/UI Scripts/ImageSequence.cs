@@ -57,6 +57,14 @@ public class ImageSequence : MonoBehaviour
 		curSequence = imageSequences.Length - 1; 
 		imageSequencesFinished = true; 
 		imageSequences[curSequence].img.color = new Color (1, 1, 1, 1); 
+
+		for (int i = 0; i < imageSequences.Length; i++)
+		{
+			if (imageSequences[i].sequenceText != null)
+			{
+				imageSequences[i].sequenceText.text = ""; 
+			}
+		}
 	}
 
 	/*
