@@ -110,6 +110,8 @@ public class BoltManager : Enemy
 		// Don't update if the game is paused or still loading
 		if (alive && target != null)
 		{
+			CheckBossDead(); 
+
 			if (onShotTimer > 0)
 			{
 				onShotTimer -= Time.deltaTime; 

@@ -1109,6 +1109,7 @@ public class Boss1_AI : Enemy
 	{
 		isExploding = true; 
 		StartCoroutine("TriggerExplosions"); 
+		GameState.inst.bossDefeated = true; 
 	}
 
 	void StopSpawningExplosion ()

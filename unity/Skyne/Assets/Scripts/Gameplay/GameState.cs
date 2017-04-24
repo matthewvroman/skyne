@@ -50,6 +50,8 @@ public class GameState : Singleton<GameState>
 	[Tooltip("True if the player has hit the collider indicating that they've entered the boss room.")]
 	public bool inBossRoom = false; 
 
+	public bool bossDefeated = false; 
+
 	public bool treasureFound
 	{
 		get

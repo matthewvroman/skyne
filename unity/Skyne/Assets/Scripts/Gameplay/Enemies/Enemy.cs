@@ -116,6 +116,26 @@ public class Enemy : MonoBehaviour
 		GlobalManager.OnGamePausedUpdated -= HandleGamePausedUpdated;
 	}
 
+	protected void CheckBossDead()
+	{
+		if (alive && GameState.inst.bossDefeated)
+		{
+			if (hasDeathAnimation)
+			{
+				// Call death animation
+				anim.SetBool ("isDead", true);
+				//this.GetComponent<AudioSource> ().PlayOneShot (deathSound);
+				alive = false; 
+				PreEnemyDestroy(); 
+			}
+			else
+			{
+				alive = false; 
+				DestroyEnemy ();
+			}
+		}
+	}
+
 	protected void ParentSetupEnemy()
 	{
 		target = GameObject.FindGameObjectWithTag ("Player");

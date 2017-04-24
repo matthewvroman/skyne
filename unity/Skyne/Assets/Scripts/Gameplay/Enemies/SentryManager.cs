@@ -151,6 +151,11 @@ public class SentryManager : Enemy
 			SetupEnemy (); 
 		}
 
+		if (alive)
+		{
+			CheckBossDead(); 
+		}
+
 		if (alive && target != null)
 		{
 		/*	if (health <= 0)
