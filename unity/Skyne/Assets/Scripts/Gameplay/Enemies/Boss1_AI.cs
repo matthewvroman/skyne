@@ -1094,5 +1094,18 @@ public class Boss1_AI : Enemy
 
 	}
 
+	void StartSpawningExplosion ()
+	{
 
+	}
+
+	void StopSpawningExplosion ()
+	{
+
+	}
+
+	void SpawnEndGameLight ()
+	{
+
+	}
 }
