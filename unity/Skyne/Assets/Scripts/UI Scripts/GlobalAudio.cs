@@ -5,6 +5,7 @@ using UnityEngine;
 public class GlobalAudio : Singleton<GlobalAudio> 
 {
 	public AudioClip uiClick; 
+	public AudioClip uiMenuUp; 
 
 	AudioSource audio1; 
 
@@ -17,5 +18,10 @@ public class GlobalAudio : Singleton<GlobalAudio>
 	public void PlayUIClick()
 	{
 		audio1.PlayOneShot(uiClick); 
+	}
+
+	public void PlayMenuUp()
+	{
+		audio1.PlayOneShot(uiMenuUp); 
 	}
 }

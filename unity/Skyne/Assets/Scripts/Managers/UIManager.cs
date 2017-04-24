@@ -75,7 +75,9 @@ public class UIManager : Singleton<UIManager>
 				Debug.Log("Reveal game menu"); 
 
 				GlobalManager.inst.SetGamePaused(true); 
-				GlobalManager.inst.buttonUIIsActive = true; 
+				GlobalManager.inst.buttonUIIsActive = true;
+
+				GlobalAudio.inst.PlayMenuUp(); 
 
 				if (gameMenuState == GameMenuState.Options)
 				{
