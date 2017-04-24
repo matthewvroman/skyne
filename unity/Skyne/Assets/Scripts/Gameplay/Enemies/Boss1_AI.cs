@@ -148,11 +148,16 @@ public class Boss1_AI : Enemy
 	public ParticleSystem laserChargeParticles;
 	public ParticleSystem spinRingParticles;
 
+	public bool isExploding; 
+	public Explosion[] deathExplosions;
+
+	public GameObject treasurePickupPrefab; 
+
 	protected override void Start()
 	{
 		spawnPos = transform.position; 
 		laserChargeParticles.enableEmission = false;
-		spinRingParticles.enableEmission = false; 
+		spinRingParticles.enableEmission = false;  
 	}
 
 
@@ -173,6 +178,8 @@ public class Boss1_AI : Enemy
 		enemyArray2 = new GameObject[1];
 		enemyArray3 = new GameObject[1];
 		enemyArray4 = new GameObject[1];
+
+		deathExplosions = GetComponentsInChildren<Explosion>();
 
 		oldEulerAngles = transform.rotation.eulerAngles;
 
@@ -464,7 +471,7 @@ public class Boss1_AI : Enemy
 		{
 			if (anim.GetCurrentAnimatorStateInfo (4).IsName ("DeathDone"))
 			{
-				DestroyEnemy (); 
+				//DestroyEnemy (); 
 			}
 		}
 	}
@@ -1100,16 +1107,57 @@ public class Boss1_AI : Enemy
 
 	void StartSpawningExplosion ()
 	{
-
+		isExploding = true; 
+		StartCoroutine("TriggerExplosions"); 
 	}
 
 	void StopSpawningExplosion ()
 	{
-
+		isExploding = false; 
+		smokeParticles[1].system.enableEmission = false; 
+		smokeParticles[2].system.enableEmission = false; 
 	}
 
 	void SpawnEndGameLight ()
 	{
+		GameObject treasure = GameObject.Instantiate(treasurePickupPrefab, bulletSpawner1.transform.position, transform.rotation, transform); 
+		treasure.transform.Rotate(40, 0, 0); 
+	}
 
+	//public void TriggerExplosions()
+	public IEnumerator TriggerExplosions()
+	{
+		int safetyCheck; 
+		bool valid;
+		int choosenIndex; 
+
+		if (deathExplosions.Length > 0)
+		{
+			// Coroutine loop until isExploding is set false in StopSpawningExplosion ()
+			while (isExploding)
+			{
+				safetyCheck = 0; 
+				valid = false; 
+				choosenIndex = 0; 
+
+				while (!valid && safetyCheck < 50)
+				{
+					safetyCheck++; 
+					choosenIndex = Random.Range(0, deathExplosions.Length); 
+
+					if (deathExplosions[choosenIndex].CheckExplosionDone())
+					{
+						valid = true; 
+					}
+				}
+
+				if (valid)
+				{
+					deathExplosions[choosenIndex].PlayParticles(); 
+				}
+
+				yield return new WaitForSeconds (0.2f); 
+			}
+		}
 	}
 }
