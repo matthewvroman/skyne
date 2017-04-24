@@ -110,8 +110,6 @@ public class BoltManager : Enemy
 		// Don't update if the game is paused or still loading
 		if (alive && target != null)
 		{
-			CheckBossDead(); 
-
 			if (onShotTimer > 0)
 			{
 				onShotTimer -= Time.deltaTime; 
@@ -415,6 +413,6 @@ public class BoltManager : Enemy
 
 	void DeathSFX ()
 	{
-		boltAudio.PlayOneShot (deathSound);
+		detectAudio.PlayOneShot (deathSound);
 	}
 }

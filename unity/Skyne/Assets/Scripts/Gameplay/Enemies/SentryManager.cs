@@ -381,6 +381,6 @@ public class SentryManager : Enemy
 
 	void DeathSFX ()
 	{
-
+		sentryAudio.PlayOneShot (deathSound);
 	}
 }

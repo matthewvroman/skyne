@@ -130,11 +130,6 @@ public class FortManager : Enemy
 			SetupEnemy (); 
 		}
 
-		if (alive)
-		{
-			CheckBossDead(); 
-		}
-
 		// Don't update if the game is paused or still loading
 		if (alive && target != null)
 		{
@@ -536,6 +531,6 @@ public class FortManager : Enemy
 
 	void DeathSFX ()
 	{
-
+		fortAudio.PlayOneShot (deathSound);
 	}
 }
