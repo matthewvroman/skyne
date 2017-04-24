@@ -1005,7 +1005,7 @@ public class PlayerManager : MonoBehaviour
 		{
 			//When the player collides with an enemy, it checks to see if the player is currently invincible or not. 
 			//If not, then the player will take damage
-			DamageCalculator (3);
+			DamageCalculator (5);
 
 			StopCoroutine ("DamageFlash");
 			StartCoroutine ("DamageFlash");
