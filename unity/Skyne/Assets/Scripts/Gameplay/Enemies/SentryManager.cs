@@ -21,7 +21,7 @@ public class SentryManager : Enemy
 	public GameObject bulletPrefab; 
 
 	//Var holding the distance from the enemy to the player
-	float tarDistance;
+	public float tarDistance;
 
 	[Space(5)]
 	[Header("Sentry: Behavior variables")]
@@ -151,11 +151,6 @@ public class SentryManager : Enemy
 			SetupEnemy (); 
 		}
 
-		if (alive)
-		{
-			CheckBossDead(); 
-		}
-
 		if (alive && target != null)
 		{
 		/*	if (health <= 0)
@@ -240,10 +235,10 @@ public class SentryManager : Enemy
 			sentryAudio.Play ();
 		}
 
-		if (CanHitTarget ())
+		/*if (CanHitTarget ())
 		{
 			sentryAudio.PlayOneShot (detectSound);
-		}
+		} */
 
 		anim.SetBool ("isShooting", false);
 		//Debug.Log ("Idling");

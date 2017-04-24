@@ -142,6 +142,7 @@ public class Boss1_AI : Enemy
 	public AudioClip fireSound;
 	public AudioClip moveSound;
 	public AudioClip laserSound;
+	public AudioClip stompSound;
 
 	public ParticleSystem stompRingParticles;
 	public ParticleSystem stompDustParticles;
@@ -1102,14 +1103,13 @@ public class Boss1_AI : Enemy
 
 	void StompSFX ()
 	{
-
+		boss1Audio.PlayOneShot (stompSound);
 	}
 
 	void StartSpawningExplosion ()
 	{
 		isExploding = true; 
 		StartCoroutine("TriggerExplosions"); 
-		GameState.inst.bossDefeated = true; 
 	}
 
 	void StopSpawningExplosion ()

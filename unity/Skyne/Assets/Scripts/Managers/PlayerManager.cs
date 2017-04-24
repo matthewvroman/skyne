@@ -163,10 +163,13 @@ public class PlayerManager : MonoBehaviour
 	AudioSource musicCon;
 	public AudioClip fightMusic;
 	public AudioClip normMusic;
+	public AudioClip bossMusic;
 
 	bool isInAR = false;
 
 	bool canWallJump;
+
+	bool cameFromGround;
 
 	float musTimer = 1;
 
@@ -298,7 +301,8 @@ public class PlayerManager : MonoBehaviour
 		}
 		else
 		{
-			if (faceToWall == false && backToWall == false && rSideToWall == false && lSideToWall == false) {
+			if (faceToWall == false && backToWall == false && rSideToWall == false && lSideToWall == false)
+			{
 				canWallJump = true;
 			}
 		}
@@ -541,6 +545,10 @@ public class PlayerManager : MonoBehaviour
 
 	void WallJump ()
 	{
+		if (Grounded () && backToWall == false && faceToWall == false && lSideToWall == false && rSideToWall == false)
+		{
+			cameFromGround = false;
+		}
 
 		if (Physics.Raycast (transform.position, -transform.forward, 1))
 		{
@@ -549,10 +557,14 @@ public class PlayerManager : MonoBehaviour
 
 			if (!Grounded ())
 			{
-				isHuggingWall = true;
+				if (cameFromGround == false)
+				{
+					isHuggingWall = true;
+				}
 			}
 			else
 			{
+				cameFromGround = true;
 				isHuggingWall = false;
 				isWallJumping = false;
 			}
@@ -571,11 +583,15 @@ public class PlayerManager : MonoBehaviour
 
 			if (!Grounded ())
 			{
-				isHuggingWall = true;
+				if (cameFromGround == false)
+				{
+					isHuggingWall = true;
+				}
 			}
 			else
 			{
-				faceToWall = false;
+				//faceToWall = false;
+				cameFromGround = true;
 				isHuggingWall = false;
 				isWallJumping = false;
 			}
@@ -594,10 +610,14 @@ public class PlayerManager : MonoBehaviour
 
 			if (!Grounded ())
 			{
-				isHuggingWall = true;
+				if (cameFromGround == false)
+				{
+					isHuggingWall = true;
+				}
 			}
 			else
 			{
+				cameFromGround = true;
 				isHuggingWall = false;
 				isWallJumping = false;
 			}
@@ -616,10 +636,14 @@ public class PlayerManager : MonoBehaviour
 
 			if (!Grounded ())
 			{
-				isHuggingWall = true;
+				if (cameFromGround == false)
+				{
+					isHuggingWall = true;
+				}
 			}
 			else
 			{
+				cameFromGround = true;
 				isHuggingWall = false;
 				isWallJumping = false;
 			}
@@ -921,7 +945,7 @@ public class PlayerManager : MonoBehaviour
 			}
 		}
 
-		if (isInAR == false)
+		if (isInAR == false && GameState.inst.inBossRoom == false)
 		{
 			if (fightingFound == true)
 			{
@@ -941,6 +965,15 @@ public class PlayerManager : MonoBehaviour
 			{
 				musTimer = 1;
 				musicCon.clip = normMusic;
+			}
+		}
+		else if (GameState.inst.inBossRoom == true)
+		{
+			musicCon.clip = bossMusic;
+
+			if (!musicCon.isPlaying)
+			{
+				musicCon.Play ();
 			}
 		}
 	}
