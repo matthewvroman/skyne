@@ -11,11 +11,20 @@ public class ItemPickup : MonoBehaviour
 	AudioSource audio1;
 	public AudioClip equipSound;
 
+	bool waitForDestroy; 
+
+	public ParticleSystem itemParticles1; 
+	public ParticleSystem itemParticles2; 
+	public Light itemPointLight; 
+	public float lightFadeSpeed; 
+	public GameObject model; 
+
 	// Use this for initialization
 	void Start () 
 	{
 		// Destroy the upgrade pickup if the player already has it
 		//Debug.Log("upgradesFound length: " + GameState.inst.upgradesFound.Length); 
+		waitForDestroy = false; 
 
 		audio1 = GetComponent<AudioSource>(); 
 	}
@@ -28,15 +37,32 @@ public class ItemPickup : MonoBehaviour
 			return; 
 		}
 
-		if (GameState.inst.upgradesFound[itemTypeIndex])
+		if (!waitForDestroy && GameState.inst.upgradesFound[itemTypeIndex])
 		{
 			Destroy(this.gameObject); 
+		}
+
+		if (waitForDestroy)
+		{
+			// Fade out the light
+			if (itemPointLight != null && itemPointLight.intensity > 0)
+			{
+				itemPointLight.intensity -= lightFadeSpeed * Time.deltaTime; 
+
+				if (itemPointLight.intensity < 0)
+					itemPointLight.intensity = 0; 
+			}
+
+			if (CheckDestroy())
+			{
+				Destroy(this.gameObject); 
+			}
 		}
 	}
 
 	void OnTriggerEnter(Collider col)
 	{
-		if (col.tag == "Player")
+		if (col.tag == "Player" && !waitForDestroy)
 		{
 			//audio1.PlayOneShot (equipSound);
 
@@ -65,7 +91,63 @@ public class ItemPickup : MonoBehaviour
 				}
 			}
 
-			Destroy(this.gameObject); 
+			//Destroy(this.gameObject); 
+			DestroyItem(); 
 		}
+	}
+
+	void DestroyItem()
+	{
+		Collider col = GetComponent<Collider>(); 
+		if (col != null)
+		{
+			col.enabled = false; 
+		}
+
+		if (model != null)
+		{
+			model.SetActive(false); 
+		}
+
+		waitForDestroy = true; 
+
+		if (itemParticles1 != null)
+		{
+			itemParticles1.enableEmission = false;
+		}
+		if (itemParticles1 != null)
+		{
+			itemParticles2.enableEmission = false; 
+		}
+	}
+
+
+	bool CheckDestroy()
+	{
+		if (itemParticles1 != null)
+		{
+			if (itemParticles1.isPlaying)
+			{
+				return false; 
+			}
+		}
+
+		if (itemParticles2 != null)
+		{
+			if (itemParticles2.isPlaying)
+			{
+				return false; 
+			}
+		}
+
+		if (itemPointLight != null)
+		{
+			if (itemPointLight.intensity > 0)
+			{
+				return false; 
+			}
+		}
+
+		return true; 
 	}
 }
