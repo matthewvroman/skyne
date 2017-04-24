@@ -378,4 +378,9 @@ public class SentryManager : Enemy
 	{
 
 	}
+
+	void DeathSFX ()
+	{
+
+	}
 }

@@ -412,4 +412,9 @@ public class BoltManager : Enemy
 
 		detectAudio.PlayOneShot (deathSound);
 	}
+
+	void DeathSFX ()
+	{
+
+	}
 }

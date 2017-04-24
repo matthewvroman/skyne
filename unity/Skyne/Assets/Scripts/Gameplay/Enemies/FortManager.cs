@@ -528,4 +528,9 @@ public class FortManager : Enemy
 	{
 		//Empty function
 	}
+
+	void DeathSFX ()
+	{
+
+	}
 }

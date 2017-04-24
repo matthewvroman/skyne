@@ -400,5 +400,10 @@ public class ChargerManager : Enemy
 			//chargeCounter = chargeCooldown;
 		}
 	}
+
+	void DeathSFX ()
+	{
+		
+	}
 }
 
