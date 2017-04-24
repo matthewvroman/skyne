@@ -11,24 +11,28 @@ ModelImporter:
     100006: Rock
     100008: Rope
     100010: Top1
+    100012: Mountain
     400000: //RootNode
     400002: polySurface1
     400004: polySurface2
     400006: Rock
     400008: Rope
     400010: Top1
+    400012: Mountain
     2300000: polySurface1
     2300002: polySurface2
     2300004: //RootNode
     2300006: Rock
     2300008: Rope
     2300010: Top1
+    2300012: Mountain
     3300000: polySurface1
     3300002: polySurface2
     3300004: //RootNode
     3300006: Rock
     3300008: Rope
     3300010: Top1
+    3300012: Mountain
     4300000: polySurface1
     4300002: polySurface2
     4300004: polySurface11
@@ -39,6 +43,7 @@ ModelImporter:
     4300014: Rope
     4300016: Rock
     4300018: Top1
+    4300020: Mountain
   materials:
     importMaterials: 1
     materialName: 0

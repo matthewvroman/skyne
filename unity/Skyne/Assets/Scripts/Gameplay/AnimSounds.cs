@@ -25,31 +25,36 @@ public class AnimSounds : MonoBehaviour {
 		
 	}
 
-	public void playFootstep() {
+	public void FootstepSFX() {
 		animAudio.PlayOneShot (footstep1);
 	}
 
-	public void playJump() {
+	public void JumpSFX() {
 		animAudio.PlayOneShot (jump);
 	}
 
-	public void playDash() {
+	public void DashSFX() {
 		animAudio.PlayOneShot (airDash);
 	}
 
-	public void playDeath() {
+	public void DeathSFX() {
 		animAudio.PlayOneShot (death);
 	}
 
-	public void playHit() {
+	public void DamageSFX() {
 		animAudio.PlayOneShot (hit);
 	}
 
-	public void playLanding() {
+	public void LandingSFX() {
 		animAudio.PlayOneShot (landing);
 	}
 
-	public void playDoubleJump() {
+	public void DoubleJumpSFX() {
 		animAudio.PlayOneShot (doubleJump);
+	}
+
+	public void WallClingSFX ()
+	{
+
 	}
 }

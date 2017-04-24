@@ -660,6 +660,14 @@ public class PlayerManager : MonoBehaviour
 			isHuggingWall = false;
 		}
 
+		if (backToWall == true || faceToWall == true || lSideToWall == true || rSideToWall == true)
+		{
+			anim.SetBool ("onWall", true);
+		} else
+		{
+			anim.SetBool ("onWall", false);
+		}
+
 		if (canWallJump)
 		{
 			if (isWallJumping && isHuggingWall)
@@ -797,7 +805,6 @@ public class PlayerManager : MonoBehaviour
 			currentHealth = 0; // This ensures that the health percentage is NEVER less than zero.
 
 			// Respawn execution goes here
-
 			isDead = true; // Prevents the code from executing the respawn sequence multiple times.
 		} 
 
@@ -1086,6 +1093,7 @@ public class PlayerManager : MonoBehaviour
 		//If the player is still touching the enemy when invuln wears off, ininitate invincibility coroutine again
 		if (col.gameObject.tag == "Enemy")
 		{
+			anim.SetTrigger ("isHit");
 			DamageCalculator (3);
 		}
 
@@ -1115,7 +1123,9 @@ public class PlayerManager : MonoBehaviour
 		{
 			//When the player collides with an enemy, it checks to see if the player is currently invincible or not. 
 			//If not, then the player will take damage
+			anim.SetTrigger ("isHit");
 			DamageCalculator (10);
+
 
 			StopCoroutine ("DamageFlash");
 			StartCoroutine ("DamageFlash");
@@ -1129,6 +1139,7 @@ public class PlayerManager : MonoBehaviour
 		{
 			//When the player collides with an enemy, it checks to see if the player is currently invincible or not. 
 			//If not, then the player will take damage
+			anim.SetTrigger ("isHit");
 			DamageCalculator (10);
 
 			StopCoroutine ("DamageFlash");
@@ -1147,7 +1158,7 @@ public class PlayerManager : MonoBehaviour
 		if (col.gameObject.tag == "Enemy")
 		{
 			DamageCalculator (10);
-
+			anim.SetTrigger ("isHit");
 			StopCoroutine ("DamageFlash");
 			StartCoroutine ("DamageFlash");
 		}
@@ -1161,7 +1172,7 @@ public class PlayerManager : MonoBehaviour
 	{ 
 		StopCoroutine ("DamageFlash");
 		StartCoroutine ("DamageFlash");
-
+		anim.SetTrigger ("isHit");
 		DamageCalculator (bullet.damage); 
 	}
 }

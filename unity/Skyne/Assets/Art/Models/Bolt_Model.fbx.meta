@@ -307,7 +307,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0
+      - time: 0.103448264
         functionName: DeathSFX
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 5b0f5729f7336481384d1a521a268de1,

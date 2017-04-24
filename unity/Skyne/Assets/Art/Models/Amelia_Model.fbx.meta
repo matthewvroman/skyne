@@ -258,6 +258,23 @@ ModelImporter:
     7400098: WallJump_Back
     7400100: WallJump_Right
     7400102: WallJump_Left
+    7400104: TPOSE
+    7400106: Forward
+    7400108: ForwardRight
+    7400110: BackwardRight
+    7400112: Backwards
+    7400114: ForwardLeft
+    7400116: BackwardLeft
+    7400118: Hit
+    7400120: WallClingForward
+    7400122: WallClingLeft
+    7400124: WallClingReverse
+    7400126: WallClingRight
+    7400128: WallJumpForward
+    7400130: WallJumpLeft
+    7400132: WallJumpReverse
+    7400134: WallJumpRight
+    7400136: Falling
     9500000: //RootNode
     11100000: //RootNode
     13700000: Backpack
@@ -301,7 +318,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: TPose
+      name: TPOSE
       takeName: Take 001
       firstFrame: 0
       lastFrame: 1
@@ -513,8 +530,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Idle
       takeName: Take 001
-      firstFrame: 1
-      lastFrame: 60
+      firstFrame: 2
+      lastFrame: 61
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -721,10 +738,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Walk_FORWARD
+      name: Forward
       takeName: Take 001
-      firstFrame: 68
-      lastFrame: 131
+      firstFrame: 62
+      lastFrame: 89
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -744,8 +761,16 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.50734
-        functionName: playFootstep
+      - time: 0.43589747
+        functionName: FootstepSFX
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.86858976
+        functionName: FootstepSFX
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
           type: 3}
@@ -939,10 +964,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Walk_BACKWARDS
+      name: ForwardRight
       takeName: Take 001
-      firstFrame: 310
-      lastFrame: 352
+      firstFrame: 90
+      lastFrame: 117
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -962,8 +987,16 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.755369
-        functionName: playFootstep
+      - time: 0.41666663
+        functionName: FootstepSFX
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.88141036
+        functionName: FootstepSFX
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
           type: 3}
@@ -1157,10 +1190,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Walk_StrafeRight
+      name: StrafeRight
       takeName: Take 001
-      firstFrame: 196
-      lastFrame: 252
+      firstFrame: 118
+      lastFrame: 145
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1180,8 +1213,16 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.5555556
-        functionName: playFootstep
+      - time: 0.43269205
+        functionName: FootstepSFX
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.7916667
+        functionName: FootstepSFX
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
           type: 3}
@@ -1375,10 +1416,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Walk_StrafeLeft
+      name: BackwardRight
       takeName: Take 001
-      firstFrame: 417
-      lastFrame: 459
+      firstFrame: 146
+      lastFrame: 173
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1398,8 +1439,16 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.7477478
-        functionName: playFootstep
+      - time: 0.40705147
+        functionName: FootstepSFX
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.7820515
+        functionName: FootstepSFX
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
           type: 3}
@@ -1593,10 +1642,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Walk_45*Right
+      name: Backwards
       takeName: Take 001
-      firstFrame: 132
-      lastFrame: 195
+      firstFrame: 174
+      lastFrame: 192
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1616,8 +1665,16 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.50150144
-        functionName: playFootstep
+      - time: 0.30128166
+        functionName: FootstepSFX
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.81089747
+        functionName: FootstepSFX
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
           type: 3}
@@ -1811,10 +1868,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Walk_45*Left
+      name: ForwardLeft
       takeName: Take 001
-      firstFrame: 353
-      lastFrame: 416
+      firstFrame: 193
+      lastFrame: 220
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1834,8 +1891,16 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.5
-        functionName: playFootstep
+      - time: 0.44230774
+        functionName: FootstepSFX
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.8749998
+        functionName: FootstepSFX
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
           type: 3}
@@ -2029,10 +2094,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Walk_BackwardsRight
+      name: StrafeLeft
       takeName: Take 001
-      firstFrame: 253
-      lastFrame: 309
+      firstFrame: 221
+      lastFrame: 242
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -2052,8 +2117,16 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.56606615
-        functionName: playFootstep
+      - time: 0.23397452
+        functionName: FootstepSFX
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.6121794
+        functionName: FootstepSFX
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
           type: 3}
@@ -2247,10 +2320,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Walk_BackwardsLeft
+      name: BackwardLeft
       takeName: Take 001
-      firstFrame: 460
-      lastFrame: 502
+      firstFrame: 243
+      lastFrame: 261
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -2270,8 +2343,16 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.7447451
-        functionName: playFootstep
+      - time: 0.35576853
+        functionName: FootstepSFX
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.84294873
+        functionName: FootstepSFX
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
           type: 3}
@@ -2467,8 +2548,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Dash
       takeName: Take 001
-      firstFrame: 503
-      lastFrame: 508
+      firstFrame: 281
+      lastFrame: 287
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -2487,7 +2568,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.30448943
+        functionName: DashSFX
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -2677,8 +2766,444 @@ ModelImporter:
     - serializedVersion: 16
       name: Death
       takeName: Take 001
-      firstFrame: 509
-      lastFrame: 531
+      firstFrame: 288
+      lastFrame: 294
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.07371909
+        functionName: DeathSFX
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Amelia
+        weight: 1
+      - path: Amelia/AirDash
+        weight: 1
+      - path: Amelia/AirDash/L_AirDash
+        weight: 1
+      - path: Amelia/AirDash/R_AirDash
+        weight: 1
+      - path: Amelia/Backpack
+        weight: 1
+      - path: Amelia/Body
+        weight: 1
+      - path: Amelia/Buckle
+        weight: 1
+      - path: Amelia/DoubleJump
+        weight: 1
+      - path: Amelia/DoubleJump/L_DoubleJump
+        weight: 1
+      - path: Amelia/DoubleJump/L_DoubleJump1
+        weight: 1
+      - path: Amelia/FrontHair
+        weight: 1
+      - path: Amelia/Goggles
+        weight: 1
+      - path: Amelia/Hair1
+        weight: 1
+      - path: Amelia/Hair2
+        weight: 1
+      - path: Amelia/Hair3
+        weight: 1
+      - path: Amelia/L_KneePad
+        weight: 1
+      - path: Amelia/L_Strap
+        weight: 1
+      - path: Amelia/R_KneePad
+        weight: 1
+      - path: Amelia/R_Strap
+        weight: 1
+      - path: Amelia/Scarf
+        weight: 1
+      - path: Amelia/WallJump
+        weight: 1
+      - path: Amelia/WallJump/L_WallJump
+        weight: 1
+      - path: Amelia/WallJump/R_WallJump
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/L_Hip
+        weight: 1
+      - path: Root/L_Hip/L_Knee
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball/L_Toe
+        weight: 1
+      - path: Root/R_Hip
+        weight: 1
+      - path: Root/R_Hip/R_Knee
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball/R_Toe
+        weight: 1
+      - path: Root/Spine1
+        weight: 1
+      - path: Root/Spine1/Spine2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2/L_IndexFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2/L_MidFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2/L_PinkyFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2/L_RingFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2/L_Thumb3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Goggles 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2/Hair1_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2/Hair2_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2/Hair3_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2/R_IndexFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2/R_MidFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2/R_PinkyFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2/R_RingFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2/R_Thumb3
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Hit
+      takeName: Take 001
+      firstFrame: 295
+      lastFrame: 298
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.16986783
+        functionName: DamageSFX
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Amelia
+        weight: 1
+      - path: Amelia/AirDash
+        weight: 1
+      - path: Amelia/AirDash/L_AirDash
+        weight: 1
+      - path: Amelia/AirDash/R_AirDash
+        weight: 1
+      - path: Amelia/Backpack
+        weight: 1
+      - path: Amelia/Body
+        weight: 1
+      - path: Amelia/Buckle
+        weight: 1
+      - path: Amelia/DoubleJump
+        weight: 1
+      - path: Amelia/DoubleJump/L_DoubleJump
+        weight: 1
+      - path: Amelia/DoubleJump/L_DoubleJump1
+        weight: 1
+      - path: Amelia/FrontHair
+        weight: 1
+      - path: Amelia/Goggles
+        weight: 1
+      - path: Amelia/Hair1
+        weight: 1
+      - path: Amelia/Hair2
+        weight: 1
+      - path: Amelia/Hair3
+        weight: 1
+      - path: Amelia/L_KneePad
+        weight: 1
+      - path: Amelia/L_Strap
+        weight: 1
+      - path: Amelia/R_KneePad
+        weight: 1
+      - path: Amelia/R_Strap
+        weight: 1
+      - path: Amelia/Scarf
+        weight: 1
+      - path: Amelia/WallJump
+        weight: 1
+      - path: Amelia/WallJump/L_WallJump
+        weight: 1
+      - path: Amelia/WallJump/R_WallJump
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/L_Hip
+        weight: 1
+      - path: Root/L_Hip/L_Knee
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball/L_Toe
+        weight: 1
+      - path: Root/R_Hip
+        weight: 1
+      - path: Root/R_Hip/R_Knee
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball/R_Toe
+        weight: 1
+      - path: Root/Spine1
+        weight: 1
+      - path: Root/Spine1/Spine2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2/L_IndexFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2/L_MidFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2/L_PinkyFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2/L_RingFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2/L_Thumb3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Goggles 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2/Hair1_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2/Hair2_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2/Hair3_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2/R_IndexFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2/R_MidFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2/R_PinkyFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2/R_RingFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2/R_Thumb3
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Shoot
+      takeName: Take 001
+      firstFrame: 299
+      lastFrame: 301
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -2885,10 +3410,1512 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Knockback
+      name: WallClingForward
       takeName: Take 001
-      firstFrame: 532
-      lastFrame: 543
+      firstFrame: 302
+      lastFrame: 303
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.02243012
+        functionName: WallClingSFX
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Amelia
+        weight: 1
+      - path: Amelia/AirDash
+        weight: 1
+      - path: Amelia/AirDash/L_AirDash
+        weight: 1
+      - path: Amelia/AirDash/R_AirDash
+        weight: 1
+      - path: Amelia/Backpack
+        weight: 1
+      - path: Amelia/Body
+        weight: 1
+      - path: Amelia/Buckle
+        weight: 1
+      - path: Amelia/DoubleJump
+        weight: 1
+      - path: Amelia/DoubleJump/L_DoubleJump
+        weight: 1
+      - path: Amelia/DoubleJump/L_DoubleJump1
+        weight: 1
+      - path: Amelia/FrontHair
+        weight: 1
+      - path: Amelia/Goggles
+        weight: 1
+      - path: Amelia/Hair1
+        weight: 1
+      - path: Amelia/Hair2
+        weight: 1
+      - path: Amelia/Hair3
+        weight: 1
+      - path: Amelia/L_KneePad
+        weight: 1
+      - path: Amelia/L_Strap
+        weight: 1
+      - path: Amelia/R_KneePad
+        weight: 1
+      - path: Amelia/R_Strap
+        weight: 1
+      - path: Amelia/Scarf
+        weight: 1
+      - path: Amelia/WallJump
+        weight: 1
+      - path: Amelia/WallJump/L_WallJump
+        weight: 1
+      - path: Amelia/WallJump/R_WallJump
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/L_Hip
+        weight: 1
+      - path: Root/L_Hip/L_Knee
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball/L_Toe
+        weight: 1
+      - path: Root/R_Hip
+        weight: 1
+      - path: Root/R_Hip/R_Knee
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball/R_Toe
+        weight: 1
+      - path: Root/Spine1
+        weight: 1
+      - path: Root/Spine1/Spine2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2/L_IndexFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2/L_MidFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2/L_PinkyFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2/L_RingFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2/L_Thumb3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Goggles 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2/Hair1_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2/Hair2_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2/Hair3_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2/R_IndexFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2/R_MidFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2/R_PinkyFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2/R_RingFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2/R_Thumb3
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: WallClingLeft
+      takeName: Take 001
+      firstFrame: 304
+      lastFrame: 305
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.02243012
+        functionName: WallClingSFX
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Amelia
+        weight: 1
+      - path: Amelia/AirDash
+        weight: 1
+      - path: Amelia/AirDash/L_AirDash
+        weight: 1
+      - path: Amelia/AirDash/R_AirDash
+        weight: 1
+      - path: Amelia/Backpack
+        weight: 1
+      - path: Amelia/Body
+        weight: 1
+      - path: Amelia/Buckle
+        weight: 1
+      - path: Amelia/DoubleJump
+        weight: 1
+      - path: Amelia/DoubleJump/L_DoubleJump
+        weight: 1
+      - path: Amelia/DoubleJump/L_DoubleJump1
+        weight: 1
+      - path: Amelia/FrontHair
+        weight: 1
+      - path: Amelia/Goggles
+        weight: 1
+      - path: Amelia/Hair1
+        weight: 1
+      - path: Amelia/Hair2
+        weight: 1
+      - path: Amelia/Hair3
+        weight: 1
+      - path: Amelia/L_KneePad
+        weight: 1
+      - path: Amelia/L_Strap
+        weight: 1
+      - path: Amelia/R_KneePad
+        weight: 1
+      - path: Amelia/R_Strap
+        weight: 1
+      - path: Amelia/Scarf
+        weight: 1
+      - path: Amelia/WallJump
+        weight: 1
+      - path: Amelia/WallJump/L_WallJump
+        weight: 1
+      - path: Amelia/WallJump/R_WallJump
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/L_Hip
+        weight: 1
+      - path: Root/L_Hip/L_Knee
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball/L_Toe
+        weight: 1
+      - path: Root/R_Hip
+        weight: 1
+      - path: Root/R_Hip/R_Knee
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball/R_Toe
+        weight: 1
+      - path: Root/Spine1
+        weight: 1
+      - path: Root/Spine1/Spine2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2/L_IndexFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2/L_MidFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2/L_PinkyFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2/L_RingFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2/L_Thumb3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Goggles 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2/Hair1_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2/Hair2_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2/Hair3_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2/R_IndexFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2/R_MidFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2/R_PinkyFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2/R_RingFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2/R_Thumb3
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: WallClingReverse
+      takeName: Take 001
+      firstFrame: 306
+      lastFrame: 307
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.02243012
+        functionName: WallClingSFX
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Amelia
+        weight: 1
+      - path: Amelia/AirDash
+        weight: 1
+      - path: Amelia/AirDash/L_AirDash
+        weight: 1
+      - path: Amelia/AirDash/R_AirDash
+        weight: 1
+      - path: Amelia/Backpack
+        weight: 1
+      - path: Amelia/Body
+        weight: 1
+      - path: Amelia/Buckle
+        weight: 1
+      - path: Amelia/DoubleJump
+        weight: 1
+      - path: Amelia/DoubleJump/L_DoubleJump
+        weight: 1
+      - path: Amelia/DoubleJump/L_DoubleJump1
+        weight: 1
+      - path: Amelia/FrontHair
+        weight: 1
+      - path: Amelia/Goggles
+        weight: 1
+      - path: Amelia/Hair1
+        weight: 1
+      - path: Amelia/Hair2
+        weight: 1
+      - path: Amelia/Hair3
+        weight: 1
+      - path: Amelia/L_KneePad
+        weight: 1
+      - path: Amelia/L_Strap
+        weight: 1
+      - path: Amelia/R_KneePad
+        weight: 1
+      - path: Amelia/R_Strap
+        weight: 1
+      - path: Amelia/Scarf
+        weight: 1
+      - path: Amelia/WallJump
+        weight: 1
+      - path: Amelia/WallJump/L_WallJump
+        weight: 1
+      - path: Amelia/WallJump/R_WallJump
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/L_Hip
+        weight: 1
+      - path: Root/L_Hip/L_Knee
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball/L_Toe
+        weight: 1
+      - path: Root/R_Hip
+        weight: 1
+      - path: Root/R_Hip/R_Knee
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball/R_Toe
+        weight: 1
+      - path: Root/Spine1
+        weight: 1
+      - path: Root/Spine1/Spine2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2/L_IndexFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2/L_MidFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2/L_PinkyFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2/L_RingFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2/L_Thumb3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Goggles 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2/Hair1_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2/Hair2_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2/Hair3_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2/R_IndexFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2/R_MidFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2/R_PinkyFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2/R_RingFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2/R_Thumb3
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: WallClingRight
+      takeName: Take 001
+      firstFrame: 308
+      lastFrame: 309
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.02243012
+        functionName: WallClingSFX
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Amelia
+        weight: 1
+      - path: Amelia/AirDash
+        weight: 1
+      - path: Amelia/AirDash/L_AirDash
+        weight: 1
+      - path: Amelia/AirDash/R_AirDash
+        weight: 1
+      - path: Amelia/Backpack
+        weight: 1
+      - path: Amelia/Body
+        weight: 1
+      - path: Amelia/Buckle
+        weight: 1
+      - path: Amelia/DoubleJump
+        weight: 1
+      - path: Amelia/DoubleJump/L_DoubleJump
+        weight: 1
+      - path: Amelia/DoubleJump/L_DoubleJump1
+        weight: 1
+      - path: Amelia/FrontHair
+        weight: 1
+      - path: Amelia/Goggles
+        weight: 1
+      - path: Amelia/Hair1
+        weight: 1
+      - path: Amelia/Hair2
+        weight: 1
+      - path: Amelia/Hair3
+        weight: 1
+      - path: Amelia/L_KneePad
+        weight: 1
+      - path: Amelia/L_Strap
+        weight: 1
+      - path: Amelia/R_KneePad
+        weight: 1
+      - path: Amelia/R_Strap
+        weight: 1
+      - path: Amelia/Scarf
+        weight: 1
+      - path: Amelia/WallJump
+        weight: 1
+      - path: Amelia/WallJump/L_WallJump
+        weight: 1
+      - path: Amelia/WallJump/R_WallJump
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/L_Hip
+        weight: 1
+      - path: Root/L_Hip/L_Knee
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball/L_Toe
+        weight: 1
+      - path: Root/R_Hip
+        weight: 1
+      - path: Root/R_Hip/R_Knee
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball/R_Toe
+        weight: 1
+      - path: Root/Spine1
+        weight: 1
+      - path: Root/Spine1/Spine2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2/L_IndexFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2/L_MidFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2/L_PinkyFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2/L_RingFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2/L_Thumb3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Goggles 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2/Hair1_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2/Hair2_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2/Hair3_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2/R_IndexFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2/R_MidFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2/R_PinkyFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2/R_RingFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2/R_Thumb3
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: WallJumpForward
+      takeName: Take 001
+      firstFrame: 310
+      lastFrame: 311
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Amelia
+        weight: 1
+      - path: Amelia/AirDash
+        weight: 1
+      - path: Amelia/AirDash/L_AirDash
+        weight: 1
+      - path: Amelia/AirDash/R_AirDash
+        weight: 1
+      - path: Amelia/Backpack
+        weight: 1
+      - path: Amelia/Body
+        weight: 1
+      - path: Amelia/Buckle
+        weight: 1
+      - path: Amelia/DoubleJump
+        weight: 1
+      - path: Amelia/DoubleJump/L_DoubleJump
+        weight: 1
+      - path: Amelia/DoubleJump/L_DoubleJump1
+        weight: 1
+      - path: Amelia/FrontHair
+        weight: 1
+      - path: Amelia/Goggles
+        weight: 1
+      - path: Amelia/Hair1
+        weight: 1
+      - path: Amelia/Hair2
+        weight: 1
+      - path: Amelia/Hair3
+        weight: 1
+      - path: Amelia/L_KneePad
+        weight: 1
+      - path: Amelia/L_Strap
+        weight: 1
+      - path: Amelia/R_KneePad
+        weight: 1
+      - path: Amelia/R_Strap
+        weight: 1
+      - path: Amelia/Scarf
+        weight: 1
+      - path: Amelia/WallJump
+        weight: 1
+      - path: Amelia/WallJump/L_WallJump
+        weight: 1
+      - path: Amelia/WallJump/R_WallJump
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/L_Hip
+        weight: 1
+      - path: Root/L_Hip/L_Knee
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball/L_Toe
+        weight: 1
+      - path: Root/R_Hip
+        weight: 1
+      - path: Root/R_Hip/R_Knee
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball/R_Toe
+        weight: 1
+      - path: Root/Spine1
+        weight: 1
+      - path: Root/Spine1/Spine2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2/L_IndexFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2/L_MidFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2/L_PinkyFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2/L_RingFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2/L_Thumb3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Goggles 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2/Hair1_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2/Hair2_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2/Hair3_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2/R_IndexFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2/R_MidFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2/R_PinkyFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2/R_RingFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2/R_Thumb3
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: WallJumpLeft
+      takeName: Take 001
+      firstFrame: 312
+      lastFrame: 313
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Amelia
+        weight: 1
+      - path: Amelia/AirDash
+        weight: 1
+      - path: Amelia/AirDash/L_AirDash
+        weight: 1
+      - path: Amelia/AirDash/R_AirDash
+        weight: 1
+      - path: Amelia/Backpack
+        weight: 1
+      - path: Amelia/Body
+        weight: 1
+      - path: Amelia/Buckle
+        weight: 1
+      - path: Amelia/DoubleJump
+        weight: 1
+      - path: Amelia/DoubleJump/L_DoubleJump
+        weight: 1
+      - path: Amelia/DoubleJump/L_DoubleJump1
+        weight: 1
+      - path: Amelia/FrontHair
+        weight: 1
+      - path: Amelia/Goggles
+        weight: 1
+      - path: Amelia/Hair1
+        weight: 1
+      - path: Amelia/Hair2
+        weight: 1
+      - path: Amelia/Hair3
+        weight: 1
+      - path: Amelia/L_KneePad
+        weight: 1
+      - path: Amelia/L_Strap
+        weight: 1
+      - path: Amelia/R_KneePad
+        weight: 1
+      - path: Amelia/R_Strap
+        weight: 1
+      - path: Amelia/Scarf
+        weight: 1
+      - path: Amelia/WallJump
+        weight: 1
+      - path: Amelia/WallJump/L_WallJump
+        weight: 1
+      - path: Amelia/WallJump/R_WallJump
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/L_Hip
+        weight: 1
+      - path: Root/L_Hip/L_Knee
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball/L_Toe
+        weight: 1
+      - path: Root/R_Hip
+        weight: 1
+      - path: Root/R_Hip/R_Knee
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball/R_Toe
+        weight: 1
+      - path: Root/Spine1
+        weight: 1
+      - path: Root/Spine1/Spine2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2/L_IndexFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2/L_MidFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2/L_PinkyFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2/L_RingFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2/L_Thumb3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Goggles 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2/Hair1_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2/Hair2_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2/Hair3_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2/R_IndexFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2/R_MidFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2/R_PinkyFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2/R_RingFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2/R_Thumb3
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: WallJumpReverse
+      takeName: Take 001
+      firstFrame: 314
+      lastFrame: 315
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Amelia
+        weight: 1
+      - path: Amelia/AirDash
+        weight: 1
+      - path: Amelia/AirDash/L_AirDash
+        weight: 1
+      - path: Amelia/AirDash/R_AirDash
+        weight: 1
+      - path: Amelia/Backpack
+        weight: 1
+      - path: Amelia/Body
+        weight: 1
+      - path: Amelia/Buckle
+        weight: 1
+      - path: Amelia/DoubleJump
+        weight: 1
+      - path: Amelia/DoubleJump/L_DoubleJump
+        weight: 1
+      - path: Amelia/DoubleJump/L_DoubleJump1
+        weight: 1
+      - path: Amelia/FrontHair
+        weight: 1
+      - path: Amelia/Goggles
+        weight: 1
+      - path: Amelia/Hair1
+        weight: 1
+      - path: Amelia/Hair2
+        weight: 1
+      - path: Amelia/Hair3
+        weight: 1
+      - path: Amelia/L_KneePad
+        weight: 1
+      - path: Amelia/L_Strap
+        weight: 1
+      - path: Amelia/R_KneePad
+        weight: 1
+      - path: Amelia/R_Strap
+        weight: 1
+      - path: Amelia/Scarf
+        weight: 1
+      - path: Amelia/WallJump
+        weight: 1
+      - path: Amelia/WallJump/L_WallJump
+        weight: 1
+      - path: Amelia/WallJump/R_WallJump
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/L_Hip
+        weight: 1
+      - path: Root/L_Hip/L_Knee
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball
+        weight: 1
+      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball/L_Toe
+        weight: 1
+      - path: Root/R_Hip
+        weight: 1
+      - path: Root/R_Hip/R_Knee
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball
+        weight: 1
+      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball/R_Toe
+        weight: 1
+      - path: Root/Spine1
+        weight: 1
+      - path: Root/Spine1/Spine2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2/L_IndexFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2/L_MidFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2/L_PinkyFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2/L_RingFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2/L_Thumb3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Goggles 1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2/Hair1_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2/Hair2_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2/Hair3_3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2/R_IndexFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2/R_MidFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2/R_PinkyFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2/R_RingFinger3
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2
+        weight: 1
+      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2/R_Thumb3
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: WallJumpRight
+      takeName: Take 001
+      firstFrame: 316
+      lastFrame: 317
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -3097,8 +5124,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Jump
       takeName: Take 001
-      firstFrame: 544
-      lastFrame: 559
+      firstFrame: 318
+      lastFrame: 339
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -3117,637 +5144,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Amelia
-        weight: 1
-      - path: Amelia/AirDash
-        weight: 1
-      - path: Amelia/AirDash/L_AirDash
-        weight: 1
-      - path: Amelia/AirDash/R_AirDash
-        weight: 1
-      - path: Amelia/Backpack
-        weight: 1
-      - path: Amelia/Body
-        weight: 1
-      - path: Amelia/Buckle
-        weight: 1
-      - path: Amelia/DoubleJump
-        weight: 1
-      - path: Amelia/DoubleJump/L_DoubleJump
-        weight: 1
-      - path: Amelia/DoubleJump/L_DoubleJump1
-        weight: 1
-      - path: Amelia/FrontHair
-        weight: 1
-      - path: Amelia/Goggles
-        weight: 1
-      - path: Amelia/Hair1
-        weight: 1
-      - path: Amelia/Hair2
-        weight: 1
-      - path: Amelia/Hair3
-        weight: 1
-      - path: Amelia/L_KneePad
-        weight: 1
-      - path: Amelia/L_Strap
-        weight: 1
-      - path: Amelia/R_KneePad
-        weight: 1
-      - path: Amelia/R_Strap
-        weight: 1
-      - path: Amelia/Scarf
-        weight: 1
-      - path: Amelia/WallJump
-        weight: 1
-      - path: Amelia/WallJump/L_WallJump
-        weight: 1
-      - path: Amelia/WallJump/R_WallJump
-        weight: 1
-      - path: Root
-        weight: 1
-      - path: Root/L_Hip
-        weight: 1
-      - path: Root/L_Hip/L_Knee
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball/L_Toe
-        weight: 1
-      - path: Root/R_Hip
-        weight: 1
-      - path: Root/R_Hip/R_Knee
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball/R_Toe
-        weight: 1
-      - path: Root/Spine1
-        weight: 1
-      - path: Root/Spine1/Spine2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2/L_IndexFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2/L_MidFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2/L_PinkyFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2/L_RingFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2/L_Thumb3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Goggles 1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2/Hair1_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2/Hair2_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2/Hair3_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2/R_IndexFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2/R_MidFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2/R_PinkyFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2/R_RingFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2/R_Thumb3
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: JumpToFalling
-      takeName: Take 001
-      firstFrame: 560
-      lastFrame: 565
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Amelia
-        weight: 1
-      - path: Amelia/AirDash
-        weight: 1
-      - path: Amelia/AirDash/L_AirDash
-        weight: 1
-      - path: Amelia/AirDash/R_AirDash
-        weight: 1
-      - path: Amelia/Backpack
-        weight: 1
-      - path: Amelia/Body
-        weight: 1
-      - path: Amelia/Buckle
-        weight: 1
-      - path: Amelia/DoubleJump
-        weight: 1
-      - path: Amelia/DoubleJump/L_DoubleJump
-        weight: 1
-      - path: Amelia/DoubleJump/L_DoubleJump1
-        weight: 1
-      - path: Amelia/FrontHair
-        weight: 1
-      - path: Amelia/Goggles
-        weight: 1
-      - path: Amelia/Hair1
-        weight: 1
-      - path: Amelia/Hair2
-        weight: 1
-      - path: Amelia/Hair3
-        weight: 1
-      - path: Amelia/L_KneePad
-        weight: 1
-      - path: Amelia/L_Strap
-        weight: 1
-      - path: Amelia/R_KneePad
-        weight: 1
-      - path: Amelia/R_Strap
-        weight: 1
-      - path: Amelia/Scarf
-        weight: 1
-      - path: Amelia/WallJump
-        weight: 1
-      - path: Amelia/WallJump/L_WallJump
-        weight: 1
-      - path: Amelia/WallJump/R_WallJump
-        weight: 1
-      - path: Root
-        weight: 1
-      - path: Root/L_Hip
-        weight: 1
-      - path: Root/L_Hip/L_Knee
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball/L_Toe
-        weight: 1
-      - path: Root/R_Hip
-        weight: 1
-      - path: Root/R_Hip/R_Knee
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball/R_Toe
-        weight: 1
-      - path: Root/Spine1
-        weight: 1
-      - path: Root/Spine1/Spine2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2/L_IndexFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2/L_MidFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2/L_PinkyFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2/L_RingFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2/L_Thumb3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Goggles 1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2/Hair1_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2/Hair2_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2/Hair3_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2/R_IndexFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2/R_MidFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2/R_PinkyFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2/R_RingFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2/R_Thumb3
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Falling
-      takeName: Take 001
-      firstFrame: 565
-      lastFrame: 566
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Amelia
-        weight: 1
-      - path: Amelia/AirDash
-        weight: 1
-      - path: Amelia/AirDash/L_AirDash
-        weight: 1
-      - path: Amelia/AirDash/R_AirDash
-        weight: 1
-      - path: Amelia/Backpack
-        weight: 1
-      - path: Amelia/Body
-        weight: 1
-      - path: Amelia/Buckle
-        weight: 1
-      - path: Amelia/DoubleJump
-        weight: 1
-      - path: Amelia/DoubleJump/L_DoubleJump
-        weight: 1
-      - path: Amelia/DoubleJump/L_DoubleJump1
-        weight: 1
-      - path: Amelia/FrontHair
-        weight: 1
-      - path: Amelia/Goggles
-        weight: 1
-      - path: Amelia/Hair1
-        weight: 1
-      - path: Amelia/Hair2
-        weight: 1
-      - path: Amelia/Hair3
-        weight: 1
-      - path: Amelia/L_KneePad
-        weight: 1
-      - path: Amelia/L_Strap
-        weight: 1
-      - path: Amelia/R_KneePad
-        weight: 1
-      - path: Amelia/R_Strap
-        weight: 1
-      - path: Amelia/Scarf
-        weight: 1
-      - path: Amelia/WallJump
-        weight: 1
-      - path: Amelia/WallJump/L_WallJump
-        weight: 1
-      - path: Amelia/WallJump/R_WallJump
-        weight: 1
-      - path: Root
-        weight: 1
-      - path: Root/L_Hip
-        weight: 1
-      - path: Root/L_Hip/L_Knee
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball/L_Toe
-        weight: 1
-      - path: Root/R_Hip
-        weight: 1
-      - path: Root/R_Hip/R_Knee
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball/R_Toe
-        weight: 1
-      - path: Root/Spine1
-        weight: 1
-      - path: Root/Spine1/Spine2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2/L_IndexFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2/L_MidFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2/L_PinkyFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2/L_RingFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2/L_Thumb3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Goggles 1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2/Hair1_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2/Hair2_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2/Hair3_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2/R_IndexFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2/R_MidFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2/R_PinkyFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2/R_RingFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2/R_Thumb3
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Landing
-      takeName: Take 001
-      firstFrame: 572
-      lastFrame: 591
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
+      events:
+      - time: 0.32051232
+        functionName: JumpSFX
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -3937,8 +5342,8 @@ ModelImporter:
     - serializedVersion: 16
       name: DoubleJump
       takeName: Take 001
-      firstFrame: 592
-      lastFrame: 602
+      firstFrame: 340
+      lastFrame: 354
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -3957,7 +5362,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.3607143
+        functionName: DoubleJumpSFX
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -4145,10 +5558,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Shoot
+      name: Landing
       takeName: Take 001
-      firstFrame: 603
-      lastFrame: 609
+      firstFrame: 355
+      lastFrame: 367
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -4167,7 +5580,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.62179476
+        functionName: LandingSFX
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -4355,1488 +5776,18 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: WallCling
+      name: Falling
       takeName: Take 001
-      firstFrame: 610
-      lastFrame: 611
+      firstFrame: 333
+      lastFrame: 339
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Amelia
-        weight: 1
-      - path: Amelia/AirDash
-        weight: 1
-      - path: Amelia/AirDash/L_AirDash
-        weight: 1
-      - path: Amelia/AirDash/R_AirDash
-        weight: 1
-      - path: Amelia/Backpack
-        weight: 1
-      - path: Amelia/Body
-        weight: 1
-      - path: Amelia/Buckle
-        weight: 1
-      - path: Amelia/DoubleJump
-        weight: 1
-      - path: Amelia/DoubleJump/L_DoubleJump
-        weight: 1
-      - path: Amelia/DoubleJump/L_DoubleJump1
-        weight: 1
-      - path: Amelia/FrontHair
-        weight: 1
-      - path: Amelia/Goggles
-        weight: 1
-      - path: Amelia/Hair1
-        weight: 1
-      - path: Amelia/Hair2
-        weight: 1
-      - path: Amelia/Hair3
-        weight: 1
-      - path: Amelia/L_KneePad
-        weight: 1
-      - path: Amelia/L_Strap
-        weight: 1
-      - path: Amelia/R_KneePad
-        weight: 1
-      - path: Amelia/R_Strap
-        weight: 1
-      - path: Amelia/Scarf
-        weight: 1
-      - path: Amelia/WallJump
-        weight: 1
-      - path: Amelia/WallJump/L_WallJump
-        weight: 1
-      - path: Amelia/WallJump/R_WallJump
-        weight: 1
-      - path: Root
-        weight: 1
-      - path: Root/L_Hip
-        weight: 1
-      - path: Root/L_Hip/L_Knee
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball/L_Toe
-        weight: 1
-      - path: Root/R_Hip
-        weight: 1
-      - path: Root/R_Hip/R_Knee
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball/R_Toe
-        weight: 1
-      - path: Root/Spine1
-        weight: 1
-      - path: Root/Spine1/Spine2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2/L_IndexFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2/L_MidFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2/L_PinkyFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2/L_RingFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2/L_Thumb3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Goggles 1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2/Hair1_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2/Hair2_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2/Hair3_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2/R_IndexFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2/R_MidFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2/R_PinkyFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2/R_RingFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2/R_Thumb3
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: WallCling_Reversed
-      takeName: Take 001
-      firstFrame: 614
-      lastFrame: 615
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Amelia
-        weight: 1
-      - path: Amelia/AirDash
-        weight: 1
-      - path: Amelia/AirDash/L_AirDash
-        weight: 1
-      - path: Amelia/AirDash/R_AirDash
-        weight: 1
-      - path: Amelia/Backpack
-        weight: 1
-      - path: Amelia/Body
-        weight: 1
-      - path: Amelia/Buckle
-        weight: 1
-      - path: Amelia/DoubleJump
-        weight: 1
-      - path: Amelia/DoubleJump/L_DoubleJump
-        weight: 1
-      - path: Amelia/DoubleJump/L_DoubleJump1
-        weight: 1
-      - path: Amelia/FrontHair
-        weight: 1
-      - path: Amelia/Goggles
-        weight: 1
-      - path: Amelia/Hair1
-        weight: 1
-      - path: Amelia/Hair2
-        weight: 1
-      - path: Amelia/Hair3
-        weight: 1
-      - path: Amelia/L_KneePad
-        weight: 1
-      - path: Amelia/L_Strap
-        weight: 1
-      - path: Amelia/R_KneePad
-        weight: 1
-      - path: Amelia/R_Strap
-        weight: 1
-      - path: Amelia/Scarf
-        weight: 1
-      - path: Amelia/WallJump
-        weight: 1
-      - path: Amelia/WallJump/L_WallJump
-        weight: 1
-      - path: Amelia/WallJump/R_WallJump
-        weight: 1
-      - path: Root
-        weight: 1
-      - path: Root/L_Hip
-        weight: 1
-      - path: Root/L_Hip/L_Knee
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball/L_Toe
-        weight: 1
-      - path: Root/R_Hip
-        weight: 1
-      - path: Root/R_Hip/R_Knee
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball/R_Toe
-        weight: 1
-      - path: Root/Spine1
-        weight: 1
-      - path: Root/Spine1/Spine2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2/L_IndexFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2/L_MidFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2/L_PinkyFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2/L_RingFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2/L_Thumb3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Goggles 1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2/Hair1_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2/Hair2_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2/Hair3_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2/R_IndexFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2/R_MidFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2/R_PinkyFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2/R_RingFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2/R_Thumb3
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: WallCling_LeftToRight
-      takeName: Take 001
-      firstFrame: 612
-      lastFrame: 613
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Amelia
-        weight: 1
-      - path: Amelia/AirDash
-        weight: 1
-      - path: Amelia/AirDash/L_AirDash
-        weight: 1
-      - path: Amelia/AirDash/R_AirDash
-        weight: 1
-      - path: Amelia/Backpack
-        weight: 1
-      - path: Amelia/Body
-        weight: 1
-      - path: Amelia/Buckle
-        weight: 1
-      - path: Amelia/DoubleJump
-        weight: 1
-      - path: Amelia/DoubleJump/L_DoubleJump
-        weight: 1
-      - path: Amelia/DoubleJump/L_DoubleJump1
-        weight: 1
-      - path: Amelia/FrontHair
-        weight: 1
-      - path: Amelia/Goggles
-        weight: 1
-      - path: Amelia/Hair1
-        weight: 1
-      - path: Amelia/Hair2
-        weight: 1
-      - path: Amelia/Hair3
-        weight: 1
-      - path: Amelia/L_KneePad
-        weight: 1
-      - path: Amelia/L_Strap
-        weight: 1
-      - path: Amelia/R_KneePad
-        weight: 1
-      - path: Amelia/R_Strap
-        weight: 1
-      - path: Amelia/Scarf
-        weight: 1
-      - path: Amelia/WallJump
-        weight: 1
-      - path: Amelia/WallJump/L_WallJump
-        weight: 1
-      - path: Amelia/WallJump/R_WallJump
-        weight: 1
-      - path: Root
-        weight: 1
-      - path: Root/L_Hip
-        weight: 1
-      - path: Root/L_Hip/L_Knee
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball/L_Toe
-        weight: 1
-      - path: Root/R_Hip
-        weight: 1
-      - path: Root/R_Hip/R_Knee
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball/R_Toe
-        weight: 1
-      - path: Root/Spine1
-        weight: 1
-      - path: Root/Spine1/Spine2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2/L_IndexFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2/L_MidFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2/L_PinkyFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2/L_RingFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2/L_Thumb3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Goggles 1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2/Hair1_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2/Hair2_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2/Hair3_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2/R_IndexFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2/R_MidFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2/R_PinkyFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2/R_RingFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2/R_Thumb3
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: WallCling_RighToLeft
-      takeName: Take 001
-      firstFrame: 616
-      lastFrame: 617
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Amelia
-        weight: 1
-      - path: Amelia/AirDash
-        weight: 1
-      - path: Amelia/AirDash/L_AirDash
-        weight: 1
-      - path: Amelia/AirDash/R_AirDash
-        weight: 1
-      - path: Amelia/Backpack
-        weight: 1
-      - path: Amelia/Body
-        weight: 1
-      - path: Amelia/Buckle
-        weight: 1
-      - path: Amelia/DoubleJump
-        weight: 1
-      - path: Amelia/DoubleJump/L_DoubleJump
-        weight: 1
-      - path: Amelia/DoubleJump/L_DoubleJump1
-        weight: 1
-      - path: Amelia/FrontHair
-        weight: 1
-      - path: Amelia/Goggles
-        weight: 1
-      - path: Amelia/Hair1
-        weight: 1
-      - path: Amelia/Hair2
-        weight: 1
-      - path: Amelia/Hair3
-        weight: 1
-      - path: Amelia/L_KneePad
-        weight: 1
-      - path: Amelia/L_Strap
-        weight: 1
-      - path: Amelia/R_KneePad
-        weight: 1
-      - path: Amelia/R_Strap
-        weight: 1
-      - path: Amelia/Scarf
-        weight: 1
-      - path: Amelia/WallJump
-        weight: 1
-      - path: Amelia/WallJump/L_WallJump
-        weight: 1
-      - path: Amelia/WallJump/R_WallJump
-        weight: 1
-      - path: Root
-        weight: 1
-      - path: Root/L_Hip
-        weight: 1
-      - path: Root/L_Hip/L_Knee
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball/L_Toe
-        weight: 1
-      - path: Root/R_Hip
-        weight: 1
-      - path: Root/R_Hip/R_Knee
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball/R_Toe
-        weight: 1
-      - path: Root/Spine1
-        weight: 1
-      - path: Root/Spine1/Spine2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2/L_IndexFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2/L_MidFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2/L_PinkyFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2/L_RingFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2/L_Thumb3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Goggles 1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2/Hair1_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2/Hair2_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2/Hair3_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2/R_IndexFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2/R_MidFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2/R_PinkyFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2/R_RingFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2/R_Thumb3
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: WallJump
-      takeName: Take 001
-      firstFrame: 618
-      lastFrame: 619
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Amelia
-        weight: 1
-      - path: Amelia/AirDash
-        weight: 1
-      - path: Amelia/AirDash/L_AirDash
-        weight: 1
-      - path: Amelia/AirDash/R_AirDash
-        weight: 1
-      - path: Amelia/Backpack
-        weight: 1
-      - path: Amelia/Body
-        weight: 1
-      - path: Amelia/Buckle
-        weight: 1
-      - path: Amelia/DoubleJump
-        weight: 1
-      - path: Amelia/DoubleJump/L_DoubleJump
-        weight: 1
-      - path: Amelia/DoubleJump/L_DoubleJump1
-        weight: 1
-      - path: Amelia/FrontHair
-        weight: 1
-      - path: Amelia/Goggles
-        weight: 1
-      - path: Amelia/Hair1
-        weight: 1
-      - path: Amelia/Hair2
-        weight: 1
-      - path: Amelia/Hair3
-        weight: 1
-      - path: Amelia/L_KneePad
-        weight: 1
-      - path: Amelia/L_Strap
-        weight: 1
-      - path: Amelia/R_KneePad
-        weight: 1
-      - path: Amelia/R_Strap
-        weight: 1
-      - path: Amelia/Scarf
-        weight: 1
-      - path: Amelia/WallJump
-        weight: 1
-      - path: Amelia/WallJump/L_WallJump
-        weight: 1
-      - path: Amelia/WallJump/R_WallJump
-        weight: 1
-      - path: Root
-        weight: 1
-      - path: Root/L_Hip
-        weight: 1
-      - path: Root/L_Hip/L_Knee
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball/L_Toe
-        weight: 1
-      - path: Root/R_Hip
-        weight: 1
-      - path: Root/R_Hip/R_Knee
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball/R_Toe
-        weight: 1
-      - path: Root/Spine1
-        weight: 1
-      - path: Root/Spine1/Spine2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2/L_IndexFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2/L_MidFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2/L_PinkyFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2/L_RingFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2/L_Thumb3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Goggles 1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2/Hair1_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2/Hair2_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2/Hair3_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2/R_IndexFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2/R_MidFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2/R_PinkyFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2/R_RingFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2/R_Thumb3
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: WallJump_Back
-      takeName: Take 001
-      firstFrame: 622
-      lastFrame: 623
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Amelia
-        weight: 1
-      - path: Amelia/AirDash
-        weight: 1
-      - path: Amelia/AirDash/L_AirDash
-        weight: 1
-      - path: Amelia/AirDash/R_AirDash
-        weight: 1
-      - path: Amelia/Backpack
-        weight: 1
-      - path: Amelia/Body
-        weight: 1
-      - path: Amelia/Buckle
-        weight: 1
-      - path: Amelia/DoubleJump
-        weight: 1
-      - path: Amelia/DoubleJump/L_DoubleJump
-        weight: 1
-      - path: Amelia/DoubleJump/L_DoubleJump1
-        weight: 1
-      - path: Amelia/FrontHair
-        weight: 1
-      - path: Amelia/Goggles
-        weight: 1
-      - path: Amelia/Hair1
-        weight: 1
-      - path: Amelia/Hair2
-        weight: 1
-      - path: Amelia/Hair3
-        weight: 1
-      - path: Amelia/L_KneePad
-        weight: 1
-      - path: Amelia/L_Strap
-        weight: 1
-      - path: Amelia/R_KneePad
-        weight: 1
-      - path: Amelia/R_Strap
-        weight: 1
-      - path: Amelia/Scarf
-        weight: 1
-      - path: Amelia/WallJump
-        weight: 1
-      - path: Amelia/WallJump/L_WallJump
-        weight: 1
-      - path: Amelia/WallJump/R_WallJump
-        weight: 1
-      - path: Root
-        weight: 1
-      - path: Root/L_Hip
-        weight: 1
-      - path: Root/L_Hip/L_Knee
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball/L_Toe
-        weight: 1
-      - path: Root/R_Hip
-        weight: 1
-      - path: Root/R_Hip/R_Knee
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball/R_Toe
-        weight: 1
-      - path: Root/Spine1
-        weight: 1
-      - path: Root/Spine1/Spine2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2/L_IndexFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2/L_MidFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2/L_PinkyFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2/L_RingFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2/L_Thumb3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Goggles 1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2/Hair1_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2/Hair2_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2/Hair3_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2/R_IndexFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2/R_MidFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2/R_PinkyFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2/R_RingFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2/R_Thumb3
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: WallJump_Right
-      takeName: Take 001
-      firstFrame: 624
-      lastFrame: 625
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Amelia
-        weight: 1
-      - path: Amelia/AirDash
-        weight: 1
-      - path: Amelia/AirDash/L_AirDash
-        weight: 1
-      - path: Amelia/AirDash/R_AirDash
-        weight: 1
-      - path: Amelia/Backpack
-        weight: 1
-      - path: Amelia/Body
-        weight: 1
-      - path: Amelia/Buckle
-        weight: 1
-      - path: Amelia/DoubleJump
-        weight: 1
-      - path: Amelia/DoubleJump/L_DoubleJump
-        weight: 1
-      - path: Amelia/DoubleJump/L_DoubleJump1
-        weight: 1
-      - path: Amelia/FrontHair
-        weight: 1
-      - path: Amelia/Goggles
-        weight: 1
-      - path: Amelia/Hair1
-        weight: 1
-      - path: Amelia/Hair2
-        weight: 1
-      - path: Amelia/Hair3
-        weight: 1
-      - path: Amelia/L_KneePad
-        weight: 1
-      - path: Amelia/L_Strap
-        weight: 1
-      - path: Amelia/R_KneePad
-        weight: 1
-      - path: Amelia/R_Strap
-        weight: 1
-      - path: Amelia/Scarf
-        weight: 1
-      - path: Amelia/WallJump
-        weight: 1
-      - path: Amelia/WallJump/L_WallJump
-        weight: 1
-      - path: Amelia/WallJump/R_WallJump
-        weight: 1
-      - path: Root
-        weight: 1
-      - path: Root/L_Hip
-        weight: 1
-      - path: Root/L_Hip/L_Knee
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball
-        weight: 1
-      - path: Root/L_Hip/L_Knee/L_Ankle/L_Ball/L_Toe
-        weight: 1
-      - path: Root/R_Hip
-        weight: 1
-      - path: Root/R_Hip/R_Knee
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball
-        weight: 1
-      - path: Root/R_Hip/R_Knee/R_Ankle/R_Ball/R_Toe
-        weight: 1
-      - path: Root/Spine1
-        weight: 1
-      - path: Root/Spine1/Spine2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_IndexFinger1/L_IndexFinger2/L_IndexFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_MidFinger1/L_MidFinger2/L_MidFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_PinkyFinger1/L_PinkyFinger2/L_PinkyFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_RingFinger1/L_RingFinger2/L_RingFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/L_Clavicle/L_Shoulder/L_Elbow/L_Wrist/L_Hand/L_Thumb1/L_Thumb2/L_Thumb3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Goggles 1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair1_1/joint1_2/Hair1_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair2_1/Hair2_2/Hair2_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/Neck/Head/Top/Hair3_1/Hair3_2/Hair3_3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_IndexFinger1/R_IndexFinger2/R_IndexFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_MidFinger1/R_MidFinger2/R_MidFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_PinkyFinger1/R_PinkyFinger2/R_PinkyFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_RingFinger1/R_RingFinger2/R_RingFinger3
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2
-        weight: 1
-      - path: Root/Spine1/Spine2/Chest/R_Clavicle/R_Shoulder/R_Elbow/R_Wrist/R_Hand/R_Thumb1/R_Thumb2/R_Thumb3
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: WallJump_Left
-      takeName: Take 001
-      firstFrame: 620
-      lastFrame: 621
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
