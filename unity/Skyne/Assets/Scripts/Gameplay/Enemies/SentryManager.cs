@@ -186,7 +186,7 @@ public class SentryManager : Enemy
 				isIdling = true;
 			}
 
-			if (state == SentryManager.State.IDLE && CanHitTarget())
+			if (state == SentryManager.State.IDLE && CanHitTarget() && tarDistance <= aggroDist)
 			{
 				detectAudio.PlayOneShot (detectSound);
 			}

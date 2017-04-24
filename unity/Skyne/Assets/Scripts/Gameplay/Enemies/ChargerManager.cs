@@ -152,7 +152,7 @@ public class ChargerManager : Enemy
 			}
 		} */
 
-			if (state == ChargerManager.State.IDLE && CanHitTarget ())
+			if (state == ChargerManager.State.IDLE && CanHitTarget () && tarDistance <= aggroDistance)
 			{
 				detectAudio.PlayOneShot (detectSound);
 			}

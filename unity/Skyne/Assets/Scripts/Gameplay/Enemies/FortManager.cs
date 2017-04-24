@@ -223,7 +223,7 @@ public class FortManager : Enemy
 			}
 			else
 			{
-				if (tarDistance < aggroDistance && CanHitTarget())
+				if (tarDistance < aggroDistance && CanHitTarget() && tarDistance <= aggroDistance)
 				{
 					state = FortManager.State.POSITION; 
 

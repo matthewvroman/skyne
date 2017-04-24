@@ -161,7 +161,7 @@ public class BoltManager : Enemy
 			}
 			else
 			{
-				if (tarDistance < aggroDistance && CanHitTarget())
+				if (tarDistance < aggroDistance && CanHitTarget() && tarDistance <= aggroDistance)
 				{
 					state = BoltManager.State.POSITION; 
 					detectAudio.PlayOneShot (detectSound);
