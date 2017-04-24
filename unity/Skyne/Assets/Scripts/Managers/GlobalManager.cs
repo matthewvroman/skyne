@@ -11,6 +11,8 @@ public class GlobalManager : Singleton<GlobalManager>
 	[Tooltip("The state machine of the game. Set to Menu when starting from Menu; set to Gameplay when starting in the middle of the game.")]
 	public GlobalState globalState; 
 
+	public GameObject blackCanvas; 
+
 	[Tooltip("(Read only) True if the button UI is active and the mouse needs to be set to visible")]
 	public bool buttonUIIsActive; 
 
@@ -96,10 +98,23 @@ public class GlobalManager : Singleton<GlobalManager>
 		SetMusicVolume(PlayerPrefsManager.inst.GetSavedMusicVolume(0)); 
 		SetSFXVolume(PlayerPrefsManager.inst.GetSavedSFXVolume(0));
 	}
-	
+
 	// Update is called once per frame
 	void Update () 
 	{
+		// Use a black canvas to hide a gap showing the skybox when the game is in Global and loading Title at the start
+		if (globalState == GlobalState.Menu)
+		{
+			if (!SceneManager.GetSceneByName("Title").isLoaded)
+			{
+				blackCanvas.SetActive(true); 
+			}
+			else
+			{
+				blackCanvas.SetActive(false); 
+			}
+		}
+
 		if (globalState == GlobalState.LoadMainGameplayScene)
 		{
 			/*
