@@ -75,6 +75,7 @@ public class GlobalManager : Singleton<GlobalManager>
 	// Use this for initialization
 	void Start () 
 	{
+		blackCanvas.SetActive(true); 
 
 		// Used for directly loading the game from within gameplay while in the editor
 		#if UNITY_EDITOR
@@ -103,6 +104,7 @@ public class GlobalManager : Singleton<GlobalManager>
 	void Update () 
 	{
 		// Use a black canvas to hide a gap showing the skybox when the game is in Global and loading Title at the start
+		/*
 		if (globalState == GlobalState.Menu)
 		{
 			if (!SceneManager.GetSceneByName("Title").isLoaded && ScreenTransition.inst.curState == ScreenTransition.TransitionState.transparentScreenRest)
@@ -115,6 +117,11 @@ public class GlobalManager : Singleton<GlobalManager>
 			}
 		}
 		else if (blackCanvas.activeSelf)
+		{
+			blackCanvas.SetActive(false); 
+		}
+		*/
+		if (SceneManager.GetSceneByName("Title").isLoaded && blackCanvas.activeSelf)
 		{
 			blackCanvas.SetActive(false); 
 		}
