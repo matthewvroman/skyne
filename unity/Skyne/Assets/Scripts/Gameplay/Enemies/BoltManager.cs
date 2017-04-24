@@ -409,12 +409,10 @@ public class BoltManager : Enemy
 	{ 
 		agent.speed = 0; 
 		agent.enabled = false; 
-
-		detectAudio.PlayOneShot (deathSound);
 	}
 
 	void DeathSFX ()
 	{
-
+		boltAudio.PlayOneShot (deathSound);
 	}
 }
