@@ -45,7 +45,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
 	{
 		for (int i = -5; i < 5; i++)
 		{
-			Debug.Log("Shoot wide " + i);
+			//Debug.Log("Shoot wide " + i);
 
 			float vertRot = Camera.main.GetComponent<MainCameraControl>().GetVerticalAngle(); 
 			Vector3 rotOffset = new Vector3 (-vertRot + 2.5f, 0, 0); 
