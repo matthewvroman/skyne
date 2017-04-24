@@ -409,5 +409,7 @@ public class BoltManager : Enemy
 	{ 
 		agent.speed = 0; 
 		agent.enabled = false; 
+
+		detectAudio.PlayOneShot (deathSound);
 	}
 }

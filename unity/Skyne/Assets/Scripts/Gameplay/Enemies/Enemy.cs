@@ -33,6 +33,7 @@ public class Enemy : MonoBehaviour
 	[Header("Parent: Sounds")]
 	public AudioClip idleSound;
 	public AudioClip damageSound;
+	public AudioClip criticalDamageSound;
 	public AudioClip sparkSound;
 	public AudioClip detectSound;
 	public AudioClip attackSound;
@@ -217,7 +218,7 @@ public class Enemy : MonoBehaviour
 
 		Debug.Log ("On shot; bullet.playerBullet = " + bullet.playerBullet + "; bullet.shouldDestroy = " + bullet.shouldDestroy); 
 
-		this.GetComponent<AudioSource> ().PlayOneShot (damageSound);
+		//this.GetComponent<AudioSource> ().PlayOneShot (damageSound);
 
 		// Check that the bullet was shot by the player and hasn't already been set to destroy itself
 		if (bullet.playerBullet && !bullet.shouldDestroy)
@@ -226,11 +227,20 @@ public class Enemy : MonoBehaviour
 			float defenseModifier = 1; 
 
 			if (weakPointType == EnemyWeakPoint.WeakPointType.Critical)
+			{
 				defenseModifier = criticalHitDamageModifier;
+				this.GetComponent<AudioSource> ().PlayOneShot (criticalDamageSound);
+			}
 			else if (weakPointType == EnemyWeakPoint.WeakPointType.Normal)
+			{
 				defenseModifier = normalHitDamageModifier;
+				this.GetComponent<AudioSource> ().PlayOneShot (damageSound);
+			}
 			else if (weakPointType == EnemyWeakPoint.WeakPointType.Low)
+			{
 				defenseModifier = lowHitDamageModifier; 
+				this.GetComponent<AudioSource> ().PlayOneShot (damageSound);
+			}
 
 			// Update the enemy health
 			float actualDamage = bullet.damage * defenseModifier; 
@@ -293,7 +303,7 @@ public class Enemy : MonoBehaviour
 				{
 					// Call death animation
 					anim.SetBool ("isDead", true);
-					this.GetComponent<AudioSource> ().PlayOneShot (deathSound);
+					//this.GetComponent<AudioSource> ().PlayOneShot (deathSound);
 					alive = false; 
 					PreEnemyDestroy(); 
 				}
@@ -385,6 +395,8 @@ public class Enemy : MonoBehaviour
 
 			// Call ExplosionManager to create an explosion
 			ExplosionManager.inst.SpawnEnemyExplosion(transform.position); 
+
+			this.GetComponent<AudioSource> ().PlayOneShot (deathSound);
 
 			// Destroy the gameobject
 			Destroy(this.gameObject);
