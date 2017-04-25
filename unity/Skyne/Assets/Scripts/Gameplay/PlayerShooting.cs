@@ -344,6 +344,14 @@ public class PlayerShooting : Singleton<PlayerShooting>
 			{
 				ChangeWeaponType(PlayerShootMode.Rapid); 
 			}
+			else if (Input.GetAxis("Mouse ScrollWheel") > 0)
+			{
+				ChangeWeaponType(GetNextWeaponInCycle(GameState.inst.pShootMode)); 
+			}
+			else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+			{
+				ChangeWeaponType(GetPrevWeaponInCycle(GameState.inst.pShootMode)); 
+			}
 			
 			// Safeguard- check for a weapon type active that hasn't been collected
 			if (GameState.inst != null)
@@ -385,6 +393,50 @@ public class PlayerShooting : Singleton<PlayerShooting>
 			else if (curShootMode == PlayerShootMode.Rapid)
 			{ 
 				curShootMode = PlayerShootMode.Normal; 
+			}
+
+			// Test if the next shoot mode is a valid choice
+			if (curShootMode == PlayerShootMode.Normal)
+			{
+				invalidChoice = false; 
+			}
+			else if (curShootMode == PlayerShootMode.Charge && GameState.inst.upgradesFound[3])
+			{
+				invalidChoice = false; 
+			}
+			else if (curShootMode == PlayerShootMode.Wide && GameState.inst.upgradesFound[4])
+			{
+				invalidChoice = false; 
+			}
+			else if (curShootMode == PlayerShootMode.Rapid && GameState.inst.upgradesFound[5])
+			{
+				invalidChoice = false; 
+			}
+		}
+		return curShootMode; 
+	}
+
+	PlayerShootMode GetPrevWeaponInCycle(PlayerShootMode curShootMode)
+	{
+		bool invalidChoice = true; 
+
+		while (invalidChoice)
+		{
+			if (curShootMode == PlayerShootMode.Normal)
+			{ 
+				curShootMode = PlayerShootMode.Rapid; 
+			}
+			else if (curShootMode == PlayerShootMode.Charge)
+			{
+				curShootMode = PlayerShootMode.Normal; 
+			}
+			else if (curShootMode == PlayerShootMode.Wide)
+			{
+				curShootMode = PlayerShootMode.Charge; 
+			}
+			else if (curShootMode == PlayerShootMode.Rapid)
+			{ 
+				curShootMode = PlayerShootMode.Wide; 
 			}
 
 			// Test if the next shoot mode is a valid choice
