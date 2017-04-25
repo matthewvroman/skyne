@@ -191,16 +191,16 @@ public class SceneLighting : MonoBehaviour
 				ray.origin = player.transform.position; 
 				CeilingRaycast(hit, ray); 
 
-				ray.origin = player.transform.position + new Vector3(0.2f, 0, 0); 
+				ray.origin = player.transform.position + new Vector3(0.5f, 0, 0); 
 				CeilingRaycast(hit, ray);
 
-				ray.origin = player.transform.position + new Vector3(-0.2f, 0, 0); 
+				ray.origin = player.transform.position + new Vector3(-0.5f, 0, 0); 
 				CeilingRaycast(hit, ray); 
 
-				ray.origin = player.transform.position + new Vector3(0, 0, 0.2f); 
+				ray.origin = player.transform.position + new Vector3(0, 0, 0.5f); 
 				CeilingRaycast(hit, ray); 
 
-				ray.origin = player.transform.position + new Vector3(0, 0, -0.2f); 
+				ray.origin = player.transform.position + new Vector3(0, 0, -0.5f); 
 				CeilingRaycast(hit, ray); 
 
 			}
