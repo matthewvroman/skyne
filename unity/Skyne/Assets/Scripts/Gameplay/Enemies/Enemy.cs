@@ -419,7 +419,7 @@ public class Enemy : MonoBehaviour
 			this.GetComponent<AudioSource> ().PlayOneShot (deathSound);
 
 			// Destroy the gameobject
-			Destroy(this.gameObject, 0.3f);
+			Destroy(this.gameObject);
 		}
 	}
 

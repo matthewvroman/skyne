@@ -156,22 +156,13 @@ public class PlayerManager : MonoBehaviour
 
 	public Animator anim;
 
-	AudioSource playerAudio;
-	public AudioClip slowMoSound;
-	public AudioClip itemEquip;
-
-	AudioSource musicCon;
-	public AudioClip fightMusic;
-	public AudioClip normMusic;
-	public AudioClip bossMusic;
-
-	bool isInAR = false;
-
 	bool canWallJump;
 
 	bool cameFromGround;
 
-	float musTimer = 1;
+	AudioSource playerAudio;
+	public AudioClip itemEquip;
+	public AudioClip slowMoSound;
 
 	/*public AudioClip footstep1;
 	public AudioClip footstep2;
@@ -242,7 +233,7 @@ public class PlayerManager : MonoBehaviour
 
 		playerAudio = GetComponent<AudioSource> ();
 
-		musicCon = GameObject.Find ("MusicController").GetComponent<AudioSource> ();
+
 		//playerAudio.Play ();
 	}
 
@@ -271,7 +262,6 @@ public class PlayerManager : MonoBehaviour
 			Health ();
 			Stamina ();
 			SlowMo ();
-			DynamicMusic ();
 		}
 
 		transform.rotation = Quaternion.Euler (0, transform.rotation.y, 0);
@@ -281,12 +271,10 @@ public class PlayerManager : MonoBehaviour
 		if (velocity.y < 0)
 		{
 			isFalling = true;
-			//rBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 		}
 		else
 		{
 			isFalling = false;
-			//rBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
 		}
 			
 		anim.SetBool ("isFalling", isFalling);
@@ -461,7 +449,6 @@ public class PlayerManager : MonoBehaviour
 
 	IEnumerator AirDash ()
 	{
-		//rBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 		if (Grounded ())
 		{
 			velocity.z = (moveSetting.dashVel * forwardInput) + (moveSetting.forwardVel * forwardInput * Time.timeScale);
@@ -927,64 +914,6 @@ public class PlayerManager : MonoBehaviour
 		}
 	}
 
-	void DynamicMusic ()
-	{
-		//enemies = GameObject.FindGameObjectsWithTag ("robot");
-		enemies = Object.FindObjectsOfType<Enemy> ();
-
-
-		bool fightingFound;
-
-		if (!musicCon.isPlaying)
-		{
-			musicCon.Play ();
-		}
-
-		fightingFound = false;
-		for (int i = 0; i < enemies.Length; i++)
-		{
-			if (enemies [i].GetIsIdling () == false && enemies [i].tag != "Boss")
-			{
-				//musicCon.clip = fightMusic;
-				fightingFound = true;
-				//Debug.Log ("Play FIGHT");
-				break;
-			}
-		}
-
-		if (isInAR == false && GameState.inst.inBossRoom == false)
-		{
-			if (fightingFound == true)
-			{
-				if (musTimer > 0)
-				{
-					musTimer -= Time.deltaTime;
-				}
-				else if (musTimer <= 0)
-				{
-					musTimer = 0;
-					musicCon.clip = fightMusic;
-				}
-
-				//musicCon.clip = fightMusic;
-			}
-			else if (fightingFound == false)
-			{
-				musTimer = 1;
-				musicCon.clip = normMusic;
-			}
-		}
-		else if (GameState.inst.inBossRoom == true)
-		{
-			musicCon.clip = bossMusic;
-
-			if (!musicCon.isPlaying)
-			{
-				musicCon.Play ();
-			}
-		}
-	}
-
 	public float getHealth ()
 	{
 		return currentHealth;
@@ -998,11 +927,6 @@ public class PlayerManager : MonoBehaviour
 	public bool GetIsAlive ()
 	{
 		return isAlive; 
-	}
-
-	public void setIsInAR (bool b)
-	{
-		isInAR = b;
 	}
 
 	void OnCollisionEnter (Collision col)

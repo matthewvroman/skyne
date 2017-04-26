@@ -18,6 +18,7 @@ public class AmbushRoom : MonoBehaviour
 	public DoorControl[] doorCon;
 
 	GameObject player;
+	DynamicMusic dyna;
 
 	public AudioSource musicController;
 	public AudioSource audio1;
@@ -46,7 +47,7 @@ public class AmbushRoom : MonoBehaviour
 
 		ambushTrigger = this.GetComponent<BoxCollider> ();
 
-		player = GameObject.Find ("Player");
+		//player = GameObject.Find ("Player");
 
 		foreach (Transform enemy in noKeyHold.transform)
 		{
@@ -87,16 +88,17 @@ public class AmbushRoom : MonoBehaviour
 			//isDone = true;
 			if (checkMusic == true)
 			{
-				musicController.clip = normalMusic;
+				//musicController.clip = normalMusic;
 
 				audio1.PlayOneShot (doorSound);
 
-				player.GetComponent<PlayerManager> ().setIsInAR (false);
+				//player.GetComponent<PlayerManager> ().setIsInAR (false);
+				dyna.setIsInAR(false);
 
-				if (!musicController.isPlaying)
+				/*if (!musicController.isPlaying)
 				{
 					musicController.Play ();
-				}
+				} */
 			}
 
 			GameState.inst.ambushRoomsDone [index] = true;
@@ -287,14 +289,15 @@ public class AmbushRoom : MonoBehaviour
 					door.setDoorState (false);
 				}
 					
-				player.GetComponent<PlayerManager> ().setIsInAR (true);
+				//player.GetComponent<PlayerManager> ().setIsInAR (true);
+				dyna.setIsInAR(true);
 
-				musicController.clip = battleMusic;
+				//musicController.clip = battleMusic;
 
-				if (!musicController.isPlaying)
+				/*if (!musicController.isPlaying)
 				{
 					musicController.Play ();
-				}
+				} */
 
 				ambushTrigger.enabled = false;
 			}
