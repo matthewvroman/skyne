@@ -47,7 +47,7 @@ public class AmbushRoom : MonoBehaviour
 
 		ambushTrigger = this.GetComponent<BoxCollider> ();
 
-		//player = GameObject.Find ("Player");
+		player = GameObject.Find ("Player");
 
 		foreach (Transform enemy in noKeyHold.transform)
 		{
@@ -73,7 +73,8 @@ public class AmbushRoom : MonoBehaviour
 
 		gameState = GameObject.Find ("GameState").GetComponent<GameState> ();
 
-		musicController = GameObject.Find ("MusicController").GetComponent<AudioSource> ();
+		//musicController = GameObject.Find ("MusicController").GetComponent<AudioSource> ();
+		dyna = GameObject.Find("MusicController").GetComponent<DynamicMusic>();
 	}
 	
 	// Update is called once per frame
