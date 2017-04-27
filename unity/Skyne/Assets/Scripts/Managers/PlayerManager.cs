@@ -233,6 +233,8 @@ public class PlayerManager : MonoBehaviour
 
 		playerAudio = GetComponent<AudioSource> ();
 
+		dashRingParticles.enableEmission = false; 
+		dashBootParticles.enableEmission = false;
 
 		//playerAudio.Play ();
 	}
@@ -301,7 +303,6 @@ public class PlayerManager : MonoBehaviour
 			if (dashCounter == 2 && GameState.inst.upgradesFound [2])
 			{
 				isDashing = true;
-				anim.SetBool ("Dash", true);
 				//dashBootParticles.Stop(); 
 				//dashBootParticles.Play(); 
 				startCooldown = true;
@@ -338,18 +339,6 @@ public class PlayerManager : MonoBehaviour
 		}
 
 		Animations ();
-
-		// Dash particles
-		if (isDashing)
-		{
-			dashRingParticles.enableEmission = true; 
-			dashBootParticles.enableEmission = true; 
-		}
-		else
-		{
-			dashRingParticles.enableEmission = false; 
-			dashBootParticles.enableEmission = false; 
-		}
 
 		if (isHuggingWall == true)
 		{
@@ -402,7 +391,18 @@ public class PlayerManager : MonoBehaviour
 
 		anim.SetBool ("wallJumped", isWallJumping);
 
-		//		anim.SetBool ("Dash", isDashing);
+		anim.SetBool ("Dash", isDashing);
+
+		if (isDashing == true && velocity.x != 0 || isDashing == true && velocity.z != 0)
+		{
+			dashRingParticles.enableEmission = true; 
+			dashBootParticles.enableEmission = true;
+		} else
+		{
+			dashRingParticles.enableEmission = false; 
+			dashBootParticles.enableEmission = false;
+		}
+
 		//		anim.SetBool ("isHit", isPushed);
 	}
 
@@ -474,7 +474,6 @@ public class PlayerManager : MonoBehaviour
 		yield return new WaitForSeconds (0.2f);
 		//rBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
 		isDashing = false;
-		anim.SetBool ("Dash", false);
 	}
 
 	/// <summary>
@@ -989,11 +988,6 @@ public class PlayerManager : MonoBehaviour
 		{
 			targetHealth = 0;
 		}
-	}
-
-	void PlayDashParticle ()
-	{
-
 	}
 
 	void OnCollisionExit (Collision col)
