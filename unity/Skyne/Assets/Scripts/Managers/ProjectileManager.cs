@@ -25,6 +25,13 @@ public class ProjectileManager : Singleton<ProjectileManager>
 			bullet.target = shotTarget.targetPos; 
 			bullet.hasTarget = true; 
 		}
+		else
+		{
+			Vector3 fakeTarget = Camera.main.transform.position; 
+			fakeTarget += Camera.main.transform.forward.normalized * 80; 
+			bullet.target = fakeTarget; 
+			bullet.hasTarget = true; 
+		}
 	}
 
 	public void Shoot_P_Charge(GameObject spawner)
@@ -39,22 +46,36 @@ public class ProjectileManager : Singleton<ProjectileManager>
 			bullet.target = shotTarget.targetPos; 
 			bullet.hasTarget = true; 
 		}
+		else
+		{
+			Vector3 fakeTarget = Camera.main.transform.position; 
+			fakeTarget += Camera.main.transform.forward.normalized * 80; 
+			bullet.target = fakeTarget; 
+			bullet.hasTarget = true; 
+		}
 	}
 
 	public void Shoot_P_Wide(GameObject spawner)
 	{
+		Vector3 fakeTarget = Camera.main.transform.position; 
+		fakeTarget += Camera.main.transform.forward.normalized * 15; 
+
 		for (int i = -5; i < 5; i++)
 		{
 			//Debug.Log("Shoot wide " + i);
 
-			float vertRot = Camera.main.GetComponent<MainCameraControl>().GetVerticalAngle(); 
-			Vector3 rotOffset = new Vector3 (-vertRot + 2.5f, 0, 0); 
-			Vector3 bulletRot = spawner.transform.rotation.eulerAngles + rotOffset; 
+			//float vertRot = Camera.main.GetComponent<MainCameraControl>().GetVerticalAngle(); 
+			//Vector3 rotOffset = new Vector3 (-vertRot + 2.5f, 0, 0); 
+			//Vector3 bulletRot = spawner.transform.rotation.eulerAngles + rotOffset; 
+			//bulletRot += new Vector3 (0, i * PlayerShooting.inst.pWideHorizSpread, 0); 
 
-			bulletRot += new Vector3 (0, i * PlayerShooting.inst.pWideHorizSpread, 0); 
+			Vector3 bulletRot = new Vector3 (0, i * PlayerShooting.inst.pWideHorizSpread, 0);  
 
-			GameObject newBullet = GameObject.Instantiate(PlayerShooting.inst.pWideBulletPrefab, spawner.transform.position, Quaternion.Euler(bulletRot), transform); 
+			GameObject newBullet = GameObject.Instantiate(PlayerShooting.inst.pWideBulletPrefab, spawner.transform.position, Quaternion.identity, transform); 
 			Bullet bullet = newBullet.GetComponent<Bullet>(); 
+
+			bullet.transform.LookAt(fakeTarget);
+			bullet.transform.Rotate(bulletRot); 
 		}
 	}
 
@@ -68,6 +89,13 @@ public class ProjectileManager : Singleton<ProjectileManager>
 		if (shotTarget.targetFound)
 		{
 			bullet.target = shotTarget.targetPos; 
+			bullet.hasTarget = true; 
+		}
+		else
+		{
+			Vector3 fakeTarget = Camera.main.transform.position; 
+			fakeTarget += Camera.main.transform.forward.normalized * 80; 
+			bullet.target = fakeTarget; 
 			bullet.hasTarget = true; 
 		}
 	}
