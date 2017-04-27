@@ -18,6 +18,7 @@ ModelImporter:
     100020: Rim___Support
     100022: bossRoomFloor1
     100024: bossRoomWalls
+    100026: Decor
     400000: //RootNode
     400002: pCylinder6
     400004: polySurface1
@@ -31,6 +32,7 @@ ModelImporter:
     400020: Rim___Support
     400022: bossRoomFloor1
     400024: bossRoomWalls
+    400026: Decor
     2300000: pCylinder6
     2300002: polySurface1
     2300004: polySurface2
@@ -44,6 +46,7 @@ ModelImporter:
     2300020: Rim___Support
     2300022: bossRoomFloor1
     2300024: bossRoomWalls
+    2300026: Decor
     3300000: pCylinder6
     3300002: polySurface1
     3300004: polySurface2
@@ -57,6 +60,7 @@ ModelImporter:
     3300020: Rim___Support
     3300022: bossRoomFloor1
     3300024: bossRoomWalls
+    3300026: Decor
     4300000: polySurface1
     4300002: polySurface2
     4300004: pCylinder6
@@ -70,6 +74,7 @@ ModelImporter:
     4300020: Rim___Support
     4300022: bossRoomWalls
     4300024: bossRoomFloor1
+    4300026: Decor
   materials:
     importMaterials: 1
     materialName: 0
