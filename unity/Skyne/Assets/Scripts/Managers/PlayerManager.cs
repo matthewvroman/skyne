@@ -270,6 +270,7 @@ public class PlayerManager : MonoBehaviour
 
 		if (velocity.y < 0)
 		{
+			anim.SetBool ("Jump", false);
 			isFalling = true;
 		}
 		else
@@ -300,7 +301,7 @@ public class PlayerManager : MonoBehaviour
 			if (dashCounter == 2 && GameState.inst.upgradesFound [2])
 			{
 				isDashing = true;
-				anim.SetTrigger ("Dash");
+				anim.SetBool ("Dash", true);
 				//dashBootParticles.Stop(); 
 				//dashBootParticles.Play(); 
 				startCooldown = true;
@@ -473,6 +474,7 @@ public class PlayerManager : MonoBehaviour
 		yield return new WaitForSeconds (0.2f);
 		//rBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
 		isDashing = false;
+		anim.SetBool ("Dash", false);
 	}
 
 	/// <summary>
@@ -484,7 +486,7 @@ public class PlayerManager : MonoBehaviour
 		{
 			//Jump
 			velocity.y = moveSetting.jumpVel;
-			anim.SetTrigger ("Jump");
+			anim.SetBool ("Jump", true);
 			canDoubleJump = true;
 		}
 		else if (jumpInput == 0 && Grounded ())
@@ -645,14 +647,6 @@ public class PlayerManager : MonoBehaviour
 		if (Grounded ())
 		{
 			isHuggingWall = false;
-		}
-
-		if (backToWall == true || faceToWall == true || lSideToWall == true || rSideToWall == true)
-		{
-			anim.SetBool ("onWall", true);
-		} else
-		{
-			anim.SetBool ("onWall", false);
 		}
 
 		if (canWallJump)
@@ -995,6 +989,11 @@ public class PlayerManager : MonoBehaviour
 		{
 			targetHealth = 0;
 		}
+	}
+
+	void PlayDashParticle ()
+	{
+
 	}
 
 	void OnCollisionExit (Collision col)
