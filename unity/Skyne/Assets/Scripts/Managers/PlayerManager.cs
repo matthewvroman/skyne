@@ -269,7 +269,10 @@ public class PlayerManager : MonoBehaviour
 
 		transform.rotation = Quaternion.Euler (0, transform.rotation.y, 0);
 
-		OrientPlayer (playerCamera);
+		if (!isDead)
+		{
+			OrientPlayer(playerCamera);
+		}
 
 		if (velocity.y < 0)
 		{
