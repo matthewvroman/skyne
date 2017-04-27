@@ -86,6 +86,8 @@ public class PlayerShooting : Singleton<PlayerShooting>
 
 	PlayerManager playerManager; 
 
+	public Animator anim;
+
 	void Start() 
 	{
 		gunAudio = GetComponent<AudioSource> ();
@@ -249,6 +251,7 @@ public class PlayerShooting : Singleton<PlayerShooting>
 	{
 		if (shootDelay == 0)
 		{
+			anim.SetTrigger ("Shoot");
 			ProjectileManager.inst.Shoot_P_Normal(bulletSpawner); 
 			gunAudio.clip = null;
 			gunAudio.PlayOneShot(normalShotSound);
@@ -276,6 +279,7 @@ public class PlayerShooting : Singleton<PlayerShooting>
 	{
 		if (curCharge == fullCharge)
 		{
+			anim.SetTrigger ("Shoot");
 			ProjectileManager.inst.Shoot_P_Charge(bulletSpawner); 
 			gunAudio.clip = null;
 			gunAudio.PlayOneShot (chargeShotSound);
@@ -291,6 +295,7 @@ public class PlayerShooting : Singleton<PlayerShooting>
 		if (shootDelay == 0)
 		{
 			// TODO- change shoot function
+			anim.SetTrigger ("Shoot");
 			ProjectileManager.inst.Shoot_P_Wide(bulletSpawner); 
 			gunAudio.clip = null;
 			gunAudio.PlayOneShot(wideShotSound);
