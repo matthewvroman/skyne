@@ -256,7 +256,7 @@ public class PlayerManager : MonoBehaviour
 		if (currentHealth <= 0)
 		{
 			isAlive = false;
-			velocity = Vector3.zero;
+			//velocity = Vector3.zero;
 		}
 
 		if (isAlive)
@@ -360,6 +360,21 @@ public class PlayerManager : MonoBehaviour
 			Strafe ();
 			Jump ();
 		}
+		else
+		{
+			velocity.x = 0;
+			velocity.z = 0;
+
+			if (!Grounded ())
+			{
+				velocity.y -= physSetting.normDownAccel;
+			}
+			else
+			{
+				velocity.y = 0;
+			}
+		}
+
 
 		anim.SetFloat ("Velocity", Mathf.Abs (forwardInput) + Mathf.Abs (strafeInput));
 
