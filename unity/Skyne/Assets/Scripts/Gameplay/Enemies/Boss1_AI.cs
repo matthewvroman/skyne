@@ -989,6 +989,18 @@ public class Boss1_AI : Enemy
 		return chooseAttack;
 	}
 
+	protected override void PreEnemyDestroy()
+	{
+		stompRingParticles.enableEmission = false; 
+		stompDustParticles.enableEmission = false; 
+		laserChargeParticles.enableEmission = false; 
+		spinRingParticles.enableEmission = false;
+		laserObj.SetActive(false);
+
+		GameState.inst.bossDefeated = true; 
+
+	}
+
 
 	protected override void EnemyDestroy ()
 	{
@@ -996,6 +1008,8 @@ public class Boss1_AI : Enemy
 		anim.SetFloat ("xDir", 0);
 
 		GlobalManager.inst.LoadOutro (); 
+
+
 
 		/*
 		GameState.inst.keysFound [0] = true;
@@ -1145,7 +1159,7 @@ public class Boss1_AI : Enemy
 					deathExplosions[choosenIndex].PlayParticles(); 
 				}
 
-				yield return new WaitForSeconds (0.2f); 
+				yield return new WaitForSeconds (0.1f); 
 			}
 		}
 	}

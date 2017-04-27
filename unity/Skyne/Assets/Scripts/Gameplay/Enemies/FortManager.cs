@@ -133,6 +133,9 @@ public class FortManager : Enemy
 		// Don't update if the game is paused or still loading
 		if (alive && target != null)
 		{
+			// Destroy this enemy if the boss is dead
+			CheckBossDead();
+
 			if (onShotTimer > 0)
 			{
 				onShotTimer -= Time.deltaTime; 

@@ -153,6 +153,9 @@ public class SentryManager : Enemy
 
 		if (alive && target != null)
 		{
+			// Destroy this enemy if the boss is dead
+			CheckBossDead();
+
 		/*	if (health <= 0)
 			{
 				sentryAudio.loop = false;

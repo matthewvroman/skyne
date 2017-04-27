@@ -140,6 +140,9 @@ public class ChargerManager : Enemy
 		{
 			base.Update();
 
+			// Destroy this enemy if the boss is dead
+			CheckBossDead();
+
 			tarDistance = Vector3.Distance (target.transform.position, transform.position);
 
 			/*if (health <= 0)
