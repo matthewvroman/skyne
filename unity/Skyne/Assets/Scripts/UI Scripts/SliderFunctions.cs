@@ -46,7 +46,11 @@ public class SliderFunctions : MonoBehaviour
 		else if (sliderType == SliderType.Sensitivity)
 		{
 			PlayerPrefsManager.inst.SaveMouseSensitivity(slider.value); 
-			MainCameraControl.inst.SetMouseSensitivity(slider.value); 
+
+			if (MainCameraControl.inst != null)
+			{
+				MainCameraControl.inst.SetMouseSensitivity(slider.value); 
+			}
 		}
 	}
 
