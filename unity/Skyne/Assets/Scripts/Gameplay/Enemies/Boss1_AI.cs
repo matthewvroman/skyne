@@ -166,7 +166,13 @@ public class Boss1_AI : Enemy
 	{
 		ParentSetupEnemy ();
 
-		state = Boss1_AI.State.IDLE;
+		//state = Boss1_AI.State.IDLE;
+
+		// Test- put the boss in Do-Nothing to start
+		// Don't want boss attacking during opening camera cutscene
+		state = Boss1_AI.State.DO_NOTHING; 
+		chooseAttack = 3; 
+		timer = 4;
 
 		attacking = false;
 		choosing = true;
@@ -291,17 +297,6 @@ public class Boss1_AI : Enemy
 			transform.rotation = Quaternion.RotateTowards (frontFacingObj.transform.rotation, q, turnSpeed * Time.deltaTime);
 
 			// Update sound and animation 
-			float dot = GetDot (); 
-
-			if (dot < 0.95f)
-			{
-
-			}
-			else
-			{
-
-			}
-
 
 			// Update the sound and animation based on the boss rotation
 			if ((oldEulerAngles.y - transform.rotation.eulerAngles.y) < 1 && (oldEulerAngles.y - transform.rotation.eulerAngles.y) > -1)

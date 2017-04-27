@@ -14,6 +14,7 @@ public class BossStartCollider : MonoBehaviour
 		if (col.tag == "Player")
 		{
 			GameState.inst.inBossRoom = true;
+
 			LevelData.inst.RefreshLoadedScenes(); 
 
 			GameObject.Find ("MusicController").GetComponent<AudioSource> ().clip = bossBattleMusic;
@@ -24,6 +25,8 @@ public class BossStartCollider : MonoBehaviour
 			}
 
 			door.setDoorState (false);
+
+			MainCameraControl.inst.bossCutsceneState = 1; 
 
 			// Might want to put boss start code here
 

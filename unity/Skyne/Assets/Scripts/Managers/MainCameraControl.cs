@@ -14,7 +14,7 @@ public class MainCameraControl : Singleton<MainCameraControl>
 	public float minVerticalAngle = -60f;                              // Camera min clamp angle.
 
 	public float HorizontalAngle = -90;                                 // Float to store camera horizontal angle related to mouse movement.
-	private float VerticalAngle = 0;                                   // Float to store camera vertical angle related to mouse movement.
+	[SerializeField] private float VerticalAngle = 0;                                   // Float to store camera vertical angle related to mouse movement.
 	private Transform camera;                                          // This transform.
 	private Vector3 relativePositionToPlayer;                          // Current camera position relative to the player.
 	private float relativeDistanceToPlayer;                            // Current camera distance to the player.
@@ -25,6 +25,13 @@ public class MainCameraControl : Singleton<MainCameraControl>
 	private float defaultFieldOfView;                                  // Default camera Field of View.
 	private float targetFieldOfView;                                   // Target camera FIeld of View.
 	private float verticalAngleClamp;                              	   // Custom camera max vertical clamp angle. 
+
+	// 0 = not in boss cutscene; 1 = look up, 2 = hold, 3 = look down
+	public int bossCutsceneState;
+	public int bossVerticalAngle; 
+	public float bossVerticalLerpSpeed; 
+	public float bossHoldTime; 
+	float bossHoldTimer; 
 
 	void Awake()
 	{
@@ -75,17 +82,67 @@ public class MainCameraControl : Singleton<MainCameraControl>
 
 		HorizontalAngle += Input.GetAxis ("Mouse X") * horizontalAimingSpeed * Timescaler.inst.CalculateDeltaTime(1);
 		//transform.Rotate (0, rotLeftRight, 0); 
-		VerticalAngle += Input.GetAxis ("Mouse Y") * verticalAimingSpeed * Timescaler.inst.CalculateDeltaTime(1); 
 
-		// Set vertical movement limit.
-		VerticalAngle = Mathf.Clamp(VerticalAngle, minVerticalAngle, verticalAngleClamp);
+		if (bossCutsceneState == 0)
+		{
+			VerticalAngle += Input.GetAxis("Mouse Y") * verticalAimingSpeed * Timescaler.inst.CalculateDeltaTime(1);
+
+			// Set vertical movement limit.
+			VerticalAngle = Mathf.Clamp(VerticalAngle, minVerticalAngle, verticalAngleClamp);
+		}
+		else if (bossCutsceneState == 1)
+		{
+			VerticalAngle = Mathf.Lerp(VerticalAngle, bossVerticalAngle, Time.deltaTime * bossVerticalLerpSpeed); 
+			//VerticalAngle += 5 * Time.deltaTime; 
+
+			if (bossVerticalAngle - VerticalAngle < 1)
+			{
+				bossCutsceneState = 2; 
+				bossHoldTimer = bossHoldTime; 
+			}
+		}
+		else if (bossCutsceneState == 2)
+		{
+			bossHoldTimer -= Time.deltaTime; 
+			if (bossHoldTimer <= 0)
+			{
+				bossHoldTimer = 0; 
+				bossCutsceneState = 3; 
+			}
+		}
+		else if (bossCutsceneState == 3)
+		{
+			VerticalAngle = Mathf.Lerp(VerticalAngle, 0, Time.deltaTime * bossVerticalLerpSpeed); 
+
+			if (VerticalAngle < 15)
+			{
+				bossCutsceneState = 0; 
+			}
+		}
+
 
 		// Set camera orientation..
 		Quaternion camYRotation = Quaternion.Euler(0, HorizontalAngle, 0);
+
 		//Quaternion aimRotation = Quaternion.Euler(-VerticalAngle, HorizontalAngle, 0);
 		//camera.rotation = aimRotation;
-		Quaternion aimRotation = Quaternion.Euler (-VerticalAngle, HorizontalAngle, 0);
+
+		Quaternion aimRotation = Quaternion.Euler(-VerticalAngle, HorizontalAngle, 0);
 		camera.localRotation = aimRotation;
+
+		/*
+		if (!inCutscene)
+		{
+			aimRotation = Quaternion.Euler(-VerticalAngle, HorizontalAngle, 0);
+		}
+		else
+		{
+			HorizontalAngle -= 1f * Time.deltaTime; 
+			aimRotation = Quaternion.Euler(, HorizontalAngle, 0); 
+		}
+
+		camera.localRotation = aimRotation;
+		*/ 
 
 		// Set FOV.
 		camera.GetComponent<Camera>().fieldOfView = Mathf.Lerp (camera.GetComponent<Camera>().fieldOfView, targetFieldOfView,  Time.unscaledDeltaTime);
