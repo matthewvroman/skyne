@@ -210,6 +210,7 @@ public class PlayerManager : MonoBehaviour
 		currentHealth = PlayerPrefsManager.inst.GetSavedHealth (); 
 		targetHealth = currentHealth; 
 
+		maxStamina = CalculateMaxStamina(); 
 		currentStamina = maxStamina;
 
 		if (playerSetting.healthbarFill == null)
@@ -845,12 +846,17 @@ public class PlayerManager : MonoBehaviour
 		//currentHealth = maxHealth;
 	}
 
+	float CalculateMaxStamina()
+	{
+		return 100 + (GameState.inst.GetNumStaminaPickupsFound () * 25);
+	}
+
 	/// <summary>
 	/// Method containing player's stamina code.
 	/// </summary>
 	void Stamina ()
 	{
-		maxStamina = 100 + (GameState.inst.GetNumStaminaPickupsFound () * 25);
+		maxStamina = CalculateMaxStamina();
 
 		playerSetting.staminaBarBackground.GetComponent<RectTransform> ().sizeDelta = new Vector2 (154.5f + (GameState.inst.GetNumStaminaPickupsFound () * 25.75f), 40);
 
