@@ -24,4 +24,9 @@ public class GlobalAudio : Singleton<GlobalAudio>
 	{
 		audio1.PlayOneShot(uiMenuUp); 
 	}
+
+	public void PlaySound(AudioClip clip)
+	{
+		audio1.PlayOneShot(clip); 
+	}
 }

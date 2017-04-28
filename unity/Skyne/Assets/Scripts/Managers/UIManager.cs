@@ -103,6 +103,7 @@ public class UIManager : Singleton<UIManager>
 					GlobalManager.inst.buttonUIIsActive = false;
 					DisablePanels(); 
 					gameMenuActive = false; 
+					GlobalAudio.inst.PlayUIClick(); 
 				}
 
 			}

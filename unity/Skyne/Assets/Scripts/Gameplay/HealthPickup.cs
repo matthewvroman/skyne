@@ -154,21 +154,25 @@ public class HealthPickup : MonoBehaviour
 			switch (randNum)
 			{
 			case 1:
-				audio1.PlayOneShot (heathPickup);
+				//audio1.PlayOneShot(heathPickup);
+				GlobalAudio.inst.PlaySound(heathPickup); 
 				break;
 
 			case 2: 
-				audio1.PlayOneShot (heathPickup2);
+				//audio1.PlayOneShot (heathPickup2);
+				GlobalAudio.inst.PlaySound(heathPickup2); 
 				break;
 
 			case 3:
-				audio1.PlayOneShot (heathPickup3);
+				//audio1.PlayOneShot (heathPickup3);
+				GlobalAudio.inst.PlaySound(heathPickup3);
 				break;
 			}
 			ExplosionManager.inst.SpawnHealthPickupExplosion(transform.position); 
 
 			myCollider.enabled = false;
-			Destroy(this.gameObject, 0.8f);
+			//Destroy(this.gameObject, 0.8f);
+			Destroy(this.gameObject);
 		}
 	}
 
