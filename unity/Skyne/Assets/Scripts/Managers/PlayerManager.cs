@@ -18,10 +18,6 @@ public class PlayerManager : MonoBehaviour
 		public float dashVel = 100;
 		public float dashCooldown = 2;
 
-		public float startSlidingTimer = 5;
-
-		public float knockbackForce;
-
 		[Tooltip ("How close the player has to to the ground for them to stop falling")]
 		public float distToGrounded = 0.5f;
 		[Tooltip ("Determins which layers the player can jump off of.")]
@@ -100,8 +96,6 @@ public class PlayerManager : MonoBehaviour
 	bool isDashing = false;
 
 	bool isHuggingWall;
-	//bool startSliding = false;
-	float counter;
 	RaycastHit wallHit;
 
 	bool backToWall = false;
@@ -210,7 +204,7 @@ public class PlayerManager : MonoBehaviour
 		currentHealth = PlayerPrefsManager.inst.GetSavedHealth (); 
 		targetHealth = currentHealth; 
 
-		maxStamina = CalculateMaxStamina(); 
+		maxStamina = CalculateMaxStamina (); 
 		currentStamina = maxStamina;
 
 		if (playerSetting.healthbarFill == null)
@@ -227,8 +221,6 @@ public class PlayerManager : MonoBehaviour
 		{
 			Debug.LogError ("Player has no Health Percentage Text");
 		}
-
-		counter = moveSetting.startSlidingTimer;
 
 		dashCounter = moveSetting.dashCooldown;
 
@@ -271,7 +263,7 @@ public class PlayerManager : MonoBehaviour
 
 		if (!isDead)
 		{
-			OrientPlayer(playerCamera);
+			OrientPlayer (playerCamera);
 		}
 
 		if (velocity.y < 0)
@@ -285,22 +277,6 @@ public class PlayerManager : MonoBehaviour
 		}
 			
 		anim.SetBool ("isFalling", isFalling);
-
-		if (Grounded ())
-		{
-			canDoubleJump = false;
-			//startSliding = false;
-			isWallJumping = false;
-
-			canWallJump = false;
-		}
-		else
-		{
-			if (faceToWall == false && backToWall == false && rSideToWall == false && lSideToWall == false)
-			{
-				canWallJump = true;
-			}
-		}
 
 		if (Input.GetKeyDown (KeyCode.LeftShift))
 		{
@@ -326,11 +302,6 @@ public class PlayerManager : MonoBehaviour
 			}
 		}
 
-		if (counter > 0)
-		{
-			//startSliding = false;
-		}
-
 		if (currentHealth < 0)
 		{
 			currentHealth = 0;
@@ -344,15 +315,7 @@ public class PlayerManager : MonoBehaviour
 
 		Animations ();
 
-		if (isHuggingWall == true)
-		{
-			Debug.Log ("Is Hugging Wall");
-		}
-
-		if (isWallJumping == true)
-		{
-			Debug.Log ("Is Wall Jumping");
-		}
+		Debug.Log (isHuggingWall);
 	}
 
 	void FixedUpdate ()
@@ -377,8 +340,7 @@ public class PlayerManager : MonoBehaviour
 				velocity.y = 0;
 			}
 		}
-
-
+			
 		anim.SetFloat ("Velocity", Mathf.Abs (forwardInput) + Mathf.Abs (strafeInput));
 
 		if (GameState.inst.upgradesFound [1])
@@ -416,13 +378,12 @@ public class PlayerManager : MonoBehaviour
 		{
 			dashRingParticles.enableEmission = true; 
 			dashBootParticles.enableEmission = true;
-		} else
+		}
+		else
 		{
 			dashRingParticles.enableEmission = false; 
 			dashBootParticles.enableEmission = false;
 		}
-
-		//		anim.SetBool ("isHit", isPushed);
 	}
 
 	/// <summary>
@@ -430,14 +391,14 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Run ()
 	{
-		if (Mathf.Abs (forwardInput) > inputSetting.inputDelay && !isWallJumping && !isSlowed)
+		if (Mathf.Abs (forwardInput) > inputSetting.inputDelay && !isSlowed)
 		{
 			//move
 			velocity.z = moveSetting.forwardVel * forwardInput * Time.timeScale;
 			lastZVel = velocity.z;
 			anim.SetFloat ("zDir", velocity.z);
 		}
-		else if (forwardInput == 0 && isDashing == false && !isWallJumping && Grounded ())
+		else if (forwardInput == 0 && isDashing == false && Grounded ())
 		{
 			//zero velocity
 			velocity.z = 0;
@@ -451,14 +412,14 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Strafe ()
 	{
-		if (Mathf.Abs (strafeInput) > inputSetting.inputDelay && !isWallJumping && !isSlowed)
+		if (Mathf.Abs (strafeInput) > inputSetting.inputDelay && !isSlowed)
 		{
 			//move
 			velocity.x = moveSetting.strafeVel * strafeInput * Time.timeScale;
 			lastXVel = velocity.x;
 			anim.SetFloat ("xDir", velocity.x);
 		}
-		else if (strafeInput == 0 && isDashing == false && !isWallJumping && Grounded ())
+		else if (strafeInput == 0 && isDashing == false && Grounded ())
 		{
 			//zero velocity
 			velocity.x = 0;
@@ -491,7 +452,6 @@ public class PlayerManager : MonoBehaviour
 			velocity.x = (-moveSetting.dashVel / 1.5f) + (moveSetting.forwardVel * strafeInput * Time.timeScale);
 		}
 		yield return new WaitForSeconds (0.2f);
-		//rBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
 		isDashing = false;
 	}
 
@@ -505,105 +465,60 @@ public class PlayerManager : MonoBehaviour
 			//Jump
 			velocity.y = moveSetting.jumpVel;
 			anim.SetBool ("Jump", true);
-			canDoubleJump = true;
+			if (GameState.inst.upgradesFound [0])
+			{
+				canDoubleJump = true;
+			}
 		}
 		else if (jumpInput == 0 && Grounded ())
 		{
 			//zero out our velocity.y
 			velocity.y = 0;
 			isDoubleJumping = false;
+			isHuggingWall = false;
+			canDoubleJump = false;
 		}
 		else
 		{
 			//decrease velocity.y
 			velocity.y -= curDownAccel * Time.timeScale;
 
-			if (GameState.inst.upgradesFound [0])
+			if (canDoubleJump == true)
 			{
-				if (canDoubleJump == true)
+				if (Input.GetKeyDown (KeyCode.Space))
 				{
-					if (Input.GetKeyDown (KeyCode.Space))
+					isDoubleJumping = true;
+					velocity.y = moveSetting.jumpVel;
+					if (velocity.magnitude > 0)
 					{
-						isDoubleJumping = true;
-						velocity.y = moveSetting.jumpVel;
-						if (velocity.magnitude > 0)
-						{
-							velocity = velocity * 1.2f;
-						}
-						//canDoubleJump = false;
-						StartCoroutine ("StopDoubleJump");
-						anim.SetTrigger ("DoubleJump");
-
-						// Trigger double jump particles
-						doubleJumpParticles.Stop (); 
-						doubleJumpParticles.Play (); 
+						velocity = velocity * 1.2f;
 					}
+					canDoubleJump = false;
+					anim.SetTrigger ("DoubleJump");
+
+					// Trigger double jump particles
+					doubleJumpParticles.Stop (); 
+					doubleJumpParticles.Play (); 
 				}
 			}
 		}
-	}
-
-
-	IEnumerator StopDoubleJump ()
-	{
-		yield return new WaitForSeconds (0.1f);
-		canDoubleJump = false;
 	}
 
 	void WallJump ()
 	{
-		if (Grounded () && backToWall == false && faceToWall == false && lSideToWall == false && rSideToWall == false)
-		{
-			cameFromGround = false;
-		}
 
 		if (Physics.Raycast (transform.position, -transform.forward, 1))
 		{
 			backToWall = true;
-			canDoubleJump = false;
-
-			if (!Grounded ())
-			{
-				if (cameFromGround == false)
-				{
-					isHuggingWall = true;
-				}
-			}
-			else
-			{
-				cameFromGround = true;
-				isHuggingWall = false;
-				isWallJumping = false;
-			}
-			//Debug.Log ("BACK TO WALL");
 		}
 		else
 		{
 			backToWall = false;
-
 		}
 			
 		if (Physics.Raycast (transform.position, transform.forward, 1))
 		{
 			faceToWall = true;
-			canDoubleJump = false;
-
-			if (!Grounded ())
-			{
-				if (cameFromGround == false)
-				{
-					isHuggingWall = true;
-				}
-			}
-			else
-			{
-				//faceToWall = false;
-				cameFromGround = true;
-				isHuggingWall = false;
-				isWallJumping = false;
-			}
-
-			Debug.Log (faceToWall);
 		}
 		else
 		{
@@ -613,23 +528,6 @@ public class PlayerManager : MonoBehaviour
 		if (Physics.Raycast (transform.position, transform.right, 1))
 		{
 			rSideToWall = true;
-			canDoubleJump = false;
-
-			if (!Grounded ())
-			{
-				if (cameFromGround == false)
-				{
-					isHuggingWall = true;
-				}
-			}
-			else
-			{
-				cameFromGround = true;
-				isHuggingWall = false;
-				isWallJumping = false;
-			}
-
-			//Debug.Log("RIGHT TO WALL");
 		}
 		else
 		{
@@ -639,102 +537,44 @@ public class PlayerManager : MonoBehaviour
 		if (Physics.Raycast (transform.position, -transform.right, 1))
 		{
 			lSideToWall = true;
-			canDoubleJump = false;
-
-			if (!Grounded ())
-			{
-				if (cameFromGround == false)
-				{
-					isHuggingWall = true;
-				}
-			}
-			else
-			{
-				cameFromGround = true;
-				isHuggingWall = false;
-				isWallJumping = false;
-			}
-
-			//Debug.Log ("LEFT TO WALL");
 		}
 		else
 		{
 			lSideToWall = false;
 		}
 
-		if (Grounded ())
+		if (jumpInput > 0 && isHuggingWall)
 		{
-			isHuggingWall = false;
+			if (faceToWall)
+			{
+				velocity.z = moveSetting.forwardVel * -1.5f; //* -1.5f;
+				velocity.y = moveSetting.jumpVel * 1.2f;
+				isHuggingWall = false;
+			}
+			else if (backToWall)
+			{
+				velocity.z = moveSetting.forwardVel * 1.5f;
+				velocity.y = moveSetting.jumpVel * 1.2f;
+				isHuggingWall = false;
+			}
+			else if (rSideToWall)
+			{
+				velocity.x = moveSetting.strafeVel * -1.5f; //* -1.5f;
+				velocity.y = moveSetting.jumpVel * 1.2f;
+				isHuggingWall = false;
+			}
+			else if (lSideToWall)
+			{
+				velocity.x = moveSetting.strafeVel * 1.5f;
+				velocity.y = moveSetting.jumpVel * 1.2f;
+				isHuggingWall = false;
+			}
 		}
-
-		if (canWallJump)
+		else if (jumpInput == 0 && isHuggingWall)
 		{
-			if (isWallJumping && isHuggingWall)
-			{
-				if (isHuggingWall && !Grounded ())
-				{
-					curDownAccel = physSetting.downWallAccel;
-					velocity.x = 0;
-					velocity.z = 0;
-					//isOriented = false;
-
-					//Debug.Log ("AM HUGGING WALL");
-				}
-
-				if (faceToWall)
-				{
-					if (Input.GetKeyDown (KeyCode.Space))
-					{
-						//isOriented = true;
-						//curDownAccel = physSetting.normDownAccel;
-						velocity.z = moveSetting.forwardVel * -1.5f; //* -1.5f;
-						velocity.y = moveSetting.jumpVel * 1.2f;
-						isHuggingWall = false;
-						//isWallJumping = false;
-					} 
-				}
-				else if (backToWall)
-				{
-					if (Input.GetKeyDown (KeyCode.Space))
-					{
-						//isOriented = true;
-						//curDownAccel = physSetting.normDownAccel;
-						velocity.z = moveSetting.forwardVel * 1.5f;
-						velocity.y = moveSetting.jumpVel * 1.2f;
-						isHuggingWall = false;
-						//isWallJumping = false;
-					}
-				}
-				else if (rSideToWall)
-				{
-					if (Input.GetKeyDown (KeyCode.Space))
-					{
-						//isOriented = true;
-						//curDownAccel = physSetting.normDownAccel;
-						velocity.x = moveSetting.strafeVel * -1.5f; //* -1.5f;
-						velocity.y = moveSetting.jumpVel * 1.2f;
-						isHuggingWall = false;
-						//isWallJumping = false;
-					}
-				}
-				else if (lSideToWall)
-				{
-					if (Input.GetKeyDown (KeyCode.Space))
-					{
-						//isOriented = true;
-						//curDownAccel = physSetting.normDownAccel;
-						velocity.x = moveSetting.strafeVel * 1.5f;
-						velocity.y = moveSetting.jumpVel * 1.2f;
-						isHuggingWall = false;
-						//isWallJumping = true;
-					}
-				}
-			}
-			else
-			{
-				curDownAccel = physSetting.normDownAccel;
-				isOriented = true;
-			}
+			velocity.y -= physSetting.downWallAccel;
+			velocity.x = 0;
+			velocity.z = 0;
 		}
 	}
 
@@ -782,14 +622,12 @@ public class PlayerManager : MonoBehaviour
 
 		while (color != Color.white)
 		{
-			
 			color = Color.Lerp (Color.red, Color.white, time * 2);
 			time += Time.deltaTime;
 			foreach (Renderer rend in renderer)
 			{
 				rend.material.color = color;
 			}
-			//renderer.material.color = color;
 			yield return new WaitForEndOfFrame ();
 		} 
 	}
@@ -819,7 +657,6 @@ public class PlayerManager : MonoBehaviour
 
 		// Updates the health bars fill.
 		playerSetting.healthbarFill.GetComponent<Image> ().fillAmount = currentHealth / 100;
-//		playerSetting.healthbarFill.GetComponent<RectTransform>().sizeDelta = new Vector2 (currentHealth, 32);
 
 		// Smooths the current player health value based on the target health variable.
 		currentHealth = Mathf.SmoothDamp (currentHealth, targetHealth, ref healthSmoothing, 0.3f);
@@ -834,7 +671,6 @@ public class PlayerManager : MonoBehaviour
 		// Only heals the player if player health is below the max. 
 		if (currentHealth < maxHealth)
 		{
-			//targetHealth = currentHealth + healthRecieved;
 			targetHealth += healthReceived; 
 
 			if (targetHealth > maxHealth)
@@ -861,10 +697,9 @@ public class PlayerManager : MonoBehaviour
 	public void RestoreToFullHealth ()
 	{
 		targetHealth = maxHealth + 1;
-		//currentHealth = maxHealth;
 	}
 
-	float CalculateMaxStamina()
+	float CalculateMaxStamina ()
 	{
 		return 100 + (GameState.inst.GetNumStaminaPickupsFound () * 25);
 	}
@@ -874,7 +709,7 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Stamina ()
 	{
-		maxStamina = CalculateMaxStamina();
+		maxStamina = CalculateMaxStamina ();
 
 		playerSetting.staminaBarBackground.GetComponent<RectTransform> ().sizeDelta = new Vector2 (154.5f + (GameState.inst.GetNumStaminaPickupsFound () * 25.75f), 40);
 
@@ -901,9 +736,6 @@ public class PlayerManager : MonoBehaviour
 		}
 
 		playerSetting.staminaBarFill.GetComponent<Image> ().fillAmount = currentStamina / (100 + (GameState.inst.GetNumStaminaPickupsFound () * 25));
-
-//		playerSetting.staminaBarFill.GetComponent<RectTransform>().sizeDelta = new Vector2 (parameter, 32);
-
 	}
 
 	/// <summary>
@@ -927,7 +759,6 @@ public class PlayerManager : MonoBehaviour
 		{
 			Timescaler.inst.timeSlowed = false;
 			isSlowed = false;
-			//playerAudio.Stop ();
 		}
 	}
 
@@ -969,22 +800,13 @@ public class PlayerManager : MonoBehaviour
 			StartCoroutine ("DamageFlash");
 		}
 
-		/*if (col.gameObject.tag == "Bullet")
-		{
-			DamageCalculator (10);
-
-			StopCoroutine ("DamageFlash");
-			StartCoroutine ("DamageFlash");
-		} */
-
 		if (col.gameObject.tag == "Wall" && !Grounded ())
 		{
 			
 			if (GameState.inst.upgradesFound [1])
 			{
 
-				//isHuggingWall = true;
-				isWallJumping = true;
+				isHuggingWall = true;
 
 				velocity = Vector3.zero;
 
@@ -1020,10 +842,6 @@ public class PlayerManager : MonoBehaviour
 		{
 			if (col.gameObject.tag == "Wall" && !Grounded ())
 			{
-
-				//isHuggingWall = false;
-				//isWallJumping = false;
-
 				curDownAccel = physSetting.normDownAccel;
 			}
 		}
@@ -1042,13 +860,7 @@ public class PlayerManager : MonoBehaviour
 		{
 			if (col.gameObject.tag == "Wall" && !Grounded ())
 			{
-
-				//velocity.y = 0;
-				//isHuggingWall = true;
-				isWallJumping = true;
-
 				curDownAccel = physSetting.downWallAccel;
-
 			}
 		} 
 
@@ -1066,7 +878,6 @@ public class PlayerManager : MonoBehaviour
 			//If not, then the player will take damage
 			anim.SetTrigger ("isHit");
 			DamageCalculator (10);
-
 
 			StopCoroutine ("DamageFlash");
 			StartCoroutine ("DamageFlash");
