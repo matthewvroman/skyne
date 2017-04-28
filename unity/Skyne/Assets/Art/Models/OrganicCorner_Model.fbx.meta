@@ -11,6 +11,7 @@ ModelImporter:
     3300000: //RootNode
     4300000: Walls
     4300002: OrganicCorner
+    4300004: Wall
   materials:
     importMaterials: 1
     materialName: 0
