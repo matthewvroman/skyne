@@ -175,6 +175,12 @@ public class PlayerManager : MonoBehaviour
 	public ParticleSystem doubleJumpParticles;
 	public ParticleSystem dashRingParticles;
 	public ParticleSystem dashBootParticles;
+	public ParticleSystem wallSlideParticles; 
+	public ParticleSystem wallSlideSparkParticles; 
+	public ParticleSystem wallJumpRing; 
+	public ParticleSystem wallJumpBlast; 
+	public ParticleSystem wallJumpFireParticles; 
+	public ParticleSystem landingParticles; 
 
 	/// <summary>
 	/// Shoots a raycast downwards from the player, and checks the distance between the player and the ground. If that distance is greater than the distToGrounded variable, the player will fall down
@@ -228,6 +234,8 @@ public class PlayerManager : MonoBehaviour
 
 		dashRingParticles.enableEmission = false; 
 		dashBootParticles.enableEmission = false;
+		wallSlideParticles.enableEmission = false; 
+		wallSlideSparkParticles.enableEmission = false; 
 
 		//playerAudio.Play ();
 	}
@@ -316,6 +324,17 @@ public class PlayerManager : MonoBehaviour
 		Animations ();
 
 		Debug.Log (isHuggingWall);
+
+		if (isHuggingWall && isAlive)
+		{
+			wallSlideParticles.enableEmission = true; 
+			wallSlideSparkParticles.enableEmission = true; 
+		}
+		else
+		{
+			wallSlideParticles.enableEmission = false; 
+			wallSlideSparkParticles.enableEmission = false; 
+		}
 	}
 
 	void FixedUpdate ()
@@ -550,24 +569,48 @@ public class PlayerManager : MonoBehaviour
 				velocity.z = moveSetting.forwardVel * -1.5f; //* -1.5f;
 				velocity.y = moveSetting.jumpVel * 1.2f;
 				isHuggingWall = false;
+				wallJumpRing.Play();
+				wallJumpRing.gameObject.transform.localRotation = Quaternion.Euler(0, 180, 0); 
+				wallJumpBlast.Play(); 
+				wallJumpBlast.gameObject.transform.localRotation = Quaternion.Euler(0, 180, 0); 
+				wallJumpFireParticles.Play(); 
+				wallJumpFireParticles.gameObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
 			}
 			else if (backToWall)
 			{
 				velocity.z = moveSetting.forwardVel * 1.5f;
 				velocity.y = moveSetting.jumpVel * 1.2f;
 				isHuggingWall = false;
+				wallJumpRing.Play();
+				wallJumpRing.gameObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
+				wallJumpBlast.Play(); 
+				wallJumpBlast.gameObject.transform.localRotation = Quaternion.Euler(0, 0, 0); 
+				wallJumpFireParticles.Play(); 
+				wallJumpFireParticles.gameObject.transform.localRotation = Quaternion.Euler(0, 180, 0);
 			}
 			else if (rSideToWall)
 			{
 				velocity.x = moveSetting.strafeVel * -1.5f; //* -1.5f;
 				velocity.y = moveSetting.jumpVel * 1.2f;
 				isHuggingWall = false;
+				wallJumpRing.Play();
+				wallJumpRing.gameObject.transform.localRotation = Quaternion.Euler(0, -90, 0);
+				wallJumpBlast.Play(); 
+				wallJumpBlast.gameObject.transform.localRotation = Quaternion.Euler(0, -90, 0);
+				wallJumpFireParticles.Play(); 
+				wallJumpFireParticles.gameObject.transform.localRotation = Quaternion.Euler(0, 90, 0);
 			}
 			else if (lSideToWall)
 			{
 				velocity.x = moveSetting.strafeVel * 1.5f;
 				velocity.y = moveSetting.jumpVel * 1.2f;
 				isHuggingWall = false;
+				wallJumpRing.Play();
+				wallJumpRing.gameObject.transform.localRotation = Quaternion.Euler(0, 90, 0);
+				wallJumpBlast.Play(); 
+				wallJumpBlast.gameObject.transform.localRotation = Quaternion.Euler(0, 90, 0);
+				wallJumpFireParticles.Play(); 
+				wallJumpFireParticles.gameObject.transform.localRotation = Quaternion.Euler(0, -90, 0);
 			}
 		}
 		else if (jumpInput == 0 && isHuggingWall)
@@ -736,6 +779,12 @@ public class PlayerManager : MonoBehaviour
 		}
 
 		playerSetting.staminaBarFill.GetComponent<Image> ().fillAmount = currentStamina / (100 + (GameState.inst.GetNumStaminaPickupsFound () * 25));
+	}
+
+	// Called from AnimSounds.LandingSFX()
+	public void OnLanding()
+	{
+		landingParticles.Play(); 
 	}
 
 	/// <summary>

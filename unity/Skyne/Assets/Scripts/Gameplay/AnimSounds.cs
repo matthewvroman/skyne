@@ -15,6 +15,8 @@ public class AnimSounds : MonoBehaviour {
 	public AudioClip landing;
 	public AudioClip doubleJump;
 
+	public PlayerManager playerManager; 
+
 	// Use this for initialization
 	void Start () {
 		animAudio = GetComponent<AudioSource> ();
@@ -45,8 +47,19 @@ public class AnimSounds : MonoBehaviour {
 		animAudio.PlayOneShot (hit);
 	}
 
-	public void LandingSFX() {
+	public void LandingSFX() 
+	{
 		animAudio.PlayOneShot (landing);
+
+		if (playerManager != null)
+		{
+			playerManager.OnLanding(); 
+			//Debug.Log("Play landing particles"); 
+		}
+		else
+		{
+			Debug.Log("Tried to play landing particles, but playerMangager ref is null"); 
+		}
 	}
 
 	public void DoubleJumpSFX() {
