@@ -185,6 +185,11 @@ public class Enemy : MonoBehaviour
 	/// </summary>
 	protected bool CanHitTarget()
 	{
+		if (target == null)
+		{
+			return false; 
+		}
+
 		//float startDistMultiplier = 0.5f; 
 		//Vector3 start = transform.position + dir * startDistMultiplier; 
 

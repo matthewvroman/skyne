@@ -205,10 +205,22 @@ public class Boss1_AI : Enemy
 		while (alive)
 		{
 			// If the game is paused or still loading, don't continue with the coroutine and reset the while loop
-			if (!GlobalManager.inst.GameplayIsActive () || !GameState.inst.inBossRoom)
+			if (!GlobalManager.inst.GameplayIsActive())
 			{
 				yield return null; 
-				continue; 
+				continue;  
+			}
+
+			if (GameState.inst == null)
+			{
+				yield return null; 
+				continue;  
+			}
+
+			if (!GameState.inst.inBossRoom)
+			{
+				yield return null; 
+				continue;  
 			}
 
 			switch (state)
@@ -257,10 +269,14 @@ public class Boss1_AI : Enemy
 	// Update is called once per frame
 	void Update ()
 	{
-		if (!GlobalManager.inst.GameplayIsActive () || !GameState.inst.inBossRoom)
-		{
+		if (!GlobalManager.inst.GameplayIsActive ())
 			return; 
-		}
+		
+		if (GameState.inst == null)
+			return; 
+		
+		if (!GameState.inst.inBossRoom)
+			return; 
 
 		isIdling = true;
 

@@ -100,7 +100,9 @@ public class ChargerManager : Enemy
 
 			if (target == null)
 			{
-				Debug.LogError("Target is null"); 
+				Debug.LogWarning("Target is null"); 
+				yield return null; 
+				continue; 
 			}
 
 			switch (state)
