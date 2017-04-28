@@ -414,7 +414,15 @@ public class Enemy : MonoBehaviour
 			}
 
 			// Call ExplosionManager to create an explosion
-			ExplosionManager.inst.SpawnEnemyExplosion(transform.position); 
+			if (!(this is FortManager))
+			{
+				ExplosionManager.inst.SpawnEnemyExplosion(transform.position); 
+			}
+			else
+			{
+				Debug.Log("Spawn fort explosion"); 
+				ExplosionManager.inst.SpawnFortExplosion(transform.position); 
+			}
 
 			this.GetComponent<AudioSource> ().PlayOneShot (deathSound);
 

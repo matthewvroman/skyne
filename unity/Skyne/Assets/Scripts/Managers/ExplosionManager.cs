@@ -5,6 +5,7 @@ using UnityEngine;
 public class ExplosionManager : Singleton<ExplosionManager> 
 {
 	public GameObject enemyExplosionPrefab;
+	public GameObject fortExplosionPrefab; 
 	public GameObject enemyHitParticlesPrefab; 
 	public GameObject criticalHitExplosionPrefab;
 	public GameObject healthPickupExplosionPrefab; 
@@ -13,6 +14,11 @@ public class ExplosionManager : Singleton<ExplosionManager>
 	{
 		GameObject newExplosion = GameObject.Instantiate(enemyExplosionPrefab, spawnPos, Quaternion.identity, transform); 
 	}
+
+	public void SpawnFortExplosion(Vector3 spawnPos)
+	{
+		GameObject newExplosion = GameObject.Instantiate(fortExplosionPrefab, spawnPos, Quaternion.identity, transform); 
+	} 
 
 	public void SpawnBulletExplosion(Vector3 spawnPos, Quaternion spawnRot, GameObject explosionPrefab)
 	{
