@@ -7,20 +7,36 @@ public class Explosion : MonoBehaviour
 	//ParticleSystem particles; 
 
 	public ParticleSystem[] particles; 
+	public AudioSource explosionAudio; 
+
 	public bool dontDestroyOnFinish; 
 
 	// Use this for initialization
 	void Start () 
 	{
 		//particles = GetComponent<ParticleSystem>(); 
+		if (explosionAudio != null && explosionAudio.clip != null)
+		{
+			explosionAudio.Play(); 
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		if (CheckExplosionDone() && !dontDestroyOnFinish)
+		if (explosionAudio != null)
 		{
-			Destroy(this.gameObject, 0.5f); 
+			if (CheckExplosionDone() && !explosionAudio.isPlaying && !dontDestroyOnFinish)
+			{
+				Destroy(this.gameObject, 0.5f); 
+			}
+		}
+		else
+		{
+			if (CheckExplosionDone() && !dontDestroyOnFinish)
+			{
+				Destroy(this.gameObject, 0.5f); 
+			}
 		}
 	}
 
