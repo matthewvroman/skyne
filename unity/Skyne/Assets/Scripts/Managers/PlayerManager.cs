@@ -881,7 +881,7 @@ public class PlayerManager : MonoBehaviour
 
 		if (col.gameObject.tag == "Spikes")
 		{
-			targetHealth = 0;
+			currentHealth = 0;
 		}
 	}
 
