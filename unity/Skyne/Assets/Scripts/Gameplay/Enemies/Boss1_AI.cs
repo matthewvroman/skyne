@@ -1007,8 +1007,8 @@ public class Boss1_AI : Enemy
 
 	protected override void PreEnemyDestroy()
 	{
-		stompRingParticles.enableEmission = false; 
-		stompDustParticles.enableEmission = false; 
+		//stompRingParticles.enableEmission = false; 
+		//stompDustParticles.enableEmission = false; 
 		laserChargeParticles.enableEmission = false; 
 		spinRingParticles.enableEmission = false;
 		laserObj.SetActive(false);
@@ -1085,6 +1085,15 @@ public class Boss1_AI : Enemy
 		stompRingParticles.Play (); 
 		stompDustParticles.Play (); 
 		stompedGround = true;
+	}
+
+	// TODO: Use this animation event function for the boss collapse when its knees hit the ground and trigger some particles
+	void DeathGroundImpact()
+	{
+		stompRingParticles.Stop(); 
+		stompDustParticles.Stop(); 
+		stompRingParticles.Play (); 
+		stompDustParticles.Play (); 
 	}
 
 	void AttackDone ()
