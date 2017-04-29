@@ -393,6 +393,7 @@ public class PlayerManager : MonoBehaviour
 		{
 			isWallJumping = false;
 		}
+
 		anim.SetBool ("wallJumped", isWallJumping);
 
 		anim.SetBool ("Dash", isDashing);
@@ -414,7 +415,7 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Run ()
 	{
-		if (Mathf.Abs (forwardInput) > inputSetting.inputDelay && !isSlowed)
+		if (Mathf.Abs (forwardInput) > inputSetting.inputDelay && !isSlowed && !isWallJumping)
 		{
 			//move
 			velocity.z = moveSetting.forwardVel * forwardInput * Time.timeScale;
@@ -435,7 +436,7 @@ public class PlayerManager : MonoBehaviour
 	/// </summary>
 	void Strafe ()
 	{
-		if (Mathf.Abs (strafeInput) > inputSetting.inputDelay && !isSlowed)
+		if (Mathf.Abs (strafeInput) > inputSetting.inputDelay && !isSlowed && !isWallJumping)
 		{
 			//move
 			velocity.x = moveSetting.strafeVel * strafeInput * Time.timeScale;
@@ -530,7 +531,7 @@ public class PlayerManager : MonoBehaviour
 	void WallJump ()
 	{
 
-		if (Physics.Raycast (transform.position, -transform.forward, 1))
+		if (Physics.Raycast (transform.position, -transform.forward, 1) && !Grounded())
 		{
 			backToWall = true;
 		}
@@ -539,7 +540,7 @@ public class PlayerManager : MonoBehaviour
 			backToWall = false;
 		}
 			
-		if (Physics.Raycast (transform.position, transform.forward, 1))
+		if (Physics.Raycast (transform.position, transform.forward, 1) && !Grounded())
 		{
 			faceToWall = true;
 		}
@@ -548,7 +549,7 @@ public class PlayerManager : MonoBehaviour
 			faceToWall = false;
 		}
 
-		if (Physics.Raycast (transform.position, transform.right, 1))
+		if (Physics.Raycast (transform.position, transform.right, 1) && !Grounded())
 		{
 			rSideToWall = true;
 		}
@@ -557,7 +558,7 @@ public class PlayerManager : MonoBehaviour
 			rSideToWall = false;
 		}
 
-		if (Physics.Raycast (transform.position, -transform.right, 1))
+		if (Physics.Raycast (transform.position, -transform.right, 1) && !Grounded())
 		{
 			lSideToWall = true;
 		}
@@ -574,6 +575,7 @@ public class PlayerManager : MonoBehaviour
 				velocity.z = moveSetting.forwardVel * -1.5f; //* -1.5f;
 				velocity.y = moveSetting.jumpVel * 1.2f;
 				isHuggingWall = false;
+
 				wallJumpRing.Play();
 				wallJumpRing.gameObject.transform.localRotation = Quaternion.Euler(0, 180, 0); 
 				wallJumpBlast.Play(); 
@@ -586,6 +588,7 @@ public class PlayerManager : MonoBehaviour
 				velocity.z = moveSetting.forwardVel * 1.5f;
 				velocity.y = moveSetting.jumpVel * 1.2f;
 				isHuggingWall = false;
+
 				wallJumpRing.Play();
 				wallJumpRing.gameObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
 				wallJumpBlast.Play(); 
@@ -598,6 +601,7 @@ public class PlayerManager : MonoBehaviour
 				velocity.x = moveSetting.strafeVel * -1.5f; //* -1.5f;
 				velocity.y = moveSetting.jumpVel * 1.2f;
 				isHuggingWall = false;
+
 				wallJumpRing.Play();
 				wallJumpRing.gameObject.transform.localRotation = Quaternion.Euler(0, -90, 0);
 				wallJumpBlast.Play(); 
@@ -610,6 +614,7 @@ public class PlayerManager : MonoBehaviour
 				velocity.x = moveSetting.strafeVel * 1.5f;
 				velocity.y = moveSetting.jumpVel * 1.2f;
 				isHuggingWall = false;
+
 				wallJumpRing.Play();
 				wallJumpRing.gameObject.transform.localRotation = Quaternion.Euler(0, 90, 0);
 				wallJumpBlast.Play(); 
@@ -807,8 +812,16 @@ public class PlayerManager : MonoBehaviour
 		{
 			Timescaler.inst.timeSlowed = true;
 			isSlowed = true;
-			velocity.z = lastZVel;
-			velocity.x = lastXVel;
+			if (!isWallJumping)
+			{
+				velocity.z = lastZVel;
+				velocity.x = lastXVel;
+			}
+			else
+			{
+				velocity.z = -lastZVel;
+				velocity.x = -lastXVel;
+			}
 		}
 		else
 		{
