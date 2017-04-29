@@ -127,6 +127,6 @@ public class AnimSounds : MonoBehaviour
 
 	public void WallClingSFX ()
 	{
-
+		animAudio.PlayOneShot (wallCling);
 	}
 }

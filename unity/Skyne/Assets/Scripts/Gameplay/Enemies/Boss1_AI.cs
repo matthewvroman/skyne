@@ -1148,7 +1148,12 @@ public class Boss1_AI : Enemy
 	{
 		isExploding = false; 
 		smokeParticles[1].system.enableEmission = false; 
-		smokeParticles[2].system.enableEmission = false; 
+		smokeParticles[2].system.enableEmission = false;
+
+		stompRingParticles.Stop(); 
+		stompDustParticles.Stop(); 
+		stompRingParticles.Play (); 
+		stompDustParticles.Play (); 
 	}
 
 	void SpawnEndGameLight ()
