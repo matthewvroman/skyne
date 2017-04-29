@@ -5581,7 +5581,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.62179476
+      - time: 0.55245167
         functionName: LandingSFX
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,

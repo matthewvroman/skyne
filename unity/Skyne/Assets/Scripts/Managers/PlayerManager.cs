@@ -389,6 +389,10 @@ public class PlayerManager : MonoBehaviour
 
 		anim.SetBool ("canDoubleJump", canDoubleJump);
 
+		if (Grounded() == true)
+		{
+			isWallJumping = false;
+		}
 		anim.SetBool ("wallJumped", isWallJumping);
 
 		anim.SetBool ("Dash", isDashing);
@@ -564,6 +568,7 @@ public class PlayerManager : MonoBehaviour
 
 		if (jumpInput > 0 && isHuggingWall)
 		{
+			isWallJumping = true;
 			if (faceToWall)
 			{
 				velocity.z = moveSetting.forwardVel * -1.5f; //* -1.5f;
@@ -615,6 +620,7 @@ public class PlayerManager : MonoBehaviour
 		}
 		else if (jumpInput == 0 && isHuggingWall)
 		{
+			isWallJumping = false;
 			velocity.y -= physSetting.downWallAccel;
 			velocity.x = 0;
 			velocity.z = 0;
