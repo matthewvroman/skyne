@@ -392,6 +392,7 @@ public class PlayerManager : MonoBehaviour
 		if (Grounded() == true)
 		{
 			isWallJumping = false;
+			anim.SetBool ("Jump", false);
 		}
 
 		anim.SetBool ("wallJumped", isWallJumping);
