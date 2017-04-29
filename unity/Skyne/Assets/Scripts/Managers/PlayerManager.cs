@@ -278,6 +278,7 @@ public class PlayerManager : MonoBehaviour
 
 		if (velocity.y < 0)
 		{
+			anim.SetBool ("DoubleJump", false);
 			anim.SetBool ("Jump", false);
 			isFalling = true;
 		}
@@ -394,13 +395,14 @@ public class PlayerManager : MonoBehaviour
 		anim.SetBool ("rSideToWall", rSideToWall);
 		anim.SetBool ("lSideToWall", lSideToWall);
 
-		anim.SetBool ("canDoubleJump", canDoubleJump);
-
 		if (Grounded() == true)
 		{
 			isWallJumping = false;
 			anim.SetBool ("Jump", false);
+			anim.SetBool ("DoubleJump", false);
 		}
+
+		anim.SetBool ("onWall", isHuggingWall);
 
 		anim.SetBool ("wallJumped", isWallJumping);
 
@@ -528,7 +530,12 @@ public class PlayerManager : MonoBehaviour
 						velocity = velocity * 1.2f;
 					}
 					canDoubleJump = false;
-					anim.SetTrigger ("DoubleJump");
+
+//					if (isWallJumping == false)
+//					{
+//						anim.SetTrigger ("DoubleJump");
+//					}
+					anim.SetBool ("DoubleJump", true);
 
 					// Trigger double jump particles
 					doubleJumpParticles.Stop (); 

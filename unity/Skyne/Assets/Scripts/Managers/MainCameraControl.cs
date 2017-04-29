@@ -33,6 +33,8 @@ public class MainCameraControl : Singleton<MainCameraControl>
 	public float bossHoldTime; 
 	float bossHoldTimer; 
 
+	public Transform spineJoint;
+
 	void Awake()
 	{
 		// Reference to the camera transform.
@@ -128,6 +130,8 @@ public class MainCameraControl : Singleton<MainCameraControl>
 		//camera.rotation = aimRotation;
 
 		Quaternion aimRotation = Quaternion.Euler(-VerticalAngle, HorizontalAngle, 0);
+		Quaternion upDownCharacterRotation = Quaternion.Euler(-VerticalAngle, 0, 0);
+		spineJoint.localRotation = upDownCharacterRotation;
 		camera.localRotation = aimRotation;
 
 		/*
