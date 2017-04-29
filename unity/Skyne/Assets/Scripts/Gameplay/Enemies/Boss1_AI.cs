@@ -1079,6 +1079,7 @@ public class Boss1_AI : Enemy
 
 	void StompedGround ()
 	{
+		boss1Audio.PlayOneShot(stompSound);
 		stompRingParticles.Play (); 
 		stompDustParticles.Play (); 
 		stompedGround = true;
@@ -1128,14 +1129,6 @@ public class Boss1_AI : Enemy
 		if (!laserAudio.isPlaying)
 		{
 			laserAudio.Play ();
-		}
-	}
-
-	void StompSFX ()
-	{
-		if (alive)
-		{
-			boss1Audio.PlayOneShot(stompSound);
 		}
 	}
 
