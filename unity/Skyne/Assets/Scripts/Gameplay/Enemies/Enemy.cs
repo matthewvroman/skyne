@@ -63,7 +63,7 @@ public class Enemy : MonoBehaviour
 	public float normalHitDamageModifier; 
 	public float lowHitDamageModifier; 
 
-	List<GameObject> enemyColliders; 
+	protected List<GameObject> enemyColliders; 
 
 	// Smoke Particles
 	[System.Serializable]

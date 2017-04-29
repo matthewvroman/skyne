@@ -1030,6 +1030,12 @@ public class Boss1_AI : Enemy
 
 		GameState.inst.bossDefeated = true; 
 
+		// Move boss colliders to a different layer
+		for (int i = 0; i < enemyColliders.Count; i++)
+		{
+			enemyColliders[i].tag = "Untagged"; 
+		}
+
 	}
 		
 
