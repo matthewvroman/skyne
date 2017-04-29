@@ -28,7 +28,10 @@ public class AnimSounds : MonoBehaviour {
 	}
 
 	public void FootstepSFX() {
-		animAudio.PlayOneShot (footstep1);
+		if (playerManager.getIsWalking() == true)
+		{
+			animAudio.PlayOneShot (footstep1);
+		}
 	}
 
 	public void JumpSFX() {

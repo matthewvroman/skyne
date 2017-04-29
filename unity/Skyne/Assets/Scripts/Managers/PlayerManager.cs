@@ -112,6 +112,8 @@ public class PlayerManager : MonoBehaviour
 
 	bool isAlive = true;
 
+	bool isWalking;
+
 	public Enemy[] enemies;
 	bool isSeen;
 
@@ -321,6 +323,11 @@ public class PlayerManager : MonoBehaviour
 			StartCoroutine ("Death");
 		}
 
+		if (forwardInput == 0 && strafeInput == 0)
+		{
+			isWalking = false;
+		}
+
 		Animations ();
 
 		Debug.Log (isHuggingWall);
@@ -422,6 +429,7 @@ public class PlayerManager : MonoBehaviour
 			velocity.z = moveSetting.forwardVel * forwardInput * Time.timeScale;
 			lastZVel = velocity.z;
 			anim.SetFloat ("zDir", velocity.z);
+			isWalking = true;
 		}
 		else if (forwardInput == 0 && isDashing == false && Grounded ())
 		{
@@ -443,6 +451,7 @@ public class PlayerManager : MonoBehaviour
 			velocity.x = moveSetting.strafeVel * strafeInput * Time.timeScale;
 			lastXVel = velocity.x;
 			anim.SetFloat ("xDir", velocity.x);
+			isWalking = true;
 		}
 		else if (strafeInput == 0 && isDashing == false && Grounded ())
 		{
@@ -844,6 +853,10 @@ public class PlayerManager : MonoBehaviour
 	public bool GetIsAlive ()
 	{
 		return isAlive; 
+	}
+
+	public bool getIsWalking() {
+		return isWalking;
 	}
 
 	void OnCollisionEnter (Collision col)
