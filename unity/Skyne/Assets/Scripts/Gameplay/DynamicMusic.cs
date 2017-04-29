@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DynamicMusic : MonoBehaviour {
+public class DynamicMusic : MonoBehaviour 
+{
 
 	AudioSource[] musicCon;
 	AudioSource baseMusicCon;
@@ -29,8 +30,19 @@ public class DynamicMusic : MonoBehaviour {
 
 	float musTimer = 1;
 
+	void OnEnable ()
+	{
+		MainGameplayManager.GameplayStartEvent += StartMusic; 
+	}
+
+	void OnDisable ()
+	{
+		MainGameplayManager.GameplayStartEvent -= StartMusic;
+	}
+
 	// Use this for initialization
-	void Start () {
+	void StartMusic () 
+	{
 		musicCon = GameObject.Find ("MusicController").GetComponents<AudioSource> ();
 
 		baseMusicCon = musicCon[0];
@@ -41,7 +53,7 @@ public class DynamicMusic : MonoBehaviour {
 		baseMusicCon.Play ();
 		fightMusicCon.Play ();
 		ambushMusicCon.Play ();
-		bossMusicCon.Play ();
+		//bossMusicCon.Play ();
 
 		fightMusicCon.volume = 0;
 		ambushMusicCon.volume = 0;
@@ -49,8 +61,15 @@ public class DynamicMusic : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
+		if (!GlobalManager.inst.GameplayIsActive())
+		{
+			return; 
+		}
+
 		enemies = Object.FindObjectsOfType<Enemy> ();
+
 
 		if (!baseMusicCon.isPlaying)
 		{
@@ -63,11 +82,6 @@ public class DynamicMusic : MonoBehaviour {
 		}
 
 		if (!ambushMusicCon.isPlaying)
-		{
-			baseMusicCon.Play ();
-		}
-
-		if (!bossMusicCon.isPlaying)
 		{
 			baseMusicCon.Play ();
 		}
@@ -93,10 +107,10 @@ public class DynamicMusic : MonoBehaviour {
 				else if (musTimer <= 0)
 				{
 					musTimer = 0;
-					SetVolume (baseMusicCon, 0, fadeOutSmooth);
-					SetVolume (ambushMusicCon, 0, fadeOutSmooth);
-					SetVolume (fightMusicCon, maxMusicVolume, fadeInSmooth);
-					SetVolume (bossMusicCon, 0, fadeOutSmooth);
+					SetVolume(baseMusicCon, 0, fadeOutSmooth);
+					SetVolume(ambushMusicCon, 0, fadeOutSmooth);
+					SetVolume(fightMusicCon, maxMusicVolume, fadeInSmooth);
+					//SetVolume(bossMusicCon, 0, fadeOutSmooth);
 					//musicCon.clip = fightMusic;
 				}
 			}
@@ -104,24 +118,36 @@ public class DynamicMusic : MonoBehaviour {
 			{
 				musTimer = 1;
 				//musicCon.clip = normMusic;
-				SetVolume (baseMusicCon, maxMusicVolume, fadeInSmooth);
-				SetVolume (fightMusicCon, 0, fadeOutSmooth);
-				SetVolume (ambushMusicCon, 0, fadeOutSmooth);
-				SetVolume (bossMusicCon, 0, fadeOutSmooth);
+				SetVolume(baseMusicCon, maxMusicVolume, fadeInSmooth);
+				SetVolume(fightMusicCon, 0, fadeOutSmooth);
+				SetVolume(ambushMusicCon, 0, fadeOutSmooth);
+				//SetVolume(bossMusicCon, 0, fadeOutSmooth);
 			}
 		}
-		else if (GameState.inst.inBossRoom == true)
+		else if (GameState.inst.inBossRoom == true && !GameState.inst.bossDefeated)
+		{
+			if (!bossMusicCon.isPlaying)
+			{
+				bossMusicCon.Play();
+				Debug.Log("Play boss music"); 
+			}
+
+			SetVolume(baseMusicCon, 0, fadeOutSmooth);
+			SetVolume(fightMusicCon, 0, fadeOutSmooth);
+			SetVolume(ambushMusicCon, 0, fadeOutSmooth);
+			SetVolume(bossMusicCon, maxMusicVolume, fadeInSmooth);
+			//bossMusicCon.volume = maxMusicVolume; 
+		}
+		else if (GameState.inst.bossDefeated)
+		{
+			SetVolume(bossMusicCon, 0, fadeOutSmooth);
+		}
+		else if (isInAR == true) 
 		{
 			SetVolume (baseMusicCon, 0, fadeOutSmooth);
 			SetVolume (fightMusicCon, 0, fadeOutSmooth);
-			SetVolume (ambushMusicCon, 0, fadeOutSmooth);
-			SetVolume (bossMusicCon, maxMusicVolume, fadeInSmooth);
-		} 
-		else if (isInAR == true) {
-			SetVolume (baseMusicCon, 0, fadeOutSmooth);
-			SetVolume (fightMusicCon, 0, fadeOutSmooth);
 			SetVolume (ambushMusicCon, maxMusicVolume, fadeInSmooth);
-			SetVolume (bossMusicCon, 0, fadeOutSmooth);
+			//SetVolume (bossMusicCon, 0, fadeOutSmooth);
 		}
 	}
 

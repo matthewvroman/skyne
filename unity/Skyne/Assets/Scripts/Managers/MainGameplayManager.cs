@@ -14,6 +14,8 @@ public class MainGameplayManager : Singleton<MainGameplayManager>
 	[SerializeField] private GameObject player; 
 	[SerializeField] private Camera mainCam; 
 
+	public static System.Action GameplayStartEvent; 
+
 	// Must occur after Awake() to ensure that all manager Awake()s have been called to create the inst variable
 	void Start()
 	{
@@ -62,7 +64,11 @@ public class MainGameplayManager : Singleton<MainGameplayManager>
 		// Set the starting sensitivity
 		MainCameraControl.inst.SetMouseSensitivity(PlayerPrefsManager.inst.GetSavedMouseSensitivity(GlobalManager.inst.defaultSensitivity)); 
 
-		// Fade in here
+		// Send out a message indicating that the pause state of the game has changed
+		if (GameplayStartEvent != null)
+		{
+			GameplayStartEvent(); 
+		}
 	}
 
 	
