@@ -134,7 +134,9 @@ public class Boss1_AI : Enemy
 
 	bool isSpinning = false;
 
-	AudioSource boss1Audio;
+	public AudioSource boss1Audio;
+	public AudioSource footstepAudioSource; 
+	public AudioSource laserAudio; 
 
 	[Space (5)]
 	[Header ("Boss: Audio")]
@@ -179,7 +181,7 @@ public class Boss1_AI : Enemy
 
 		turnSpeed = normTurnSpeed;
 
-		boss1Audio = GetComponent<AudioSource> ();
+		//boss1Audio = GetComponent<AudioSource> ();
 
 		enemyArray1 = new GameObject[1];
 		enemyArray2 = new GameObject[1];
@@ -781,10 +783,10 @@ public class Boss1_AI : Enemy
 			laserObj.SetActive (true);
 			laserChargeParticles.enableEmission = false; 
 
-			boss1Audio.clip = laserSound;
-			if (!boss1Audio.isPlaying)
+			laserAudio.clip = laserSound;
+			if (!laserAudio.isPlaying)
 			{
-				boss1Audio.Play ();
+				laserAudio.Play ();
 			}
 		}
 
@@ -1013,28 +1015,12 @@ public class Boss1_AI : Enemy
 		spinRingParticles.enableEmission = false;
 		laserObj.SetActive(false);
 
+		boss1Audio.Stop(); 
+
 		GameState.inst.bossDefeated = true; 
 
 	}
-
-
-	protected override void EnemyDestroy ()
-	{
-		Debug.Log ("Boss death"); 
-		anim.SetFloat ("xDir", 0);
-
-		GlobalManager.inst.LoadOutro (); 
-
-
-
-		/*
-		GameState.inst.keysFound [0] = true;
-		//KeyPickupManager.inst.SpawnKeyPickup(transform.position, 0);
-
-
-		KeyPickupManager.inst.SpawnTreasurePickup (transform.position);
-		*/ 
-	}
+		
 
 	void FireLaser ()
 	{
@@ -1111,26 +1097,35 @@ public class Boss1_AI : Enemy
 
 	void MoveSFX ()
 	{
-		boss1Audio.PlayOneShot (moveSound);
+		if (alive)
+		{
+			footstepAudioSource.PlayOneShot(moveSound);
+		}
 	}
 
 	void SpinSFX ()
 	{
-		boss1Audio.PlayOneShot (spinSound);
+		if (alive)
+		{
+			boss1Audio.PlayOneShot(spinSound);
+		}
 	}
 
 	void laserSFX ()
 	{
-		boss1Audio.clip = laserSound;
-		if (!boss1Audio.isPlaying)
+		laserAudio.clip = laserSound;
+		if (!laserAudio.isPlaying)
 		{
-			boss1Audio.Play ();
+			laserAudio.Play ();
 		}
 	}
 
 	void StompSFX ()
 	{
-		boss1Audio.PlayOneShot (stompSound);
+		if (alive)
+		{
+			boss1Audio.PlayOneShot(stompSound);
+		}
 	}
 
 	void StartSpawningExplosion ()
