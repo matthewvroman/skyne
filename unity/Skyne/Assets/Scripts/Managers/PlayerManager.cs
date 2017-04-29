@@ -187,7 +187,7 @@ public class PlayerManager : MonoBehaviour
 	/// <summary>
 	/// Shoots a raycast downwards from the player, and checks the distance between the player and the ground. If that distance is greater than the distToGrounded variable, the player will fall down
 	/// </summary>
-	bool Grounded ()
+	public bool Grounded ()
 	{
 		return Physics.Raycast (transform.position, Vector3.down, moveSetting.distToGrounded, moveSetting.ground);
 	}

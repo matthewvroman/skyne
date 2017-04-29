@@ -34,6 +34,7 @@ public class MainCameraControl : Singleton<MainCameraControl>
 	float bossHoldTimer; 
 
 	public Transform spineJoint;
+	public Transform neckJoint;
 
 	void Awake()
 	{
@@ -126,13 +127,24 @@ public class MainCameraControl : Singleton<MainCameraControl>
 		// Set camera orientation..
 		Quaternion camYRotation = Quaternion.Euler(0, HorizontalAngle, 0);
 
-		//Quaternion aimRotation = Quaternion.Euler(-VerticalAngle, HorizontalAngle, 0);
-		//camera.rotation = aimRotation;
-
 		Quaternion aimRotation = Quaternion.Euler(-VerticalAngle, HorizontalAngle, 0);
-		Quaternion upDownCharacterRotation = Quaternion.Euler(-VerticalAngle, 0, 0);
-		spineJoint.localRotation = upDownCharacterRotation;
 		camera.localRotation = aimRotation;
+
+		Quaternion upDownSpineRotation = Quaternion.Euler(-VerticalAngle, 0, 0);
+
+		Quaternion upDownNeckRotation;
+
+		if (-VerticalAngle < 0 && player.GetComponent<PlayerManager>().Grounded())
+		{
+			upDownNeckRotation = Quaternion.Euler (VerticalAngle / 2, 0, -VerticalAngle / 2);
+		} else
+		{
+			upDownNeckRotation = Quaternion.Euler (VerticalAngle / 2, 0, 0);
+		}
+
+		spineJoint.localRotation = upDownSpineRotation;
+		neckJoint.localRotation = upDownNeckRotation;
+
 
 		/*
 		if (!inCutscene)
