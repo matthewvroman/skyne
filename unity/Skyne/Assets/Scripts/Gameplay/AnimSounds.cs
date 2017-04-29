@@ -16,6 +16,7 @@ public class AnimSounds : MonoBehaviour
 
 	public AudioClip hit1;
 	public AudioClip hit2;
+	public AudioClip hit3;
 
 	public AudioClip landing;
 	public AudioClip doubleJump;
@@ -87,7 +88,7 @@ public class AnimSounds : MonoBehaviour
 		{
 			if (count < 1)
 			{
-				int num = Random.Range (1, 3);
+				int num = Random.Range (1, 4);
 
 				switch (num)
 				{
@@ -98,6 +99,11 @@ public class AnimSounds : MonoBehaviour
 
 				case 2:
 					animAudio.PlayOneShot (hit2);
+					count += 1;
+					break;
+
+				case 3:
+					animAudio.PlayOneShot (hit3);
 					count += 1;
 					break;
 				}
