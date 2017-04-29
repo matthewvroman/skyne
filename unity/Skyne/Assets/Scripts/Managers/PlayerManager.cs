@@ -968,8 +968,8 @@ public class PlayerManager : MonoBehaviour
 			anim.SetTrigger ("isHit");
 			DamageCalculator (10);
 
-			StopCoroutine ("DamageFlash");
-			StartCoroutine ("DamageFlash");
+			//StopCoroutine ("DamageFlash");
+			//StartCoroutine ("DamageFlash");
 		}
 	}
 
