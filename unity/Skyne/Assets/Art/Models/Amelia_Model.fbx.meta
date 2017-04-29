@@ -3222,15 +3222,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 1
-        functionName: ShotEnded
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: fb93e902d203b4f0d98fdbc57dd5bf89,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask:
       - path: 
         weight: 1
