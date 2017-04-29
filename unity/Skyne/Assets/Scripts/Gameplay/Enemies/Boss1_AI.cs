@@ -41,6 +41,8 @@ public class Boss1_AI : Enemy
 	public GameObject[] enemyArray3;
 	public GameObject[] enemyArray4;
 
+	public float startSpawningEnemiesDelay; 
+
 	float spawnTimer1;
 	float curSpawnTimer1;
 
@@ -358,6 +360,12 @@ public class Boss1_AI : Enemy
 			}
 
 			// Update timers
+			if (startSpawningEnemiesDelay >= 0)
+			{
+				startSpawningEnemiesDelay -= Time.deltaTime; 
+				if (startSpawningEnemiesDelay < 0)
+					startSpawningEnemiesDelay = 0; 
+			}
 
 			if (curHomingDelay >= 0)
 			{
@@ -541,6 +549,9 @@ public class Boss1_AI : Enemy
 
 	void SpawnEnemies ()
 	{
+		if (startSpawningEnemiesDelay > 0)
+			return; 
+
 		if (curSpawnTimer1 > 0 && Spawner1.transform.childCount == 0)
 		{
 			curSpawnTimer1 -= Time.deltaTime;
