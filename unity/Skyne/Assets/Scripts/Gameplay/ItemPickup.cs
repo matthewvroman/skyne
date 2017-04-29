@@ -119,6 +119,11 @@ public class ItemPickup : MonoBehaviour
 		{
 			itemParticles2.enableEmission = false; 
 		}
+
+		if (audio1 != null)
+		{
+			audio1.mute = true; 
+		}
 	}
 
 
