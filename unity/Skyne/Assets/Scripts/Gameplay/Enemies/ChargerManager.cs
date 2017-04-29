@@ -47,6 +47,10 @@ public class ChargerManager : Enemy
 	AudioSource chargerAudio;
 	AudioSource detectAudio;
 
+	bool wasShot = false;
+
+	float shotTimer = 2;
+
 	void SetupEnemy ()
 	{
 		ParentSetupEnemy ();
@@ -133,6 +137,19 @@ public class ChargerManager : Enemy
 			{
 				detectAudio.PlayOneShot (detectSound);
 			}
+
+			if (wasShot == true)
+			{
+				if (shotTimer > 0)
+				{
+					shotTimer -= Time.deltaTime;
+				}
+				else if (shotTimer <= 0)
+				{
+					wasShot = false;
+					shotTimer = 2;
+				}
+			}
 		}
 
 		if (!alive)
@@ -177,7 +194,7 @@ public class ChargerManager : Enemy
 
 		agent.Resume ();
 
-		if (tarDistance > aggroDistance)
+		if (tarDistance > aggroDistance && wasShot == false)
 		{
 			state = ChargerManager.State.IDLE;
 		}
@@ -279,7 +296,8 @@ public class ChargerManager : Enemy
 	{
 		if (state == ChargerManager.State.IDLE)
 		{
-			state = ChargerManager.State.POSITION; 
+			state = ChargerManager.State.POSITION;
+			wasShot = true;
 		}
 	}
 
