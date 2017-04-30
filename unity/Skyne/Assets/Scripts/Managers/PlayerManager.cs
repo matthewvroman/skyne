@@ -230,7 +230,8 @@ public class PlayerManager : MonoBehaviour
 			Debug.LogError ("Player has no Health Percentage Text");
 		}
 
-		dashCounter = moveSetting.dashCooldown;
+		//dashCounter = moveSetting.dashCooldown;
+		dashCounter = 0;
 
 		playerAudio = GetComponent<AudioSource> ();
 
@@ -291,11 +292,13 @@ public class PlayerManager : MonoBehaviour
 
 		if (Input.GetKeyDown (KeyCode.LeftShift))
 		{
-			if (dashCounter == 2 && GameState.inst.upgradesFound [2])
+			if (dashCounter == 0 && GameState.inst.upgradesFound [2])
 			{
 				isDashing = true;
+				//StartCoroutine("AirDash");
 				//dashBootParticles.Stop(); 
 				//dashBootParticles.Play(); 
+				dashCounter = moveSetting.dashCooldown;
 				startCooldown = true;
 			}
 		}
@@ -305,11 +308,12 @@ public class PlayerManager : MonoBehaviour
 			if (dashCounter > 0)
 			{
 				dashCounter -= Time.deltaTime;
+				//isDashing = false;
 			}
 			else
 			{
+				dashCounter = 0;
 				startCooldown = false;
-				dashCounter = moveSetting.dashCooldown;
 			}
 		}
 
@@ -331,7 +335,7 @@ public class PlayerManager : MonoBehaviour
 
 		Animations ();
 
-		Debug.Log (isHuggingWall);
+		Debug.Log ("isHuggingWall: " + isHuggingWall);
 
 		if (isHuggingWall && isAlive)
 		{
@@ -897,14 +901,14 @@ public class PlayerManager : MonoBehaviour
 
 				curDownAccel = physSetting.downWallAccel;
 
-				StopCoroutine ("AirDash");
+				//StopCoroutine ("AirDash");
 			}
 			else
 			{
 
 				velocity = Vector3.zero;
 
-				StopCoroutine ("AirDash");
+				//StopCoroutine ("AirDash");
 			}
 		}
 
@@ -912,7 +916,7 @@ public class PlayerManager : MonoBehaviour
 		{
 			velocity = Vector3.zero;
 
-			StopCoroutine ("AirDash");
+			//StopCoroutine ("AirDash");
 		}
 
 		if (col.gameObject.tag == "Spikes")
