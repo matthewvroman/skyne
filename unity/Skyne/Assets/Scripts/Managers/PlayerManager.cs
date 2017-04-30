@@ -646,7 +646,7 @@ public class PlayerManager : MonoBehaviour
 		}
 		else if (jumpInput == 0 && isHuggingWall)
 		{
-			isWallJumping = false;
+			//isWallJumping = false;
 			velocity.y -= physSetting.downWallAccel;
 			velocity.x = 0;
 			velocity.z = 0;
