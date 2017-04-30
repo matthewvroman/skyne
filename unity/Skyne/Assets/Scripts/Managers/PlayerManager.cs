@@ -295,9 +295,6 @@ public class PlayerManager : MonoBehaviour
 			if (dashCounter == 0 && GameState.inst.upgradesFound [2] && !isHuggingWall)
 			{
 				isDashing = true;
-				//StartCoroutine("AirDash");
-				//dashBootParticles.Stop(); 
-				//dashBootParticles.Play(); 
 				dashCounter = moveSetting.dashCooldown;
 				startCooldown = true;
 			}
@@ -320,6 +317,10 @@ public class PlayerManager : MonoBehaviour
 		if (Grounded ())
 		{
 			isWallJumping = false;
+		}
+
+		if (backToWall == false && faceToWall == false && lSideToWall == false && rSideToWall == false) {
+			isHuggingWall = false;
 		}
 
 		if (currentHealth < 0)
@@ -938,7 +939,6 @@ public class PlayerManager : MonoBehaviour
 			if (col.gameObject.tag == "Wall" && !Grounded ())
 			{
 				curDownAccel = physSetting.normDownAccel;
-				//isHuggingWall = false;
 			}
 
 			if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "Charger")
