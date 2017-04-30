@@ -139,6 +139,7 @@ public class Boss1_AI : Enemy
 	public AudioSource boss1Audio;
 	public AudioSource footstepAudioSource; 
 	public AudioSource laserAudio; 
+	public AudioSource[] explosionAudioSources; 
 
 	[Space (5)]
 	[Header ("Boss: Audio")]
@@ -1085,10 +1086,13 @@ public class Boss1_AI : Enemy
 
 	void StompedGround ()
 	{
-		boss1Audio.PlayOneShot(stompSound);
-		stompRingParticles.Play (); 
-		stompDustParticles.Play (); 
-		stompedGround = true;
+		if (alive)
+		{
+			boss1Audio.PlayOneShot(stompSound);
+			stompRingParticles.Play(); 
+			stompDustParticles.Play(); 
+			stompedGround = true;
+		}
 	}
 
 	// TODO: Use this animation event function for the boss collapse when its knees hit the ground and trigger some particles
@@ -1193,6 +1197,25 @@ public class Boss1_AI : Enemy
 				{
 					deathExplosions[choosenIndex].PlayParticles(); 
 				}
+
+
+				// Choose an audio source
+				valid = false; 
+				safetyCheck = 0; 
+
+				while (!valid && safetyCheck < 50)
+				{
+					safetyCheck++; 
+					choosenIndex = Random.Range(0, explosionAudioSources.Length); 
+
+					if (!explosionAudioSources[choosenIndex].isPlaying)
+					{
+						valid = true; 
+						explosionAudioSources[choosenIndex].Play(); 
+					}
+				}
+
+				choosenIndex = Random.Range(0, explosionAudioSources.Length); 
 
 				yield return new WaitForSeconds (0.1f); 
 			}
