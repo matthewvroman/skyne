@@ -395,13 +395,6 @@ public class PlayerManager : MonoBehaviour
 		anim.SetBool ("rSideToWall", rSideToWall);
 		anim.SetBool ("lSideToWall", lSideToWall);
 
-		if (Grounded() == true)
-		{
-			isWallJumping = false;
-			anim.SetBool ("Jump", false);
-			anim.SetBool ("DoubleJump", false);
-		}
-
 		anim.SetBool ("onWall", isHuggingWall);
 
 		anim.SetBool ("wallJumped", isWallJumping);
@@ -813,6 +806,9 @@ public class PlayerManager : MonoBehaviour
 	public void OnLanding()
 	{
 		landingParticles.Play(); 
+		anim.SetBool ("Jump", false);
+		anim.SetBool ("wallJumped", false);
+		anim.SetBool ("DoubleJump", false);
 	}
 
 	/// <summary>
