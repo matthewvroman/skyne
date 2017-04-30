@@ -323,6 +323,7 @@ public class FortManager : Enemy
 	{
 		if (curMeleeDelay == 0)
 		{
+			anim.SetBool("Melee", true);
 			Vector3 targetFlatPosition = new Vector3 (target.transform.position.x, transform.position.y, target.transform.position.z); 
 			Vector3 thisFlatPosition = new Vector3 (transform.position.x, transform.position.y, transform.position.z); 
 
@@ -437,7 +438,6 @@ public class FortManager : Enemy
 
 	void Melee()
 	{
-		anim.SetBool("Melee", true);
 		anim.SetBool("isWalking", false); 
 		agent.speed = 0;
 	}
