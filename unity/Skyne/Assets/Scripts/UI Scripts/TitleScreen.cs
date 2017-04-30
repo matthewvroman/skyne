@@ -46,7 +46,7 @@ public class TitleScreen : MonoBehaviour
 		{
 			imageSequence.SkipToEnd(); 
 			uiFadeInSpeed = fastUIFadeInSpeed; 
-			imageSequence.imageSequences[imageSequence.imageSequences.Length - 1].imageObj.transform.localPosition = new Vector3 (-111.7442f, 0, 0); 
+			//imageSequence.imageSequences[imageSequence.imageSequences.Length - 1].imageObj.transform.localPosition = new Vector3 (-111.7442f, 0, 0); 
 		}
 		else
 		{
@@ -80,7 +80,7 @@ public class TitleScreen : MonoBehaviour
 			{
 				imageSequence.SkipToEnd(); 
 				uiFadeInSpeed = fastUIFadeInSpeed; 
-				imageSequence.imageSequences[imageSequence.imageSequences.Length - 1].imageObj.transform.localPosition = new Vector3 (-111.7442f, 0, 0); 
+				//imageSequence.imageSequences[imageSequence.imageSequences.Length - 1].imageObj.transform.localPosition = new Vector3 (-111.7442f, 0, 0); 
 			}
 		}
 

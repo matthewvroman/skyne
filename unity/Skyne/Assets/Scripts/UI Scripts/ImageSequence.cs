@@ -11,7 +11,14 @@ public class ImageSequence : MonoBehaviour
 	{
 		public GameObject imageObj; 
 		public Image img;  
-		public Vector3 moveVelocity;
+
+		public bool useTargetPos; 
+		[HideInInspector] public Vector3 startPos; 
+		public Vector3 targetPos; 
+
+		public bool easeToTargetPos; 
+
+		//public Vector3 moveVelocity;
 		public float zoomMultiplier; 
 		public float fadeStartDelay; 
 		public float fadeInSpeed; 
@@ -65,6 +72,8 @@ public class ImageSequence : MonoBehaviour
 				imageSequences[i].sequenceText.text = ""; 
 			}
 		}
+
+		imageSequences[imageSequences.Length - 1].imageObj.GetComponent<RectTransform>().anchoredPosition = imageSequences[imageSequences.Length - 1].targetPos; 
 	}
 
 	/*
@@ -80,11 +89,17 @@ public class ImageSequence : MonoBehaviour
 		int thisSequence = curSequence; 
 		float startDelayTimer = imageSequences[thisSequence].fadeStartDelay; 
 		float a = 0;
-		float timer = 0; 
+		float timer = imageSequences[thisSequence].stayTime; 
 		bool sequenceDone = false; 
 		bool fadeInDone = false; 
 		bool fadeOutImage = false; 
 		Vector3 zoom; 
+
+		// Movement stuff
+		RectTransform rect = imageSequences[thisSequence].imageObj.GetComponent<RectTransform>(); 
+		//Vector3 startPos = imageSequences[thisSequence].imageObj.transform.position; 
+		Vector3 startPos = rect.anchoredPosition; 
+		float currentTime = 0; 
 
 		//textObj.text = imageSequences[thisSequence].panelText;
 		Color textColor = new Color(1, 1, 1, 0);
@@ -105,14 +120,15 @@ public class ImageSequence : MonoBehaviour
 
 			if (!fadeInDone)
 			{
+				timer -= Time.deltaTime;
+
 				// Update the alpha
 				a += imageSequences[thisSequence].fadeInSpeed * Time.unscaledDeltaTime; 
 
 				if (a > 1)
 				{
 					a = 1;
-					fadeInDone = true;
-					timer = imageSequences[thisSequence].stayTime; 
+					fadeInDone = true; 
 				}
 
 				// Set the image fade
@@ -169,13 +185,36 @@ public class ImageSequence : MonoBehaviour
 				}
 			}
 
+			if (imageSequences[thisSequence].stayTime != 0)
+			{
+				// The stayTime + 1.5f adds some buffer to account for fade out time
+				if (imageSequences[thisSequence].fadeOutSpeed != 0)
+				{
+					currentTime = (imageSequences[thisSequence].stayTime - timer) / (imageSequences[thisSequence].stayTime + 1.5f); 
+				}
+				else
+				{
+					currentTime = (imageSequences[thisSequence].stayTime - timer) / (imageSequences[thisSequence].stayTime); 
+				}
+				Debug.Log("CurrentTime: " + currentTime); 
+			}
 
 			// Make the image pan
-			imageSequences[thisSequence].imageObj.transform.Translate(imageSequences[thisSequence].moveVelocity);
+			//imageSequences[thisSequence].imageObj.transform.Translate(imageSequences[thisSequence].moveVelocity);
+			//imageSequences[thisSequence].imageObj.transform.position = Vector3.Lerp(startPos, imageSequences[thisSequence].targetPos, currentTime); 
+			if (imageSequences[thisSequence].useTargetPos)
+			{
+				rect.anchoredPosition = Vector3.Lerp(startPos, imageSequences[thisSequence].targetPos, currentTime);
+			}
+			else if (imageSequences[thisSequence].easeToTargetPos)
+			{
+				rect.anchoredPosition = Vector3.Lerp(rect.anchoredPosition, imageSequences[thisSequence].targetPos, (0.6f + currentTime * 10) * Time.deltaTime);
+			}
 
 			// Make the object zoom
 			zoom = imageSequences[thisSequence].imageObj.transform.localScale; 
-			imageSequences[thisSequence].imageObj.transform.localScale = new Vector3 (zoom.x + (imageSequences[thisSequence].zoomMultiplier / 100), zoom.y + (imageSequences[thisSequence].zoomMultiplier / 100), zoom.z); 
+			//imageSequences[thisSequence].imageObj.transform.localScale = new Vector3 (zoom.x + (imageSequences[thisSequence].zoomMultiplier / 100), zoom.y + (imageSequences[thisSequence].zoomMultiplier / 100), zoom.z); 
+			imageSequences[thisSequence].imageObj.transform.localScale = new Vector3 (zoom.x + (imageSequences[thisSequence].zoomMultiplier * Time.deltaTime), zoom.y + (imageSequences[thisSequence].zoomMultiplier * Time.deltaTime), zoom.z); 
 
 			yield return null; 
 		}
