@@ -964,6 +964,7 @@ public class PlayerManager : MonoBehaviour
 			if (col.gameObject.tag == "Wall" && !Grounded ())
 			{
 				curDownAccel = physSetting.downWallAccel;
+				isWallJumping = true;
 			}
 		} 
 
