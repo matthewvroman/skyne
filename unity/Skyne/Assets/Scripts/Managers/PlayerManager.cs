@@ -520,7 +520,7 @@ public class PlayerManager : MonoBehaviour
 		else
 		{
 			//decrease velocity.y
-			velocity.y -= curDownAccel * Time.timeScale;
+			velocity.y -= physSetting.normDownAccel * Time.timeScale;
 
 			if (canDoubleJump == true)
 			{
@@ -906,7 +906,7 @@ public class PlayerManager : MonoBehaviour
 
 				velocity = Vector3.zero;
 
-				curDownAccel = physSetting.downWallAccel;
+				//curDownAccel = physSetting.downWallAccel;
 
 				//StopCoroutine ("AirDash");
 			}
