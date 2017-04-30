@@ -196,7 +196,7 @@ public class ImageSequence : MonoBehaviour
 				{
 					currentTime = (imageSequences[thisSequence].stayTime - timer) / (imageSequences[thisSequence].stayTime); 
 				}
-				Debug.Log("CurrentTime: " + currentTime); 
+				//Debug.Log("CurrentTime: " + currentTime); 
 			}
 
 			// Make the image pan
