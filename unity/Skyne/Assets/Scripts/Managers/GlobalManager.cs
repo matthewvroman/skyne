@@ -131,11 +131,6 @@ public class GlobalManager : Singleton<GlobalManager>
 			blackCanvas.SetActive(false); 
 		}
 
-		if (globalState == GlobalState.Outro)
-		{
-			blackCanvas.SetActive(false); 
-		}
-
 		if (globalState == GlobalState.LoadMainGameplayScene)
 		{
 			/*
@@ -185,8 +180,7 @@ public class GlobalManager : Singleton<GlobalManager>
 		else if (globalState == GlobalState.OutroUnloadGameplayScenes)
 		{
 			if (SceneLoading.inst.LevelUnloadComplete())
-			{
-				blackCanvas.SetActive(true); 
+			{ 
 				ChangeToOutro(); 
 				SetGamePaused(false); 
 			}
@@ -572,6 +566,8 @@ public class GlobalManager : Singleton<GlobalManager>
 		}
 
 		globalState = GlobalState.OutroUnloadGameplayScenes; 
+
+		blackCanvas.SetActive(true); 
 
 		// Unload all level scenes as well as the MainLevel
 		SceneLoading.inst.UnloadAllLevelScenes(SceneMapping.inst.sceneList); 
