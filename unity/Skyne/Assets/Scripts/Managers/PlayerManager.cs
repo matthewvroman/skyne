@@ -317,6 +317,11 @@ public class PlayerManager : MonoBehaviour
 			}
 		}
 
+		if (Grounded ())
+		{
+			isWallJumping = false;
+		}
+
 		if (currentHealth < 0)
 		{
 			currentHealth = 0;
@@ -336,6 +341,8 @@ public class PlayerManager : MonoBehaviour
 		Animations ();
 
 		Debug.Log ("isWallJumping: " + isWallJumping);
+
+
 
 		if (isHuggingWall && isAlive)
 		{
