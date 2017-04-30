@@ -335,7 +335,7 @@ public class PlayerManager : MonoBehaviour
 
 		Animations ();
 
-		Debug.Log ("isHuggingWall: " + isHuggingWall);
+		Debug.Log ("isWallJumping: " + isWallJumping);
 
 		if (isHuggingWall && isAlive)
 		{
