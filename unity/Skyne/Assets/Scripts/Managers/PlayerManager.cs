@@ -292,7 +292,7 @@ public class PlayerManager : MonoBehaviour
 
 		if (Input.GetKeyDown (KeyCode.LeftShift))
 		{
-			if (dashCounter == 0 && GameState.inst.upgradesFound [2])
+			if (dashCounter == 0 && GameState.inst.upgradesFound [2] && !isHuggingWall)
 			{
 				isDashing = true;
 				//StartCoroutine("AirDash");
@@ -340,9 +340,7 @@ public class PlayerManager : MonoBehaviour
 
 		Animations ();
 
-		Debug.Log ("isWallJumping: " + isWallJumping);
-
-
+		Debug.Log (faceToWall);
 
 		if (isHuggingWall && isAlive)
 		{
@@ -940,7 +938,7 @@ public class PlayerManager : MonoBehaviour
 			if (col.gameObject.tag == "Wall" && !Grounded ())
 			{
 				curDownAccel = physSetting.normDownAccel;
-				isHuggingWall = false;
+				//isHuggingWall = false;
 			}
 
 			if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "Charger")
