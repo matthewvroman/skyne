@@ -928,6 +928,7 @@ public class PlayerManager : MonoBehaviour
 			if (col.gameObject.tag == "Wall" && !Grounded ())
 			{
 				curDownAccel = physSetting.normDownAccel;
+				isHuggingWall = false;
 			}
 
 			if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "Charger")
