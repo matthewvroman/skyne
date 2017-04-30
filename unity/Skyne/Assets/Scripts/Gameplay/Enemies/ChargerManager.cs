@@ -152,6 +152,8 @@ public class ChargerManager : Enemy
 			}
 		}
 
+		Animations ();
+
 		if (!alive)
 		{
 			agent.speed = 0; 
@@ -160,6 +162,17 @@ public class ChargerManager : Enemy
 			{
 				DestroyEnemy (); 
 			}
+		}
+	}
+
+	void Animations ()
+	{
+		if (isIdling == true)
+		{
+			anim.SetBool ("Attack", false);
+		} else
+		{
+			anim.SetBool ("Attack", true);
 		}
 	}
 
@@ -227,7 +240,7 @@ public class ChargerManager : Enemy
 			chargerAudio.Play ();
 		}
 
-		anim.SetFloat ("Velocity", agent.velocity.x + agent.velocity.z);
+//		anim.SetFloat ("Velocity", agent.velocity.x + agent.velocity.z);
 	}
 
 	IEnumerator Charge ()
