@@ -933,6 +933,11 @@ public class PlayerManager : MonoBehaviour
 			{
 				curDownAccel = physSetting.normDownAccel;
 			}
+
+			if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "Charger")
+			{
+				StopCoroutine ("DamageFlash");
+			}
 		}
 	}
 
