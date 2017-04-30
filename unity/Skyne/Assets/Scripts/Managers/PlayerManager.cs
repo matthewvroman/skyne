@@ -903,6 +903,7 @@ public class PlayerManager : MonoBehaviour
 			{
 
 				isHuggingWall = true;
+				isWallJumping = true;
 
 				velocity = Vector3.zero;
 
