@@ -126,6 +126,16 @@ public class GlobalManager : Singleton<GlobalManager>
 			blackCanvas.SetActive(false); 
 		}
 
+		if (SceneManager.GetSceneByName("Outro").isLoaded && blackCanvas.activeSelf)
+		{
+			blackCanvas.SetActive(false); 
+		}
+
+		if (globalState == GlobalState.Outro)
+		{
+			blackCanvas.SetActive(false); 
+		}
+
 		if (globalState == GlobalState.LoadMainGameplayScene)
 		{
 			/*
@@ -176,6 +186,7 @@ public class GlobalManager : Singleton<GlobalManager>
 		{
 			if (SceneLoading.inst.LevelUnloadComplete())
 			{
+				blackCanvas.SetActive(true); 
 				ChangeToOutro(); 
 				SetGamePaused(false); 
 			}
@@ -387,6 +398,8 @@ public class GlobalManager : Singleton<GlobalManager>
 	public void OutroToTitleScreen()
 	{
 		UnloadSceneIfLoaded("Outro");
+
+		blackCanvas.SetActive(true); 
 
 		ChangeToTitle(); 
 	}
