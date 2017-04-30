@@ -683,7 +683,10 @@ public class PlayerManager : MonoBehaviour
 		Renderer[] renderer = this.GetComponentsInChildren<Renderer> ();
 		Color color = renderer [0].material.color;
 
-		color = Color.red;
+		if (color == Color.white)
+		{
+			color = Color.red;
+		}
 
 		foreach (Renderer rend in renderer)
 		{
