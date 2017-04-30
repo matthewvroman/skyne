@@ -331,8 +331,7 @@ public class FortManager : Enemy
 			if (dot > meleeFrontZone)
 			{
 				state = FortManager.State.MELEE;
-//				anim.SetTrigger("Melee"); 
-				anim.SetBool("Melee", true); 
+//				anim.SetTrigger("Melee");  
 				curMeleeDelay = meleeDelay; 
 			}
 		}
@@ -438,6 +437,7 @@ public class FortManager : Enemy
 
 	void Melee()
 	{
+		anim.SetBool("Melee", true);
 		anim.SetBool("isWalking", false); 
 		agent.speed = 0;
 	}
