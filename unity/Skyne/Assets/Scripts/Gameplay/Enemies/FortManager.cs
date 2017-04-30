@@ -323,7 +323,6 @@ public class FortManager : Enemy
 	{
 		if (curMeleeDelay == 0)
 		{
-			anim.SetBool("Melee", true);
 			Vector3 targetFlatPosition = new Vector3 (target.transform.position.x, transform.position.y, target.transform.position.z); 
 			Vector3 thisFlatPosition = new Vector3 (transform.position.x, transform.position.y, transform.position.z); 
 
@@ -332,7 +331,8 @@ public class FortManager : Enemy
 			if (dot > meleeFrontZone)
 			{
 				state = FortManager.State.MELEE;
-//				anim.SetTrigger("Melee");  
+//				anim.SetTrigger("Melee"); 
+				anim.SetBool("Melee", true);
 				curMeleeDelay = meleeDelay; 
 			}
 		}
@@ -511,6 +511,7 @@ public class FortManager : Enemy
 
 	void OnAnimMelee()
 	{
+		anim.SetBool("Melee", false); 
 		meleeCollider.SetActive(true); 
 		meleeParticles.emissionRate = meleeParticlesEmission; 
 	}
