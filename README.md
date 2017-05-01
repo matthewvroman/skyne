@@ -1,3 +1,5 @@
+![Logo](https://github.com/matthewvroman/skyne/raw/master/images/game-logo.png "Skyne Game Logo")
+
 # Skyne
 A game created in the Spring of 2017 across 16 weeks for CFA355 of the Hollywood Semester at Bradley University.
 
@@ -20,3 +22,9 @@ Amelia's home is in trouble, and only the mysterious artifact locked within the 
 * Doug Meyers - Sound Design/ 3D Modeling
 * Patrick Clayton - 3D Modeling
 * Matt Vroman - Class Advisor
+
+# Screenshots
+![Screenshot](https://github.com/matthewvroman/skyne/raw/master/images/screenshot-01.png "Skyne Screenshot")
+![Screenshot](https://github.com/matthewvroman/skyne/raw/master/images/screenshot-02.png "Skyne Screenshot")
+![Screenshot](https://github.com/matthewvroman/skyne/raw/master/images/screenshot-03.png "Skyne Screenshot")
+![Screenshot](https://github.com/matthewvroman/skyne/raw/master/images/screenshot-04.png "Skyne Screenshot")
